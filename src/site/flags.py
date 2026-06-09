@@ -62,7 +62,7 @@ def team_flag_code(team_name: str) -> str | None:
     return TEAM_ISO.get(team_name)
 
 
-def team_flag_url(team_name: str, *, size: int = 20) -> str | None:
+def team_flag_url(team_name: str, *, size: int = 40) -> str | None:
     code = team_flag_code(team_name)
     if not code:
         return None

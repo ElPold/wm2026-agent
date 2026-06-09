@@ -494,6 +494,15 @@ body {
   gap: 0.55rem;
 }
 
+.match-title .team-flag {
+  width: 1.4em;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  max-width: none;
+  max-height: none;
+  border-radius: 3px;
+}
+
 .day-panel {
   display: none;
 }
