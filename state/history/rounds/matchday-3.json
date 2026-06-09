@@ -1,0 +1,172 @@
+{
+  "round": "Matchday 3",
+  "generated_at": "2026-06-09T20:13:00.200539+02:00",
+  "match_count": 4,
+  "predictions": [
+    {
+      "fixture_id": "wc26-008",
+      "home_team": "Qatar",
+      "away_team": "Switzerland",
+      "kickoff_berlin": "2026-06-13T21:00:00+02:00",
+      "venue": "San Francisco Bay Area (Santa Clara)",
+      "round": "Matchday 3",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 10.73,
+        "draw": 2.78,
+        "away": 1.645
+      },
+      "odds_ou25": {
+        "over": 2.23,
+        "under": 1.671
+      },
+      "market_probs": {
+        "home": 0.08785409584589655,
+        "draw": 0.3390915282109605,
+        "away": 0.5730543759431429,
+        "over_2_5": 0.4283517046911049
+      },
+      "lambda_home": 0.673201048004796,
+      "lambda_away": 1.5887858764835172,
+      "tip": "0:1",
+      "expected_points": 1.6255,
+      "most_likely_score": "0:1",
+      "top_scores": [
+        {
+          "score": "0:1",
+          "probability": 0.1657
+        },
+        {
+          "score": "0:2",
+          "probability": 0.1316
+        },
+        {
+          "score": "1:1",
+          "probability": 0.1115
+        },
+        {
+          "score": "0:0",
+          "probability": 0.1043
+        },
+        {
+          "score": "1:2",
+          "probability": 0.0886
+        }
+      ]
+    },
+    {
+      "fixture_id": "wc26-013",
+      "home_team": "Brazil",
+      "away_team": "Morocco",
+      "kickoff_berlin": "2026-06-14T00:00:00+02:00",
+      "venue": "New York/New Jersey (East Rutherford)",
+      "round": "Matchday 3",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 1.689,
+        "draw": 3.74,
+        "away": 5.62
+      },
+      "odds_ou25": {
+        "over": 3.78,
+        "under": 1.263
+      },
+      "market_probs": {
+        "home": 0.5707312728631383,
+        "draw": 0.25774468445610704,
+        "away": 0.17152404268075455,
+        "over_2_5": 0.25044616299821537
+      },
+      "lambda_home": 1.29802124593194,
+      "lambda_away": 0.5075344793325159,
+      "tip": "1:0",
+      "expected_points": 1.6311,
+      "most_likely_score": "1:0",
+      "top_scores": [
+        {
+          "score": "1:0",
+          "probability": 0.2135
+        },
+        {
+          "score": "0:0",
+          "probability": 0.1644
+        },
+        {
+          "score": "2:0",
+          "probability": 0.1385
+        },
+        {
+          "score": "1:1",
+          "probability": 0.1083
+        },
+        {
+          "score": "0:1",
+          "probability": 0.0835
+        }
+      ]
+    },
+    {
+      "fixture_id": "wc26-014",
+      "home_team": "Haiti",
+      "away_team": "Scotland",
+      "kickoff_berlin": "2026-06-14T03:00:00+02:00",
+      "venue": "Boston (Foxborough)",
+      "round": "Matchday 3",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 6.36,
+        "draw": 2.38,
+        "away": 2.08
+      },
+      "odds_ou25": {
+        "over": 1.917,
+        "under": 1.97
+      },
+      "market_probs": {
+        "home": 0.14858926641853762,
+        "draw": 0.39707047664785683,
+        "away": 0.4543402569336054,
+        "over_2_5": 0.5068175971186005
+      },
+      "lambda_home": 0.9700028243416977,
+      "lambda_away": 1.5343268693506749,
+      "tip": "0:1",
+      "expected_points": 1.378,
+      "most_likely_score": "0:1",
+      "top_scores": [
+        {
+          "score": "0:1",
+          "probability": 0.1255
+        },
+        {
+          "score": "1:1",
+          "probability": 0.1218
+        },
+        {
+          "score": "0:2",
+          "probability": 0.0963
+        },
+        {
+          "score": "1:2",
+          "probability": 0.0934
+        },
+        {
+          "score": "0:0",
+          "probability": 0.0818
+        }
+      ]
+    },
+    {
+      "fixture_id": "wc26-020",
+      "home_team": "Australia",
+      "away_team": "Turkey",
+      "kickoff_berlin": "2026-06-14T06:00:00+02:00",
+      "venue": "Vancouver",
+      "round": "Matchday 3",
+      "pending": true
+    }
+  ]
+}

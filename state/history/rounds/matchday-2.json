@@ -1,0 +1,111 @@
+{
+  "round": "Matchday 2",
+  "generated_at": "2026-06-09T20:12:47.888891+02:00",
+  "match_count": 2,
+  "predictions": [
+    {
+      "fixture_id": "wc26-007",
+      "home_team": "Canada",
+      "away_team": "Bosnia & Herzegovina",
+      "kickoff_berlin": "2026-06-12T21:00:00+02:00",
+      "venue": "Toronto",
+      "round": "Matchday 2",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 2.5,
+        "draw": 2.18,
+        "away": 5.03
+      },
+      "odds_ou25": {
+        "over": 2.22,
+        "under": 1.704
+      },
+      "market_probs": {
+        "home": 0.3782424526739886,
+        "draw": 0.4337642805894364,
+        "away": 0.18799326673657482,
+        "over_2_5": 0.4342507645259938
+      },
+      "lambda_home": 1.2474373757082247,
+      "lambda_away": 0.9236622339716687,
+      "tip": "1:0",
+      "expected_points": 1.2582,
+      "most_likely_score": "1:0",
+      "top_scores": [
+        {
+          "score": "1:0",
+          "probability": 0.1423
+        },
+        {
+          "score": "1:1",
+          "probability": 0.1315
+        },
+        {
+          "score": "0:0",
+          "probability": 0.1141
+        },
+        {
+          "score": "0:1",
+          "probability": 0.1054
+        },
+        {
+          "score": "2:0",
+          "probability": 0.0888
+        }
+      ]
+    },
+    {
+      "fixture_id": "wc26-019",
+      "home_team": "USA",
+      "away_team": "Paraguay",
+      "kickoff_berlin": "2026-06-13T03:00:00+02:00",
+      "venue": "Los Angeles (Inglewood)",
+      "round": "Matchday 2",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 2.7,
+        "draw": 2.12,
+        "away": 4.64
+      },
+      "odds_ou25": {
+        "over": 2.36,
+        "under": 1.628
+      },
+      "market_probs": {
+        "home": 0.35020363988493636,
+        "draw": 0.4460140696647774,
+        "away": 0.20378229045028626,
+        "over_2_5": 0.4082246740220662
+      },
+      "lambda_home": 1.1461273927317304,
+      "lambda_away": 0.9039282695381975,
+      "tip": "1:0",
+      "expected_points": 1.2101,
+      "most_likely_score": "1:0",
+      "top_scores": [
+        {
+          "score": "1:0",
+          "probability": 0.1476
+        },
+        {
+          "score": "1:1",
+          "probability": 0.1334
+        },
+        {
+          "score": "0:0",
+          "probability": 0.1288
+        },
+        {
+          "score": "0:1",
+          "probability": 0.1164
+        },
+        {
+          "score": "2:0",
+          "probability": 0.0846
+        }
+      ]
+    }
+  ]
+}

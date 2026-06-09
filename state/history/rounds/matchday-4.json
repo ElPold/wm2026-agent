@@ -1,0 +1,172 @@
+{
+  "round": "Matchday 4",
+  "generated_at": "2026-06-09T20:13:01.733855+02:00",
+  "match_count": 4,
+  "predictions": [
+    {
+      "fixture_id": "wc26-025",
+      "home_team": "Germany",
+      "away_team": "Curaçao",
+      "kickoff_berlin": "2026-06-14T19:00:00+02:00",
+      "venue": "Houston",
+      "round": "Matchday 4",
+      "pending": true
+    },
+    {
+      "fixture_id": "wc26-031",
+      "home_team": "Netherlands",
+      "away_team": "Japan",
+      "kickoff_berlin": "2026-06-14T22:00:00+02:00",
+      "venue": "Dallas (Arlington)",
+      "round": "Matchday 4",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 2.09,
+        "draw": 3.57,
+        "away": 3.64
+      },
+      "odds_ou25": {
+        "over": 2.0,
+        "under": 1.892
+      },
+      "market_probs": {
+        "home": 0.463046569055399,
+        "draw": 0.27108328552542965,
+        "away": 0.2658701454191713,
+        "over_2_5": 0.48612538540596095
+      },
+      "lambda_home": 1.5102143904166445,
+      "lambda_away": 1.091142523390997,
+      "tip": "1:0",
+      "expected_points": 1.2828,
+      "most_likely_score": "1:1",
+      "top_scores": [
+        {
+          "score": "1:1",
+          "probability": 0.1224
+        },
+        {
+          "score": "1:0",
+          "probability": 0.1121
+        },
+        {
+          "score": "2:1",
+          "probability": 0.0924
+        },
+        {
+          "score": "2:0",
+          "probability": 0.0847
+        },
+        {
+          "score": "0:1",
+          "probability": 0.081
+        }
+      ]
+    },
+    {
+      "fixture_id": "wc26-026",
+      "home_team": "Ivory Coast",
+      "away_team": "Ecuador",
+      "kickoff_berlin": "2026-06-15T01:00:00+02:00",
+      "venue": "Philadelphia",
+      "round": "Matchday 4",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 3.65,
+        "draw": 2.83,
+        "away": 2.47
+      },
+      "odds_ou25": {
+        "over": 2.97,
+        "under": 1.414
+      },
+      "market_probs": {
+        "home": 0.2654290281791221,
+        "draw": 0.342337792527843,
+        "away": 0.39223317929303475,
+        "over_2_5": 0.3225364963503649
+      },
+      "lambda_home": 0.8523693321972361,
+      "lambda_away": 1.0835995546001154,
+      "tip": "0:1",
+      "expected_points": 1.2076,
+      "most_likely_score": "0:1",
+      "top_scores": [
+        {
+          "score": "0:1",
+          "probability": 0.1564
+        },
+        {
+          "score": "0:0",
+          "probability": 0.1443
+        },
+        {
+          "score": "1:1",
+          "probability": 0.1333
+        },
+        {
+          "score": "1:0",
+          "probability": 0.123
+        },
+        {
+          "score": "0:2",
+          "probability": 0.0847
+        }
+      ]
+    },
+    {
+      "fixture_id": "wc26-032",
+      "home_team": "Sweden",
+      "away_team": "Tunisia",
+      "kickoff_berlin": "2026-06-15T04:00:00+02:00",
+      "venue": "Monterrey (Guadalupe)",
+      "round": "Matchday 4",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 2.6,
+        "draw": 2.12,
+        "away": 4.98
+      },
+      "odds_ou25": {
+        "over": 2.27,
+        "under": 1.645
+      },
+      "market_probs": {
+        "home": 0.3638343625937362,
+        "draw": 0.44621195412439346,
+        "away": 0.1899536832818703,
+        "over_2_5": 0.42017879948914433
+      },
+      "lambda_home": 1.1920734374569542,
+      "lambda_away": 0.902814633897924,
+      "tip": "1:0",
+      "expected_points": 1.2401,
+      "most_likely_score": "1:0",
+      "top_scores": [
+        {
+          "score": "1:0",
+          "probability": 0.1468
+        },
+        {
+          "score": "1:1",
+          "probability": 0.1325
+        },
+        {
+          "score": "0:0",
+          "probability": 0.1231
+        },
+        {
+          "score": "0:1",
+          "probability": 0.1112
+        },
+        {
+          "score": "2:0",
+          "probability": 0.0875
+        }
+      ]
+    }
+  ]
+}

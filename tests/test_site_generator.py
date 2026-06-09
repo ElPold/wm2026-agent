@@ -60,5 +60,20 @@ def test_build_site_from_predictions(tmp_path):
     assert "day-tab" in html
     assert "match-list" in html
     assert "Matchday 1" in html
+
+    # Test with multiple round archives
+    rounds_dir = history / "rounds"
+    rounds_dir.mkdir(parents=True)
+    for md in ("Matchday 2", "Matchday 3"):
+        with (rounds_dir / f"{md.lower().replace(' ', '-')}.json").open("w") as handle:
+            json.dump({"round": md, "generated_at": payload["generated_at"], "match_count": 0, "predictions": []}, handle)
+
+    build_site(
+        predictions_path=predictions_path,
+        history_dir=history,
+        output_dir=docs,
+    )
+    html_multi = index_path.read_text(encoding="utf-8")
+    assert html_multi.count('class="day-tab') >= 5
     assert (docs / "static" / "style.css").exists()
     assert (docs / ".nojekyll").exists()
