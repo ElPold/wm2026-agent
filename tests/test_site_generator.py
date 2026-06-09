@@ -51,6 +51,9 @@ def test_build_site_from_predictions(tmp_path):
 
     html = index_path.read_text(encoding="utf-8")
     assert "Mexico" in html
-    assert "1:0" in html
+    assert "1 : 0" in html
+    assert "WM 2026 Agent" in html
+    assert "catify-btn" in html
+    assert "Why this works" in html
     assert (docs / "static" / "style.css").exists()
     assert (docs / ".nojekyll").exists()

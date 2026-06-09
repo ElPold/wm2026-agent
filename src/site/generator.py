@@ -28,8 +28,11 @@ def build_site(
     output_dir = output_dir or DOCS
 
     days = _load_prediction_days(predictions_path, history_dir)
+    for day in days:
+        day["highlight"] = _pick_highlight(day.get("predictions", []))
+
     context = {
-        "title": "WM 2026 Kicktipp-Agent",
+        "title": "WM 2026 Agent",
         "generated_at": datetime.now(tz=ZoneInfo("Europe/Berlin")).strftime(
             "%d.%m.%Y %H:%M"
         ),
@@ -99,15 +102,7 @@ def _day_key_from_payload(payload: dict[str, Any]) -> str | None:
 def _enrich_payload(payload: dict[str, Any], day_key: str) -> dict[str, Any]:
     predictions = []
     for item in payload.get("predictions", []):
-        enriched = dict(item)
-        probs = enriched.get("market_probs", {})
-        enriched["prob_bars"] = [
-            ("Heimsieg", probs.get("home", 0)),
-            ("Remis", probs.get("draw", 0)),
-            ("Auswärtssieg", probs.get("away", 0)),
-        ]
-        enriched["kickoff_time"] = _format_kickoff(enriched.get("kickoff_berlin", ""))
-        predictions.append(enriched)
+        predictions.append(_enrich_match(item))
 
     return {
         "date": day_key,
@@ -116,6 +111,69 @@ def _enrich_payload(payload: dict[str, Any], day_key: str) -> dict[str, Any]:
         "match_count": payload.get("match_count", len(predictions)),
         "predictions": predictions,
     }
+
+
+def _enrich_match(item: dict[str, Any]) -> dict[str, Any]:
+    enriched = dict(item)
+    probs = enriched.get("market_probs", {})
+    home = float(probs.get("home", 0))
+    draw = float(probs.get("draw", 0))
+    away = float(probs.get("away", 0))
+    max_prob = max(home, draw, away)
+
+    enriched["prob_bars"] = [
+        ("1", home),
+        ("X", draw),
+        ("2", away),
+    ]
+    enriched["prob_chips"] = [
+        {"key": "1", "value": home},
+        {"key": "X", "value": draw},
+        {"key": "2", "value": away},
+    ]
+    enriched["kickoff_time"] = _format_kickoff(enriched.get("kickoff_berlin", ""))
+    enriched["tip_display"] = _format_tip_display(enriched.get("tip", ""))
+    enriched["has_odds"] = bool(enriched.get("odds_1x2"))
+    enriched["badges"] = _build_badges(enriched, max_prob)
+    enriched["confidence"] = _confidence_level(max_prob)
+    enriched["signal_strength"] = int(round(max_prob * 100))
+    return enriched
+
+
+def _format_tip_display(tip: str) -> str:
+    if ":" in tip:
+        home, away = tip.split(":", 1)
+        return f"{home.strip()} : {away.strip()}"
+    return tip
+
+
+def _confidence_level(max_prob: float) -> str:
+    if max_prob >= 0.55:
+        return "high"
+    if max_prob < 0.40:
+        return "low"
+    return "medium"
+
+
+def _build_badges(match: dict[str, Any], max_prob: float) -> list[dict[str, str]]:
+    if not match.get("has_odds", True):
+        return [{"slug": "no-odds", "label": "No odds yet"}]
+
+    badges = [
+        {"slug": "ev-pick", "label": "EV Pick"},
+        {"slug": "market", "label": "Market Signal"},
+    ]
+    if max_prob >= 0.55:
+        badges.append({"slug": "high", "label": "High Confidence"})
+    elif max_prob < 0.40:
+        badges.append({"slug": "low", "label": "Low Confidence"})
+    return badges
+
+
+def _pick_highlight(predictions: list[dict[str, Any]]) -> dict[str, Any] | None:
+    if not predictions:
+        return None
+    return max(predictions, key=lambda item: float(item.get("expected_points", 0)))
 
 
 def _format_kickoff(value: str) -> str:

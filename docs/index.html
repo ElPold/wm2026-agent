@@ -1,111 +1,273 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>WM 2026 Kicktipp-Agent</title>
+  <title>WM 2026 Agent</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="static/style.css">
 </head>
 <body>
-  <header class="hero">
-    <div class="hero-inner">
-      <p class="eyebrow">FIFA WM 2026 · EV-optimierte Tipps</p>
-      <h1>WM 2026 Kicktipp-Agent</h1>
-      <p class="subtitle">
-        Wettquoten → Poisson-Modell → punkteoptimaler Kicktipp-Tipp.
-        Stand der Website: 09.06.2026 18:32 (Berlin).
-      </p>
-      
-      <div class="stats">
-        <div class="stat">
-          <span class="stat-value">1</span>
-          <span class="stat-label">Spieltage</span>
-        </div>
-        <div class="stat">
-          <span class="stat-value">1</span>
-          <span class="stat-label">Tipps</span>
-        </div>
+  <div class="page-glow" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <div class="brand">
+        <span class="brand-dot"></span>
+        <span class="brand-label">
+          <span class="t-normal">WM 2026 Agent</span>
+          <span class="t-cat">WM 2026 Cat Agent</span>
+        </span>
       </div>
-      
+      <button type="button" class="catify-btn" id="catify-btn" aria-pressed="false">
+        <span>😺</span>
+        <span class="t-normal">Catify</span>
+        <span class="t-cat">Un-Catify</span>
+      </button>
     </div>
   </header>
 
-  <main class="container">
+  <section class="hero shell">
+    <p class="eyebrow">
+      <span class="t-normal">Quant Engine · Kicktipp Optimization</span>
+      <span class="t-cat">Quant Cat Engine · Bowl Optimization</span>
+    </p>
+    <h1>
+      <span class="t-normal">WM 2026 Agent</span>
+      <span class="t-cat">WM 2026 Cat Agent</span>
+    </h1>
+    <p class="hero-sub">
+      <span class="t-normal">Market-based prediction engine for Kicktipp optimization</span>
+      <span class="t-cat">Market-based prediction engine, now with more cats.</span>
+    </p>
+    <p class="hero-copy">
+      <span class="t-normal">Not trying to outsmart the market. Optimizing Kicktipp points from market probabilities.</span>
+      <span class="t-cat">Not trying to outsmart the market. Optimizing tuna points from nap probabilities.</span>
+    </p>
+    
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-value">1</span>
+        <span class="hero-stat-label">
+          <span class="t-normal">Matchdays</span>
+          <span class="t-cat">Nap Days</span>
+        </span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-value">1</span>
+        <span class="hero-stat-label">
+          <span class="t-normal">Agent Picks</span>
+          <span class="t-cat">Cat Picks</span>
+        </span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-value mono">09.06.2026 19:30</span>
+        <span class="hero-stat-label">
+          <span class="t-normal">Last sync (Berlin)</span>
+          <span class="t-cat">Last purr (Berlin)</span>
+        </span>
+      </div>
+    </div>
+    
+  </section>
+
+  <main class="shell main">
     
       
-      <section class="day-section">
-        <div class="day-header">
-          <h2>Donnerstag, 11.06.2026</h2>
-          <span class="meta">Generiert 09.06.2026 18:29 · 1 Spiel</span>
+      <section class="day-block">
+        <div class="day-head">
+          <div>
+            <h2>Donnerstag, 11.06.2026</h2>
+            <p class="day-meta">
+              <span class="t-normal">Generated 09.06.2026 18:29 · 1 match</span>
+              <span class="t-cat">Purred 09.06.2026 18:29 · 1 window watch</span>
+            </p>
+          </div>
         </div>
 
-        <div class="match-grid">
+        
+        
+        <article class="highlight-card">
+          <div class="highlight-top">
+            <div>
+              <p class="highlight-kicker">
+                <span class="t-normal">Day Highlight · EV Pick</span>
+                <span class="t-cat">Day Highlight · Tuna Pick</span>
+              </p>
+              <h3 class="highlight-match">Mexico <span class="vs">vs</span> South Africa</h3>
+              <p class="highlight-meta mono">21:00 Berlin · Mexico City</p>
+            </div>
+            <div class="ev-badge">
+              <span class="ev-badge-label">
+                <span class="t-normal">Expected Value</span>
+                <span class="t-cat">Tuna Value</span>
+              </span>
+              <span class="ev-badge-value">1.79</span>
+            </div>
+          </div>
+
+          <div class="highlight-body">
+            <div class="pick-hero">
+              <span class="pick-label">
+                <span class="t-normal">Agent Pick</span>
+                <span class="t-cat">Cat Pick</span>
+              </span>
+              <span class="pick-score mono">1 : 0</span>
+            </div>
+
+            <div class="highlight-side">
+              <p class="side-label">
+                <span class="t-normal">Market Probability</span>
+                <span class="t-cat">Nap Probability</span>
+              </p>
+              <div class="prob-chips">
+                
+                <div class="prob-chip">
+                  <span class="chip-key">1</span>
+                  <span class="chip-val mono">68.2%</span>
+                </div>
+                
+                <div class="prob-chip">
+                  <span class="chip-key">X</span>
+                  <span class="chip-val mono">20.8%</span>
+                </div>
+                
+                <div class="prob-chip">
+                  <span class="chip-key">2</span>
+                  <span class="chip-val mono">11.0%</span>
+                </div>
+                
+              </div>
+
+              <div class="signal-row">
+                <span class="signal-label">
+                  <span class="t-normal">Model Confidence</span>
+                  <span class="t-cat">Cat Confidence</span>
+                </span>
+                <div class="signal-track">
+                  <div class="signal-fill confidence-high" style="width: 68%"></div>
+                </div>
+                <span class="signal-pct mono">68%</span>
+              </div>
+
+              <div class="badge-row">
+                
+                <span class="badge badge-ev-pick">
+                  <span class="t-normal">EV Pick</span>
+                  <span class="t-cat">Tuna Pick</span>
+                </span>
+                
+                <span class="badge badge-market">
+                  <span class="t-normal">Market Signal</span>
+                  <span class="t-cat">Nap Signal</span>
+                </span>
+                
+                <span class="badge badge-high">
+                  <span class="t-normal">High Confidence</span>
+                  <span class="t-cat">Purring</span>
+                </span>
+                
+              </div>
+            </div>
+          </div>
+
+          <p class="highlight-note">
+            <span class="t-normal">The agent recommends this score because it maximizes expected Kicktipp points.</span>
+            <span class="t-cat">The data cat quietly pushes this score into your betting bowl because it smells the most expected tuna.</span>
+          </p>
+        </article>
+        
+
+        <div class="card-grid">
           
           <article class="match-card">
-            <div class="match-top">
+            <div class="card-head">
               <div>
-                <p class="round">Matchday 1</p>
-                <h3>Mexico <span class="vs">vs.</span> South Africa</h3>
-                <p class="venue">21:00 Uhr Berlin · Mexico City</p>
+                <p class="card-round">Matchday 1</p>
+                <h3>Mexico <span class="vs">vs</span> South Africa</h3>
+                <p class="card-meta mono">21:00 Berlin · Mexico City</p>
               </div>
-              <div class="tip-badge">
-                <span class="tip-label">Tipp</span>
-                <span class="tip-score">1:0</span>
-              </div>
-            </div>
-
-            <div class="metrics">
-              <div class="metric">
-                <span class="metric-label">Erwartungswert</span>
-                <span class="metric-value">1.79 Pkt.</span>
-              </div>
-              <div class="metric">
-                <span class="metric-label">Wahrscheinl.</span>
-                <span class="metric-value">1:0</span>
-              </div>
-              <div class="metric">
-                <span class="metric-label">Quelle</span>
-                <span class="metric-value">pinnacle</span>
+              <div class="card-ev">
+                <span class="card-ev-label">
+                  <span class="t-normal">EV</span>
+                  <span class="t-cat">Tuna</span>
+                </span>
+                <span class="card-ev-value">1.79</span>
               </div>
             </div>
 
-            <div class="prob-block">
-              <h4>Markt-Wahrscheinlichkeiten</h4>
+            <div class="card-pick">
+              <span class="card-pick-label">
+                <span class="t-normal">Agent Pick</span>
+                <span class="t-cat">Cat Pick</span>
+              </span>
+              <span class="card-pick-score mono">1 : 0</span>
+            </div>
+
+            <div class="badge-row compact">
               
-              <div class="prob-row">
-                <span>Heimsieg</span>
-                <div class="prob-track"><div class="prob-fill" style="width: 68.2%"></div></div>
-                <span class="prob-pct">68.2%</span>
+              <span class="badge badge-ev-pick">
+                <span class="t-normal">EV Pick</span>
+                <span class="t-cat">Tuna Pick</span>
+              </span>
+              
+              <span class="badge badge-market">
+                <span class="t-normal">Market Signal</span>
+                <span class="t-cat">Nap Signal</span>
+              </span>
+              
+              <span class="badge badge-high">
+                <span class="t-normal">High Confidence</span>
+                <span class="t-cat">Purring</span>
+              </span>
+              
+            </div>
+
+            <div class="prob-bars">
+              <p class="prob-bars-label">
+                <span class="t-normal">1 / X / 2</span>
+                <span class="t-cat">1 / X / 2 (still numbers)</span>
+              </p>
+              
+              <div class="bar-row">
+                <span class="bar-key mono">1</span>
+                <div class="bar-track"><div class="bar-fill" style="width: 68.2%"></div></div>
+                <span class="bar-pct mono">68.2%</span>
               </div>
               
-              <div class="prob-row">
-                <span>Remis</span>
-                <div class="prob-track"><div class="prob-fill" style="width: 20.8%"></div></div>
-                <span class="prob-pct">20.8%</span>
+              <div class="bar-row">
+                <span class="bar-key mono">X</span>
+                <div class="bar-track"><div class="bar-fill" style="width: 20.8%"></div></div>
+                <span class="bar-pct mono">20.8%</span>
               </div>
               
-              <div class="prob-row">
-                <span>Auswärtssieg</span>
-                <div class="prob-track"><div class="prob-fill" style="width: 11.0%"></div></div>
-                <span class="prob-pct">11.0%</span>
+              <div class="bar-row">
+                <span class="bar-key mono">2</span>
+                <div class="bar-track"><div class="bar-fill" style="width: 11.0%"></div></div>
+                <span class="bar-pct mono">11.0%</span>
               </div>
               
             </div>
 
             
             <div class="top-scores">
-              <h4>Top-Ergebnisse</h4>
+              <p class="top-scores-label">
+                <span class="t-normal">Top score distribution</span>
+                <span class="t-cat">Top nap outcomes</span>
+              </p>
               <ul>
                 
-                <li><span>1:0</span><span>16.3%</span></li>
+                <li><span class="mono">1:0</span><span class="mono">16.3%</span></li>
                 
-                <li><span>2:0</span><span>15.1%</span></li>
+                <li><span class="mono">2:0</span><span class="mono">15.1%</span></li>
                 
-                <li><span>1:1</span><span>9.4%</span></li>
+                <li><span class="mono">1:1</span><span class="mono">9.4%</span></li>
                 
-                <li><span>3:0</span><span>9.4%</span></li>
+                <li><span class="mono">3:0</span><span class="mono">9.4%</span></li>
                 
-                <li><span>2:1</span><span>8.8%</span></li>
+                <li><span class="mono">2:1</span><span class="mono">8.8%</span></li>
                 
               </ul>
             </div>
@@ -116,11 +278,46 @@
       </section>
       
     
+
+    <section class="explain-card">
+      <h2>
+        <span class="t-normal">Why this works</span>
+        <span class="t-cat">Why the cat thinks this works</span>
+      </h2>
+      <p>
+        <span class="t-normal">The agent does not predict football better than the market. It converts market odds into score probabilities and selects the result with the highest expected Kicktipp points.</span>
+        <span class="t-cat">The cat does not claim to see the future. It simply sniffs the market odds, converts them into score probabilities and chooses the bowl with the most expected tuna.</span>
+      </p>
+    </section>
   </main>
 
-  <footer class="footer">
-    <p>Kein Bauchgefühl — Erwartungswert-Optimierung auf Basis kalibrierter Marktquoten.</p>
-    <p class="small">Daten: openfootball (Spielplan) · OddsPapi/Pinnacle (Quoten)</p>
+  <footer class="footer shell">
+    <p>
+      <span class="t-normal">openfootball schedule · OddsPapi / Pinnacle odds · Poisson calibration · EV optimizer</span>
+      <span class="t-cat">openfootball nap schedule · OddsPapi / Pinnacle sniffing · Poisson purring · tuna optimizer</span>
+    </p>
   </footer>
+
+  <script>
+    (function () {
+      var KEY = "wm2026-cat-mode";
+      var btn = document.getElementById("catify-btn");
+
+      function applyCatMode(enabled) {
+        document.body.classList.toggle("cat-mode", enabled);
+        if (btn) btn.setAttribute("aria-pressed", enabled ? "true" : "false");
+      }
+
+      applyCatMode(localStorage.getItem(KEY) === "1");
+
+      if (btn) {
+        btn.addEventListener("click", function () {
+          var next = !document.body.classList.contains("cat-mode");
+          applyCatMode(next);
+          localStorage.setItem(KEY, next ? "1" : "0");
+        });
+      }
+    })();
+  </script>
 </body>
 </html>
