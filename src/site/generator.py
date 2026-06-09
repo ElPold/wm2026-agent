@@ -188,6 +188,7 @@ def _enrich_match(item: dict[str, Any]) -> dict[str, Any]:
 
     if pending:
         enriched["tip_display"] = "—"
+        enriched["most_likely_display"] = None
         enriched["expected_points"] = 0.0
         enriched["kickoff_time"] = _format_kickoff(enriched.get("kickoff_berlin", ""))
         enriched["prob_bars"] = [("1", 0.0), ("X", 0.0), ("2", 0.0)]
@@ -221,16 +222,32 @@ def _enrich_match(item: dict[str, Any]) -> dict[str, Any]:
     ]
     enriched["kickoff_time"] = _format_kickoff(enriched.get("kickoff_berlin", ""))
     enriched["tip_display"] = _format_tip_display(enriched.get("tip", ""))
+    most_likely = enriched.get("most_likely_score", "")
+    enriched["most_likely_display"] = (
+        _format_tip_display(most_likely) if most_likely else None
+    )
     enriched["has_odds"] = bool(enriched.get("odds_1x2"))
     enriched["badges"] = _build_badges(enriched, max_prob)
     enriched["confidence"] = _confidence_level(max_prob)
     enriched["signal_strength"] = int(round(max_prob * 100))
+    top_scores = enriched.get("top_scores", [])
+    max_prob_score = max(
+        (float(item["probability"]) for item in top_scores),
+        default=0.0,
+    )
     enriched["top_scores_display"] = [
         {
             "score": _format_tip_display(item["score"]),
             "probability": item["probability"],
+            "pct": round(float(item["probability"]) * 100, 1),
+            "bar_width": (
+                int(round(float(item["probability"]) / max_prob_score * 100))
+                if max_prob_score
+                else 0
+            ),
+            "is_pick": _format_tip_display(item["score"]) == enriched["tip_display"],
         }
-        for item in enriched.get("top_scores", [])
+        for item in top_scores
     ]
     return enriched
 

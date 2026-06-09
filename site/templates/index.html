@@ -151,6 +151,18 @@
               <h3 class="match-title">{{ match.home_team }} <span class="vs">vs</span> {{ match.away_team }}</h3>
               <p class="match-meta mono">{{ match.kickoff_time }} Berlin{% if match.venue %} · {{ match.venue }}{% endif %}</p>
             </div>
+            {% if match.is_pending %}
+            <div class="ev-badge ev-badge-pending">
+              <span class="ev-badge-label">
+                <span class="t-normal">Status</span>
+                <span class="t-cat" hidden>Window status</span>
+              </span>
+              <span class="ev-badge-value no-odds-value">
+                <span class="t-normal">No odds yet</span>
+                <span class="t-cat" hidden>Cat still waiting</span>
+              </span>
+            </div>
+            {% else %}
             <div class="ev-badge">
               <span class="ev-badge-label">
                 <span class="t-normal">Expected Value</span>
@@ -158,8 +170,21 @@
               </span>
               <span class="ev-badge-value">{{ "%.2f"|format(match.expected_points) }}</span>
             </div>
+            {% endif %}
           </div>
 
+          {% if match.is_pending %}
+          <div class="no-odds-callout">
+            <p class="no-odds-title">
+              <span class="t-normal">No odds available for this match yet</span>
+              <span class="t-cat" hidden>No sniffable odds for this nap yet</span>
+            </p>
+            <p class="no-odds-copy">
+              <span class="t-normal">The bookmaker has not published lines for this fixture in OddsPapi yet. There is no agent pick until odds are available — use <strong>Update matchday</strong> to retry.</span>
+              <span class="t-cat" hidden>The bookmaker has not left odds at the window yet. No cat pick until lines appear — use <strong>Refill the bowl</strong> to retry.</span>
+            </p>
+          </div>
+          {% else %}
           <div class="match-body">
             <div class="pick-hero">
               <span class="pick-label">
@@ -167,6 +192,12 @@
                 <span class="t-cat" hidden>Cat Pick</span>
               </span>
               <span class="pick-score mono">{{ match.tip_display }}</span>
+              {% if match.most_likely_display %}
+              <p class="pick-context">
+                <span class="t-normal">Most likely score: <span class="mono">{{ match.most_likely_display }}</span>{% if match.most_likely_display != match.tip_display %} · EV pick differs from most likely{% endif %}</span>
+                <span class="t-cat" hidden>Most likely nap: <span class="mono">{{ match.most_likely_display }}</span>{% if match.most_likely_display != match.tip_display %} · tuna pick differs{% endif %}</span>
+              </p>
+              {% endif %}
             </div>
 
             <div class="match-side">
@@ -206,31 +237,30 @@
           </div>
 
           {% if match.top_scores_display %}
-          <div class="top-scores">
-            <p class="top-scores-label">
+          <div class="score-dist">
+            <p class="score-dist-label">
               <span class="t-normal">Top score distribution</span>
               <span class="t-cat" hidden>Top nap outcomes</span>
             </p>
-            <ul>
+            <div class="score-dist-list">
               {% for item in match.top_scores_display[:5] %}
-              <li>
-                <span class="mono">{{ item.score }}</span>
-                <span class="mono">{{ (item.probability * 100)|round(1) }}%</span>
-              </li>
+              <div class="score-dist-row{% if item.is_pick %} is-pick{% endif %}">
+                <span class="score-dist-score mono">{{ item.score }}</span>
+                <div class="score-dist-track">
+                  <div class="score-dist-fill" style="width: {{ item.bar_width }}%"></div>
+                </div>
+                <span class="score-dist-pct mono">{{ item.pct }}%</span>
+              </div>
               {% endfor %}
-            </ul>
+            </div>
           </div>
           {% endif %}
 
           <p class="match-note">
-            {% if match.is_pending %}
-            <span class="t-normal">Waiting for bookmaker odds — run Update matchday to refresh.</span>
-            <span class="t-cat" hidden>The cat is still waiting at the window for odds.</span>
-            {% else %}
             <span class="t-normal">The agent recommends this score because it maximizes expected Kicktipp points.</span>
             <span class="t-cat" hidden>The data cat quietly pushes this score into your betting bowl because it smells the most expected tuna.</span>
-            {% endif %}
           </p>
+          {% endif %}
         </article>
         {% endfor %}
       </div>
@@ -263,6 +293,26 @@
           <dd>
             <span class="t-normal">Exact score recommended for Kicktipp — chosen to maximize expected points, not to mirror the most likely final result.</span>
             <span class="t-cat" hidden>Exact score the cat slides into your bowl — chosen for maximum expected tuna, not because it is the most likely nap outcome.</span>
+          </dd>
+        </div>
+        <div class="glossary-item">
+          <dt>
+            <span class="t-normal">Why so many 1:0 and 0:1 tips?</span>
+            <span class="t-cat" hidden>Why so many 1:0 and 0:1 bowls?</span>
+          </dt>
+          <dd>
+            <span class="t-normal">Kicktipp awards 2 points for the correct tendency alone. A narrow win like <strong>1:0</strong> (home favorite) or <strong>0:1</strong> (away favorite) captures many outcomes: exact hit (4 pts), correct goal difference (3 pts), and any one-goal win in that direction (2 pts). Higher scores such as 2:0 are more precise but miss more real results — so EV optimization often prefers minimal winning scores, not because the model expects 1:0 every time.</span>
+            <span class="t-cat" hidden>Kicktipp gives 2 treats for the right winner alone. A tight score like <strong>1:0</strong> or <strong>0:1</strong> matches many real naps (exact, goal diff, one-goal win) and maximizes expected tuna. The cat is optimizing treats, not predicting a 1:0 conspiracy.</span>
+          </dd>
+        </div>
+        <div class="glossary-item">
+          <dt>
+            <span class="t-normal">No odds available yet</span>
+            <span class="t-cat" hidden>Cat still waiting at the window</span>
+          </dt>
+          <dd>
+            <span class="t-normal">OddsPapi has no linked Pinnacle lines for this fixture yet. The match is listed from the schedule, but the agent cannot compute probabilities or a pick without bookmaker odds.</span>
+            <span class="t-cat" hidden>OddsPapi has no sniffable lines yet. The nap is on the schedule, but the cat cannot fill the bowl without bookmaker odds.</span>
           </dd>
         </div>
         <div class="glossary-item">
