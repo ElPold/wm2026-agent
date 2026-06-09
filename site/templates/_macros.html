@@ -8,5 +8,5 @@
 {%- endmacro %}
 
 {% macro matchup(home, away, home_flag_url, away_flag_url) -%}
-{{ team(home, home_flag_url) }} <span class="vs">vs</span> {{ team(away, away_flag_url) }}
+<span class="matchup">{{ team(home, home_flag_url) }}<span class="vs" aria-hidden="true">vs</span>{{ team(away, away_flag_url) }}</span>
 {%- endmacro %}

@@ -52,4 +52,110 @@
         });
       }
     })();
+
+    (function () {
+      var UPDATE_UNLOCK_KEY = "wm2026-update-unlocked";
+      var UPDATE_PASSWORD = "ThomasWMAgent2026";
+      var updateBtn = document.getElementById("update-btn");
+      var gate = document.getElementById("update-gate");
+      var input = document.getElementById("update-gate-input");
+      var error = document.getElementById("update-gate-error");
+      var submitBtn = document.getElementById("update-gate-submit");
+      var workflowUrl = updateBtn ? updateBtn.getAttribute("data-update-url") : "";
+
+      function isUnlocked() {
+        try {
+          return sessionStorage.getItem(UPDATE_UNLOCK_KEY) === "1";
+        } catch (err) {
+          return false;
+        }
+      }
+
+      function storeUnlock() {
+        try {
+          sessionStorage.setItem(UPDATE_UNLOCK_KEY, "1");
+        } catch (err) {
+          /* ignore */
+        }
+      }
+
+      function openWorkflow() {
+        if (!workflowUrl) {
+          return;
+        }
+        window.open(workflowUrl, "_blank", "noopener,noreferrer");
+      }
+
+      function showGate() {
+        if (!gate || !input) {
+          return;
+        }
+        gate.hidden = false;
+        if (error) {
+          error.hidden = true;
+        }
+        input.value = "";
+        input.focus();
+      }
+
+      function hideGate() {
+        if (!gate) {
+          return;
+        }
+        gate.hidden = true;
+        if (input) {
+          input.value = "";
+        }
+        if (error) {
+          error.hidden = true;
+        }
+      }
+
+      function tryUnlock() {
+        if (!input) {
+          return;
+        }
+        if (input.value === UPDATE_PASSWORD) {
+          storeUnlock();
+          hideGate();
+          openWorkflow();
+          return;
+        }
+        if (error) {
+          error.hidden = false;
+        }
+        input.select();
+      }
+
+      if (updateBtn) {
+        updateBtn.addEventListener("click", function (event) {
+          event.preventDefault();
+          if (isUnlocked()) {
+            openWorkflow();
+            return;
+          }
+          showGate();
+        });
+      }
+
+      if (submitBtn) {
+        submitBtn.addEventListener("click", tryUnlock);
+      }
+
+      if (input) {
+        input.addEventListener("keydown", function (event) {
+          if (event.key === "Enter") {
+            event.preventDefault();
+            tryUnlock();
+          }
+          if (event.key === "Escape") {
+            hideGate();
+          }
+        });
+      }
+
+      document.querySelectorAll("[data-update-gate-close]").forEach(function (el) {
+        el.addEventListener("click", hideGate);
+      });
+    })();
   </script>

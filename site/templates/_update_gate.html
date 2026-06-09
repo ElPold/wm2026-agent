@@ -1,0 +1,43 @@
+  <div class="update-gate" id="update-gate" hidden>
+    <div class="update-gate-backdrop" data-update-gate-close></div>
+    <div
+      class="update-gate-dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="update-gate-title"
+    >
+      <h2 class="update-gate-title" id="update-gate-title">
+        <span class="t-normal">Update matchday</span>
+        <span class="t-cat" hidden>Refill the bowl</span>
+      </h2>
+      <p class="update-gate-lead">
+        <span class="t-normal">Enter the password to open the GitHub Actions workflow.</span>
+        <span class="t-cat" hidden>Whisper the secret phrase to send the cat to the odds window.</span>
+      </p>
+      <label class="update-gate-label" for="update-gate-input">
+        <span class="t-normal">Password</span>
+        <span class="t-cat" hidden>Secret purr</span>
+      </label>
+      <input
+        class="update-gate-input"
+        id="update-gate-input"
+        type="password"
+        autocomplete="off"
+        spellcheck="false"
+      >
+      <p class="update-gate-error" id="update-gate-error" hidden>
+        <span class="t-normal">Wrong password. Try again.</span>
+        <span class="t-cat" hidden>Wrong purr. The cat is not impressed.</span>
+      </p>
+      <div class="update-gate-actions">
+        <button type="button" class="update-gate-btn update-gate-btn-ghost" data-update-gate-close>
+          <span class="t-normal">Cancel</span>
+          <span class="t-cat" hidden>Never mind</span>
+        </button>
+        <button type="button" class="update-gate-btn update-gate-btn-primary" id="update-gate-submit">
+          <span class="t-normal">Continue</span>
+          <span class="t-cat" hidden>Let the cat go</span>
+        </button>
+      </div>
+    </div>
+  </div>

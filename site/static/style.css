@@ -26,6 +26,17 @@
   display: none !important;
 }
 
+/* Catify: CSS is the source of truth for which copy is visible. */
+html:not(.cat-mode) .t-cat,
+body:not(.cat-mode) .t-cat {
+  display: none !important;
+}
+
+html.cat-mode .t-normal,
+body.cat-mode .t-normal {
+  display: none !important;
+}
+
 html { scroll-behavior: smooth; }
 
 img {
@@ -196,6 +207,114 @@ body {
   box-shadow: 0 0 0 1px rgba(0, 229, 168, 0.2);
 }
 
+.update-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+}
+
+.update-gate[hidden] {
+  display: none !important;
+}
+
+.update-gate-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(4, 8, 14, 0.72);
+  backdrop-filter: blur(6px);
+}
+
+.update-gate-dialog {
+  position: relative;
+  width: min(100%, 420px);
+  padding: 1.5rem;
+  border-radius: calc(var(--radius) + 2px);
+  border: 1px solid var(--border-strong);
+  background: linear-gradient(180deg, #151f31, var(--bg-card));
+  box-shadow: var(--shadow);
+}
+
+.update-gate-title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.update-gate-lead {
+  margin: 0.55rem 0 1rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.update-gate-label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-2);
+}
+
+.update-gate-input {
+  width: 100%;
+  padding: 0.7rem 0.85rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-strong);
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 0.95rem;
+}
+
+.update-gate-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-dim);
+}
+
+.update-gate-error {
+  margin: 0.65rem 0 0;
+  color: #ff8f8f;
+  font-size: 0.85rem;
+}
+
+.update-gate-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.55rem;
+  margin-top: 1.15rem;
+}
+
+.update-gate-btn {
+  padding: 0.55rem 0.95rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.update-gate-btn-primary {
+  border-color: var(--accent);
+  background: var(--accent-dim);
+}
+
+.update-gate-btn-primary:hover {
+  background: rgba(0, 229, 168, 0.22);
+}
+
+.update-gate-btn-ghost:hover {
+  border-color: var(--border-strong);
+  background: rgba(255, 255, 255, 0.06);
+}
+
 .cat-mode .catify-btn {
   border-color: #f8a94a;
   background: rgba(248, 169, 74, 0.12);
@@ -359,9 +478,20 @@ body {
   flex-shrink: 0;
 }
 
-.match-title .team-name + .vs,
-.match-title .vs + .team-name {
-  margin: 0 0.15rem;
+.matchup {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.85rem;
+}
+
+.match-title .matchup {
+  gap: 0.5rem 1.75rem;
+  row-gap: 0.65rem;
+}
+
+.match-title .team-name {
+  gap: 0.55rem;
 }
 
 .day-panel {
@@ -455,6 +585,17 @@ body {
 .vs {
   color: var(--muted-2);
   font-weight: 500;
+  flex-shrink: 0;
+}
+
+.match-title .vs {
+  font-size: 0.58em;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: lowercase;
+  color: var(--muted);
+  opacity: 0.85;
+  padding: 0 0.15rem;
 }
 
 .ev-badge {
@@ -957,9 +1098,14 @@ code {
   font-size: 0.82rem;
 }
 
+.track-match .matchup {
+  gap: 0.25rem 0.65rem;
+}
+
 .track-match .vs {
-  margin: 0 0.25rem;
-  font-size: 0.75rem;
+  font-size: 0.68em;
+  letter-spacing: 0.08em;
+  text-transform: lowercase;
 }
 
 /* Pipeline page */
@@ -1142,8 +1288,8 @@ body.cat-mode {
   height: 20px;
 }
 
-.cat-mode .cat-label-with-icon {
-  display: inline-flex;
+.cat-mode .t-cat.cat-label-with-icon {
+  display: inline-flex !important;
   align-items: center;
   gap: 0.25rem;
 }

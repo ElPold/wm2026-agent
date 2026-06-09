@@ -25,11 +25,11 @@
       </nav>
       <div class="topbar-actions">
         <a
-          href="{{ update_workflow_url }}"
+          href="#"
           class="update-btn"
           id="update-btn"
-          target="_blank"
-          rel="noopener noreferrer"
+          data-update-url="{{ update_workflow_url }}"
+          aria-haspopup="dialog"
         >
           <span class="t-normal">↻ Update matchday</span>
           <span class="t-cat" hidden>↻ Refill the bowl</span>

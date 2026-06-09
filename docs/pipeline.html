@@ -8,6 +8,28 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="static/style.css">
+  <style>
+    /* Critical: hide cat copy before full CSS / JS (normal mode default). */
+    html:not(.cat-mode) .t-cat,
+    body:not(.cat-mode) .t-cat {
+      display: none !important;
+    }
+    html.cat-mode .t-normal,
+    body.cat-mode .t-normal {
+      display: none !important;
+    }
+  </style>
+  <script>
+    (function () {
+      try {
+        if (localStorage.getItem("wm2026-cat-mode") === "1") {
+          document.documentElement.classList.add("cat-mode");
+        }
+      } catch (err) {
+        /* ignore */
+      }
+    })();
+  </script>
 </head>
 <body>
   <div class="page-glow" aria-hidden="true"></div>
@@ -42,11 +64,11 @@
       </nav>
       <div class="topbar-actions">
         <a
-          href="https://github.com/ElPold/wm2026-agent/actions/workflows/update-predictions.yml"
+          href="#"
           class="update-btn"
           id="update-btn"
-          target="_blank"
-          rel="noopener noreferrer"
+          data-update-url="https://github.com/ElPold/wm2026-agent/actions/workflows/update-predictions.yml"
+          aria-haspopup="dialog"
         >
           <span class="t-normal">↻ Update matchday</span>
           <span class="t-cat" hidden>↻ Refill the bowl</span>
@@ -59,6 +81,49 @@
       </div>
     </div>
   </header>
+  <div class="update-gate" id="update-gate" hidden>
+    <div class="update-gate-backdrop" data-update-gate-close></div>
+    <div
+      class="update-gate-dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="update-gate-title"
+    >
+      <h2 class="update-gate-title" id="update-gate-title">
+        <span class="t-normal">Update matchday</span>
+        <span class="t-cat" hidden>Refill the bowl</span>
+      </h2>
+      <p class="update-gate-lead">
+        <span class="t-normal">Enter the password to open the GitHub Actions workflow.</span>
+        <span class="t-cat" hidden>Whisper the secret phrase to send the cat to the odds window.</span>
+      </p>
+      <label class="update-gate-label" for="update-gate-input">
+        <span class="t-normal">Password</span>
+        <span class="t-cat" hidden>Secret purr</span>
+      </label>
+      <input
+        class="update-gate-input"
+        id="update-gate-input"
+        type="password"
+        autocomplete="off"
+        spellcheck="false"
+      >
+      <p class="update-gate-error" id="update-gate-error" hidden>
+        <span class="t-normal">Wrong password. Try again.</span>
+        <span class="t-cat" hidden>Wrong purr. The cat is not impressed.</span>
+      </p>
+      <div class="update-gate-actions">
+        <button type="button" class="update-gate-btn update-gate-btn-ghost" data-update-gate-close>
+          <span class="t-normal">Cancel</span>
+          <span class="t-cat" hidden>Never mind</span>
+        </button>
+        <button type="button" class="update-gate-btn update-gate-btn-primary" id="update-gate-submit">
+          <span class="t-normal">Continue</span>
+          <span class="t-cat" hidden>Let the cat go</span>
+        </button>
+      </div>
+    </div>
+  </div>
 
   <section class="hero shell hero-compact">
     <p class="eyebrow">
@@ -222,6 +287,112 @@
           storeCatMode(next);
         });
       }
+    })();
+
+    (function () {
+      var UPDATE_UNLOCK_KEY = "wm2026-update-unlocked";
+      var UPDATE_PASSWORD = "ThomasWMAgent2026";
+      var updateBtn = document.getElementById("update-btn");
+      var gate = document.getElementById("update-gate");
+      var input = document.getElementById("update-gate-input");
+      var error = document.getElementById("update-gate-error");
+      var submitBtn = document.getElementById("update-gate-submit");
+      var workflowUrl = updateBtn ? updateBtn.getAttribute("data-update-url") : "";
+
+      function isUnlocked() {
+        try {
+          return sessionStorage.getItem(UPDATE_UNLOCK_KEY) === "1";
+        } catch (err) {
+          return false;
+        }
+      }
+
+      function storeUnlock() {
+        try {
+          sessionStorage.setItem(UPDATE_UNLOCK_KEY, "1");
+        } catch (err) {
+          /* ignore */
+        }
+      }
+
+      function openWorkflow() {
+        if (!workflowUrl) {
+          return;
+        }
+        window.open(workflowUrl, "_blank", "noopener,noreferrer");
+      }
+
+      function showGate() {
+        if (!gate || !input) {
+          return;
+        }
+        gate.hidden = false;
+        if (error) {
+          error.hidden = true;
+        }
+        input.value = "";
+        input.focus();
+      }
+
+      function hideGate() {
+        if (!gate) {
+          return;
+        }
+        gate.hidden = true;
+        if (input) {
+          input.value = "";
+        }
+        if (error) {
+          error.hidden = true;
+        }
+      }
+
+      function tryUnlock() {
+        if (!input) {
+          return;
+        }
+        if (input.value === UPDATE_PASSWORD) {
+          storeUnlock();
+          hideGate();
+          openWorkflow();
+          return;
+        }
+        if (error) {
+          error.hidden = false;
+        }
+        input.select();
+      }
+
+      if (updateBtn) {
+        updateBtn.addEventListener("click", function (event) {
+          event.preventDefault();
+          if (isUnlocked()) {
+            openWorkflow();
+            return;
+          }
+          showGate();
+        });
+      }
+
+      if (submitBtn) {
+        submitBtn.addEventListener("click", tryUnlock);
+      }
+
+      if (input) {
+        input.addEventListener("keydown", function (event) {
+          if (event.key === "Enter") {
+            event.preventDefault();
+            tryUnlock();
+          }
+          if (event.key === "Escape") {
+            hideGate();
+          }
+        });
+      }
+
+      document.querySelectorAll("[data-update-gate-close]").forEach(function (el) {
+        el.addEventListener("click", hideGate);
+      });
     })();
   </script>
 </body>

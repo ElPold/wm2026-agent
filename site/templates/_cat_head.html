@@ -1,0 +1,22 @@
+  <style>
+    /* Critical: hide cat copy before full CSS / JS (normal mode default). */
+    html:not(.cat-mode) .t-cat,
+    body:not(.cat-mode) .t-cat {
+      display: none !important;
+    }
+    html.cat-mode .t-normal,
+    body.cat-mode .t-normal {
+      display: none !important;
+    }
+  </style>
+  <script>
+    (function () {
+      try {
+        if (localStorage.getItem("wm2026-cat-mode") === "1") {
+          document.documentElement.classList.add("cat-mode");
+        }
+      } catch (err) {
+        /* ignore */
+      }
+    })();
+  </script>

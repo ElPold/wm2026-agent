@@ -9,6 +9,28 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="static/style.css">
+  <style>
+    /* Critical: hide cat copy before full CSS / JS (normal mode default). */
+    html:not(.cat-mode) .t-cat,
+    body:not(.cat-mode) .t-cat {
+      display: none !important;
+    }
+    html.cat-mode .t-normal,
+    body.cat-mode .t-normal {
+      display: none !important;
+    }
+  </style>
+  <script>
+    (function () {
+      try {
+        if (localStorage.getItem("wm2026-cat-mode") === "1") {
+          document.documentElement.classList.add("cat-mode");
+        }
+      } catch (err) {
+        /* ignore */
+      }
+    })();
+  </script>
 </head>
 <body>
   <div class="page-glow" aria-hidden="true"></div>
@@ -44,11 +66,11 @@
       </nav>
       <div class="topbar-actions">
         <a
-          href="https://github.com/ElPold/wm2026-agent/actions/workflows/update-predictions.yml"
+          href="#"
           class="update-btn"
           id="update-btn"
-          target="_blank"
-          rel="noopener noreferrer"
+          data-update-url="https://github.com/ElPold/wm2026-agent/actions/workflows/update-predictions.yml"
+          aria-haspopup="dialog"
         >
           <span class="t-normal">↻ Update matchday</span>
           <span class="t-cat" hidden>↻ Refill the bowl</span>
@@ -61,6 +83,49 @@
       </div>
     </div>
   </header>
+  <div class="update-gate" id="update-gate" hidden>
+    <div class="update-gate-backdrop" data-update-gate-close></div>
+    <div
+      class="update-gate-dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="update-gate-title"
+    >
+      <h2 class="update-gate-title" id="update-gate-title">
+        <span class="t-normal">Update matchday</span>
+        <span class="t-cat" hidden>Refill the bowl</span>
+      </h2>
+      <p class="update-gate-lead">
+        <span class="t-normal">Enter the password to open the GitHub Actions workflow.</span>
+        <span class="t-cat" hidden>Whisper the secret phrase to send the cat to the odds window.</span>
+      </p>
+      <label class="update-gate-label" for="update-gate-input">
+        <span class="t-normal">Password</span>
+        <span class="t-cat" hidden>Secret purr</span>
+      </label>
+      <input
+        class="update-gate-input"
+        id="update-gate-input"
+        type="password"
+        autocomplete="off"
+        spellcheck="false"
+      >
+      <p class="update-gate-error" id="update-gate-error" hidden>
+        <span class="t-normal">Wrong password. Try again.</span>
+        <span class="t-cat" hidden>Wrong purr. The cat is not impressed.</span>
+      </p>
+      <div class="update-gate-actions">
+        <button type="button" class="update-gate-btn update-gate-btn-ghost" data-update-gate-close>
+          <span class="t-normal">Cancel</span>
+          <span class="t-cat" hidden>Never mind</span>
+        </button>
+        <button type="button" class="update-gate-btn update-gate-btn-primary" id="update-gate-submit">
+          <span class="t-normal">Continue</span>
+          <span class="t-cat" hidden>Let the cat go</span>
+        </button>
+      </div>
+    </div>
+  </div>
 
   <section class="hero shell">
     <p class="eyebrow">
@@ -96,7 +161,7 @@
         </span>
       </div>
       <div class="hero-stat">
-        <span class="hero-stat-value mono">09.06.2026 21:05</span>
+        <span class="hero-stat-value mono">09.06.2026 21:26</span>
         <span class="hero-stat-label">
           <span class="t-normal">Last sync (Berlin)</span>
           <span class="t-cat" hidden>Last purr (Berlin)</span>
@@ -207,9 +272,9 @@
                 <span class="t-cat" hidden>Day Highlight · Tuna Pick</span>
               </p>
               
-              <h3 class="match-title"><span class="team-name"><img src="https://flagcdn.com/w20/mx.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Mexico</span>
-</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/za.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>South Africa</span>
-</span></h3>
+              <h3 class="match-title"><span class="matchup"><span class="team-name"><img src="https://flagcdn.com/w20/mx.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Mexico</span>
+</span><span class="vs" aria-hidden="true">vs</span><span class="team-name"><img src="https://flagcdn.com/w20/za.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>South Africa</span>
+</span></span></h3>
               <p class="match-meta mono">21:00 Berlin · Mexico City</p>
             </div>
             
@@ -346,11 +411,6 @@
             </div>
           </div>
           
-
-          <p class="match-note">
-            <span class="t-normal">The agent recommends this score because it maximizes expected Kicktipp points.</span>
-            <span class="t-cat" hidden>The data cat quietly pushes this score into your betting bowl because it smells the most expected tuna.</span>
-          </p>
           
         </article>
         
@@ -360,9 +420,9 @@
               
               <p class="match-round">Matchday 1</p>
               
-              <h3 class="match-title"><span class="team-name"><img src="https://flagcdn.com/w20/kr.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>South Korea</span>
-</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/cz.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Czech Republic</span>
-</span></h3>
+              <h3 class="match-title"><span class="matchup"><span class="team-name"><img src="https://flagcdn.com/w20/kr.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>South Korea</span>
+</span><span class="vs" aria-hidden="true">vs</span><span class="team-name"><img src="https://flagcdn.com/w20/cz.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Czech Republic</span>
+</span></span></h3>
               <p class="match-meta mono">04:00 Berlin · Guadalajara (Zapopan)</p>
             </div>
             
@@ -494,11 +554,6 @@
             </div>
           </div>
           
-
-          <p class="match-note">
-            <span class="t-normal">The agent recommends this score because it maximizes expected Kicktipp points.</span>
-            <span class="t-cat" hidden>The data cat quietly pushes this score into your betting bowl because it smells the most expected tuna.</span>
-          </p>
           
         </article>
         
@@ -534,9 +589,9 @@
                 <span class="t-cat" hidden>Day Highlight · Tuna Pick</span>
               </p>
               
-              <h3 class="match-title"><span class="team-name"><img src="https://flagcdn.com/w20/ca.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Canada</span>
-</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/ba.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Bosnia &amp; Herzegovina</span>
-</span></h3>
+              <h3 class="match-title"><span class="matchup"><span class="team-name"><img src="https://flagcdn.com/w20/ca.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Canada</span>
+</span><span class="vs" aria-hidden="true">vs</span><span class="team-name"><img src="https://flagcdn.com/w20/ba.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Bosnia &amp; Herzegovina</span>
+</span></span></h3>
               <p class="match-meta mono">21:00 Berlin · Toronto</p>
             </div>
             
@@ -668,11 +723,6 @@
             </div>
           </div>
           
-
-          <p class="match-note">
-            <span class="t-normal">The agent recommends this score because it maximizes expected Kicktipp points.</span>
-            <span class="t-cat" hidden>The data cat quietly pushes this score into your betting bowl because it smells the most expected tuna.</span>
-          </p>
           
         </article>
         
@@ -682,9 +732,9 @@
               
               <p class="match-round">Matchday 2</p>
               
-              <h3 class="match-title"><span class="team-name"><img src="https://flagcdn.com/w20/us.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>USA</span>
-</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/py.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Paraguay</span>
-</span></h3>
+              <h3 class="match-title"><span class="matchup"><span class="team-name"><img src="https://flagcdn.com/w20/us.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>USA</span>
+</span><span class="vs" aria-hidden="true">vs</span><span class="team-name"><img src="https://flagcdn.com/w20/py.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Paraguay</span>
+</span></span></h3>
               <p class="match-meta mono">03:00 Berlin · Los Angeles (Inglewood)</p>
             </div>
             
@@ -816,11 +866,6 @@
             </div>
           </div>
           
-
-          <p class="match-note">
-            <span class="t-normal">The agent recommends this score because it maximizes expected Kicktipp points.</span>
-            <span class="t-cat" hidden>The data cat quietly pushes this score into your betting bowl because it smells the most expected tuna.</span>
-          </p>
           
         </article>
         
@@ -853,9 +898,9 @@
               
               <p class="match-round">Matchday 3</p>
               
-              <h3 class="match-title"><span class="team-name"><img src="https://flagcdn.com/w20/qa.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Qatar</span>
-</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/ch.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Switzerland</span>
-</span></h3>
+              <h3 class="match-title"><span class="matchup"><span class="team-name"><img src="https://flagcdn.com/w20/qa.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Qatar</span>
+</span><span class="vs" aria-hidden="true">vs</span><span class="team-name"><img src="https://flagcdn.com/w20/ch.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Switzerland</span>
+</span></span></h3>
               <p class="match-meta mono">21:00 Berlin · San Francisco Bay Area (Santa Clara)</p>
             </div>
             
@@ -992,11 +1037,6 @@
             </div>
           </div>
           
-
-          <p class="match-note">
-            <span class="t-normal">The agent recommends this score because it maximizes expected Kicktipp points.</span>
-            <span class="t-cat" hidden>The data cat quietly pushes this score into your betting bowl because it smells the most expected tuna.</span>
-          </p>
           
         </article>
         
@@ -1009,9 +1049,9 @@
                 <span class="t-cat" hidden>Day Highlight · Tuna Pick</span>
               </p>
               
-              <h3 class="match-title"><span class="team-name"><img src="https://flagcdn.com/w20/br.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Brazil</span>
-</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/ma.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Morocco</span>
-</span></h3>
+              <h3 class="match-title"><span class="matchup"><span class="team-name"><img src="https://flagcdn.com/w20/br.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Brazil</span>
+</span><span class="vs" aria-hidden="true">vs</span><span class="team-name"><img src="https://flagcdn.com/w20/ma.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Morocco</span>
+</span></span></h3>
               <p class="match-meta mono">00:00 Berlin · New York/New Jersey (East Rutherford)</p>
             </div>
             
@@ -1148,11 +1188,6 @@
             </div>
           </div>
           
-
-          <p class="match-note">
-            <span class="t-normal">The agent recommends this score because it maximizes expected Kicktipp points.</span>
-            <span class="t-cat" hidden>The data cat quietly pushes this score into your betting bowl because it smells the most expected tuna.</span>
-          </p>
           
         </article>
         
@@ -1162,9 +1197,9 @@
               
               <p class="match-round">Matchday 3</p>
               
-              <h3 class="match-title"><span class="team-name"><img src="https://flagcdn.com/w20/ht.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Haiti</span>
-</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/gb-sct.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Scotland</span>
-</span></h3>
+              <h3 class="match-title"><span class="matchup"><span class="team-name"><img src="https://flagcdn.com/w20/ht.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Haiti</span>
+</span><span class="vs" aria-hidden="true">vs</span><span class="team-name"><img src="https://flagcdn.com/w20/gb-sct.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Scotland</span>
+</span></span></h3>
               <p class="match-meta mono">03:00 Berlin · Boston (Foxborough)</p>
             </div>
             
@@ -1296,11 +1331,6 @@
             </div>
           </div>
           
-
-          <p class="match-note">
-            <span class="t-normal">The agent recommends this score because it maximizes expected Kicktipp points.</span>
-            <span class="t-cat" hidden>The data cat quietly pushes this score into your betting bowl because it smells the most expected tuna.</span>
-          </p>
           
         </article>
         
@@ -1310,9 +1340,9 @@
               
               <p class="match-round">Matchday 3</p>
               
-              <h3 class="match-title"><span class="team-name"><img src="https://flagcdn.com/w20/au.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Australia</span>
-</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/tr.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Turkey</span>
-</span></h3>
+              <h3 class="match-title"><span class="matchup"><span class="team-name"><img src="https://flagcdn.com/w20/au.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Australia</span>
+</span><span class="vs" aria-hidden="true">vs</span><span class="team-name"><img src="https://flagcdn.com/w20/tr.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Turkey</span>
+</span></span></h3>
               <p class="match-meta mono">06:00 Berlin · Vancouver</p>
             </div>
             
@@ -1372,9 +1402,9 @@
               
               <p class="match-round">Matchday 4</p>
               
-              <h3 class="match-title"><span class="team-name"><img src="https://flagcdn.com/w20/de.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Germany</span>
-</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/cw.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Curaçao</span>
-</span></h3>
+              <h3 class="match-title"><span class="matchup"><span class="team-name"><img src="https://flagcdn.com/w20/de.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Germany</span>
+</span><span class="vs" aria-hidden="true">vs</span><span class="team-name"><img src="https://flagcdn.com/w20/cw.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Curaçao</span>
+</span></span></h3>
               <p class="match-meta mono">19:00 Berlin · Houston</p>
             </div>
             
@@ -1414,9 +1444,9 @@
                 <span class="t-cat" hidden>Day Highlight · Tuna Pick</span>
               </p>
               
-              <h3 class="match-title"><span class="team-name"><img src="https://flagcdn.com/w20/nl.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Netherlands</span>
-</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/jp.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Japan</span>
-</span></h3>
+              <h3 class="match-title"><span class="matchup"><span class="team-name"><img src="https://flagcdn.com/w20/nl.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Netherlands</span>
+</span><span class="vs" aria-hidden="true">vs</span><span class="team-name"><img src="https://flagcdn.com/w20/jp.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Japan</span>
+</span></span></h3>
               <p class="match-meta mono">22:00 Berlin · Dallas (Arlington)</p>
             </div>
             
@@ -1548,11 +1578,6 @@
             </div>
           </div>
           
-
-          <p class="match-note">
-            <span class="t-normal">The agent recommends this score because it maximizes expected Kicktipp points.</span>
-            <span class="t-cat" hidden>The data cat quietly pushes this score into your betting bowl because it smells the most expected tuna.</span>
-          </p>
           
         </article>
         
@@ -1562,9 +1587,9 @@
               
               <p class="match-round">Matchday 4</p>
               
-              <h3 class="match-title"><span class="team-name"><img src="https://flagcdn.com/w20/ci.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Ivory Coast</span>
-</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/ec.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Ecuador</span>
-</span></h3>
+              <h3 class="match-title"><span class="matchup"><span class="team-name"><img src="https://flagcdn.com/w20/ci.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Ivory Coast</span>
+</span><span class="vs" aria-hidden="true">vs</span><span class="team-name"><img src="https://flagcdn.com/w20/ec.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Ecuador</span>
+</span></span></h3>
               <p class="match-meta mono">01:00 Berlin · Philadelphia</p>
             </div>
             
@@ -1701,11 +1726,6 @@
             </div>
           </div>
           
-
-          <p class="match-note">
-            <span class="t-normal">The agent recommends this score because it maximizes expected Kicktipp points.</span>
-            <span class="t-cat" hidden>The data cat quietly pushes this score into your betting bowl because it smells the most expected tuna.</span>
-          </p>
           
         </article>
         
@@ -1715,9 +1735,9 @@
               
               <p class="match-round">Matchday 4</p>
               
-              <h3 class="match-title"><span class="team-name"><img src="https://flagcdn.com/w20/se.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Sweden</span>
-</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/tn.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Tunisia</span>
-</span></h3>
+              <h3 class="match-title"><span class="matchup"><span class="team-name"><img src="https://flagcdn.com/w20/se.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Sweden</span>
+</span><span class="vs" aria-hidden="true">vs</span><span class="team-name"><img src="https://flagcdn.com/w20/tn.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Tunisia</span>
+</span></span></h3>
               <p class="match-meta mono">04:00 Berlin · Monterrey (Guadalupe)</p>
             </div>
             
@@ -1849,11 +1869,6 @@
             </div>
           </div>
           
-
-          <p class="match-note">
-            <span class="t-normal">The agent recommends this score because it maximizes expected Kicktipp points.</span>
-            <span class="t-cat" hidden>The data cat quietly pushes this score into your betting bowl because it smells the most expected tuna.</span>
-          </p>
           
         </article>
         
@@ -1889,9 +1904,9 @@
                 <span class="t-cat" hidden>Day Highlight · Tuna Pick</span>
               </p>
               
-              <h3 class="match-title"><span class="team-name"><img src="https://flagcdn.com/w20/es.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Spain</span>
-</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/cv.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Cape Verde</span>
-</span></h3>
+              <h3 class="match-title"><span class="matchup"><span class="team-name"><img src="https://flagcdn.com/w20/es.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Spain</span>
+</span><span class="vs" aria-hidden="true">vs</span><span class="team-name"><img src="https://flagcdn.com/w20/cv.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Cape Verde</span>
+</span></span></h3>
               <p class="match-meta mono">18:00 Berlin · Atlanta</p>
             </div>
             
@@ -2028,11 +2043,6 @@
             </div>
           </div>
           
-
-          <p class="match-note">
-            <span class="t-normal">The agent recommends this score because it maximizes expected Kicktipp points.</span>
-            <span class="t-cat" hidden>The data cat quietly pushes this score into your betting bowl because it smells the most expected tuna.</span>
-          </p>
           
         </article>
         
@@ -2042,9 +2052,9 @@
               
               <p class="match-round">Matchday 5</p>
               
-              <h3 class="match-title"><span class="team-name"><img src="https://flagcdn.com/w20/be.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Belgium</span>
-</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/eg.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Egypt</span>
-</span></h3>
+              <h3 class="match-title"><span class="matchup"><span class="team-name"><img src="https://flagcdn.com/w20/be.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Belgium</span>
+</span><span class="vs" aria-hidden="true">vs</span><span class="team-name"><img src="https://flagcdn.com/w20/eg.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Egypt</span>
+</span></span></h3>
               <p class="match-meta mono">21:00 Berlin · Seattle</p>
             </div>
             
@@ -2176,11 +2186,6 @@
             </div>
           </div>
           
-
-          <p class="match-note">
-            <span class="t-normal">The agent recommends this score because it maximizes expected Kicktipp points.</span>
-            <span class="t-cat" hidden>The data cat quietly pushes this score into your betting bowl because it smells the most expected tuna.</span>
-          </p>
           
         </article>
         
@@ -2190,9 +2195,9 @@
               
               <p class="match-round">Matchday 5</p>
               
-              <h3 class="match-title"><span class="team-name"><img src="https://flagcdn.com/w20/sa.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Saudi Arabia</span>
-</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/uy.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Uruguay</span>
-</span></h3>
+              <h3 class="match-title"><span class="matchup"><span class="team-name"><img src="https://flagcdn.com/w20/sa.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Saudi Arabia</span>
+</span><span class="vs" aria-hidden="true">vs</span><span class="team-name"><img src="https://flagcdn.com/w20/uy.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Uruguay</span>
+</span></span></h3>
               <p class="match-meta mono">00:00 Berlin · Miami (Miami Gardens)</p>
             </div>
             
@@ -2329,11 +2334,6 @@
             </div>
           </div>
           
-
-          <p class="match-note">
-            <span class="t-normal">The agent recommends this score because it maximizes expected Kicktipp points.</span>
-            <span class="t-cat" hidden>The data cat quietly pushes this score into your betting bowl because it smells the most expected tuna.</span>
-          </p>
           
         </article>
         
@@ -2343,9 +2343,9 @@
               
               <p class="match-round">Matchday 5</p>
               
-              <h3 class="match-title"><span class="team-name"><img src="https://flagcdn.com/w20/ir.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Iran</span>
-</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/nz.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>New Zealand</span>
-</span></h3>
+              <h3 class="match-title"><span class="matchup"><span class="team-name"><img src="https://flagcdn.com/w20/ir.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Iran</span>
+</span><span class="vs" aria-hidden="true">vs</span><span class="team-name"><img src="https://flagcdn.com/w20/nz.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>New Zealand</span>
+</span></span></h3>
               <p class="match-meta mono">03:00 Berlin · Los Angeles (Inglewood)</p>
             </div>
             
@@ -2477,11 +2477,6 @@
             </div>
           </div>
           
-
-          <p class="match-note">
-            <span class="t-normal">The agent recommends this score because it maximizes expected Kicktipp points.</span>
-            <span class="t-cat" hidden>The data cat quietly pushes this score into your betting bowl because it smells the most expected tuna.</span>
-          </p>
           
         </article>
         
@@ -2661,6 +2656,112 @@
           storeCatMode(next);
         });
       }
+    })();
+
+    (function () {
+      var UPDATE_UNLOCK_KEY = "wm2026-update-unlocked";
+      var UPDATE_PASSWORD = "ThomasWMAgent2026";
+      var updateBtn = document.getElementById("update-btn");
+      var gate = document.getElementById("update-gate");
+      var input = document.getElementById("update-gate-input");
+      var error = document.getElementById("update-gate-error");
+      var submitBtn = document.getElementById("update-gate-submit");
+      var workflowUrl = updateBtn ? updateBtn.getAttribute("data-update-url") : "";
+
+      function isUnlocked() {
+        try {
+          return sessionStorage.getItem(UPDATE_UNLOCK_KEY) === "1";
+        } catch (err) {
+          return false;
+        }
+      }
+
+      function storeUnlock() {
+        try {
+          sessionStorage.setItem(UPDATE_UNLOCK_KEY, "1");
+        } catch (err) {
+          /* ignore */
+        }
+      }
+
+      function openWorkflow() {
+        if (!workflowUrl) {
+          return;
+        }
+        window.open(workflowUrl, "_blank", "noopener,noreferrer");
+      }
+
+      function showGate() {
+        if (!gate || !input) {
+          return;
+        }
+        gate.hidden = false;
+        if (error) {
+          error.hidden = true;
+        }
+        input.value = "";
+        input.focus();
+      }
+
+      function hideGate() {
+        if (!gate) {
+          return;
+        }
+        gate.hidden = true;
+        if (input) {
+          input.value = "";
+        }
+        if (error) {
+          error.hidden = true;
+        }
+      }
+
+      function tryUnlock() {
+        if (!input) {
+          return;
+        }
+        if (input.value === UPDATE_PASSWORD) {
+          storeUnlock();
+          hideGate();
+          openWorkflow();
+          return;
+        }
+        if (error) {
+          error.hidden = false;
+        }
+        input.select();
+      }
+
+      if (updateBtn) {
+        updateBtn.addEventListener("click", function (event) {
+          event.preventDefault();
+          if (isUnlocked()) {
+            openWorkflow();
+            return;
+          }
+          showGate();
+        });
+      }
+
+      if (submitBtn) {
+        submitBtn.addEventListener("click", tryUnlock);
+      }
+
+      if (input) {
+        input.addEventListener("keydown", function (event) {
+          if (event.key === "Enter") {
+            event.preventDefault();
+            tryUnlock();
+          }
+          if (event.key === "Escape") {
+            hideGate();
+          }
+        });
+      }
+
+      document.querySelectorAll("[data-update-gate-close]").forEach(function (el) {
+        el.addEventListener("click", hideGate);
+      });
     })();
   </script>
   <script>
