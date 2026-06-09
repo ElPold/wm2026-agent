@@ -12,6 +12,7 @@
 </head>
 <body>
   <div class="page-glow" aria-hidden="true"></div>
+{% include '_cat_layer.html' %}
 
 {% include '_topbar.html' %}
 
@@ -139,7 +140,7 @@
             <div class="ev-badge">
               <span class="ev-badge-label">
                 <span class="t-normal">Expected Value</span>
-                <span class="t-cat" hidden>Tuna Value</span>
+                <span class="t-cat cat-label-with-icon" hidden><img class="cat-icon" src="static/cats/tuna.svg" alt="">Tuna Value</span>
               </span>
               <span class="ev-badge-value">{{ "%.2f"|format(match.expected_points) }}</span>
             </div>
@@ -150,7 +151,7 @@
           <div class="no-odds-callout">
             <p class="no-odds-title">
               <span class="t-normal">No odds available for this match yet</span>
-              <span class="t-cat" hidden>No sniffable odds for this nap yet</span>
+              <span class="t-cat cat-label-with-icon" hidden><img class="cat-icon cat-icon-lg" src="static/cats/window.svg" alt="">No sniffable odds for this nap yet</span>
             </p>
             <p class="no-odds-copy">
               <span class="t-normal">The bookmaker has not published lines for this fixture in OddsPapi yet. There is no agent pick until odds are available — use <strong>Update matchday</strong> to retry.</span>
@@ -162,7 +163,7 @@
             <div class="pick-hero">
               <span class="pick-label">
                 <span class="t-normal">Agent Pick</span>
-                <span class="t-cat" hidden>Cat Pick</span>
+                <span class="t-cat cat-label-with-icon" hidden><img class="cat-icon" src="static/cats/pick.svg" alt="">Cat Pick</span>
               </span>
               <span class="pick-score mono">{{ match.tip_display }}</span>
               {% if match.most_likely_display %}
@@ -176,7 +177,7 @@
             <div class="match-side">
               <p class="side-label">
                 <span class="t-normal">Market Probability</span>
-                <span class="t-cat" hidden>Nap Probability</span>
+                <span class="t-cat cat-label-with-icon" hidden><img class="cat-icon" src="static/cats/nap.svg" alt="">Nap Probability</span>
               </p>
               <div class="prob-chips">
                 {% for chip in match.prob_chips %}
@@ -190,7 +191,7 @@
               <div class="signal-row">
                 <span class="signal-label">
                   <span class="t-normal">Model Confidence</span>
-                  <span class="t-cat" hidden>Cat Confidence</span>
+                  <span class="t-cat cat-label-with-icon" hidden><img class="cat-icon" src="static/cats/purr.svg" alt="">Cat Confidence</span>
                 </span>
                 <div class="signal-track">
                   <div class="signal-fill confidence-{{ match.confidence }}" style="width: {{ match.signal_strength }}%"></div>
@@ -213,7 +214,7 @@
           <div class="score-dist">
             <p class="score-dist-label">
               <span class="t-normal">Top score distribution</span>
-              <span class="t-cat" hidden>Top nap outcomes</span>
+              <span class="t-cat cat-label-with-icon" hidden><img class="cat-icon" src="static/cats/tuna.svg" alt="">Top nap outcomes</span>
             </p>
             <div class="score-dist-list">
               {% for item in match.top_scores_display[:5] %}
