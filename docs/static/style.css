@@ -56,13 +56,53 @@ body {
   z-index: 1;
 }
 
-/* Cat mode text toggle */
-.t-cat { display: none; }
-.cat-mode .t-normal { display: none; }
-.cat-mode .t-cat { display: inline; }
-span.t-normal, span.t-cat { display: inline; }
-.cat-mode span.t-normal { display: none; }
-.cat-mode span.t-cat { display: inline; }
+/* Cat mode text toggle — only one variant visible at a time */
+.t-cat {
+  display: none;
+}
+
+.cat-mode .t-normal {
+  display: none;
+}
+
+.cat-mode .t-cat {
+  display: inline;
+}
+
+/* Block layout for longer copy (paragraphs, headings) */
+:is(
+  p,
+  h1,
+  h2,
+  .eyebrow,
+  .hero-sub,
+  .hero-copy,
+  .day-meta,
+  .highlight-note,
+  .hero-stat-label,
+  .empty-card p,
+  .explain-card p,
+  .footer p
+) > .t-normal {
+  display: block;
+}
+
+.cat-mode :is(
+  p,
+  h1,
+  h2,
+  .eyebrow,
+  .hero-sub,
+  .hero-copy,
+  .day-meta,
+  .highlight-note,
+  .hero-stat-label,
+  .empty-card p,
+  .explain-card p,
+  .footer p
+) > .t-cat {
+  display: block;
+}
 
 /* Topbar */
 .topbar {

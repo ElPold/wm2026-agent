@@ -265,17 +265,37 @@
       var btn = document.getElementById("catify-btn");
 
       function applyCatMode(enabled) {
+        document.documentElement.classList.toggle("cat-mode", enabled);
         document.body.classList.toggle("cat-mode", enabled);
-        if (btn) btn.setAttribute("aria-pressed", enabled ? "true" : "false");
+        if (btn) {
+          btn.setAttribute("aria-pressed", enabled ? "true" : "false");
+        }
       }
 
-      applyCatMode(localStorage.getItem(KEY) === "1");
+      function readStoredCatMode() {
+        try {
+          return localStorage.getItem(KEY) === "1";
+        } catch (err) {
+          return false;
+        }
+      }
+
+      function storeCatMode(enabled) {
+        try {
+          localStorage.setItem(KEY, enabled ? "1" : "0");
+        } catch (err) {
+          /* ignore private browsing / blocked storage */
+        }
+      }
+
+      applyCatMode(readStoredCatMode());
 
       if (btn) {
-        btn.addEventListener("click", function () {
+        btn.addEventListener("click", function (event) {
+          event.preventDefault();
           var next = !document.body.classList.contains("cat-mode");
           applyCatMode(next);
-          localStorage.setItem(KEY, next ? "1" : "0");
+          storeCatMode(next);
         });
       }
     })();
