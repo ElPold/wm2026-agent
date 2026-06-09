@@ -1,0 +1,48 @@
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <div class="brand">
+        <a href="index.html" class="brand-link">
+          <span class="brand-dot"></span>
+          <span class="brand-label">
+            <span class="t-normal">WM 2026 Agent</span>
+            <span class="t-cat" hidden>WM 2026 Cat Agent</span>
+          </span>
+        </a>
+      </div>
+      <nav class="topbar-nav" aria-label="Main">
+        <a href="index.html" class="nav-link{% if active_page == 'dashboard' %} is-active{% endif %}">
+          <span class="t-normal">Dashboard</span>
+          <span class="t-cat" hidden>Bowl board</span>
+        </a>
+        <a href="track.html" class="nav-link{% if active_page == 'track' %} is-active{% endif %}">
+          <span class="t-normal">Track record</span>
+          <span class="t-cat" hidden>Treat ledger</span>
+        </a>
+        <a href="pipeline.html" class="nav-link{% if active_page == 'pipeline' %} is-active{% endif %}">
+          <span class="t-normal">How it works</span>
+          <span class="t-cat" hidden>How the cat works</span>
+        </a>
+      </nav>
+      <div class="topbar-actions">
+        <a href="track.html" class="ghost-btn">
+          <span class="t-normal">📊 Track record</span>
+          <span class="t-cat" hidden>📊 Treat log</span>
+        </a>
+        <a
+          href="{{ update_workflow_url }}"
+          class="update-btn"
+          id="update-btn"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span class="t-normal">↻ Update matchday</span>
+          <span class="t-cat" hidden>↻ Refill the bowl</span>
+        </a>
+        <button type="button" class="catify-btn" id="catify-btn" aria-pressed="false">
+          <span aria-hidden="true">😺</span>
+          <span class="t-normal">Catify</span>
+          <span class="t-cat" hidden>Un-Catify</span>
+        </button>
+      </div>
+    </div>
+  </header>

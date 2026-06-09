@@ -55,7 +55,7 @@ def test_build_site_from_predictions(tmp_path):
     assert "WM 2026 Agent" in html
     assert "catify-btn" in html
     assert "Why this works" in html
-    assert "Parameter glossary" in html
+    assert "Parameter reference" in html
     assert "Update matchday" in html
     assert "day-tab" in html
     assert "match-list" in html
@@ -75,5 +75,8 @@ def test_build_site_from_predictions(tmp_path):
     )
     html_multi = index_path.read_text(encoding="utf-8")
     assert html_multi.count('class="day-tab') >= 5
+    assert (docs / "track.html").exists()
+    assert (docs / "pipeline.html").exists()
+    assert "flagcdn.com" in html or "team-flag" in html
     assert (docs / "static" / "style.css").exists()
     assert (docs / ".nojekyll").exists()

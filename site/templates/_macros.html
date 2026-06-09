@@ -1,0 +1,12 @@
+{% macro team(name, flag_url) -%}
+<span class="team-name">
+  {%- if flag_url -%}
+  <img src="{{ flag_url }}" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async">
+  {%- endif -%}
+  <span>{{ name }}</span>
+</span>
+{%- endmacro %}
+
+{% macro matchup(home, away, home_flag_url, away_flag_url) -%}
+{{ team(home, home_flag_url) }} <span class="vs">vs</span> {{ team(away, away_flag_url) }}
+{%- endmacro %}

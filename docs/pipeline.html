@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How it works · WM 2026 Agent</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+  <div class="page-glow" aria-hidden="true"></div>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <div class="brand">
+        <a href="index.html" class="brand-link">
+          <span class="brand-dot"></span>
+          <span class="brand-label">
+            <span class="t-normal">WM 2026 Agent</span>
+            <span class="t-cat" hidden>WM 2026 Cat Agent</span>
+          </span>
+        </a>
+      </div>
+      <nav class="topbar-nav" aria-label="Main">
+        <a href="index.html" class="nav-link">
+          <span class="t-normal">Dashboard</span>
+          <span class="t-cat" hidden>Bowl board</span>
+        </a>
+        <a href="track.html" class="nav-link">
+          <span class="t-normal">Track record</span>
+          <span class="t-cat" hidden>Treat ledger</span>
+        </a>
+        <a href="pipeline.html" class="nav-link is-active">
+          <span class="t-normal">How it works</span>
+          <span class="t-cat" hidden>How the cat works</span>
+        </a>
+      </nav>
+      <div class="topbar-actions">
+        <a href="track.html" class="ghost-btn">
+          <span class="t-normal">📊 Track record</span>
+          <span class="t-cat" hidden>📊 Treat log</span>
+        </a>
+        <a
+          href="https://github.com/ElPold/wm2026-agent/actions/workflows/update-predictions.yml"
+          class="update-btn"
+          id="update-btn"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span class="t-normal">↻ Update matchday</span>
+          <span class="t-cat" hidden>↻ Refill the bowl</span>
+        </a>
+        <button type="button" class="catify-btn" id="catify-btn" aria-pressed="false">
+          <span aria-hidden="true">😺</span>
+          <span class="t-normal">Catify</span>
+          <span class="t-cat" hidden>Un-Catify</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero shell hero-compact">
+    <p class="eyebrow">
+      <span class="t-normal">Pipeline · Data to decision</span>
+      <span class="t-cat" hidden>Pipeline · sniff to bowl</span>
+    </p>
+    <h1>
+      <span class="t-normal">How the agent works</span>
+      <span class="t-cat" hidden>How the cat works</span>
+    </h1>
+    <p class="hero-copy">
+      <span class="t-normal">No football oracle. Market odds are converted into score probabilities, then the Kicktipp-optimal tip is selected by expected value.</span>
+      <span class="t-cat" hidden>No psychic cat. Market odds become nap probabilities, then the bowl with the most expected tuna is chosen.</span>
+    </p>
+  </section>
+
+  <main class="shell main">
+    <section class="flow-board">
+      <div class="flow-row">
+        <div class="flow-node source">
+          <span class="flow-tag">Source</span>
+          <strong>openfootball</strong>
+          <p>World Cup 2026 schedule — teams, kickoff, round, venue. Local JSON, no API key.</p>
+        </div>
+        <div class="flow-arrow" aria-hidden="true">→</div>
+        <div class="flow-node source">
+          <span class="flow-tag">Source</span>
+          <strong>OddsPapi</strong>
+          <p>Pinnacle 1X2 + Over/Under 2.5 odds per fixture. Fallback: The Odds API.</p>
+        </div>
+        <div class="flow-arrow" aria-hidden="true">→</div>
+        <div class="flow-node process">
+          <span class="flow-tag">Step 1</span>
+          <strong>De-vig odds</strong>
+          <p>Bookmaker margin removed → fair market probabilities for 1 / X / 2 and O/U 2.5.</p>
+        </div>
+      </div>
+
+      <div class="flow-row">
+        <div class="flow-node process">
+          <span class="flow-tag">Step 2</span>
+          <strong>Poisson calibration</strong>
+          <p>λ<sub>home</sub> and λ<sub>away</sub> fitted so model 1X2 + O/U 2.5 match the market.</p>
+        </div>
+        <div class="flow-arrow" aria-hidden="true">→</div>
+        <div class="flow-node process">
+          <span class="flow-tag">Step 3</span>
+          <strong>Score distribution</strong>
+          <p>Independent Poisson grid → probability for every score up to 6:6 (Top 5 shown on dashboard).</p>
+        </div>
+        <div class="flow-arrow" aria-hidden="true">→</div>
+        <div class="flow-node process">
+          <span class="flow-tag">Step 4</span>
+          <strong>EV optimizer</strong>
+          <p>For each candidate tip: expected Kicktipp points (2/3/4 rules) → pick highest EV.</p>
+        </div>
+        <div class="flow-arrow" aria-hidden="true">→</div>
+        <div class="flow-node output">
+          <span class="flow-tag">Output</span>
+          <strong>Agent pick</strong>
+          <p>Published to GitHub Pages. Often 1:0 / 0:1 because narrow wins maximize tendency points.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="pipeline-grid">
+      <article class="pipeline-card">
+        <h2><span class="t-normal">Inputs per match</span><span class="t-cat" hidden>Sniff inputs</span></h2>
+        <ul>
+          <li><span class="t-normal">1X2 odds (home / draw / away)</span><span class="t-cat" hidden>1X2 sniff odds</span></li>
+          <li><span class="t-normal">Over/Under 2.5 goals</span><span class="t-cat" hidden>Goal-line sniff</span></li>
+          <li><span class="t-normal">Fixture metadata (teams, kickoff Berlin)</span><span class="t-cat" hidden>Nap metadata</span></li>
+        </ul>
+      </article>
+      <article class="pipeline-card">
+        <h2><span class="t-normal">Derived signals</span><span class="t-cat" hidden>Derived purrs</span></h2>
+        <ul>
+          <li><span class="t-normal">Market probability 1 / X / 2</span><span class="t-cat" hidden>Nap probability</span></li>
+          <li><span class="t-normal">Model confidence (max 1X2 share)</span><span class="t-cat" hidden>Cat confidence</span></li>
+          <li><span class="t-normal">Expected value (avg. Kicktipp points)</span><span class="t-cat" hidden>Tuna value</span></li>
+          <li><span class="t-normal">Top score distribution</span><span class="t-cat" hidden>Top nap outcomes</span></li>
+        </ul>
+      </article>
+      <article class="pipeline-card">
+        <h2><span class="t-normal">What we do not use</span><span class="t-cat" hidden>What the cat ignores</span></h2>
+        <ul>
+          <li><span class="t-normal">Form tables, injuries, xG models</span><span class="t-cat" hidden>Vibes, haircuts, cat astrology</span></li>
+          <li><span class="t-normal">Our own win probabilities vs. the market</span><span class="t-cat" hidden>Cat opinions vs. the market</span></li>
+          <li><span class="t-normal">Historical WM results (Phase 0)</span><span class="t-cat" hidden>Old yarn balls (Phase 0)</span></li>
+        </ul>
+      </article>
+      <article class="pipeline-card">
+        <h2><span class="t-normal">Kicktipp scoring in EV</span><span class="t-cat" hidden>Treat scoring in tuna math</span></h2>
+        <ul>
+          <li><strong>4 pts</strong> — exact score</li>
+          <li><strong>3 pts</strong> — correct tendency + goal difference</li>
+          <li><strong>2 pts</strong> — correct tendency only</li>
+          <li><strong>0 pts</strong> — wrong tendency</li>
+        </ul>
+      </article>
+    </section>
+  </main>
+
+  <footer class="footer shell">
+    <p>
+      <span class="t-normal">Run locally: <code>python run.py --round "Matchday 1"</code></span>
+      <span class="t-cat" hidden>Run locally: <code>python run.py --round "Matchday 1"</code> — cat approved</span>
+    </p>
+  </footer>
+
+  <script>
+    (function () {
+      var CAT_KEY = "wm2026-cat-mode";
+      var catBtn = document.getElementById("catify-btn");
+
+      function setCatMode(enabled) {
+        document.documentElement.classList.toggle("cat-mode", enabled);
+        document.body.classList.toggle("cat-mode", enabled);
+        document.querySelectorAll(".t-normal").forEach(function (el) {
+          el.hidden = enabled;
+        });
+        document.querySelectorAll(".t-cat").forEach(function (el) {
+          el.hidden = !enabled;
+        });
+        if (catBtn) {
+          catBtn.setAttribute("aria-pressed", enabled ? "true" : "false");
+        }
+      }
+
+      function readCatMode() {
+        try {
+          return localStorage.getItem(CAT_KEY) === "1";
+        } catch (err) {
+          return false;
+        }
+      }
+
+      function storeCatMode(enabled) {
+        try {
+          localStorage.setItem(CAT_KEY, enabled ? "1" : "0");
+        } catch (err) {
+          /* ignore */
+        }
+      }
+
+      document.querySelectorAll(".t-cat").forEach(function (el) {
+        el.hidden = true;
+      });
+
+      setCatMode(readCatMode());
+
+      if (catBtn) {
+        catBtn.addEventListener("click", function (event) {
+          event.preventDefault();
+          var next = !document.body.classList.contains("cat-mode");
+          setCatMode(next);
+          storeCatMode(next);
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

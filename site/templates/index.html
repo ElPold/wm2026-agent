@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+{% from '_macros.html' import matchup %}
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,35 +13,7 @@
 <body>
   <div class="page-glow" aria-hidden="true"></div>
 
-  <header class="topbar">
-    <div class="shell topbar-inner">
-      <div class="brand">
-        <span class="brand-dot"></span>
-        <span class="brand-label">
-          <span class="t-normal">WM 2026 Agent</span>
-          <span class="t-cat" hidden>WM 2026 Cat Agent</span>
-        </span>
-      </div>
-      <div class="topbar-actions">
-        <a
-          href="{{ update_workflow_url }}"
-          class="update-btn"
-          id="update-btn"
-          target="_blank"
-          rel="noopener noreferrer"
-          title="Opens GitHub Actions to refresh odds for upcoming matches on the selected matchday"
-        >
-          <span class="t-normal">↻ Update matchday</span>
-          <span class="t-cat" hidden>↻ Refill the bowl</span>
-        </a>
-        <button type="button" class="catify-btn" id="catify-btn" aria-pressed="false">
-          <span aria-hidden="true">😺</span>
-          <span class="t-normal">Catify</span>
-          <span class="t-cat" hidden>Un-Catify</span>
-        </button>
-      </div>
-    </div>
-  </header>
+{% include '_topbar.html' %}
 
   <section class="hero shell">
     <p class="eyebrow">
@@ -110,8 +83,8 @@
         aria-controls="panel-{{ round.round_id }}"
         data-round="{{ round.round_id }}"
       >
-        {{ round.tab_label }}
-        <span class="day-tab-count mono">{{ round.match_count }}</span>
+        <span class="day-tab-name">{{ round.tab_label }}</span>
+        <span class="day-tab-meta mono">{{ round.match_count }} {% if round.match_count == 1 %}game{% else %}games{% endif %}</span>
       </button>
       {% endfor %}
     </div>
@@ -148,7 +121,7 @@
               {% else %}
               <p class="match-round">{{ match.round or "WM 2026" }}</p>
               {% endif %}
-              <h3 class="match-title">{{ match.home_team }} <span class="vs">vs</span> {{ match.away_team }}</h3>
+              <h3 class="match-title">{{ matchup(match.home_team, match.away_team, match.home_flag_url, match.away_flag_url) }}</h3>
               <p class="match-meta mono">{{ match.kickoff_time }} Berlin{% if match.venue %} · {{ match.venue }}{% endif %}</p>
             </div>
             {% if match.is_pending %}
@@ -279,11 +252,11 @@
       </p>
     </section>
 
-    <section class="glossary-card">
-      <h2>
-        <span class="t-normal">Parameter glossary</span>
+    <details class="glossary-fold">
+      <summary>
+        <span class="t-normal">Parameter reference</span>
         <span class="t-cat" hidden>Cat dictionary</span>
-      </h2>
+      </summary>
       <dl class="glossary-list">
         <div class="glossary-item">
           <dt>
@@ -376,7 +349,7 @@
           </dd>
         </div>
       </dl>
-    </section>
+    </details>
   </main>
 
   <footer class="footer shell">
@@ -386,57 +359,10 @@
     </p>
   </footer>
 
+{% include '_scripts.html' %}
   <script>
     (function () {
-      var CAT_KEY = "wm2026-cat-mode";
       var TAB_KEY = "wm2026-active-round";
-      var catBtn = document.getElementById("catify-btn");
-
-      function setCatMode(enabled) {
-        document.documentElement.classList.toggle("cat-mode", enabled);
-        document.body.classList.toggle("cat-mode", enabled);
-        document.querySelectorAll(".t-normal").forEach(function (el) {
-          el.hidden = enabled;
-        });
-        document.querySelectorAll(".t-cat").forEach(function (el) {
-          el.hidden = !enabled;
-        });
-        if (catBtn) {
-          catBtn.setAttribute("aria-pressed", enabled ? "true" : "false");
-        }
-      }
-
-      function readCatMode() {
-        try {
-          return localStorage.getItem(CAT_KEY) === "1";
-        } catch (err) {
-          return false;
-        }
-      }
-
-      function storeCatMode(enabled) {
-        try {
-          localStorage.setItem(CAT_KEY, enabled ? "1" : "0");
-        } catch (err) {
-          /* ignore */
-        }
-      }
-
-      document.querySelectorAll(".t-cat").forEach(function (el) {
-        el.hidden = true;
-      });
-
-      setCatMode(readCatMode());
-
-      if (catBtn) {
-        catBtn.addEventListener("click", function (event) {
-          event.preventDefault();
-          var next = !document.body.classList.contains("cat-mode");
-          setCatMode(next);
-          storeCatMode(next);
-        });
-      }
-
       var tabs = Array.prototype.slice.call(document.querySelectorAll(".day-tab"));
       var panels = Array.prototype.slice.call(document.querySelectorAll(".day-panel"));
 

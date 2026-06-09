@@ -12,6 +12,8 @@ from zoneinfo import ZoneInfo
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
+from src.optimizer.scoring import kicktipp_points
+from src.site.flags import team_flag_url
 from src.sources.config import Settings
 from src.sources.openfootball import OpenFootballSchedule
 from src.sources.team_names import is_tippable_match
@@ -37,29 +39,36 @@ def build_site(
     for round_block in rounds:
         _mark_day_highlight(round_block.get("predictions", []))
 
-    context = {
-        "title": "WM 2026 Agent",
-        "generated_at": datetime.now(tz=ZoneInfo("Europe/Berlin")).strftime(
-            "%d.%m.%Y %H:%M"
-        ),
-        "rounds": rounds,
-        "total_matches": sum(round_block["match_count"] for round_block in rounds),
-        "update_workflow_url": (
-            "https://github.com/ElPold/wm2026-agent/actions/workflows/"
-            "update-predictions.yml"
-        ),
-    }
-
-    env = Environment(
-        loader=FileSystemLoader(str(TEMPLATES)),
-        autoescape=select_autoescape(["html", "xml"]),
-    )
-    template = env.get_template("index.html")
-    html = template.render(**context)
+    shared = _shared_context()
+    track_rows, track_stats = _load_tracking_rows(predictions_path, history_dir)
+    env = _jinja_env()
 
     output_dir.mkdir(parents=True, exist_ok=True)
+    pages = {
+        "index.html": {
+            **shared,
+            "active_page": "dashboard",
+            "rounds": rounds,
+            "total_matches": sum(
+                round_block["match_count"] for round_block in rounds
+            ),
+        },
+        "track.html": {
+            **shared,
+            "active_page": "track",
+            "track_rows": track_rows,
+            "track_stats": track_stats,
+        },
+        "pipeline.html": {
+            **shared,
+            "active_page": "pipeline",
+        },
+    }
+
     index_path = output_dir / "index.html"
-    index_path.write_text(html, encoding="utf-8")
+    for filename, context in pages.items():
+        html = env.get_template(filename).render(**context)
+        (output_dir / filename).write_text(html, encoding="utf-8")
 
     static_out = output_dir / "static"
     if static_out.exists():
@@ -202,7 +211,7 @@ def _enrich_match(item: dict[str, Any]) -> dict[str, Any]:
         enriched["confidence"] = "low"
         enriched["signal_strength"] = 0
         enriched["top_scores_display"] = []
-        return enriched
+        return _attach_team_flags(enriched)
 
     probs = enriched.get("market_probs", {})
     home = float(probs.get("home", 0))
@@ -249,7 +258,184 @@ def _enrich_match(item: dict[str, Any]) -> dict[str, Any]:
         }
         for item in top_scores
     ]
-    return enriched
+    return _attach_team_flags(enriched)
+
+
+def _jinja_env() -> Environment:
+    return Environment(
+        loader=FileSystemLoader(str(TEMPLATES)),
+        autoescape=select_autoescape(["html", "xml"]),
+    )
+
+
+def _shared_context() -> dict[str, Any]:
+    return {
+        "title": "WM 2026 Agent",
+        "generated_at": datetime.now(tz=ZoneInfo("Europe/Berlin")).strftime(
+            "%d.%m.%Y %H:%M"
+        ),
+        "update_workflow_url": (
+            "https://github.com/ElPold/wm2026-agent/actions/workflows/"
+            "update-predictions.yml"
+        ),
+    }
+
+
+def _attach_team_flags(item: dict[str, Any]) -> dict[str, Any]:
+    item["home_flag_url"] = team_flag_url(item.get("home_team", ""))
+    item["away_flag_url"] = team_flag_url(item.get("away_team", ""))
+    return item
+
+
+def _load_results() -> dict[str, dict[str, Any]]:
+    path = ROOT / "state" / "results.json"
+    if not path.exists():
+        return {}
+    payload = _read_json(path)
+    if isinstance(payload.get("results"), dict):
+        return payload["results"]
+    return payload if isinstance(payload, dict) else {}
+
+
+def _parse_tip_scores(tip: str | None) -> tuple[int, int] | None:
+    if not tip or tip == "—" or ":" not in tip:
+        return None
+    home, away = tip.split(":", 1)
+    try:
+        return int(home.strip()), int(away.strip())
+    except ValueError:
+        return None
+
+
+def _load_tracking_rows(
+    predictions_path: Path,
+    history_dir: Path,
+) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    predictions_by_id = _predictions_index(predictions_path, history_dir)
+    results = _load_results()
+    settings = Settings.load()
+    fixtures = [
+        fixture
+        for fixture in OpenFootballSchedule(settings).load_all()
+        if is_tippable_match(fixture.home_team, fixture.away_team)
+    ]
+    fixtures.sort(key=lambda item: item.kickoff_berlin)
+
+    rows: list[dict[str, Any]] = []
+    points_scored = 0
+    results_known = 0
+    tips_submitted = 0
+    exact_hits = 0
+    played_with_points = 0
+
+    for fixture in fixtures:
+        prediction = predictions_by_id.get(fixture.fixture_id)
+        tip_raw = prediction.get("tip") if prediction else None
+        tip_display = _format_tip_display(tip_raw) if tip_raw else "—"
+        if tip_raw:
+            tips_submitted += 1
+
+        result_entry = results.get(fixture.fixture_id, {})
+        result_scores = None
+        if isinstance(result_entry, dict):
+            if "home" in result_entry and "away" in result_entry:
+                result_scores = (
+                    int(result_entry["home"]),
+                    int(result_entry["away"]),
+                )
+            elif result_entry.get("score"):
+                result_scores = _parse_tip_scores(str(result_entry["score"]))
+
+        result_display = "—"
+        points: int | None = None
+        status = "upcoming"
+
+        if result_scores:
+            results_known += 1
+            result_display = _format_tip_display(
+                f"{result_scores[0]}:{result_scores[1]}"
+            )
+            tip_scores = _parse_tip_scores(tip_raw)
+            if tip_scores:
+                points = kicktipp_points(
+                    tip_scores[0],
+                    tip_scores[1],
+                    result_scores[0],
+                    result_scores[1],
+                )
+                points_scored += points
+                played_with_points += 1
+                if points == 4:
+                    exact_hits += 1
+                status = "scored"
+            else:
+                status = "no-tip"
+        elif tip_raw:
+            status = "tipped"
+        else:
+            status = "open"
+
+        kickoff = fixture.kickoff_berlin
+        rows.append(
+            _attach_team_flags(
+                {
+                    "fixture_id": fixture.fixture_id,
+                    "round": fixture.round_name,
+                    "round_short": _round_short_label(fixture.round_name),
+                    "date_short": kickoff.strftime("%d.%m."),
+                    "home_team": fixture.home_team,
+                    "away_team": fixture.away_team,
+                    "tip_display": tip_display,
+                    "result_display": result_display,
+                    "points": points,
+                    "status": status,
+                }
+            )
+        )
+
+    avg_points = (
+        round(points_scored / played_with_points, 2)
+        if played_with_points
+        else "—"
+    )
+    stats = {
+        "total_games": len(rows),
+        "tips_submitted": tips_submitted,
+        "results_known": results_known,
+        "points_scored": points_scored,
+        "avg_points": avg_points,
+        "exact_hits": exact_hits,
+    }
+    return rows, stats
+
+
+def _predictions_index(
+    predictions_path: Path,
+    history_dir: Path,
+) -> dict[str, dict[str, Any]]:
+    index: dict[str, dict[str, Any]] = {}
+    for payload in _collect_payloads(predictions_path, history_dir):
+        for item in payload.get("predictions", []):
+            fixture_id = item.get("fixture_id")
+            if fixture_id:
+                index[fixture_id] = item
+    return index
+
+
+def _round_short_label(round_name: str | None) -> str:
+    if not round_name:
+        return "—"
+    match = re.search(r"Matchday\s+(\d+)", round_name, re.IGNORECASE)
+    if match:
+        return f"MD{match.group(1)}"
+    replacements = {
+        "Round of 32": "R32",
+        "Round of 16": "R16",
+        "Quarter-final": "QF",
+        "Semi-final": "SF",
+        "Final": "Final",
+    }
+    return replacements.get(round_name, round_name[:8])
 
 
 def _format_tip_display(tip: str) -> str:

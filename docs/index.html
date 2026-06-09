@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,20 +16,39 @@
   <header class="topbar">
     <div class="shell topbar-inner">
       <div class="brand">
-        <span class="brand-dot"></span>
-        <span class="brand-label">
-          <span class="t-normal">WM 2026 Agent</span>
-          <span class="t-cat" hidden>WM 2026 Cat Agent</span>
-        </span>
+        <a href="index.html" class="brand-link">
+          <span class="brand-dot"></span>
+          <span class="brand-label">
+            <span class="t-normal">WM 2026 Agent</span>
+            <span class="t-cat" hidden>WM 2026 Cat Agent</span>
+          </span>
+        </a>
       </div>
+      <nav class="topbar-nav" aria-label="Main">
+        <a href="index.html" class="nav-link is-active">
+          <span class="t-normal">Dashboard</span>
+          <span class="t-cat" hidden>Bowl board</span>
+        </a>
+        <a href="track.html" class="nav-link">
+          <span class="t-normal">Track record</span>
+          <span class="t-cat" hidden>Treat ledger</span>
+        </a>
+        <a href="pipeline.html" class="nav-link">
+          <span class="t-normal">How it works</span>
+          <span class="t-cat" hidden>How the cat works</span>
+        </a>
+      </nav>
       <div class="topbar-actions">
+        <a href="track.html" class="ghost-btn">
+          <span class="t-normal">📊 Track record</span>
+          <span class="t-cat" hidden>📊 Treat log</span>
+        </a>
         <a
           href="https://github.com/ElPold/wm2026-agent/actions/workflows/update-predictions.yml"
           class="update-btn"
           id="update-btn"
           target="_blank"
           rel="noopener noreferrer"
-          title="Opens GitHub Actions to refresh odds for upcoming matches on the selected matchday"
         >
           <span class="t-normal">↻ Update matchday</span>
           <span class="t-cat" hidden>↻ Refill the bowl</span>
@@ -76,7 +96,7 @@
         </span>
       </div>
       <div class="hero-stat">
-        <span class="hero-stat-value mono">09.06.2026 20:40</span>
+        <span class="hero-stat-value mono">09.06.2026 20:50</span>
         <span class="hero-stat-label">
           <span class="t-normal">Last sync (Berlin)</span>
           <span class="t-cat" hidden>Last purr (Berlin)</span>
@@ -99,8 +119,8 @@
         aria-controls="panel-matchday-1"
         data-round="matchday-1"
       >
-        Matchday 1
-        <span class="day-tab-count mono">2</span>
+        <span class="day-tab-name">Matchday 1</span>
+        <span class="day-tab-meta mono">2 games</span>
       </button>
       
       <button
@@ -112,8 +132,8 @@
         aria-controls="panel-matchday-2"
         data-round="matchday-2"
       >
-        Matchday 2
-        <span class="day-tab-count mono">2</span>
+        <span class="day-tab-name">Matchday 2</span>
+        <span class="day-tab-meta mono">2 games</span>
       </button>
       
       <button
@@ -125,8 +145,8 @@
         aria-controls="panel-matchday-3"
         data-round="matchday-3"
       >
-        Matchday 3
-        <span class="day-tab-count mono">4</span>
+        <span class="day-tab-name">Matchday 3</span>
+        <span class="day-tab-meta mono">4 games</span>
       </button>
       
       <button
@@ -138,8 +158,8 @@
         aria-controls="panel-matchday-4"
         data-round="matchday-4"
       >
-        Matchday 4
-        <span class="day-tab-count mono">4</span>
+        <span class="day-tab-name">Matchday 4</span>
+        <span class="day-tab-meta mono">4 games</span>
       </button>
       
       <button
@@ -151,8 +171,8 @@
         aria-controls="panel-matchday-5"
         data-round="matchday-5"
       >
-        Matchday 5
-        <span class="day-tab-count mono">4</span>
+        <span class="day-tab-name">Matchday 5</span>
+        <span class="day-tab-meta mono">4 games</span>
       </button>
       
     </div>
@@ -187,7 +207,9 @@
                 <span class="t-cat" hidden>Day Highlight · Tuna Pick</span>
               </p>
               
-              <h3 class="match-title">Mexico <span class="vs">vs</span> South Africa</h3>
+              <h3 class="match-title"><span class="team-name"><img src="https://flagcdn.com/w20/mx.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Mexico</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/za.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>South Africa</span>
+</span></h3>
               <p class="match-meta mono">21:00 Berlin · Mexico City</p>
             </div>
             
@@ -338,7 +360,9 @@
               
               <p class="match-round">Matchday 1</p>
               
-              <h3 class="match-title">South Korea <span class="vs">vs</span> Czech Republic</h3>
+              <h3 class="match-title"><span class="team-name"><img src="https://flagcdn.com/w20/kr.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>South Korea</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/cz.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Czech Republic</span>
+</span></h3>
               <p class="match-meta mono">04:00 Berlin · Guadalajara (Zapopan)</p>
             </div>
             
@@ -510,7 +534,9 @@
                 <span class="t-cat" hidden>Day Highlight · Tuna Pick</span>
               </p>
               
-              <h3 class="match-title">Canada <span class="vs">vs</span> Bosnia &amp; Herzegovina</h3>
+              <h3 class="match-title"><span class="team-name"><img src="https://flagcdn.com/w20/ca.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Canada</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/ba.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Bosnia &amp; Herzegovina</span>
+</span></h3>
               <p class="match-meta mono">21:00 Berlin · Toronto</p>
             </div>
             
@@ -656,7 +682,9 @@
               
               <p class="match-round">Matchday 2</p>
               
-              <h3 class="match-title">USA <span class="vs">vs</span> Paraguay</h3>
+              <h3 class="match-title"><span class="team-name"><img src="https://flagcdn.com/w20/us.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>USA</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/py.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Paraguay</span>
+</span></h3>
               <p class="match-meta mono">03:00 Berlin · Los Angeles (Inglewood)</p>
             </div>
             
@@ -825,7 +853,9 @@
               
               <p class="match-round">Matchday 3</p>
               
-              <h3 class="match-title">Qatar <span class="vs">vs</span> Switzerland</h3>
+              <h3 class="match-title"><span class="team-name"><img src="https://flagcdn.com/w20/qa.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Qatar</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/ch.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Switzerland</span>
+</span></h3>
               <p class="match-meta mono">21:00 Berlin · San Francisco Bay Area (Santa Clara)</p>
             </div>
             
@@ -979,7 +1009,9 @@
                 <span class="t-cat" hidden>Day Highlight · Tuna Pick</span>
               </p>
               
-              <h3 class="match-title">Brazil <span class="vs">vs</span> Morocco</h3>
+              <h3 class="match-title"><span class="team-name"><img src="https://flagcdn.com/w20/br.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Brazil</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/ma.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Morocco</span>
+</span></h3>
               <p class="match-meta mono">00:00 Berlin · New York/New Jersey (East Rutherford)</p>
             </div>
             
@@ -1130,7 +1162,9 @@
               
               <p class="match-round">Matchday 3</p>
               
-              <h3 class="match-title">Haiti <span class="vs">vs</span> Scotland</h3>
+              <h3 class="match-title"><span class="team-name"><img src="https://flagcdn.com/w20/ht.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Haiti</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/gb-sct.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Scotland</span>
+</span></h3>
               <p class="match-meta mono">03:00 Berlin · Boston (Foxborough)</p>
             </div>
             
@@ -1276,7 +1310,9 @@
               
               <p class="match-round">Matchday 3</p>
               
-              <h3 class="match-title">Australia <span class="vs">vs</span> Turkey</h3>
+              <h3 class="match-title"><span class="team-name"><img src="https://flagcdn.com/w20/au.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Australia</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/tr.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Turkey</span>
+</span></h3>
               <p class="match-meta mono">06:00 Berlin · Vancouver</p>
             </div>
             
@@ -1336,7 +1372,9 @@
               
               <p class="match-round">Matchday 4</p>
               
-              <h3 class="match-title">Germany <span class="vs">vs</span> Curaçao</h3>
+              <h3 class="match-title"><span class="team-name"><img src="https://flagcdn.com/w20/de.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Germany</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/cw.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Curaçao</span>
+</span></h3>
               <p class="match-meta mono">19:00 Berlin · Houston</p>
             </div>
             
@@ -1376,7 +1414,9 @@
                 <span class="t-cat" hidden>Day Highlight · Tuna Pick</span>
               </p>
               
-              <h3 class="match-title">Netherlands <span class="vs">vs</span> Japan</h3>
+              <h3 class="match-title"><span class="team-name"><img src="https://flagcdn.com/w20/nl.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Netherlands</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/jp.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Japan</span>
+</span></h3>
               <p class="match-meta mono">22:00 Berlin · Dallas (Arlington)</p>
             </div>
             
@@ -1522,7 +1562,9 @@
               
               <p class="match-round">Matchday 4</p>
               
-              <h3 class="match-title">Ivory Coast <span class="vs">vs</span> Ecuador</h3>
+              <h3 class="match-title"><span class="team-name"><img src="https://flagcdn.com/w20/ci.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Ivory Coast</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/ec.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Ecuador</span>
+</span></h3>
               <p class="match-meta mono">01:00 Berlin · Philadelphia</p>
             </div>
             
@@ -1673,7 +1715,9 @@
               
               <p class="match-round">Matchday 4</p>
               
-              <h3 class="match-title">Sweden <span class="vs">vs</span> Tunisia</h3>
+              <h3 class="match-title"><span class="team-name"><img src="https://flagcdn.com/w20/se.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Sweden</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/tn.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Tunisia</span>
+</span></h3>
               <p class="match-meta mono">04:00 Berlin · Monterrey (Guadalupe)</p>
             </div>
             
@@ -1845,7 +1889,9 @@
                 <span class="t-cat" hidden>Day Highlight · Tuna Pick</span>
               </p>
               
-              <h3 class="match-title">Spain <span class="vs">vs</span> Cape Verde</h3>
+              <h3 class="match-title"><span class="team-name"><img src="https://flagcdn.com/w20/es.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Spain</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/cv.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Cape Verde</span>
+</span></h3>
               <p class="match-meta mono">18:00 Berlin · Atlanta</p>
             </div>
             
@@ -1996,7 +2042,9 @@
               
               <p class="match-round">Matchday 5</p>
               
-              <h3 class="match-title">Belgium <span class="vs">vs</span> Egypt</h3>
+              <h3 class="match-title"><span class="team-name"><img src="https://flagcdn.com/w20/be.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Belgium</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/eg.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Egypt</span>
+</span></h3>
               <p class="match-meta mono">21:00 Berlin · Seattle</p>
             </div>
             
@@ -2142,7 +2190,9 @@
               
               <p class="match-round">Matchday 5</p>
               
-              <h3 class="match-title">Saudi Arabia <span class="vs">vs</span> Uruguay</h3>
+              <h3 class="match-title"><span class="team-name"><img src="https://flagcdn.com/w20/sa.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Saudi Arabia</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/uy.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Uruguay</span>
+</span></h3>
               <p class="match-meta mono">00:00 Berlin · Miami (Miami Gardens)</p>
             </div>
             
@@ -2293,7 +2343,9 @@
               
               <p class="match-round">Matchday 5</p>
               
-              <h3 class="match-title">Iran <span class="vs">vs</span> New Zealand</h3>
+              <h3 class="match-title"><span class="team-name"><img src="https://flagcdn.com/w20/ir.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Iran</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/nz.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>New Zealand</span>
+</span></h3>
               <p class="match-meta mono">03:00 Berlin · Los Angeles (Inglewood)</p>
             </div>
             
@@ -2449,11 +2501,11 @@
       </p>
     </section>
 
-    <section class="glossary-card">
-      <h2>
-        <span class="t-normal">Parameter glossary</span>
+    <details class="glossary-fold">
+      <summary>
+        <span class="t-normal">Parameter reference</span>
         <span class="t-cat" hidden>Cat dictionary</span>
-      </h2>
+      </summary>
       <dl class="glossary-list">
         <div class="glossary-item">
           <dt>
@@ -2546,7 +2598,7 @@
           </dd>
         </div>
       </dl>
-    </section>
+    </details>
   </main>
 
   <footer class="footer shell">
@@ -2559,7 +2611,6 @@
   <script>
     (function () {
       var CAT_KEY = "wm2026-cat-mode";
-      var TAB_KEY = "wm2026-active-round";
       var catBtn = document.getElementById("catify-btn");
 
       function setCatMode(enabled) {
@@ -2606,7 +2657,11 @@
           storeCatMode(next);
         });
       }
-
+    })();
+  </script>
+  <script>
+    (function () {
+      var TAB_KEY = "wm2026-active-round";
       var tabs = Array.prototype.slice.call(document.querySelectorAll(".day-tab"));
       var panels = Array.prototype.slice.call(document.querySelectorAll(".day-panel"));
 

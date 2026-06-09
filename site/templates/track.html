@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Track record · WM 2026 Agent</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+  <div class="page-glow" aria-hidden="true"></div>
+{% include '_topbar.html' %}
+
+  <section class="hero shell hero-compact">
+    <p class="eyebrow">
+      <span class="t-normal">Agent quality · Kicktipp audit</span>
+      <span class="t-cat" hidden>Cat quality · treat audit</span>
+    </p>
+    <h1>
+      <span class="t-normal">Track record</span>
+      <span class="t-cat" hidden>Treat ledger</span>
+    </h1>
+    <p class="hero-copy">
+      <span class="t-normal">All scheduled matches with agent picks and final results. Points use the Kicktipp 2 / 3 / 4 scoring rules.</span>
+      <span class="t-cat" hidden>All scheduled naps with cat picks and final results. Points use the 2 / 3 / 4 treat rules.</span>
+    </p>
+  </section>
+
+  <main class="shell main">
+    <div class="track-stats">
+      <div class="track-stat">
+        <span class="track-stat-value mono">{{ track_stats.tips_submitted }}</span>
+        <span class="track-stat-label"><span class="t-normal">Tips submitted</span><span class="t-cat" hidden>Cat picks</span></span>
+      </div>
+      <div class="track-stat">
+        <span class="track-stat-value mono">{{ track_stats.results_known }}</span>
+        <span class="track-stat-label"><span class="t-normal">Results known</span><span class="t-cat" hidden>Naps finished</span></span>
+      </div>
+      <div class="track-stat">
+        <span class="track-stat-value mono">{{ track_stats.points_scored }}</span>
+        <span class="track-stat-label"><span class="t-normal">Points scored</span><span class="t-cat" hidden>Treats scored</span></span>
+      </div>
+      <div class="track-stat">
+        <span class="track-stat-value mono">{{ track_stats.avg_points }}</span>
+        <span class="track-stat-label"><span class="t-normal">Avg pts / played</span><span class="t-cat" hidden>Avg treats</span></span>
+      </div>
+      <div class="track-stat">
+        <span class="track-stat-value mono">{{ track_stats.exact_hits }}</span>
+        <span class="track-stat-label"><span class="t-normal">Exact (4 pts)</span><span class="t-cat" hidden>Perfect bowls</span></span>
+      </div>
+    </div>
+
+    <div class="track-table-wrap">
+      <table class="track-table">
+        <thead>
+          <tr>
+            <th><span class="t-normal">Round</span><span class="t-cat" hidden>Day</span></th>
+            <th><span class="t-normal">Date</span><span class="t-cat" hidden>When</span></th>
+            <th><span class="t-normal">Match</span><span class="t-cat" hidden>Nap</span></th>
+            <th><span class="t-normal">Agent pick</span><span class="t-cat" hidden>Cat pick</span></th>
+            <th><span class="t-normal">Result</span><span class="t-cat" hidden>Outcome</span></th>
+            <th><span class="t-normal">Pts</span><span class="t-cat" hidden>Tuna</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% from '_macros.html' import matchup %}
+          {% for row in track_rows %}
+          <tr class="track-row track-row-{{ row.status }}">
+            <td class="mono track-round">{{ row.round_short }}</td>
+            <td class="mono track-date">{{ row.date_short }}</td>
+            <td class="track-match">{{ matchup(row.home_team, row.away_team, row.home_flag_url, row.away_flag_url) }}</td>
+            <td class="mono track-tip">{{ row.tip_display }}</td>
+            <td class="mono track-result">{{ row.result_display }}</td>
+            <td class="mono track-points">{% if row.points is not none %}{{ row.points }}{% else %}—{% endif %}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <footer class="footer shell">
+    <p>
+      <span class="t-normal">Updated {{ generated_at }} (Berlin) · Results from <code>state/results.json</code> when available</span>
+      <span class="t-cat" hidden>Updated {{ generated_at }} · outcomes from <code>state/results.json</code></span>
+    </p>
+  </footer>
+
+{% include '_scripts.html' %}
+</body>
+</html>

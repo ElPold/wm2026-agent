@@ -1,0 +1,51 @@
+  <script>
+    (function () {
+      var CAT_KEY = "wm2026-cat-mode";
+      var catBtn = document.getElementById("catify-btn");
+
+      function setCatMode(enabled) {
+        document.documentElement.classList.toggle("cat-mode", enabled);
+        document.body.classList.toggle("cat-mode", enabled);
+        document.querySelectorAll(".t-normal").forEach(function (el) {
+          el.hidden = enabled;
+        });
+        document.querySelectorAll(".t-cat").forEach(function (el) {
+          el.hidden = !enabled;
+        });
+        if (catBtn) {
+          catBtn.setAttribute("aria-pressed", enabled ? "true" : "false");
+        }
+      }
+
+      function readCatMode() {
+        try {
+          return localStorage.getItem(CAT_KEY) === "1";
+        } catch (err) {
+          return false;
+        }
+      }
+
+      function storeCatMode(enabled) {
+        try {
+          localStorage.setItem(CAT_KEY, enabled ? "1" : "0");
+        } catch (err) {
+          /* ignore */
+        }
+      }
+
+      document.querySelectorAll(".t-cat").forEach(function (el) {
+        el.hidden = true;
+      });
+
+      setCatMode(readCatMode());
+
+      if (catBtn) {
+        catBtn.addEventListener("click", function (event) {
+          event.preventDefault();
+          var next = !document.body.classList.contains("cat-mode");
+          setCatMode(next);
+          storeCatMode(next);
+        });
+      }
+    })();
+  </script>

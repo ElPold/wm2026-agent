@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Track record · WM 2026 Agent</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+  <div class="page-glow" aria-hidden="true"></div>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <div class="brand">
+        <a href="index.html" class="brand-link">
+          <span class="brand-dot"></span>
+          <span class="brand-label">
+            <span class="t-normal">WM 2026 Agent</span>
+            <span class="t-cat" hidden>WM 2026 Cat Agent</span>
+          </span>
+        </a>
+      </div>
+      <nav class="topbar-nav" aria-label="Main">
+        <a href="index.html" class="nav-link">
+          <span class="t-normal">Dashboard</span>
+          <span class="t-cat" hidden>Bowl board</span>
+        </a>
+        <a href="track.html" class="nav-link is-active">
+          <span class="t-normal">Track record</span>
+          <span class="t-cat" hidden>Treat ledger</span>
+        </a>
+        <a href="pipeline.html" class="nav-link">
+          <span class="t-normal">How it works</span>
+          <span class="t-cat" hidden>How the cat works</span>
+        </a>
+      </nav>
+      <div class="topbar-actions">
+        <a href="track.html" class="ghost-btn">
+          <span class="t-normal">📊 Track record</span>
+          <span class="t-cat" hidden>📊 Treat log</span>
+        </a>
+        <a
+          href="https://github.com/ElPold/wm2026-agent/actions/workflows/update-predictions.yml"
+          class="update-btn"
+          id="update-btn"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span class="t-normal">↻ Update matchday</span>
+          <span class="t-cat" hidden>↻ Refill the bowl</span>
+        </a>
+        <button type="button" class="catify-btn" id="catify-btn" aria-pressed="false">
+          <span aria-hidden="true">😺</span>
+          <span class="t-normal">Catify</span>
+          <span class="t-cat" hidden>Un-Catify</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero shell hero-compact">
+    <p class="eyebrow">
+      <span class="t-normal">Agent quality · Kicktipp audit</span>
+      <span class="t-cat" hidden>Cat quality · treat audit</span>
+    </p>
+    <h1>
+      <span class="t-normal">Track record</span>
+      <span class="t-cat" hidden>Treat ledger</span>
+    </h1>
+    <p class="hero-copy">
+      <span class="t-normal">All scheduled matches with agent picks and final results. Points use the Kicktipp 2 / 3 / 4 scoring rules.</span>
+      <span class="t-cat" hidden>All scheduled naps with cat picks and final results. Points use the 2 / 3 / 4 treat rules.</span>
+    </p>
+  </section>
+
+  <main class="shell main">
+    <div class="track-stats">
+      <div class="track-stat">
+        <span class="track-stat-value mono">14</span>
+        <span class="track-stat-label"><span class="t-normal">Tips submitted</span><span class="t-cat" hidden>Cat picks</span></span>
+      </div>
+      <div class="track-stat">
+        <span class="track-stat-value mono">0</span>
+        <span class="track-stat-label"><span class="t-normal">Results known</span><span class="t-cat" hidden>Naps finished</span></span>
+      </div>
+      <div class="track-stat">
+        <span class="track-stat-value mono">0</span>
+        <span class="track-stat-label"><span class="t-normal">Points scored</span><span class="t-cat" hidden>Treats scored</span></span>
+      </div>
+      <div class="track-stat">
+        <span class="track-stat-value mono">—</span>
+        <span class="track-stat-label"><span class="t-normal">Avg pts / played</span><span class="t-cat" hidden>Avg treats</span></span>
+      </div>
+      <div class="track-stat">
+        <span class="track-stat-value mono">0</span>
+        <span class="track-stat-label"><span class="t-normal">Exact (4 pts)</span><span class="t-cat" hidden>Perfect bowls</span></span>
+      </div>
+    </div>
+
+    <div class="track-table-wrap">
+      <table class="track-table">
+        <thead>
+          <tr>
+            <th><span class="t-normal">Round</span><span class="t-cat" hidden>Day</span></th>
+            <th><span class="t-normal">Date</span><span class="t-cat" hidden>When</span></th>
+            <th><span class="t-normal">Match</span><span class="t-cat" hidden>Nap</span></th>
+            <th><span class="t-normal">Agent pick</span><span class="t-cat" hidden>Cat pick</span></th>
+            <th><span class="t-normal">Result</span><span class="t-cat" hidden>Outcome</span></th>
+            <th><span class="t-normal">Pts</span><span class="t-cat" hidden>Tuna</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          
+          
+          <tr class="track-row track-row-tipped">
+            <td class="mono track-round">MD1</td>
+            <td class="mono track-date">11.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/mx.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Mexico</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/za.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>South Africa</span>
+</span></td>
+            <td class="mono track-tip">1 : 0</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-tipped">
+            <td class="mono track-round">MD1</td>
+            <td class="mono track-date">12.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/kr.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>South Korea</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/cz.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Czech Republic</span>
+</span></td>
+            <td class="mono track-tip">1 : 0</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-tipped">
+            <td class="mono track-round">MD2</td>
+            <td class="mono track-date">12.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/ca.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Canada</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/ba.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Bosnia &amp; Herzegovina</span>
+</span></td>
+            <td class="mono track-tip">1 : 0</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-tipped">
+            <td class="mono track-round">MD2</td>
+            <td class="mono track-date">13.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/us.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>USA</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/py.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Paraguay</span>
+</span></td>
+            <td class="mono track-tip">1 : 0</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-tipped">
+            <td class="mono track-round">MD3</td>
+            <td class="mono track-date">13.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/qa.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Qatar</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/ch.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Switzerland</span>
+</span></td>
+            <td class="mono track-tip">0 : 1</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-tipped">
+            <td class="mono track-round">MD3</td>
+            <td class="mono track-date">14.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/br.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Brazil</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/ma.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Morocco</span>
+</span></td>
+            <td class="mono track-tip">1 : 0</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-tipped">
+            <td class="mono track-round">MD3</td>
+            <td class="mono track-date">14.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/ht.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Haiti</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/gb-sct.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Scotland</span>
+</span></td>
+            <td class="mono track-tip">0 : 1</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD3</td>
+            <td class="mono track-date">14.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/au.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Australia</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/tr.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Turkey</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD4</td>
+            <td class="mono track-date">14.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/de.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Germany</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/cw.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Curaçao</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-tipped">
+            <td class="mono track-round">MD4</td>
+            <td class="mono track-date">14.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/nl.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Netherlands</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/jp.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Japan</span>
+</span></td>
+            <td class="mono track-tip">1 : 0</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-tipped">
+            <td class="mono track-round">MD4</td>
+            <td class="mono track-date">15.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/ci.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Ivory Coast</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/ec.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Ecuador</span>
+</span></td>
+            <td class="mono track-tip">0 : 1</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-tipped">
+            <td class="mono track-round">MD4</td>
+            <td class="mono track-date">15.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/se.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Sweden</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/tn.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Tunisia</span>
+</span></td>
+            <td class="mono track-tip">1 : 0</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-tipped">
+            <td class="mono track-round">MD5</td>
+            <td class="mono track-date">15.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/es.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Spain</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/cv.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Cape Verde</span>
+</span></td>
+            <td class="mono track-tip">1 : 0</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-tipped">
+            <td class="mono track-round">MD5</td>
+            <td class="mono track-date">15.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/be.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Belgium</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/eg.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Egypt</span>
+</span></td>
+            <td class="mono track-tip">1 : 0</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-tipped">
+            <td class="mono track-round">MD5</td>
+            <td class="mono track-date">16.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/sa.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Saudi Arabia</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/uy.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Uruguay</span>
+</span></td>
+            <td class="mono track-tip">0 : 1</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-tipped">
+            <td class="mono track-round">MD5</td>
+            <td class="mono track-date">16.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/ir.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Iran</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/nz.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>New Zealand</span>
+</span></td>
+            <td class="mono track-tip">1 : 0</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD6</td>
+            <td class="mono track-date">16.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/fr.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>France</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/sn.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Senegal</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD6</td>
+            <td class="mono track-date">17.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/iq.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Iraq</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/no.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Norway</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD6</td>
+            <td class="mono track-date">17.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/ar.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Argentina</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/dz.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Algeria</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD6</td>
+            <td class="mono track-date">17.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/at.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Austria</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/jo.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Jordan</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD7</td>
+            <td class="mono track-date">17.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/pt.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Portugal</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/cd.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>DR Congo</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD7</td>
+            <td class="mono track-date">17.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/gb-eng.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>England</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/hr.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Croatia</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD7</td>
+            <td class="mono track-date">18.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/gh.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Ghana</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/pa.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Panama</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD7</td>
+            <td class="mono track-date">18.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/uz.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Uzbekistan</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/co.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Colombia</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD8</td>
+            <td class="mono track-date">18.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/cz.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Czech Republic</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/za.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>South Africa</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD8</td>
+            <td class="mono track-date">18.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/ch.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Switzerland</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/ba.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Bosnia &amp; Herzegovina</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD8</td>
+            <td class="mono track-date">19.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/ca.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Canada</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/qa.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Qatar</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD8</td>
+            <td class="mono track-date">19.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/mx.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Mexico</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/kr.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>South Korea</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD9</td>
+            <td class="mono track-date">19.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/us.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>USA</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/au.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Australia</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD9</td>
+            <td class="mono track-date">20.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/gb-sct.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Scotland</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/ma.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Morocco</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD9</td>
+            <td class="mono track-date">20.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/br.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Brazil</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/ht.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Haiti</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD9</td>
+            <td class="mono track-date">20.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/tr.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Turkey</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/py.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Paraguay</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD10</td>
+            <td class="mono track-date">20.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/nl.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Netherlands</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/se.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Sweden</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD10</td>
+            <td class="mono track-date">20.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/de.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Germany</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/ci.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Ivory Coast</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD10</td>
+            <td class="mono track-date">21.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/ec.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Ecuador</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/cw.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Curaçao</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD10</td>
+            <td class="mono track-date">21.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/tn.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Tunisia</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/jp.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Japan</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD11</td>
+            <td class="mono track-date">21.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/es.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Spain</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/sa.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Saudi Arabia</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD11</td>
+            <td class="mono track-date">21.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/be.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Belgium</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/ir.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Iran</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD11</td>
+            <td class="mono track-date">22.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/uy.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Uruguay</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/cv.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Cape Verde</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD11</td>
+            <td class="mono track-date">22.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/nz.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>New Zealand</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/eg.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Egypt</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD12</td>
+            <td class="mono track-date">22.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/ar.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Argentina</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/at.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Austria</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD12</td>
+            <td class="mono track-date">22.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/fr.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>France</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/iq.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Iraq</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD12</td>
+            <td class="mono track-date">23.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/no.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Norway</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/sn.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Senegal</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD12</td>
+            <td class="mono track-date">23.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/jo.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Jordan</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/dz.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Algeria</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD13</td>
+            <td class="mono track-date">23.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/pt.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Portugal</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/uz.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Uzbekistan</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD13</td>
+            <td class="mono track-date">23.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/gb-eng.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>England</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/gh.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Ghana</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD13</td>
+            <td class="mono track-date">24.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/pa.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Panama</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/hr.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Croatia</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD13</td>
+            <td class="mono track-date">24.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/co.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Colombia</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/cd.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>DR Congo</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD14</td>
+            <td class="mono track-date">24.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/ch.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Switzerland</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/ca.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Canada</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD14</td>
+            <td class="mono track-date">24.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/ba.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Bosnia &amp; Herzegovina</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/qa.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Qatar</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD14</td>
+            <td class="mono track-date">25.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/gb-sct.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Scotland</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/br.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Brazil</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD14</td>
+            <td class="mono track-date">25.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/ma.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Morocco</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/ht.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Haiti</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD14</td>
+            <td class="mono track-date">25.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/cz.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Czech Republic</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/mx.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Mexico</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD14</td>
+            <td class="mono track-date">25.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/za.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>South Africa</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/kr.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>South Korea</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD15</td>
+            <td class="mono track-date">25.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/cw.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Curaçao</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/ci.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Ivory Coast</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD15</td>
+            <td class="mono track-date">25.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/ec.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Ecuador</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/de.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Germany</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD15</td>
+            <td class="mono track-date">26.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/jp.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Japan</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/se.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Sweden</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD15</td>
+            <td class="mono track-date">26.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/tn.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Tunisia</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/nl.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Netherlands</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD15</td>
+            <td class="mono track-date">26.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/tr.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Turkey</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/us.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>USA</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD15</td>
+            <td class="mono track-date">26.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/py.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Paraguay</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/au.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Australia</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD16</td>
+            <td class="mono track-date">26.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/no.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Norway</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/fr.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>France</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD16</td>
+            <td class="mono track-date">26.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/sn.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Senegal</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/iq.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Iraq</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD16</td>
+            <td class="mono track-date">27.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/cv.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Cape Verde</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/sa.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Saudi Arabia</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD16</td>
+            <td class="mono track-date">27.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/uy.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Uruguay</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/es.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Spain</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD16</td>
+            <td class="mono track-date">27.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/eg.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Egypt</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/ir.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Iran</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD16</td>
+            <td class="mono track-date">27.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/nz.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>New Zealand</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/be.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Belgium</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD17</td>
+            <td class="mono track-date">27.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/pa.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Panama</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/gb-eng.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>England</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD17</td>
+            <td class="mono track-date">27.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/hr.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Croatia</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/gh.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Ghana</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD17</td>
+            <td class="mono track-date">28.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/co.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Colombia</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/pt.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Portugal</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD17</td>
+            <td class="mono track-date">28.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/cd.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>DR Congo</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/uz.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Uzbekistan</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD17</td>
+            <td class="mono track-date">28.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/dz.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Algeria</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/at.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Austria</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+          <tr class="track-row track-row-open">
+            <td class="mono track-round">MD17</td>
+            <td class="mono track-date">28.06.</td>
+            <td class="track-match"><span class="team-name"><img src="https://flagcdn.com/w20/jo.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Jordan</span>
+</span> <span class="vs">vs</span> <span class="team-name"><img src="https://flagcdn.com/w20/ar.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Argentina</span>
+</span></td>
+            <td class="mono track-tip">—</td>
+            <td class="mono track-result">—</td>
+            <td class="mono track-points">—</td>
+          </tr>
+          
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <footer class="footer shell">
+    <p>
+      <span class="t-normal">Updated 09.06.2026 20:50 (Berlin) · Results from <code>state/results.json</code> when available</span>
+      <span class="t-cat" hidden>Updated 09.06.2026 20:50 · outcomes from <code>state/results.json</code></span>
+    </p>
+  </footer>
+
+  <script>
+    (function () {
+      var CAT_KEY = "wm2026-cat-mode";
+      var catBtn = document.getElementById("catify-btn");
+
+      function setCatMode(enabled) {
+        document.documentElement.classList.toggle("cat-mode", enabled);
+        document.body.classList.toggle("cat-mode", enabled);
+        document.querySelectorAll(".t-normal").forEach(function (el) {
+          el.hidden = enabled;
+        });
+        document.querySelectorAll(".t-cat").forEach(function (el) {
+          el.hidden = !enabled;
+        });
+        if (catBtn) {
+          catBtn.setAttribute("aria-pressed", enabled ? "true" : "false");
+        }
+      }
+
+      function readCatMode() {
+        try {
+          return localStorage.getItem(CAT_KEY) === "1";
+        } catch (err) {
+          return false;
+        }
+      }
+
+      function storeCatMode(enabled) {
+        try {
+          localStorage.setItem(CAT_KEY, enabled ? "1" : "0");
+        } catch (err) {
+          /* ignore */
+        }
+      }
+
+      document.querySelectorAll(".t-cat").forEach(function (el) {
+        el.hidden = true;
+      });
+
+      setCatMode(readCatMode());
+
+      if (catBtn) {
+        catBtn.addEventListener("click", function (event) {
+          event.preventDefault();
+          var next = !document.body.classList.contains("cat-mode");
+          setCatMode(next);
+          storeCatMode(next);
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
