@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title }}</title>
+  <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">FIFA WM 2026 · EV-optimierte Tipps</p>
+      <h1>{{ title }}</h1>
+      <p class="subtitle">
+        Wettquoten → Poisson-Modell → punkteoptimaler Kicktipp-Tipp.
+        Stand der Website: {{ generated_at }} (Berlin).
+      </p>
+      {% if days %}
+      <div class="stats">
+        <div class="stat">
+          <span class="stat-value">{{ days|length }}</span>
+          <span class="stat-label">Spieltage</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">{{ total_matches }}</span>
+          <span class="stat-label">Tipps</span>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </header>
+
+  <main class="container">
+    {% if not days %}
+    <section class="empty">
+      <h2>Noch keine Tipps</h2>
+      <p>Führe <code>python run.py --date YYYY-MM-DD</code> aus, um Tipps zu erzeugen.</p>
+    </section>
+    {% else %}
+      {% for day in days %}
+      <section class="day-section">
+        <div class="day-header">
+          <h2>{{ day.date_label }}</h2>
+          <span class="meta">Generiert {{ day.generated_at }} · {{ day.match_count }} Spiel{% if day.match_count != 1 %}e{% endif %}</span>
+        </div>
+
+        <div class="match-grid">
+          {% for match in day.predictions %}
+          <article class="match-card">
+            <div class="match-top">
+              <div>
+                <p class="round">{{ match.round or "WM 2026" }}</p>
+                <h3>{{ match.home_team }} <span class="vs">vs.</span> {{ match.away_team }}</h3>
+                <p class="venue">{{ match.kickoff_time }} Uhr Berlin{% if match.venue %} · {{ match.venue }}{% endif %}</p>
+              </div>
+              <div class="tip-badge">
+                <span class="tip-label">Tipp</span>
+                <span class="tip-score">{{ match.tip }}</span>
+              </div>
+            </div>
+
+            <div class="metrics">
+              <div class="metric">
+                <span class="metric-label">Erwartungswert</span>
+                <span class="metric-value">{{ "%.2f"|format(match.expected_points) }} Pkt.</span>
+              </div>
+              <div class="metric">
+                <span class="metric-label">Wahrscheinl.</span>
+                <span class="metric-value">{{ match.most_likely_score }}</span>
+              </div>
+              <div class="metric">
+                <span class="metric-label">Quelle</span>
+                <span class="metric-value">{{ match.bookmaker }}</span>
+              </div>
+            </div>
+
+            <div class="prob-block">
+              <h4>Markt-Wahrscheinlichkeiten</h4>
+              {% for label, prob in match.prob_bars %}
+              <div class="prob-row">
+                <span>{{ label }}</span>
+                <div class="prob-track"><div class="prob-fill" style="width: {{ (prob * 100)|round(1) }}%"></div></div>
+                <span class="prob-pct">{{ (prob * 100)|round(1) }}%</span>
+              </div>
+              {% endfor %}
+            </div>
+
+            {% if match.top_scores %}
+            <div class="top-scores">
+              <h4>Top-Ergebnisse</h4>
+              <ul>
+                {% for item in match.top_scores[:5] %}
+                <li><span>{{ item.score }}</span><span>{{ (item.probability * 100)|round(1) }}%</span></li>
+                {% endfor %}
+              </ul>
+            </div>
+            {% endif %}
+          </article>
+          {% endfor %}
+        </div>
+      </section>
+      {% endfor %}
+    {% endif %}
+  </main>
+
+  <footer class="footer">
+    <p>Kein Bauchgefühl — Erwartungswert-Optimierung auf Basis kalibrierter Marktquoten.</p>
+    <p class="small">Daten: openfootball (Spielplan) · OddsPapi/Pinnacle (Quoten)</p>
+  </footer>
+</body>
+</html>

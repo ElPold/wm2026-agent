@@ -1,0 +1,67 @@
+{
+  "fixtureId": "id1000003969653792",
+  "participant1Name": "Mexico",
+  "participant2Name": "South Africa",
+  "startTime": "2026-06-11T18:00:00.000Z",
+  "bookmakerOdds": {
+    "pinnacle": {
+      "markets": {
+        "1010": {
+          "outcomes": {
+            "home": {
+              "players": {
+                "0": {
+                  "active": true,
+                  "bookmakerOutcomeId": "1",
+                  "price": 1.85
+                }
+              }
+            },
+            "draw": {
+              "players": {
+                "0": {
+                  "active": true,
+                  "bookmakerOutcomeId": "X",
+                  "price": 3.40
+                }
+              }
+            },
+            "away": {
+              "players": {
+                "0": {
+                  "active": true,
+                  "bookmakerOutcomeId": "2",
+                  "price": 4.50
+                }
+              }
+            }
+          }
+        },
+        "1012": {
+          "outcomes": {
+            "over": {
+              "players": {
+                "0": {
+                  "active": true,
+                  "bookmakerOutcomeId": "2.5/over",
+                  "price": 2.10,
+                  "mainLine": true
+                }
+              }
+            },
+            "under": {
+              "players": {
+                "0": {
+                  "active": true,
+                  "bookmakerOutcomeId": "2.5/under",
+                  "price": 1.75,
+                  "mainLine": true
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

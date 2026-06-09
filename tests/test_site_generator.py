@@ -1,0 +1,56 @@
+import json
+from pathlib import Path
+
+from src.site.generator import build_site
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_build_site_from_predictions(tmp_path):
+    state = tmp_path / "state"
+    history = state / "history"
+    docs = tmp_path / "docs"
+    history.mkdir(parents=True)
+
+    payload = {
+        "generated_at": "2026-06-09T18:29:46+02:00",
+        "match_count": 1,
+        "predictions": [
+            {
+                "fixture_id": "wc26-001",
+                "home_team": "Mexico",
+                "away_team": "South Africa",
+                "kickoff_berlin": "2026-06-11T21:00:00+02:00",
+                "venue": "Mexico City",
+                "round": "Matchday 1",
+                "bookmaker": "pinnacle",
+                "tip": "1:0",
+                "expected_points": 1.79,
+                "most_likely_score": "1:0",
+                "market_probs": {
+                    "home": 0.68,
+                    "draw": 0.21,
+                    "away": 0.11,
+                },
+                "top_scores": [
+                    {"score": "1:0", "probability": 0.16},
+                ],
+            }
+        ],
+    }
+
+    predictions_path = state / "predictions.json"
+    with predictions_path.open("w", encoding="utf-8") as handle:
+        json.dump(payload, handle)
+
+    index_path = build_site(
+        predictions_path=predictions_path,
+        history_dir=history,
+        output_dir=docs,
+    )
+
+    html = index_path.read_text(encoding="utf-8")
+    assert "Mexico" in html
+    assert "1:0" in html
+    assert (docs / "static" / "style.css").exists()
+    assert (docs / ".nojekyll").exists()
