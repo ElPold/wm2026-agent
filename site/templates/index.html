@@ -59,10 +59,10 @@
       <span class="t-normal">Not trying to outsmart the market. Optimizing Kicktipp points from market probabilities.</span>
       <span class="t-cat" hidden>Not trying to outsmart the market. Optimizing tuna points from nap probabilities.</span>
     </p>
-    {% if days %}
+    {% if rounds %}
     <div class="hero-stats">
       <div class="hero-stat">
-        <span class="hero-stat-value">{{ days|length }}</span>
+        <span class="hero-stat-value">{{ rounds|length }}</span>
         <span class="hero-stat-label">
           <span class="t-normal">Matchdays</span>
           <span class="t-cat" hidden>Nap Days</span>
@@ -87,57 +87,57 @@
   </section>
 
   <main class="shell main">
-    {% if not days %}
+    {% if not rounds %}
     <section class="empty-card">
       <h2>
         <span class="t-normal">No predictions yet</span>
         <span class="t-cat" hidden>No tuna yet</span>
       </h2>
       <p>
-        <span class="t-normal">Run <code>python run.py --date YYYY-MM-DD</code> to generate picks.</span>
-        <span class="t-cat" hidden>Run <code>python run.py --date YYYY-MM-DD</code> so the cat can fill the bowl.</span>
+        <span class="t-normal">Run <code>python run.py --round "Matchday 1"</code> to generate picks.</span>
+        <span class="t-cat" hidden>Run <code>python run.py --round "Matchday 1"</code> so the cat can fill the bowl.</span>
       </p>
     </section>
     {% else %}
     <div class="day-tabs" role="tablist" aria-label="Matchdays">
-      {% for day in days %}
+      {% for round in rounds %}
       <button
         type="button"
         class="day-tab{% if loop.first %} is-active{% endif %}"
         role="tab"
-        id="tab-{{ day.date }}"
+        id="tab-{{ round.round_id }}"
         aria-selected="{% if loop.first %}true{% else %}false{% endif %}"
-        aria-controls="panel-{{ day.date }}"
-        data-day="{{ day.date }}"
+        aria-controls="panel-{{ round.round_id }}"
+        data-round="{{ round.round_id }}"
       >
-        {{ day.tab_label }}
-        <span class="day-tab-count mono">{{ day.match_count }}</span>
+        {{ round.tab_label }}
+        <span class="day-tab-count mono">{{ round.match_count }}</span>
       </button>
       {% endfor %}
     </div>
 
-    {% for day in days %}
+    {% for round in rounds %}
     <section
       class="day-panel{% if loop.first %} is-active{% endif %}"
-      id="panel-{{ day.date }}"
+      id="panel-{{ round.round_id }}"
       role="tabpanel"
-      aria-labelledby="tab-{{ day.date }}"
-      data-day="{{ day.date }}"
+      aria-labelledby="tab-{{ round.round_id }}"
+      data-round="{{ round.round_id }}"
       {% if not loop.first %}hidden{% endif %}
     >
       <div class="day-head">
         <div>
-          <h2>{{ day.date_label }}</h2>
+          <h2>{{ round.tab_label }}</h2>
           <p class="day-meta">
-            <span class="t-normal">Generated {{ day.generated_at }} · {{ day.match_count }} match{% if day.match_count != 1 %}es{% endif %}</span>
-            <span class="t-cat" hidden>Purred {{ day.generated_at }} · {{ day.match_count }} window watch{% if day.match_count != 1 %}es{% endif %}</span>
+            <span class="t-normal">{{ round.date_label }} · Generated {{ round.generated_at }} · {{ round.match_count }} match{% if round.match_count != 1 %}es{% endif %}</span>
+            <span class="t-cat" hidden>{{ round.date_label }} · Purred {{ round.generated_at }} · {{ round.match_count }} window watch{% if round.match_count != 1 %}es{% endif %}</span>
           </p>
         </div>
       </div>
 
       <div class="match-list">
-        {% for match in day.predictions %}
-        <article class="match-card{% if match.is_day_highlight %} is-highlight{% endif %}">
+        {% for match in round.predictions %}
+        <article class="match-card{% if match.is_day_highlight %} is-highlight{% endif %}{% if match.is_pending %} is-pending{% endif %}">
           <div class="match-top">
             <div>
               {% if match.is_day_highlight %}
@@ -223,8 +223,13 @@
           {% endif %}
 
           <p class="match-note">
+            {% if match.is_pending %}
+            <span class="t-normal">Waiting for bookmaker odds — run Update matchday to refresh.</span>
+            <span class="t-cat" hidden>The cat is still waiting at the window for odds.</span>
+            {% else %}
             <span class="t-normal">The agent recommends this score because it maximizes expected Kicktipp points.</span>
             <span class="t-cat" hidden>The data cat quietly pushes this score into your betting bowl because it smells the most expected tuna.</span>
+            {% endif %}
           </p>
         </article>
         {% endfor %}
@@ -334,7 +339,7 @@
   <script>
     (function () {
       var CAT_KEY = "wm2026-cat-mode";
-      var TAB_KEY = "wm2026-active-tab";
+      var TAB_KEY = "wm2026-active-round";
       var catBtn = document.getElementById("catify-btn");
 
       function setCatMode(enabled) {
@@ -385,19 +390,19 @@
       var tabs = Array.prototype.slice.call(document.querySelectorAll(".day-tab"));
       var panels = Array.prototype.slice.call(document.querySelectorAll(".day-panel"));
 
-      function activateDay(dayId) {
+      function activateRound(roundId) {
         tabs.forEach(function (tab) {
-          var active = tab.getAttribute("data-day") === dayId;
+          var active = tab.getAttribute("data-round") === roundId;
           tab.classList.toggle("is-active", active);
           tab.setAttribute("aria-selected", active ? "true" : "false");
         });
         panels.forEach(function (panel) {
-          var active = panel.getAttribute("data-day") === dayId;
+          var active = panel.getAttribute("data-round") === roundId;
           panel.classList.toggle("is-active", active);
           panel.hidden = !active;
         });
         try {
-          localStorage.setItem(TAB_KEY, dayId);
+          localStorage.setItem(TAB_KEY, roundId);
         } catch (err) {
           /* ignore */
         }
@@ -405,19 +410,19 @@
 
       tabs.forEach(function (tab) {
         tab.addEventListener("click", function () {
-          activateDay(tab.getAttribute("data-day"));
+          activateRound(tab.getAttribute("data-round"));
         });
       });
 
       if (tabs.length) {
-        var storedDay = null;
+        var storedRound = null;
         try {
-          storedDay = localStorage.getItem(TAB_KEY);
+          storedRound = localStorage.getItem(TAB_KEY);
         } catch (err) {
-          storedDay = null;
+          storedRound = null;
         }
-        if (storedDay && tabs.some(function (tab) { return tab.getAttribute("data-day") === storedDay; })) {
-          activateDay(storedDay);
+        if (storedRound && tabs.some(function (tab) { return tab.getAttribute("data-round") === storedRound; })) {
+          activateRound(storedRound);
         }
       }
     })();

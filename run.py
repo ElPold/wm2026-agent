@@ -13,7 +13,14 @@ from zoneinfo import ZoneInfo
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
 
-from src.pipeline.day_tips import archive_predictions, generate_day_tips, save_predictions
+from src.pipeline.day_tips import (
+    archive_predictions,
+    archive_round_predictions,
+    generate_day_tips,
+    generate_round_tips,
+    save_predictions,
+    save_round_payload,
+)
 from src.site.generator import build_site
 from src.sources.config import Settings
 
@@ -61,6 +68,12 @@ def main() -> None:
         help="Berliner Kalenderdatum (YYYY-MM-DD), Standard: heute",
     )
     parser.add_argument(
+        "--round",
+        type=str,
+        default=None,
+        help='Kompletter Spieltag/Runde, z. B. "Matchday 1"',
+    )
+    parser.add_argument(
         "--output",
         type=str,
         default="state/predictions.json",
@@ -98,34 +111,66 @@ def main() -> None:
         return
 
     settings = Settings.load()
-    day = date.fromisoformat(args.date) if args.date else date.today()
-    logger.info("Generiere Tipps für %s (Berlin)", day.isoformat())
+    output_path = ROOT / args.output
+    history_dir = ROOT / "state" / "history"
 
-    predictions = generate_day_tips(
-        day,
-        settings=settings,
-        skip_started=args.skip_started,
-    )
-    if not predictions:
-        print(f"Keine Tipps für {day.isoformat()} — keine Spiele oder keine Quoten.")
-        return
-
-    output_path = save_predictions(predictions, ROOT / args.output)
-    history_path = archive_predictions(
-        output_path,
-        ROOT / "state" / "history",
-        day=day,
-    )
-    print(f"{len(predictions)} Tipps gespeichert → {output_path}")
-    if history_path:
-        print(f"Archiviert → {history_path}")
-
-    for item in predictions:
-        print(
-            f"  {item.fixture.home_team} vs. {item.fixture.away_team}: "
-            f"{item.tip_home}:{item.tip_away} "
-            f"(EV {item.expected_points:.3f}, Quelle: {item.odds.source})"
+    if args.round:
+        logger.info("Generiere Tipps für Spieltag %s", args.round)
+        payload = generate_round_tips(
+            args.round,
+            settings=settings,
+            skip_started=args.skip_started,
         )
+        if not payload["predictions"]:
+            print(f"Keine Spiele für {args.round}.")
+            return
+
+        save_round_payload(payload, output_path)
+        history_path = archive_round_predictions(payload, history_dir)
+        tipped = sum(1 for item in payload["predictions"] if item.get("tip"))
+        print(
+            f"{tipped}/{payload['match_count']} Tipps für {args.round} "
+            f"→ {output_path}"
+        )
+        if history_path:
+            print(f"Archiviert → {history_path}")
+
+        for item in payload["predictions"]:
+            if item.get("tip"):
+                print(
+                    f"  {item['home_team']} vs. {item['away_team']}: "
+                    f"{item['tip']} (EV {item['expected_points']:.3f})"
+                )
+            else:
+                print(
+                    f"  {item['home_team']} vs. {item['away_team']}: "
+                    "— (keine Quoten)"
+                )
+    else:
+        day = date.fromisoformat(args.date) if args.date else date.today()
+        logger.info("Generiere Tipps für %s (Berlin)", day.isoformat())
+
+        predictions = generate_day_tips(
+            day,
+            settings=settings,
+            skip_started=args.skip_started,
+        )
+        if not predictions:
+            print(f"Keine Tipps für {day.isoformat()} — keine Spiele oder keine Quoten.")
+            return
+
+        save_predictions(predictions, output_path)
+        history_path = archive_predictions(output_path, history_dir, day=day)
+        print(f"{len(predictions)} Tipps gespeichert → {output_path}")
+        if history_path:
+            print(f"Archiviert → {history_path}")
+
+        for item in predictions:
+            print(
+                f"  {item.fixture.home_team} vs. {item.fixture.away_team}: "
+                f"{item.tip_home}:{item.tip_away} "
+                f"(EV {item.expected_points:.3f}, Quelle: {item.odds.source})"
+            )
 
     if not args.no_site:
         site_path = build_site()

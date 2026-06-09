@@ -1,11 +1,13 @@
-"""Erzeugt Tipps für alle Spiele eines Berliner Kalendertags."""
+"""Erzeugt Tipps für Kalendertage oder komplette Spieltage (Runden)."""
 
 from __future__ import annotations
 
 import json
 import logging
+import re
 from datetime import date, datetime
 from pathlib import Path
+from typing import Any
 from zoneinfo import ZoneInfo
 
 from src.model.calibration import calibrate_poisson_to_market
@@ -13,7 +15,7 @@ from src.model.odds import parse_market_odds
 from src.model.poisson import top_scores
 from src.optimizer.ev import find_optimal_tip
 from src.sources.config import Settings
-from src.sources.models import MatchPrediction
+from src.sources.models import MatchFixture, MatchPrediction
 from src.sources.odds_provider import OddsProvider
 from src.sources.openfootball import OpenFootballSchedule
 
@@ -28,10 +30,60 @@ def generate_day_tips(
 ) -> list[MatchPrediction]:
     settings = settings or Settings.load()
     schedule = OpenFootballSchedule(settings).get_fixtures_for_date(day)
+    return _generate_predictions_for_fixtures(
+        schedule,
+        settings=settings,
+        skip_started=skip_started,
+    )
+
+
+def generate_round_tips(
+    round_name: str,
+    settings: Settings | None = None,
+    *,
+    skip_started: bool = False,
+) -> dict[str, Any]:
+    """Erzeugt Tipps für alle Spiele einer Runde (z. B. Matchday 1)."""
+    settings = settings or Settings.load()
+    schedule = OpenFootballSchedule(settings).get_fixtures_for_round(round_name)
+    if not schedule:
+        logger.info("Keine tippbaren Spiele für %s", round_name)
+        return _empty_round_payload(round_name)
+
+    predictions = _generate_predictions_for_fixtures(
+        schedule,
+        settings=settings,
+        skip_started=skip_started,
+    )
+    prediction_by_id = {
+        item.fixture.fixture_id: item for item in predictions
+    }
+
+    entries: list[dict[str, Any]] = []
+    for fixture in sorted(schedule, key=lambda item: item.kickoff_berlin):
+        prediction = prediction_by_id.get(fixture.fixture_id)
+        if prediction:
+            entries.append(_prediction_to_dict(prediction))
+        else:
+            entries.append(_pending_fixture_dict(fixture))
+
+    return {
+        "round": round_name,
+        "generated_at": datetime.now(tz=ZoneInfo("Europe/Berlin")).isoformat(),
+        "match_count": len(entries),
+        "predictions": entries,
+    }
+
+
+def _generate_predictions_for_fixtures(
+    schedule: list[MatchFixture],
+    *,
+    settings: Settings,
+    skip_started: bool,
+) -> list[MatchPrediction]:
     now = datetime.now(tz=ZoneInfo("Europe/Berlin"))
 
     if not schedule:
-        logger.info("Keine tippbaren Spiele am %s", day.isoformat())
         return []
 
     if not settings.has_oddspapi() and not settings.has_the_odds_api():
@@ -83,6 +135,33 @@ def generate_day_tips(
     return predictions
 
 
+def _empty_round_payload(round_name: str) -> dict[str, Any]:
+    return {
+        "round": round_name,
+        "generated_at": datetime.now(tz=ZoneInfo("Europe/Berlin")).isoformat(),
+        "match_count": 0,
+        "predictions": [],
+    }
+
+
+def _pending_fixture_dict(fixture: MatchFixture) -> dict[str, Any]:
+    return {
+        "fixture_id": fixture.fixture_id,
+        "home_team": fixture.home_team,
+        "away_team": fixture.away_team,
+        "kickoff_berlin": fixture.kickoff_berlin.isoformat(),
+        "venue": fixture.venue,
+        "round": fixture.round_name,
+        "pending": True,
+    }
+
+
+def round_slug(round_name: str) -> str:
+    slug = round_name.lower()
+    slug = re.sub(r"[^a-z0-9]+", "-", slug)
+    return slug.strip("-")
+
+
 def archive_predictions(
     output_path: Path,
     history_dir: Path,
@@ -111,6 +190,23 @@ def archive_predictions(
     return archive_path
 
 
+def archive_round_predictions(
+    payload: dict[str, Any],
+    history_dir: Path,
+) -> Path | None:
+    """Archiviert einen kompletten Spieltag nach state/history/rounds/."""
+    round_name = payload.get("round")
+    if not round_name:
+        return None
+
+    archive_dir = history_dir / "rounds"
+    archive_dir.mkdir(parents=True, exist_ok=True)
+    archive_path = archive_dir / f"{round_slug(round_name)}.json"
+    with archive_path.open("w", encoding="utf-8") as handle:
+        json.dump(payload, handle, ensure_ascii=False, indent=2)
+    return archive_path
+
+
 def save_predictions(
     predictions: list[MatchPrediction],
     output_path: Path,
@@ -129,7 +225,14 @@ def save_predictions(
     return output_path
 
 
-def _prediction_to_dict(prediction: MatchPrediction) -> dict:
+def save_round_payload(payload: dict[str, Any], output_path: Path) -> Path:
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    with output_path.open("w", encoding="utf-8") as handle:
+        json.dump(payload, handle, ensure_ascii=False, indent=2)
+    return output_path
+
+
+def _prediction_to_dict(prediction: MatchPrediction) -> dict[str, Any]:
     fixture = prediction.fixture
     return {
         "fixture_id": fixture.fixture_id,

@@ -59,6 +59,14 @@ class OpenFootballSchedule:
             and is_tippable_match(fixture.home_team, fixture.away_team)
         ]
 
+    def get_fixtures_for_round(self, round_name: str) -> list[MatchFixture]:
+        return [
+            fixture
+            for fixture in self.load_all()
+            if fixture.round_name == round_name
+            and is_tippable_match(fixture.home_team, fixture.away_team)
+        ]
+
     def _read_schedule(self) -> dict:
         if not self.schedule_path.exists():
             raise FileNotFoundError(
