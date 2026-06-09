@@ -11,9 +11,9 @@
 </head>
 <body>
   <div class="page-glow" aria-hidden="true"></div>
-  <div class="cat-layer" aria-hidden="true">
-    <img class="cat-float cat-float-tr" src="static/cats/mascot.svg" alt="">
-    <img class="cat-float cat-float-bl" src="static/cats/purr.svg" alt="">
+  <div class="cat-layer" aria-hidden="true" hidden>
+    <img class="cat-float cat-float-tr" src="static/cats/mascot.svg" alt="" width="48" height="48">
+    <img class="cat-float cat-float-bl" src="static/cats/purr.svg" alt="" width="40" height="40">
   </div>
   <header class="topbar">
     <div class="shell topbar-inner">
@@ -913,8 +913,8 @@
 
   <footer class="footer shell">
     <p>
-      <span class="t-normal">Updated 09.06.2026 21:02 (Berlin) · Results from <code>state/results.json</code> when available</span>
-      <span class="t-cat" hidden>Updated 09.06.2026 21:02 · outcomes from <code>state/results.json</code></span>
+      <span class="t-normal">Updated 09.06.2026 21:05 (Berlin) · Results from <code>state/results.json</code> when available</span>
+      <span class="t-cat" hidden>Updated 09.06.2026 21:05 · outcomes from <code>state/results.json</code></span>
     </p>
   </footer>
 
@@ -932,6 +932,10 @@
         document.querySelectorAll(".t-cat").forEach(function (el) {
           el.hidden = !enabled;
         });
+        var catLayer = document.querySelector(".cat-layer");
+        if (catLayer) {
+          catLayer.hidden = !enabled;
+        }
         if (catBtn) {
           catBtn.setAttribute("aria-pressed", enabled ? "true" : "false");
         }

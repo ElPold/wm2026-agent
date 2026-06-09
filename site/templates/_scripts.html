@@ -12,6 +12,10 @@
         document.querySelectorAll(".t-cat").forEach(function (el) {
           el.hidden = !enabled;
         });
+        var catLayer = document.querySelector(".cat-layer");
+        if (catLayer) {
+          catLayer.hidden = !enabled;
+        }
         if (catBtn) {
           catBtn.setAttribute("aria-pressed", enabled ? "true" : "false");
         }
