@@ -18,33 +18,46 @@
         <span class="brand-dot"></span>
         <span class="brand-label">
           <span class="t-normal">WM 2026 Agent</span>
-          <span class="t-cat">WM 2026 Cat Agent</span>
+          <span class="t-cat" hidden>WM 2026 Cat Agent</span>
         </span>
       </div>
-      <button type="button" class="catify-btn" id="catify-btn" aria-pressed="false">
-        <span>😺</span>
-        <span class="t-normal">Catify</span>
-        <span class="t-cat">Un-Catify</span>
-      </button>
+      <div class="topbar-actions">
+        <a
+          href="https://github.com/ElPold/wm2026-agent/actions/workflows/update-predictions.yml"
+          class="update-btn"
+          id="update-btn"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Opens GitHub Actions to refresh odds for upcoming matches on the selected matchday"
+        >
+          <span class="t-normal">↻ Update matchday</span>
+          <span class="t-cat" hidden>↻ Refill the bowl</span>
+        </a>
+        <button type="button" class="catify-btn" id="catify-btn" aria-pressed="false">
+          <span aria-hidden="true">😺</span>
+          <span class="t-normal">Catify</span>
+          <span class="t-cat" hidden>Un-Catify</span>
+        </button>
+      </div>
     </div>
   </header>
 
   <section class="hero shell">
     <p class="eyebrow">
       <span class="t-normal">Quant Engine · Kicktipp Optimization</span>
-      <span class="t-cat">Quant Cat Engine · Bowl Optimization</span>
+      <span class="t-cat" hidden>Quant Cat Engine · Bowl Optimization</span>
     </p>
     <h1>
       <span class="t-normal">WM 2026 Agent</span>
-      <span class="t-cat">WM 2026 Cat Agent</span>
+      <span class="t-cat" hidden>WM 2026 Cat Agent</span>
     </h1>
     <p class="hero-sub">
       <span class="t-normal">Market-based prediction engine for Kicktipp optimization</span>
-      <span class="t-cat">Market-based prediction engine, now with more cats.</span>
+      <span class="t-cat" hidden>Market-based prediction engine, now with more cats.</span>
     </p>
     <p class="hero-copy">
       <span class="t-normal">Not trying to outsmart the market. Optimizing Kicktipp points from market probabilities.</span>
-      <span class="t-cat">Not trying to outsmart the market. Optimizing tuna points from nap probabilities.</span>
+      <span class="t-cat" hidden>Not trying to outsmart the market. Optimizing tuna points from nap probabilities.</span>
     </p>
     
     <div class="hero-stats">
@@ -52,21 +65,21 @@
         <span class="hero-stat-value">1</span>
         <span class="hero-stat-label">
           <span class="t-normal">Matchdays</span>
-          <span class="t-cat">Nap Days</span>
+          <span class="t-cat" hidden>Nap Days</span>
         </span>
       </div>
       <div class="hero-stat">
         <span class="hero-stat-value">1</span>
         <span class="hero-stat-label">
           <span class="t-normal">Agent Picks</span>
-          <span class="t-cat">Cat Picks</span>
+          <span class="t-cat" hidden>Cat Picks</span>
         </span>
       </div>
       <div class="hero-stat">
-        <span class="hero-stat-value mono">09.06.2026 19:48</span>
+        <span class="hero-stat-value mono">09.06.2026 20:02</span>
         <span class="hero-stat-label">
           <span class="t-normal">Last sync (Berlin)</span>
-          <span class="t-cat">Last purr (Berlin)</span>
+          <span class="t-cat" hidden>Last purr (Berlin)</span>
         </span>
       </div>
     </div>
@@ -75,52 +88,78 @@
 
   <main class="shell main">
     
+    <div class="day-tabs" role="tablist" aria-label="Matchdays">
       
-      <section class="day-block">
-        <div class="day-head">
-          <div>
-            <h2>Donnerstag, 11.06.2026</h2>
-            <p class="day-meta">
-              <span class="t-normal">Generated 09.06.2026 18:29 · 1 match</span>
-              <span class="t-cat">Purred 09.06.2026 18:29 · 1 window watch</span>
-            </p>
-          </div>
-        </div>
+      <button
+        type="button"
+        class="day-tab is-active"
+        role="tab"
+        id="tab-2026-06-11"
+        aria-selected="true"
+        aria-controls="panel-2026-06-11"
+        data-day="2026-06-11"
+      >
+        Matchday 1
+        <span class="day-tab-count mono">1</span>
+      </button>
+      
+    </div>
 
+    
+    <section
+      class="day-panel is-active"
+      id="panel-2026-06-11"
+      role="tabpanel"
+      aria-labelledby="tab-2026-06-11"
+      data-day="2026-06-11"
+      
+    >
+      <div class="day-head">
+        <div>
+          <h2>Donnerstag, 11.06.2026</h2>
+          <p class="day-meta">
+            <span class="t-normal">Generated 09.06.2026 18:29 · 1 match</span>
+            <span class="t-cat" hidden>Purred 09.06.2026 18:29 · 1 window watch</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="match-list">
         
-        
-        <article class="highlight-card">
-          <div class="highlight-top">
+        <article class="match-card is-highlight">
+          <div class="match-top">
             <div>
-              <p class="highlight-kicker">
+              
+              <p class="match-kicker">
                 <span class="t-normal">Day Highlight · EV Pick</span>
-                <span class="t-cat">Day Highlight · Tuna Pick</span>
+                <span class="t-cat" hidden>Day Highlight · Tuna Pick</span>
               </p>
-              <h3 class="highlight-match">Mexico <span class="vs">vs</span> South Africa</h3>
-              <p class="highlight-meta mono">21:00 Berlin · Mexico City</p>
+              
+              <h3 class="match-title">Mexico <span class="vs">vs</span> South Africa</h3>
+              <p class="match-meta mono">21:00 Berlin · Mexico City</p>
             </div>
             <div class="ev-badge">
               <span class="ev-badge-label">
                 <span class="t-normal">Expected Value</span>
-                <span class="t-cat">Tuna Value</span>
+                <span class="t-cat" hidden>Tuna Value</span>
               </span>
               <span class="ev-badge-value">1.79</span>
             </div>
           </div>
 
-          <div class="highlight-body">
+          <div class="match-body">
             <div class="pick-hero">
               <span class="pick-label">
                 <span class="t-normal">Agent Pick</span>
-                <span class="t-cat">Cat Pick</span>
+                <span class="t-cat" hidden>Cat Pick</span>
               </span>
               <span class="pick-score mono">1 : 0</span>
             </div>
 
-            <div class="highlight-side">
+            <div class="match-side">
               <p class="side-label">
                 <span class="t-normal">Market Probability</span>
-                <span class="t-cat">Nap Probability</span>
+                <span class="t-cat" hidden>Nap Probability</span>
               </p>
               <div class="prob-chips">
                 
@@ -144,7 +183,7 @@
               <div class="signal-row">
                 <span class="signal-label">
                   <span class="t-normal">Model Confidence</span>
-                  <span class="t-cat">Cat Confidence</span>
+                  <span class="t-cat" hidden>Cat Confidence</span>
                 </span>
                 <div class="signal-track">
                   <div class="signal-fill confidence-high" style="width: 68%"></div>
@@ -156,164 +195,192 @@
                 
                 <span class="badge badge-ev-pick">
                   <span class="t-normal">EV Pick</span>
-                  <span class="t-cat">Tuna Pick</span>
+                  <span class="t-cat" hidden>Tuna Pick</span>
                 </span>
                 
                 <span class="badge badge-market">
                   <span class="t-normal">Market Signal</span>
-                  <span class="t-cat">Nap Signal</span>
+                  <span class="t-cat" hidden>Nap Signal</span>
                 </span>
                 
                 <span class="badge badge-high">
                   <span class="t-normal">High Confidence</span>
-                  <span class="t-cat">Purring</span>
+                  <span class="t-cat" hidden>Purring</span>
                 </span>
                 
               </div>
             </div>
           </div>
 
-          <p class="highlight-note">
+          
+          <div class="top-scores">
+            <p class="top-scores-label">
+              <span class="t-normal">Top score distribution</span>
+              <span class="t-cat" hidden>Top nap outcomes</span>
+            </p>
+            <ul>
+              
+              <li>
+                <span class="mono">1 : 0</span>
+                <span class="mono">16.3%</span>
+              </li>
+              
+              <li>
+                <span class="mono">2 : 0</span>
+                <span class="mono">15.1%</span>
+              </li>
+              
+              <li>
+                <span class="mono">1 : 1</span>
+                <span class="mono">9.4%</span>
+              </li>
+              
+              <li>
+                <span class="mono">3 : 0</span>
+                <span class="mono">9.4%</span>
+              </li>
+              
+              <li>
+                <span class="mono">2 : 1</span>
+                <span class="mono">8.8%</span>
+              </li>
+              
+            </ul>
+          </div>
+          
+
+          <p class="match-note">
             <span class="t-normal">The agent recommends this score because it maximizes expected Kicktipp points.</span>
-            <span class="t-cat">The data cat quietly pushes this score into your betting bowl because it smells the most expected tuna.</span>
+            <span class="t-cat" hidden>The data cat quietly pushes this score into your betting bowl because it smells the most expected tuna.</span>
           </p>
         </article>
         
-
-        <div class="card-grid">
-          
-          <article class="match-card">
-            <div class="card-head">
-              <div>
-                <p class="card-round">Matchday 1</p>
-                <h3>Mexico <span class="vs">vs</span> South Africa</h3>
-                <p class="card-meta mono">21:00 Berlin · Mexico City</p>
-              </div>
-              <div class="card-ev">
-                <span class="card-ev-label">
-                  <span class="t-normal">EV</span>
-                  <span class="t-cat">Tuna</span>
-                </span>
-                <span class="card-ev-value">1.79</span>
-              </div>
-            </div>
-
-            <div class="card-pick">
-              <span class="card-pick-label">
-                <span class="t-normal">Agent Pick</span>
-                <span class="t-cat">Cat Pick</span>
-              </span>
-              <span class="card-pick-score mono">1 : 0</span>
-            </div>
-
-            <div class="badge-row compact">
-              
-              <span class="badge badge-ev-pick">
-                <span class="t-normal">EV Pick</span>
-                <span class="t-cat">Tuna Pick</span>
-              </span>
-              
-              <span class="badge badge-market">
-                <span class="t-normal">Market Signal</span>
-                <span class="t-cat">Nap Signal</span>
-              </span>
-              
-              <span class="badge badge-high">
-                <span class="t-normal">High Confidence</span>
-                <span class="t-cat">Purring</span>
-              </span>
-              
-            </div>
-
-            <div class="prob-bars">
-              <p class="prob-bars-label">
-                <span class="t-normal">1 / X / 2</span>
-                <span class="t-cat">1 / X / 2 (still numbers)</span>
-              </p>
-              
-              <div class="bar-row">
-                <span class="bar-key mono">1</span>
-                <div class="bar-track"><div class="bar-fill" style="width: 68.2%"></div></div>
-                <span class="bar-pct mono">68.2%</span>
-              </div>
-              
-              <div class="bar-row">
-                <span class="bar-key mono">X</span>
-                <div class="bar-track"><div class="bar-fill" style="width: 20.8%"></div></div>
-                <span class="bar-pct mono">20.8%</span>
-              </div>
-              
-              <div class="bar-row">
-                <span class="bar-key mono">2</span>
-                <div class="bar-track"><div class="bar-fill" style="width: 11.0%"></div></div>
-                <span class="bar-pct mono">11.0%</span>
-              </div>
-              
-            </div>
-
-            
-            <div class="top-scores">
-              <p class="top-scores-label">
-                <span class="t-normal">Top score distribution</span>
-                <span class="t-cat">Top nap outcomes</span>
-              </p>
-              <ul>
-                
-                <li><span class="mono">1:0</span><span class="mono">16.3%</span></li>
-                
-                <li><span class="mono">2:0</span><span class="mono">15.1%</span></li>
-                
-                <li><span class="mono">1:1</span><span class="mono">9.4%</span></li>
-                
-                <li><span class="mono">3:0</span><span class="mono">9.4%</span></li>
-                
-                <li><span class="mono">2:1</span><span class="mono">8.8%</span></li>
-                
-              </ul>
-            </div>
-            
-          </article>
-          
-        </div>
-      </section>
-      
+      </div>
+    </section>
+    
     
 
     <section class="explain-card">
       <h2>
         <span class="t-normal">Why this works</span>
-        <span class="t-cat">Why the cat thinks this works</span>
+        <span class="t-cat" hidden>Why the cat thinks this works</span>
       </h2>
       <p>
         <span class="t-normal">The agent does not predict football better than the market. It converts market odds into score probabilities and selects the result with the highest expected Kicktipp points.</span>
-        <span class="t-cat">The cat does not claim to see the future. It simply sniffs the market odds, converts them into score probabilities and chooses the bowl with the most expected tuna.</span>
+        <span class="t-cat" hidden>The cat does not claim to see the future. It simply sniffs the market odds, converts them into score probabilities and chooses the bowl with the most expected tuna.</span>
       </p>
+    </section>
+
+    <section class="glossary-card">
+      <h2>
+        <span class="t-normal">Parameter glossary</span>
+        <span class="t-cat" hidden>Cat dictionary</span>
+      </h2>
+      <dl class="glossary-list">
+        <div class="glossary-item">
+          <dt>
+            <span class="t-normal">Agent Pick</span>
+            <span class="t-cat" hidden>Cat Pick</span>
+          </dt>
+          <dd>
+            <span class="t-normal">Exact score recommended for Kicktipp — chosen to maximize expected points, not to mirror the most likely final result.</span>
+            <span class="t-cat" hidden>Exact score the cat slides into your bowl — chosen for maximum expected tuna, not because it is the most likely nap outcome.</span>
+          </dd>
+        </div>
+        <div class="glossary-item">
+          <dt>
+            <span class="t-normal">Expected Value (EV)</span>
+            <span class="t-cat" hidden>Tuna Value</span>
+          </dt>
+          <dd>
+            <span class="t-normal">Average Kicktipp points this tip earns across all possible match outcomes (2 / 3 / 4 point rules).</span>
+            <span class="t-cat" hidden>Average tuna points this score earns across all possible nap outcomes (2 / 3 / 4 treat rules).</span>
+          </dd>
+        </div>
+        <div class="glossary-item">
+          <dt>
+            <span class="t-normal">Market Probability (1 / X / 2)</span>
+            <span class="t-cat" hidden>Nap Probability (1 / X / 2)</span>
+          </dt>
+          <dd>
+            <span class="t-normal">De-vigged implied win / draw / away probabilities from bookmaker odds (Pinnacle via OddsPapi).</span>
+            <span class="t-cat" hidden>De-vigged sniff probabilities for home win, shared nap, and away win from bookmaker odds.</span>
+          </dd>
+        </div>
+        <div class="glossary-item">
+          <dt>
+            <span class="t-normal">Model Confidence</span>
+            <span class="t-cat" hidden>Cat Confidence</span>
+          </dt>
+          <dd>
+            <span class="t-normal">Strength of the strongest 1/X/2 market signal. High when one outcome dominates; low when the market is split.</span>
+            <span class="t-cat" hidden>How loudly the market purrs toward one outcome. High when one side dominates; low when the odds are suspiciously balanced.</span>
+          </dd>
+        </div>
+        <div class="glossary-item">
+          <dt>
+            <span class="t-normal">Top score distribution</span>
+            <span class="t-cat" hidden>Top nap outcomes</span>
+          </dt>
+          <dd>
+            <span class="t-normal">Five most likely exact scores from the Poisson model calibrated to market odds — context for the EV pick.</span>
+            <span class="t-cat" hidden>Five most likely exact nap scores from the Poisson model — background sniffing for the chosen bowl.</span>
+          </dd>
+        </div>
+        <div class="glossary-item">
+          <dt>
+            <span class="t-normal">Badges (EV Pick · Market Signal · Confidence)</span>
+            <span class="t-cat" hidden>Badges (Tuna Pick · Nap Signal · Purring)</span>
+          </dt>
+          <dd>
+            <span class="t-normal"><strong>EV Pick</strong> — tip optimizes expected points. <strong>Market Signal</strong> — derived from live odds. <strong>High / Low Confidence</strong> — market clarity. <strong>No odds yet</strong> — waiting for bookmaker lines.</span>
+            <span class="t-cat" hidden><strong>Tuna Pick</strong> — bowl optimizes expected tuna. <strong>Nap Signal</strong> — derived from live odds. <strong>Purring / Suspicious Cat</strong> — market clarity. <strong>Cat still waiting at the window</strong> — no odds yet.</span>
+          </dd>
+        </div>
+        <div class="glossary-item">
+          <dt>
+            <span class="t-normal">Update matchday</span>
+            <span class="t-cat" hidden>Refill the bowl</span>
+          </dt>
+          <dd>
+            <span class="t-normal">Triggers a GitHub Actions workflow that re-runs the agent for the selected calendar date and only updates matches that have not kicked off yet.</span>
+            <span class="t-cat" hidden>Triggers a GitHub Actions workflow that sends the cat back to the odds window — only for matches that have not started napping yet.</span>
+          </dd>
+        </div>
+      </dl>
     </section>
   </main>
 
   <footer class="footer shell">
     <p>
       <span class="t-normal">openfootball schedule · OddsPapi / Pinnacle odds · Poisson calibration · EV optimizer</span>
-      <span class="t-cat">openfootball nap schedule · OddsPapi / Pinnacle sniffing · Poisson purring · tuna optimizer</span>
+      <span class="t-cat" hidden>openfootball nap schedule · OddsPapi / Pinnacle sniffing · Poisson purring · tuna optimizer</span>
     </p>
   </footer>
 
   <script>
     (function () {
-      var KEY = "wm2026-cat-mode";
-      var btn = document.getElementById("catify-btn");
+      var CAT_KEY = "wm2026-cat-mode";
+      var TAB_KEY = "wm2026-active-tab";
+      var catBtn = document.getElementById("catify-btn");
 
-      function applyCatMode(enabled) {
+      function setCatMode(enabled) {
         document.documentElement.classList.toggle("cat-mode", enabled);
         document.body.classList.toggle("cat-mode", enabled);
-        if (btn) {
-          btn.setAttribute("aria-pressed", enabled ? "true" : "false");
+        document.querySelectorAll(".t-normal").forEach(function (el) {
+          el.hidden = enabled;
+        });
+        document.querySelectorAll(".t-cat").forEach(function (el) {
+          el.hidden = !enabled;
+        });
+        if (catBtn) {
+          catBtn.setAttribute("aria-pressed", enabled ? "true" : "false");
         }
       }
 
-      function readStoredCatMode() {
+      function readCatMode() {
         try {
-          return localStorage.getItem(KEY) === "1";
+          return localStorage.getItem(CAT_KEY) === "1";
         } catch (err) {
           return false;
         }
@@ -321,21 +388,64 @@
 
       function storeCatMode(enabled) {
         try {
-          localStorage.setItem(KEY, enabled ? "1" : "0");
+          localStorage.setItem(CAT_KEY, enabled ? "1" : "0");
         } catch (err) {
-          /* ignore private browsing / blocked storage */
+          /* ignore */
         }
       }
 
-      applyCatMode(readStoredCatMode());
+      document.querySelectorAll(".t-cat").forEach(function (el) {
+        el.hidden = true;
+      });
 
-      if (btn) {
-        btn.addEventListener("click", function (event) {
+      setCatMode(readCatMode());
+
+      if (catBtn) {
+        catBtn.addEventListener("click", function (event) {
           event.preventDefault();
           var next = !document.body.classList.contains("cat-mode");
-          applyCatMode(next);
+          setCatMode(next);
           storeCatMode(next);
         });
+      }
+
+      var tabs = Array.prototype.slice.call(document.querySelectorAll(".day-tab"));
+      var panels = Array.prototype.slice.call(document.querySelectorAll(".day-panel"));
+
+      function activateDay(dayId) {
+        tabs.forEach(function (tab) {
+          var active = tab.getAttribute("data-day") === dayId;
+          tab.classList.toggle("is-active", active);
+          tab.setAttribute("aria-selected", active ? "true" : "false");
+        });
+        panels.forEach(function (panel) {
+          var active = panel.getAttribute("data-day") === dayId;
+          panel.classList.toggle("is-active", active);
+          panel.hidden = !active;
+        });
+        try {
+          localStorage.setItem(TAB_KEY, dayId);
+        } catch (err) {
+          /* ignore */
+        }
+      }
+
+      tabs.forEach(function (tab) {
+        tab.addEventListener("click", function () {
+          activateDay(tab.getAttribute("data-day"));
+        });
+      });
+
+      if (tabs.length) {
+        var storedDay = null;
+        try {
+          storedDay = localStorage.getItem(TAB_KEY);
+        } catch (err) {
+          storedDay = null;
+        }
+        if (storedDay && tabs.some(function (tab) { return tab.getAttribute("data-day") === storedDay; })) {
+          activateDay(storedDay);
+        }
       }
     })();
   </script>

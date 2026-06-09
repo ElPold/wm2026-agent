@@ -23,9 +23,12 @@ logger = logging.getLogger(__name__)
 def generate_day_tips(
     day: date,
     settings: Settings | None = None,
+    *,
+    skip_started: bool = False,
 ) -> list[MatchPrediction]:
     settings = settings or Settings.load()
     schedule = OpenFootballSchedule(settings).get_fixtures_for_date(day)
+    now = datetime.now(tz=ZoneInfo("Europe/Berlin"))
 
     if not schedule:
         logger.info("Keine tippbaren Spiele am %s", day.isoformat())
@@ -41,6 +44,14 @@ def generate_day_tips(
     predictions: list[MatchPrediction] = []
 
     for fixture in schedule:
+        if skip_started and fixture.kickoff_berlin <= now:
+            logger.info(
+                "Überspringe gestartetes Spiel %s vs. %s",
+                fixture.home_team,
+                fixture.away_team,
+            )
+            continue
+
         odds = odds_by_fixture.get(fixture.fixture_id)
         if not odds:
             logger.warning(

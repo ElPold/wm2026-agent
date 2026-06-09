@@ -29,7 +29,7 @@ def build_site(
 
     days = _load_prediction_days(predictions_path, history_dir)
     for day in days:
-        day["highlight"] = _pick_highlight(day.get("predictions", []))
+        _mark_day_highlight(day.get("predictions", []))
 
     context = {
         "title": "WM 2026 Agent",
@@ -38,6 +38,10 @@ def build_site(
         ),
         "days": days,
         "total_matches": sum(day["match_count"] for day in days),
+        "update_workflow_url": (
+            "https://github.com/ElPold/wm2026-agent/actions/workflows/"
+            "update-predictions.yml"
+        ),
     }
 
     env = Environment(
@@ -78,9 +82,10 @@ def _load_prediction_days(
         if day_key:
             payloads[day_key] = _enrich_payload(payload, day_key)
 
-    days = sorted(payloads.values(), key=lambda item: item["date"], reverse=True)
+    days = sorted(payloads.values(), key=lambda item: item["date"])
     for day in days:
         day["predictions"].sort(key=lambda item: item.get("kickoff_berlin", ""))
+        day["tab_label"] = _tab_label(day["predictions"], day_key=day["date"])
     return days
 
 
@@ -137,6 +142,13 @@ def _enrich_match(item: dict[str, Any]) -> dict[str, Any]:
     enriched["badges"] = _build_badges(enriched, max_prob)
     enriched["confidence"] = _confidence_level(max_prob)
     enriched["signal_strength"] = int(round(max_prob * 100))
+    enriched["top_scores_display"] = [
+        {
+            "score": _format_tip_display(item["score"]),
+            "probability": item["probability"],
+        }
+        for item in enriched.get("top_scores", [])
+    ]
     return enriched
 
 
@@ -170,10 +182,25 @@ def _build_badges(match: dict[str, Any], max_prob: float) -> list[dict[str, str]
     return badges
 
 
-def _pick_highlight(predictions: list[dict[str, Any]]) -> dict[str, Any] | None:
+def _mark_day_highlight(predictions: list[dict[str, Any]]) -> None:
     if not predictions:
-        return None
-    return max(predictions, key=lambda item: float(item.get("expected_points", 0)))
+        return
+    best = max(predictions, key=lambda item: float(item.get("expected_points", 0)))
+    best_id = best.get("fixture_id")
+    for item in predictions:
+        item["is_day_highlight"] = item.get("fixture_id") == best_id
+
+
+def _tab_label(predictions: list[dict[str, Any]], day_key: str) -> str:
+    if predictions:
+        round_name = predictions[0].get("round")
+        if round_name:
+            return round_name
+    try:
+        dt = datetime.strptime(day_key, "%Y-%m-%d")
+        return dt.strftime("%d.%m.%Y")
+    except ValueError:
+        return day_key
 
 
 def _format_kickoff(value: str) -> str:

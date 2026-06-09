@@ -71,6 +71,11 @@ def main() -> None:
         action="store_true",
         help="Website nach Tipp-Lauf nicht neu bauen",
     )
+    parser.add_argument(
+        "--skip-started",
+        action="store_true",
+        help="Bereits gestartete Spiele überspringen",
+    )
     args = parser.parse_args()
 
     if args.demo:
@@ -96,7 +101,11 @@ def main() -> None:
     day = date.fromisoformat(args.date) if args.date else date.today()
     logger.info("Generiere Tipps für %s (Berlin)", day.isoformat())
 
-    predictions = generate_day_tips(day, settings=settings)
+    predictions = generate_day_tips(
+        day,
+        settings=settings,
+        skip_started=args.skip_started,
+    )
     if not predictions:
         print(f"Keine Tipps für {day.isoformat()} — keine Spiele oder keine Quoten.")
         return

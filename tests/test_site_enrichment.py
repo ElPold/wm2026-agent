@@ -1,4 +1,4 @@
-from src.site.generator import _enrich_match, _pick_highlight
+from src.site.generator import _enrich_match, _mark_day_highlight
 
 
 def test_enrich_match_adds_display_and_badges():
@@ -15,9 +15,11 @@ def test_enrich_match_adds_display_and_badges():
     assert any(b["slug"] == "ev-pick" for b in match["badges"])
 
 
-def test_pick_highlight_chooses_highest_ev():
+def test_mark_day_highlight_flags_best_ev():
     picks = [
-        {"expected_points": 1.2},
-        {"expected_points": 1.9},
+        {"fixture_id": "a", "expected_points": 1.2},
+        {"fixture_id": "b", "expected_points": 1.9},
     ]
-    assert _pick_highlight(picks)["expected_points"] == 1.9
+    _mark_day_highlight(picks)
+    assert picks[0]["is_day_highlight"] is False
+    assert picks[1]["is_day_highlight"] is True

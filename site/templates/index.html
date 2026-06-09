@@ -18,33 +18,46 @@
         <span class="brand-dot"></span>
         <span class="brand-label">
           <span class="t-normal">WM 2026 Agent</span>
-          <span class="t-cat">WM 2026 Cat Agent</span>
+          <span class="t-cat" hidden>WM 2026 Cat Agent</span>
         </span>
       </div>
-      <button type="button" class="catify-btn" id="catify-btn" aria-pressed="false">
-        <span>😺</span>
-        <span class="t-normal">Catify</span>
-        <span class="t-cat">Un-Catify</span>
-      </button>
+      <div class="topbar-actions">
+        <a
+          href="{{ update_workflow_url }}"
+          class="update-btn"
+          id="update-btn"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Opens GitHub Actions to refresh odds for upcoming matches on the selected matchday"
+        >
+          <span class="t-normal">↻ Update matchday</span>
+          <span class="t-cat" hidden>↻ Refill the bowl</span>
+        </a>
+        <button type="button" class="catify-btn" id="catify-btn" aria-pressed="false">
+          <span aria-hidden="true">😺</span>
+          <span class="t-normal">Catify</span>
+          <span class="t-cat" hidden>Un-Catify</span>
+        </button>
+      </div>
     </div>
   </header>
 
   <section class="hero shell">
     <p class="eyebrow">
       <span class="t-normal">Quant Engine · Kicktipp Optimization</span>
-      <span class="t-cat">Quant Cat Engine · Bowl Optimization</span>
+      <span class="t-cat" hidden>Quant Cat Engine · Bowl Optimization</span>
     </p>
     <h1>
       <span class="t-normal">WM 2026 Agent</span>
-      <span class="t-cat">WM 2026 Cat Agent</span>
+      <span class="t-cat" hidden>WM 2026 Cat Agent</span>
     </h1>
     <p class="hero-sub">
       <span class="t-normal">Market-based prediction engine for Kicktipp optimization</span>
-      <span class="t-cat">Market-based prediction engine, now with more cats.</span>
+      <span class="t-cat" hidden>Market-based prediction engine, now with more cats.</span>
     </p>
     <p class="hero-copy">
       <span class="t-normal">Not trying to outsmart the market. Optimizing Kicktipp points from market probabilities.</span>
-      <span class="t-cat">Not trying to outsmart the market. Optimizing tuna points from nap probabilities.</span>
+      <span class="t-cat" hidden>Not trying to outsmart the market. Optimizing tuna points from nap probabilities.</span>
     </p>
     {% if days %}
     <div class="hero-stats">
@@ -52,21 +65,21 @@
         <span class="hero-stat-value">{{ days|length }}</span>
         <span class="hero-stat-label">
           <span class="t-normal">Matchdays</span>
-          <span class="t-cat">Nap Days</span>
+          <span class="t-cat" hidden>Nap Days</span>
         </span>
       </div>
       <div class="hero-stat">
         <span class="hero-stat-value">{{ total_matches }}</span>
         <span class="hero-stat-label">
           <span class="t-normal">Agent Picks</span>
-          <span class="t-cat">Cat Picks</span>
+          <span class="t-cat" hidden>Cat Picks</span>
         </span>
       </div>
       <div class="hero-stat">
         <span class="hero-stat-value mono">{{ generated_at }}</span>
         <span class="hero-stat-label">
           <span class="t-normal">Last sync (Berlin)</span>
-          <span class="t-cat">Last purr (Berlin)</span>
+          <span class="t-cat" hidden>Last purr (Berlin)</span>
         </span>
       </div>
     </div>
@@ -78,63 +91,91 @@
     <section class="empty-card">
       <h2>
         <span class="t-normal">No predictions yet</span>
-        <span class="t-cat">No tuna yet</span>
+        <span class="t-cat" hidden>No tuna yet</span>
       </h2>
       <p>
         <span class="t-normal">Run <code>python run.py --date YYYY-MM-DD</code> to generate picks.</span>
-        <span class="t-cat">Run <code>python run.py --date YYYY-MM-DD</code> so the cat can fill the bowl.</span>
+        <span class="t-cat" hidden>Run <code>python run.py --date YYYY-MM-DD</code> so the cat can fill the bowl.</span>
       </p>
     </section>
     {% else %}
+    <div class="day-tabs" role="tablist" aria-label="Matchdays">
       {% for day in days %}
-      <section class="day-block">
-        <div class="day-head">
-          <div>
-            <h2>{{ day.date_label }}</h2>
-            <p class="day-meta">
-              <span class="t-normal">Generated {{ day.generated_at }} · {{ day.match_count }} match{% if day.match_count != 1 %}es{% endif %}</span>
-              <span class="t-cat">Purred {{ day.generated_at }} · {{ day.match_count }} window watch{% if day.match_count != 1 %}es{% endif %}</span>
-            </p>
-          </div>
-        </div>
+      <button
+        type="button"
+        class="day-tab{% if loop.first %} is-active{% endif %}"
+        role="tab"
+        id="tab-{{ day.date }}"
+        aria-selected="{% if loop.first %}true{% else %}false{% endif %}"
+        aria-controls="panel-{{ day.date }}"
+        data-day="{{ day.date }}"
+      >
+        {{ day.tab_label }}
+        <span class="day-tab-count mono">{{ day.match_count }}</span>
+      </button>
+      {% endfor %}
+    </div>
 
-        {% if day.highlight %}
-        {% set h = day.highlight %}
-        <article class="highlight-card">
-          <div class="highlight-top">
+    {% for day in days %}
+    <section
+      class="day-panel{% if loop.first %} is-active{% endif %}"
+      id="panel-{{ day.date }}"
+      role="tabpanel"
+      aria-labelledby="tab-{{ day.date }}"
+      data-day="{{ day.date }}"
+      {% if not loop.first %}hidden{% endif %}
+    >
+      <div class="day-head">
+        <div>
+          <h2>{{ day.date_label }}</h2>
+          <p class="day-meta">
+            <span class="t-normal">Generated {{ day.generated_at }} · {{ day.match_count }} match{% if day.match_count != 1 %}es{% endif %}</span>
+            <span class="t-cat" hidden>Purred {{ day.generated_at }} · {{ day.match_count }} window watch{% if day.match_count != 1 %}es{% endif %}</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="match-list">
+        {% for match in day.predictions %}
+        <article class="match-card{% if match.is_day_highlight %} is-highlight{% endif %}">
+          <div class="match-top">
             <div>
-              <p class="highlight-kicker">
+              {% if match.is_day_highlight %}
+              <p class="match-kicker">
                 <span class="t-normal">Day Highlight · EV Pick</span>
-                <span class="t-cat">Day Highlight · Tuna Pick</span>
+                <span class="t-cat" hidden>Day Highlight · Tuna Pick</span>
               </p>
-              <h3 class="highlight-match">{{ h.home_team }} <span class="vs">vs</span> {{ h.away_team }}</h3>
-              <p class="highlight-meta mono">{{ h.kickoff_time }} Berlin{% if h.venue %} · {{ h.venue }}{% endif %}</p>
+              {% else %}
+              <p class="match-round">{{ match.round or "WM 2026" }}</p>
+              {% endif %}
+              <h3 class="match-title">{{ match.home_team }} <span class="vs">vs</span> {{ match.away_team }}</h3>
+              <p class="match-meta mono">{{ match.kickoff_time }} Berlin{% if match.venue %} · {{ match.venue }}{% endif %}</p>
             </div>
             <div class="ev-badge">
               <span class="ev-badge-label">
                 <span class="t-normal">Expected Value</span>
-                <span class="t-cat">Tuna Value</span>
+                <span class="t-cat" hidden>Tuna Value</span>
               </span>
-              <span class="ev-badge-value">{{ "%.2f"|format(h.expected_points) }}</span>
+              <span class="ev-badge-value">{{ "%.2f"|format(match.expected_points) }}</span>
             </div>
           </div>
 
-          <div class="highlight-body">
+          <div class="match-body">
             <div class="pick-hero">
               <span class="pick-label">
                 <span class="t-normal">Agent Pick</span>
-                <span class="t-cat">Cat Pick</span>
+                <span class="t-cat" hidden>Cat Pick</span>
               </span>
-              <span class="pick-score mono">{{ h.tip_display }}</span>
+              <span class="pick-score mono">{{ match.tip_display }}</span>
             </div>
 
-            <div class="highlight-side">
+            <div class="match-side">
               <p class="side-label">
                 <span class="t-normal">Market Probability</span>
-                <span class="t-cat">Nap Probability</span>
+                <span class="t-cat" hidden>Nap Probability</span>
               </p>
               <div class="prob-chips">
-                {% for chip in h.prob_chips %}
+                {% for chip in match.prob_chips %}
                 <div class="prob-chip">
                   <span class="chip-key">{{ chip.key }}</span>
                   <span class="chip-val mono">{{ (chip.value * 100)|round(1) }}%</span>
@@ -145,136 +186,174 @@
               <div class="signal-row">
                 <span class="signal-label">
                   <span class="t-normal">Model Confidence</span>
-                  <span class="t-cat">Cat Confidence</span>
+                  <span class="t-cat" hidden>Cat Confidence</span>
                 </span>
                 <div class="signal-track">
-                  <div class="signal-fill confidence-{{ h.confidence }}" style="width: {{ h.signal_strength }}%"></div>
+                  <div class="signal-fill confidence-{{ match.confidence }}" style="width: {{ match.signal_strength }}%"></div>
                 </div>
-                <span class="signal-pct mono">{{ h.signal_strength }}%</span>
+                <span class="signal-pct mono">{{ match.signal_strength }}%</span>
               </div>
 
               <div class="badge-row">
-                {% for badge in h.badges %}
+                {% for badge in match.badges %}
                 <span class="badge badge-{{ badge.slug }}">
                   <span class="t-normal">{{ badge.label }}</span>
-                  <span class="t-cat">{% if badge.slug == 'ev-pick' %}Tuna Pick{% elif badge.slug == 'market' %}Nap Signal{% elif badge.slug == 'high' %}Purring{% elif badge.slug == 'low' %}Suspicious Cat{% else %}{{ badge.label }}{% endif %}</span>
+                  <span class="t-cat" hidden>{% if badge.slug == 'ev-pick' %}Tuna Pick{% elif badge.slug == 'market' %}Nap Signal{% elif badge.slug == 'high' %}Purring{% elif badge.slug == 'low' %}Suspicious Cat{% elif badge.slug == 'no-odds' %}Cat still waiting at the window{% else %}{{ badge.label }}{% endif %}</span>
                 </span>
                 {% endfor %}
               </div>
             </div>
           </div>
 
-          <p class="highlight-note">
+          {% if match.top_scores_display %}
+          <div class="top-scores">
+            <p class="top-scores-label">
+              <span class="t-normal">Top score distribution</span>
+              <span class="t-cat" hidden>Top nap outcomes</span>
+            </p>
+            <ul>
+              {% for item in match.top_scores_display[:5] %}
+              <li>
+                <span class="mono">{{ item.score }}</span>
+                <span class="mono">{{ (item.probability * 100)|round(1) }}%</span>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% endif %}
+
+          <p class="match-note">
             <span class="t-normal">The agent recommends this score because it maximizes expected Kicktipp points.</span>
-            <span class="t-cat">The data cat quietly pushes this score into your betting bowl because it smells the most expected tuna.</span>
+            <span class="t-cat" hidden>The data cat quietly pushes this score into your betting bowl because it smells the most expected tuna.</span>
           </p>
         </article>
-        {% endif %}
-
-        <div class="card-grid">
-          {% for match in day.predictions %}
-          <article class="match-card">
-            <div class="card-head">
-              <div>
-                <p class="card-round">{{ match.round or "WM 2026" }}</p>
-                <h3>{{ match.home_team }} <span class="vs">vs</span> {{ match.away_team }}</h3>
-                <p class="card-meta mono">{{ match.kickoff_time }} Berlin{% if match.venue %} · {{ match.venue }}{% endif %}</p>
-              </div>
-              <div class="card-ev">
-                <span class="card-ev-label">
-                  <span class="t-normal">EV</span>
-                  <span class="t-cat">Tuna</span>
-                </span>
-                <span class="card-ev-value">{{ "%.2f"|format(match.expected_points) }}</span>
-              </div>
-            </div>
-
-            <div class="card-pick">
-              <span class="card-pick-label">
-                <span class="t-normal">Agent Pick</span>
-                <span class="t-cat">Cat Pick</span>
-              </span>
-              <span class="card-pick-score mono">{{ match.tip_display }}</span>
-            </div>
-
-            <div class="badge-row compact">
-              {% for badge in match.badges %}
-              <span class="badge badge-{{ badge.slug }}">
-                <span class="t-normal">{{ badge.label }}</span>
-                <span class="t-cat">{% if badge.slug == 'ev-pick' %}Tuna Pick{% elif badge.slug == 'market' %}Nap Signal{% elif badge.slug == 'high' %}Purring{% elif badge.slug == 'low' %}Suspicious Cat{% elif badge.slug == 'no-odds' %}Cat still waiting at the window{% else %}{{ badge.label }}{% endif %}</span>
-              </span>
-              {% endfor %}
-            </div>
-
-            <div class="prob-bars">
-              <p class="prob-bars-label">
-                <span class="t-normal">1 / X / 2</span>
-                <span class="t-cat">1 / X / 2 (still numbers)</span>
-              </p>
-              {% for label, prob in match.prob_bars %}
-              <div class="bar-row">
-                <span class="bar-key mono">{{ label }}</span>
-                <div class="bar-track"><div class="bar-fill" style="width: {{ (prob * 100)|round(1) }}%"></div></div>
-                <span class="bar-pct mono">{{ (prob * 100)|round(1) }}%</span>
-              </div>
-              {% endfor %}
-            </div>
-
-            {% if match.top_scores %}
-            <div class="top-scores">
-              <p class="top-scores-label">
-                <span class="t-normal">Top score distribution</span>
-                <span class="t-cat">Top nap outcomes</span>
-              </p>
-              <ul>
-                {% for item in match.top_scores[:5] %}
-                <li><span class="mono">{{ item.score }}</span><span class="mono">{{ (item.probability * 100)|round(1) }}%</span></li>
-                {% endfor %}
-              </ul>
-            </div>
-            {% endif %}
-          </article>
-          {% endfor %}
-        </div>
-      </section>
-      {% endfor %}
+        {% endfor %}
+      </div>
+    </section>
+    {% endfor %}
     {% endif %}
 
     <section class="explain-card">
       <h2>
         <span class="t-normal">Why this works</span>
-        <span class="t-cat">Why the cat thinks this works</span>
+        <span class="t-cat" hidden>Why the cat thinks this works</span>
       </h2>
       <p>
         <span class="t-normal">The agent does not predict football better than the market. It converts market odds into score probabilities and selects the result with the highest expected Kicktipp points.</span>
-        <span class="t-cat">The cat does not claim to see the future. It simply sniffs the market odds, converts them into score probabilities and chooses the bowl with the most expected tuna.</span>
+        <span class="t-cat" hidden>The cat does not claim to see the future. It simply sniffs the market odds, converts them into score probabilities and chooses the bowl with the most expected tuna.</span>
       </p>
+    </section>
+
+    <section class="glossary-card">
+      <h2>
+        <span class="t-normal">Parameter glossary</span>
+        <span class="t-cat" hidden>Cat dictionary</span>
+      </h2>
+      <dl class="glossary-list">
+        <div class="glossary-item">
+          <dt>
+            <span class="t-normal">Agent Pick</span>
+            <span class="t-cat" hidden>Cat Pick</span>
+          </dt>
+          <dd>
+            <span class="t-normal">Exact score recommended for Kicktipp — chosen to maximize expected points, not to mirror the most likely final result.</span>
+            <span class="t-cat" hidden>Exact score the cat slides into your bowl — chosen for maximum expected tuna, not because it is the most likely nap outcome.</span>
+          </dd>
+        </div>
+        <div class="glossary-item">
+          <dt>
+            <span class="t-normal">Expected Value (EV)</span>
+            <span class="t-cat" hidden>Tuna Value</span>
+          </dt>
+          <dd>
+            <span class="t-normal">Average Kicktipp points this tip earns across all possible match outcomes (2 / 3 / 4 point rules).</span>
+            <span class="t-cat" hidden>Average tuna points this score earns across all possible nap outcomes (2 / 3 / 4 treat rules).</span>
+          </dd>
+        </div>
+        <div class="glossary-item">
+          <dt>
+            <span class="t-normal">Market Probability (1 / X / 2)</span>
+            <span class="t-cat" hidden>Nap Probability (1 / X / 2)</span>
+          </dt>
+          <dd>
+            <span class="t-normal">De-vigged implied win / draw / away probabilities from bookmaker odds (Pinnacle via OddsPapi).</span>
+            <span class="t-cat" hidden>De-vigged sniff probabilities for home win, shared nap, and away win from bookmaker odds.</span>
+          </dd>
+        </div>
+        <div class="glossary-item">
+          <dt>
+            <span class="t-normal">Model Confidence</span>
+            <span class="t-cat" hidden>Cat Confidence</span>
+          </dt>
+          <dd>
+            <span class="t-normal">Strength of the strongest 1/X/2 market signal. High when one outcome dominates; low when the market is split.</span>
+            <span class="t-cat" hidden>How loudly the market purrs toward one outcome. High when one side dominates; low when the odds are suspiciously balanced.</span>
+          </dd>
+        </div>
+        <div class="glossary-item">
+          <dt>
+            <span class="t-normal">Top score distribution</span>
+            <span class="t-cat" hidden>Top nap outcomes</span>
+          </dt>
+          <dd>
+            <span class="t-normal">Five most likely exact scores from the Poisson model calibrated to market odds — context for the EV pick.</span>
+            <span class="t-cat" hidden>Five most likely exact nap scores from the Poisson model — background sniffing for the chosen bowl.</span>
+          </dd>
+        </div>
+        <div class="glossary-item">
+          <dt>
+            <span class="t-normal">Badges (EV Pick · Market Signal · Confidence)</span>
+            <span class="t-cat" hidden>Badges (Tuna Pick · Nap Signal · Purring)</span>
+          </dt>
+          <dd>
+            <span class="t-normal"><strong>EV Pick</strong> — tip optimizes expected points. <strong>Market Signal</strong> — derived from live odds. <strong>High / Low Confidence</strong> — market clarity. <strong>No odds yet</strong> — waiting for bookmaker lines.</span>
+            <span class="t-cat" hidden><strong>Tuna Pick</strong> — bowl optimizes expected tuna. <strong>Nap Signal</strong> — derived from live odds. <strong>Purring / Suspicious Cat</strong> — market clarity. <strong>Cat still waiting at the window</strong> — no odds yet.</span>
+          </dd>
+        </div>
+        <div class="glossary-item">
+          <dt>
+            <span class="t-normal">Update matchday</span>
+            <span class="t-cat" hidden>Refill the bowl</span>
+          </dt>
+          <dd>
+            <span class="t-normal">Triggers a GitHub Actions workflow that re-runs the agent for the selected calendar date and only updates matches that have not kicked off yet.</span>
+            <span class="t-cat" hidden>Triggers a GitHub Actions workflow that sends the cat back to the odds window — only for matches that have not started napping yet.</span>
+          </dd>
+        </div>
+      </dl>
     </section>
   </main>
 
   <footer class="footer shell">
     <p>
       <span class="t-normal">openfootball schedule · OddsPapi / Pinnacle odds · Poisson calibration · EV optimizer</span>
-      <span class="t-cat">openfootball nap schedule · OddsPapi / Pinnacle sniffing · Poisson purring · tuna optimizer</span>
+      <span class="t-cat" hidden>openfootball nap schedule · OddsPapi / Pinnacle sniffing · Poisson purring · tuna optimizer</span>
     </p>
   </footer>
 
   <script>
     (function () {
-      var KEY = "wm2026-cat-mode";
-      var btn = document.getElementById("catify-btn");
+      var CAT_KEY = "wm2026-cat-mode";
+      var TAB_KEY = "wm2026-active-tab";
+      var catBtn = document.getElementById("catify-btn");
 
-      function applyCatMode(enabled) {
+      function setCatMode(enabled) {
         document.documentElement.classList.toggle("cat-mode", enabled);
         document.body.classList.toggle("cat-mode", enabled);
-        if (btn) {
-          btn.setAttribute("aria-pressed", enabled ? "true" : "false");
+        document.querySelectorAll(".t-normal").forEach(function (el) {
+          el.hidden = enabled;
+        });
+        document.querySelectorAll(".t-cat").forEach(function (el) {
+          el.hidden = !enabled;
+        });
+        if (catBtn) {
+          catBtn.setAttribute("aria-pressed", enabled ? "true" : "false");
         }
       }
 
-      function readStoredCatMode() {
+      function readCatMode() {
         try {
-          return localStorage.getItem(KEY) === "1";
+          return localStorage.getItem(CAT_KEY) === "1";
         } catch (err) {
           return false;
         }
@@ -282,21 +361,64 @@
 
       function storeCatMode(enabled) {
         try {
-          localStorage.setItem(KEY, enabled ? "1" : "0");
+          localStorage.setItem(CAT_KEY, enabled ? "1" : "0");
         } catch (err) {
-          /* ignore private browsing / blocked storage */
+          /* ignore */
         }
       }
 
-      applyCatMode(readStoredCatMode());
+      document.querySelectorAll(".t-cat").forEach(function (el) {
+        el.hidden = true;
+      });
 
-      if (btn) {
-        btn.addEventListener("click", function (event) {
+      setCatMode(readCatMode());
+
+      if (catBtn) {
+        catBtn.addEventListener("click", function (event) {
           event.preventDefault();
           var next = !document.body.classList.contains("cat-mode");
-          applyCatMode(next);
+          setCatMode(next);
           storeCatMode(next);
         });
+      }
+
+      var tabs = Array.prototype.slice.call(document.querySelectorAll(".day-tab"));
+      var panels = Array.prototype.slice.call(document.querySelectorAll(".day-panel"));
+
+      function activateDay(dayId) {
+        tabs.forEach(function (tab) {
+          var active = tab.getAttribute("data-day") === dayId;
+          tab.classList.toggle("is-active", active);
+          tab.setAttribute("aria-selected", active ? "true" : "false");
+        });
+        panels.forEach(function (panel) {
+          var active = panel.getAttribute("data-day") === dayId;
+          panel.classList.toggle("is-active", active);
+          panel.hidden = !active;
+        });
+        try {
+          localStorage.setItem(TAB_KEY, dayId);
+        } catch (err) {
+          /* ignore */
+        }
+      }
+
+      tabs.forEach(function (tab) {
+        tab.addEventListener("click", function () {
+          activateDay(tab.getAttribute("data-day"));
+        });
+      });
+
+      if (tabs.length) {
+        var storedDay = null;
+        try {
+          storedDay = localStorage.getItem(TAB_KEY);
+        } catch (err) {
+          storedDay = null;
+        }
+        if (storedDay && tabs.some(function (tab) { return tab.getAttribute("data-day") === storedDay; })) {
+          activateDay(storedDay);
+        }
       }
     })();
   </script>
