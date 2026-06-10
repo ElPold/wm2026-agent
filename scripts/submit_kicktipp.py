@@ -196,6 +196,11 @@ def main() -> int:
         help="Bonusfragen nicht übertragen",
     )
     parser.add_argument(
+        "--bonus-only",
+        action="store_true",
+        help="Nur Bonusfragen übertragen (Spieltipps überspringen)",
+    )
+    parser.add_argument(
         "--aliases",
         type=Path,
         default=DEFAULT_ALIASES,
@@ -221,10 +226,16 @@ def main() -> int:
     aliases = load_aliases(args.aliases)
     community = ensure_community(os.environ.get("KICKTIPP_COMMUNITY")) if not args.dry_run else os.environ.get("KICKTIPP_COMMUNITY", "(dry-run)")
 
+    if args.bonus_only:
+        args.no_bonus = False
+
     predictions_payload = json.loads(args.predictions.read_text(encoding="utf-8"))
-    match_bets = match_bets_from_predictions(predictions_payload, aliases)
+    match_bets = [] if args.bonus_only else match_bets_from_predictions(predictions_payload, aliases)
     if not match_bets:
-        print("Keine abzugebenden Spieltipps gefunden.")
+        if args.bonus_only:
+            print("Nur Bonusfragen — Spieltipps übersprungen.")
+        else:
+            print("Keine abzugebenden Spieltipps gefunden.")
     else:
         matchday = args.matchday or parse_matchday(predictions_payload.get("round", ""))
         cmd_args = ["bet", *match_bets]
