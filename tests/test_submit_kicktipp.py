@@ -12,6 +12,7 @@ _spec.loader.exec_module(_mod)
 bonus_bets_from_state = _mod.bonus_bets_from_state
 match_bets_from_predictions = _mod.match_bets_from_predictions
 parse_matchday = _mod.parse_matchday
+map_bonus_question = _mod.map_bonus_question
 
 
 def test_parse_matchday():
@@ -40,6 +41,14 @@ def test_match_bets_skips_pending():
     assert bets == ["Spain vs Cabo Verde=1:0"]
 
 
+def test_map_bonus_question_de():
+    import os
+
+    os.environ["KICKTIPP_LOCALE"] = "de"
+    assert map_bonus_question("Who will be world champion?") == "Wer wird Weltmeister?"
+    assert map_bonus_question("Who wins Group H?") == "Wer gewinnt die Gruppe H?"
+
+
 def test_bonus_bets_multi_select():
     payload = {
         "world_champion": {
@@ -54,8 +63,11 @@ def test_bonus_bets_multi_select():
             {"question": "Who wins Group A?", "pick": "Mexico"},
         ],
     }
-    bets = bonus_bets_from_state(payload, {})
-    assert bets[0] == "Who will be world champion?=Argentina"
-    assert bets[1] == "Who reaches the semi-final?=Argentina"
-    assert bets[2] == "Who reaches the semi-final?=France"
-    assert bets[3] == "Who wins Group A?=Mexico"
+    import os
+
+    os.environ["KICKTIPP_LOCALE"] = "de"
+    bets = bonus_bets_from_state(payload, {"Argentina": "Argentinien"})
+    assert bets[0] == "Wer wird Weltmeister?=Argentinien"
+    assert bets[1] == "Wer erreicht das Halbfinale?=Argentinien"
+    assert bets[2] == "Wer erreicht das Halbfinale?=France"
+    assert bets[3] == "Wer gewinnt die Gruppe A?=Mexico"

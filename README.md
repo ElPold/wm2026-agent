@@ -58,7 +58,7 @@ Lokal testen (ohne Abgabe):
 python scripts/submit_kicktipp.py --dry-run
 ```
 
-Teamnamen auf Kicktipp können abweichen — optional `config/kicktipp_aliases.json` anlegen (Vorlage: `config/kicktipp_aliases.example.json`).
+Deutsche Runden laufen auf **kicktipp.de** mit `/tippabgabe` (nicht kicktipp.com/predict). Der Workflow patcht kicktipp-agent automatisch (`scripts/patch_kicktipp_agent.sh`). Teamnamen und Bonusfragen werden über `config/kicktipp_aliases.json` und `KICKTIPP_LOCALE=de` auf Deutsch gemappt.
 
 Lokal aus `.env` setzen:
 

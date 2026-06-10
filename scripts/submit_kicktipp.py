@@ -27,6 +27,14 @@ DEFAULT_PREDICTIONS = ROOT / "state" / "predictions.json"
 DEFAULT_BONUS = ROOT / "state" / "bonus.json"
 DEFAULT_ALIASES = ROOT / "config" / "kicktipp_aliases.json"
 
+BONUS_QUESTION_DE: dict[str, str] = {
+    "Who will be world champion?": "Wer wird Weltmeister?",
+    "Which team supplies the top scorer?": (
+        "Welche Mannschaft stellt den Spieler mit den meisten Toren?"
+    ),
+    "Who reaches the semi-final?": "Wer erreicht das Halbfinale?",
+}
+
 
 def parse_matchday(round_name: str) -> int | None:
     match = re.search(r"matchday\s*(\d+)", round_name, re.IGNORECASE)
@@ -44,6 +52,18 @@ def load_aliases(path: Path) -> dict[str, str]:
 
 def kicktipp_team(name: str, aliases: dict[str, str]) -> str:
     return aliases.get(name, name)
+
+
+def map_bonus_question(question: str) -> str:
+    locale = os.environ.get("KICKTIPP_LOCALE", "de").lower()
+    if locale != "de":
+        return question
+    if question in BONUS_QUESTION_DE:
+        return BONUS_QUESTION_DE[question]
+    group_match = re.match(r"Who wins Group ([A-L])\?", question, re.IGNORECASE)
+    if group_match:
+        return f"Wer gewinnt die Gruppe {group_match.group(1).upper()}?"
+    return question
 
 
 def match_bets_from_predictions(payload: dict, aliases: dict[str, str]) -> list[str]:
@@ -66,22 +86,25 @@ def bonus_bets_from_state(payload: dict, aliases: dict[str, str]) -> list[str]:
     champion = payload.get("world_champion") or {}
     if champion.get("question") and champion.get("pick"):
         pick = kicktipp_team(champion["pick"], aliases)
-        bets.append(f"{champion['question']}={pick}")
+        question = map_bonus_question(champion["question"])
+        bets.append(f"{question}={pick}")
 
     scorer = payload.get("top_scorer_team") or {}
     if scorer.get("question") and scorer.get("pick"):
         pick = kicktipp_team(scorer["pick"], aliases)
-        bets.append(f"{scorer['question']}={pick}")
+        question = map_bonus_question(scorer["question"])
+        bets.append(f"{question}={pick}")
 
     semi = payload.get("semi_finalists") or {}
-    question = semi.get("question")
+    question = map_bonus_question(semi.get("question", ""))
     for pick in semi.get("picks") or []:
         bets.append(f"{question}={kicktipp_team(pick, aliases)}")
 
     for group in payload.get("group_winners") or []:
         if group.get("question") and group.get("pick"):
             pick = kicktipp_team(group["pick"], aliases)
-            bets.append(f"{group['question']}={pick}")
+            question = map_bonus_question(group["question"])
+            bets.append(f"{question}={pick}")
 
     return bets
 
