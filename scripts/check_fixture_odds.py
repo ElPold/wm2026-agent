@@ -12,7 +12,7 @@ sys.path.insert(0, str(ROOT))
 
 from src.sources.config import Settings
 from src.sources.match_linker import link_fixtures
-from src.sources.oddspapi import OddsPapiClient, parse_bookmaker_odds
+from src.sources.oddspapi import OddsPapiClient, parse_bookmaker_odds, _parse_bookmaker_markets
 from src.sources.openfootball import OpenFootballSchedule
 from src.sources.odds_provider import OddsProvider
 from src.sources.team_names import teams_match
@@ -82,7 +82,21 @@ def main() -> int:
                 else "keine parsebaren Pinnacle-Märkte"
             )
             bms = list((item.get("bookmakerOdds") or {}).keys())
-            print(f"  {text} | start={item.get('startTime')} | {odds_txt} | BMs: {bms}")
+            partial = []
+            for bm in bms:
+                parsed = _parse_bookmaker_markets(
+                    (item.get("bookmakerOdds") or {}).get(bm, {}).get("markets", {})
+                )
+                if parsed is None:
+                    partial.append(f"{bm}:unvollständig")
+                else:
+                    x2, ou = parsed
+                    partial.append(
+                        f"{bm}:1X2={x2['home']}/{x2['draw']}/{x2['away']} "
+                        f"OU={ou['over']}/{ou['under']}"
+                    )
+            print(f"  {text} | start={item.get('startTime')} | {odds_txt}")
+            print(f"    Bookmaker-Detail: {', '.join(partial)}")
 
     if schedule_hits:
         links = link_fixtures(schedule_hits, odds_matches)
@@ -103,7 +117,7 @@ def main() -> int:
             if market:
                 print(
                     f"    Quoten: {market.home}/{market.draw}/{market.away} "
-                    f"O/U {market.over_25}/{market.under_25}"
+                    f"O/U {market.over_2_5}/{market.under_2_5}"
                 )
             else:
                 print("    Keine Quoten im Provider")
