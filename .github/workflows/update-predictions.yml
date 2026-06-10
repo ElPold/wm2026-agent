@@ -16,6 +16,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+      ODDSPAPI_API_KEY: ${{ secrets.ODDSPAPI_API_KEY }}
+      ODDSPAPI_TOURNAMENT_ID: ${{ secrets.ODDSPAPI_TOURNAMENT_ID != '' && secrets.ODDSPAPI_TOURNAMENT_ID || '16' }}
+      ODDSPAPI_BOOKMAKER: pinnacle
+      THE_ODDS_API_KEY: ${{ secrets.THE_ODDS_API_KEY }}
     steps:
       - uses: actions/checkout@v6
 
@@ -23,14 +27,22 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Validate API secrets
+        run: |
+          if [ -z "$ODDSPAPI_API_KEY" ] && [ -z "$THE_ODDS_API_KEY" ]; then
+            echo "::error::Keine Quoten-API konfiguriert. Bitte Repository-Secret ODDSPAPI_API_KEY setzen (Settings → Secrets and variables → Actions)."
+            exit 1
+          fi
+          if [ -z "$ODDSPAPI_API_KEY" ]; then
+            echo "Hinweis: ODDSPAPI_API_KEY fehlt — nutze nur THE_ODDS_API_KEY als Fallback."
+          else
+            echo "OddsPapi-Key vorhanden (Tournament ID: ${ODDSPAPI_TOURNAMENT_ID})."
+          fi
+
       - name: Install dependencies
         run: pip install -r requirements.txt
 
       - name: Generate tips for upcoming matches
-        env:
-          ODDSPAPI_API_KEY: ${{ secrets.ODDSPAPI_API_KEY }}
-          ODDSPAPI_TOURNAMENT_ID: ${{ secrets.ODDSPAPI_TOURNAMENT_ID }}
-          THE_ODDS_API_KEY: ${{ secrets.THE_ODDS_API_KEY }}
         run: |
           ROUND="${{ inputs.round }}"
           if [ -z "$ROUND" ]; then

@@ -36,6 +36,23 @@ Nach jedem Tipp-Lauf wird `docs/` neu generiert. GitHub Pages einrichten:
 3. Branch: **main**, Folder: **/docs**
 4. URL: `https://<user>.github.io/wm2026-agent/`
 
+### GitHub Actions („Update matchday“)
+
+Unter **Settings → Secrets and variables → Actions** müssen mindestens diese Secrets hinterlegt sein:
+
+| Secret | Pflicht? | Beschreibung |
+|--------|----------|--------------|
+| `ODDSPAPI_API_KEY` | ja | OddsPapi API-Key |
+| `ODDSPAPI_TOURNAMENT_ID` | empfohlen | WM-ID (`16` für Nationalmannschaften) |
+| `THE_ODDS_API_KEY` | optional | Fallback-Quotenquelle |
+
+Lokal aus `.env` setzen:
+
+```bash
+gh secret set ODDSPAPI_API_KEY --repo ElPold/wm2026-agent < <(grep '^ODDSPAPI_API_KEY=' .env | cut -d= -f2-)
+gh secret set ODDSPAPI_TOURNAMENT_ID --repo ElPold/wm2026-agent < <(grep '^ODDSPAPI_TOURNAMENT_ID=' .env | cut -d= -f2-)
+```
+
 ## Datenquellen
 
 | Was | Quelle | Key nötig? |
