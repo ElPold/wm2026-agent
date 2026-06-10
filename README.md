@@ -58,7 +58,9 @@ Lokal testen (ohne Abgabe):
 python scripts/submit_kicktipp.py --dry-run
 ```
 
-Deutsche Runden laufen auf **kicktipp.de** mit `/tippabgabe` (nicht kicktipp.com/predict). Der Workflow patcht kicktipp-agent automatisch (`scripts/patch_kicktipp_agent.sh`). Teamnamen und Bonusfragen werden über `config/kicktipp_aliases.json` und `KICKTIPP_LOCALE=de` auf Deutsch gemappt.
+Deutsche Runden laufen auf **kicktipp.de** mit `/tippabgabe` (nicht kicktipp.com/predict). Der Workflow patcht kicktipp-agent automatisch (`scripts/patch_kicktipp_agent.py`). Teamnamen werden über `config/kicktipp_aliases.json` gemappt. **Bonusfragen** sind einmalig — der Workflow nutzt `submit_kicktipp.py --no-bonus`; manuell nur noch mit `--bonus-only`.
+
+Quoten-Check für einzelne Spiele: `python scripts/check_fixture_odds.py --home Australia --away Turkey` (oder Workflow **Check fixture odds**).
 
 Lokal aus `.env` setzen:
 
