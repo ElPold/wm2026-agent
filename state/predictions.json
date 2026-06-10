@@ -1,213 +1,170 @@
 {
-  "round": "Matchday 3",
-  "generated_at": "2026-06-10T22:05:29.002576+02:00",
+  "round": "Matchday 4",
+  "generated_at": "2026-06-10T22:10:07.451900+02:00",
   "match_count": 4,
   "predictions": [
     {
-      "fixture_id": "wc26-008",
-      "home_team": "Qatar",
-      "away_team": "Switzerland",
-      "kickoff_berlin": "2026-06-13T21:00:00+02:00",
-      "venue": "San Francisco Bay Area (Santa Clara)",
-      "round": "Matchday 3",
+      "fixture_id": "wc26-025",
+      "home_team": "Germany",
+      "away_team": "Curaçao",
+      "kickoff_berlin": "2026-06-14T19:00:00+02:00",
+      "venue": "Houston",
+      "round": "Matchday 4",
+      "pending": true
+    },
+    {
+      "fixture_id": "wc26-031",
+      "home_team": "Netherlands",
+      "away_team": "Japan",
+      "kickoff_berlin": "2026-06-14T22:00:00+02:00",
+      "venue": "Dallas (Arlington)",
+      "round": "Matchday 4",
       "odds_source": "oddspapi",
       "bookmaker": "pinnacle",
       "odds_1x2": {
-        "home": 10.75,
-        "draw": 2.78,
-        "away": 1.641
+        "home": 2.62,
+        "draw": 2.17,
+        "away": 4.66
       },
       "odds_ou25": {
-        "over": 2.19,
-        "under": 1.694
+        "over": 1.99,
+        "under": 1.9
       },
       "market_probs": {
-        "home": 0.08758262262532845,
-        "draw": 0.3386738105116119,
-        "away": 0.5737435668630596,
-        "over_2_5": 0.43614830072090627
+        "home": 0.361062313438165,
+        "draw": 0.43593698673179365,
+        "away": 0.20300069983004126,
+        "over_2_5": 0.48843187660668386
       },
-      "lambda_home": 0.6851171517927213,
-      "lambda_away": 1.6066062898475573,
-      "tip": "0:1",
-      "expected_points": 1.6234,
-      "most_likely_score": "0:1",
+      "lambda_home": 1.3294071277556025,
+      "lambda_away": 1.0527382577179627,
+      "tip": "1:0",
+      "expected_points": 1.2135,
+      "most_likely_score": "1:1",
       "top_scores": [
         {
-          "score": "0:1",
-          "probability": 0.1626
-        },
-        {
-          "score": "0:2",
-          "probability": 0.1306
-        },
-        {
           "score": "1:1",
-          "probability": 0.1114
+          "probability": 0.1293
+        },
+        {
+          "score": "1:0",
+          "probability": 0.1228
+        },
+        {
+          "score": "0:1",
+          "probability": 0.0973
         },
         {
           "score": "0:0",
-          "probability": 0.1012
+          "probability": 0.0924
         },
         {
-          "score": "1:2",
-          "probability": 0.0895
+          "score": "2:1",
+          "probability": 0.086
         }
       ]
     },
     {
-      "fixture_id": "wc26-013",
-      "home_team": "Brazil",
-      "away_team": "Morocco",
-      "kickoff_berlin": "2026-06-14T00:00:00+02:00",
-      "venue": "New York/New Jersey (East Rutherford)",
-      "round": "Matchday 3",
+      "fixture_id": "wc26-026",
+      "home_team": "Ivory Coast",
+      "away_team": "Ecuador",
+      "kickoff_berlin": "2026-06-15T01:00:00+02:00",
+      "venue": "Philadelphia",
+      "round": "Matchday 4",
       "odds_source": "oddspapi",
       "bookmaker": "pinnacle",
       "odds_1x2": {
-        "home": 1.684,
-        "draw": 3.77,
-        "away": 5.6
+        "home": 3.64,
+        "draw": 2.82,
+        "away": 2.48
       },
       "odds_ou25": {
-        "over": 3.6,
-        "under": 1.284
+        "over": 2.97,
+        "under": 1.414
       },
       "market_probs": {
-        "home": 0.5722792610029308,
-        "draw": 0.25562818979547364,
-        "away": 0.17209254920159564,
-        "over_2_5": 0.2628992628992629
+        "home": 0.2660620263566363,
+        "draw": 0.34342758011991353,
+        "away": 0.39051039352345013,
+        "over_2_5": 0.3225364963503649
       },
-      "lambda_home": 1.321152742463226,
-      "lambda_away": 0.5238732414742295,
+      "lambda_home": 0.8538099564102708,
+      "lambda_away": 1.0804243886119673,
+      "tip": "0:1",
+      "expected_points": 1.2043,
+      "most_likely_score": "0:1",
+      "top_scores": [
+        {
+          "score": "0:1",
+          "probability": 0.1562
+        },
+        {
+          "score": "0:0",
+          "probability": 0.1446
+        },
+        {
+          "score": "1:1",
+          "probability": 0.1334
+        },
+        {
+          "score": "1:0",
+          "probability": 0.1234
+        },
+        {
+          "score": "0:2",
+          "probability": 0.0844
+        }
+      ]
+    },
+    {
+      "fixture_id": "wc26-032",
+      "home_team": "Sweden",
+      "away_team": "Tunisia",
+      "kickoff_berlin": "2026-06-15T04:00:00+02:00",
+      "venue": "Monterrey (Guadalupe)",
+      "round": "Matchday 4",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 2.49,
+        "draw": 2.15,
+        "away": 5.27
+      },
+      "odds_ou25": {
+        "over": 2.29,
+        "under": 1.662
+      },
+      "market_probs": {
+        "home": 0.3801377561119629,
+        "draw": 0.44025256405525004,
+        "away": 0.17960967983278703,
+        "over_2_5": 0.42054655870445345
+      },
+      "lambda_home": 1.2206713023937035,
+      "lambda_away": 0.8847437945691661,
       "tip": "1:0",
-      "expected_points": 1.6284,
+      "expected_points": 1.2712,
       "most_likely_score": "1:0",
       "top_scores": [
         {
           "score": "1:0",
-          "probability": 0.2089
+          "probability": 0.1487
+        },
+        {
+          "score": "1:1",
+          "probability": 0.1316
         },
         {
           "score": "0:0",
-          "probability": 0.1581
+          "probability": 0.1218
+        },
+        {
+          "score": "0:1",
+          "probability": 0.1078
         },
         {
           "score": "2:0",
-          "probability": 0.138
-        },
-        {
-          "score": "1:1",
-          "probability": 0.1094
-        },
-        {
-          "score": "0:1",
-          "probability": 0.0828
-        }
-      ]
-    },
-    {
-      "fixture_id": "wc26-014",
-      "home_team": "Haiti",
-      "away_team": "Scotland",
-      "kickoff_berlin": "2026-06-14T03:00:00+02:00",
-      "venue": "Boston (Foxborough)",
-      "round": "Matchday 3",
-      "odds_source": "oddspapi",
-      "bookmaker": "pinnacle",
-      "odds_1x2": {
-        "home": 6.22,
-        "draw": 2.37,
-        "away": 2.1
-      },
-      "odds_ou25": {
-        "over": 1.917,
-        "under": 1.961
-      },
-      "market_probs": {
-        "home": 0.15182853168356703,
-        "draw": 0.3984698173298678,
-        "away": 0.4497016509865651,
-        "over_2_5": 0.5056730273336771
-      },
-      "lambda_home": 0.9748664947922058,
-      "lambda_away": 1.5234924172088649,
-      "tip": "0:1",
-      "expected_points": 1.3694,
-      "most_likely_score": "0:1",
-      "top_scores": [
-        {
-          "score": "0:1",
-          "probability": 0.1254
-        },
-        {
-          "score": "1:1",
-          "probability": 0.1222
-        },
-        {
-          "score": "0:2",
-          "probability": 0.0955
-        },
-        {
-          "score": "1:2",
-          "probability": 0.0931
-        },
-        {
-          "score": "0:0",
-          "probability": 0.0823
-        }
-      ]
-    },
-    {
-      "fixture_id": "wc26-020",
-      "home_team": "Australia",
-      "away_team": "Turkey",
-      "kickoff_berlin": "2026-06-14T06:00:00+02:00",
-      "venue": "Vancouver",
-      "round": "Matchday 3",
-      "odds_source": "oddspapi",
-      "bookmaker": "pinnacle",
-      "odds_1x2": {
-        "home": 5.65,
-        "draw": 2.29,
-        "away": 2.25
-      },
-      "odds_ou25": {
-        "over": 2.03,
-        "under": 1.862
-      },
-      "market_probs": {
-        "home": 0.1672699530897463,
-        "draw": 0.4126966091515575,
-        "away": 0.4200334377586962,
-        "over_2_5": 0.47841726618705044
-      },
-      "lambda_home": 0.9608517832377041,
-      "lambda_away": 1.4122441382798983,
-      "tip": "0:1",
-      "expected_points": 1.3232,
-      "most_likely_score": "0:1",
-      "top_scores": [
-        {
-          "score": "0:1",
-          "probability": 0.1317
-        },
-        {
-          "score": "1:1",
-          "probability": 0.1265
-        },
-        {
-          "score": "0:0",
-          "probability": 0.0933
-        },
-        {
-          "score": "0:2",
-          "probability": 0.093
-        },
-        {
-          "score": "1:0",
-          "probability": 0.0896
+          "probability": 0.0908
         }
       ]
     }
