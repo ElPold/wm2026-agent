@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bonus tips · WM 2026 Agent</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/style.css">
+  <style>
+    /* Critical: hide cat copy before full CSS / JS (normal mode default). */
+    html:not(.cat-mode) .t-cat,
+    body:not(.cat-mode) .t-cat {
+      display: none !important;
+    }
+    html.cat-mode .t-normal,
+    body.cat-mode .t-normal {
+      display: none !important;
+    }
+  </style>
+  <script>
+    (function () {
+      try {
+        if (localStorage.getItem("wm2026-cat-mode") === "1") {
+          document.documentElement.classList.add("cat-mode");
+        }
+      } catch (err) {
+        /* ignore */
+      }
+    })();
+  </script>
+</head>
+<body>
+  <div class="page-glow" aria-hidden="true"></div>
+  <div class="cat-layer" aria-hidden="true" hidden>
+    <img class="cat-float cat-float-tr" src="static/cats/mascot.svg" alt="" width="48" height="48">
+    <img class="cat-float cat-float-bl" src="static/cats/purr.svg" alt="" width="40" height="40">
+  </div>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <div class="brand">
+        <a href="index.html" class="brand-link">
+          <span class="brand-dot"></span>
+          <span class="brand-label">
+            <span class="t-normal">WM 2026 Agent</span>
+            <span class="t-cat" hidden>WM 2026 Cat Agent</span>
+          </span>
+        </a>
+      </div>
+      <nav class="topbar-nav" aria-label="Main">
+        <a href="index.html" class="nav-link">
+          <span class="t-normal">Dashboard</span>
+          <span class="t-cat" hidden>Bowl board</span>
+        </a>
+        <a href="bonus.html" class="nav-link is-active">
+          <span class="t-normal">Bonus tips</span>
+          <span class="t-cat" hidden>Bonus yarn</span>
+        </a>
+        <a href="track.html" class="nav-link">
+          <span class="t-normal">Track record</span>
+          <span class="t-cat" hidden>Treat ledger</span>
+        </a>
+        <a href="pipeline.html" class="nav-link">
+          <span class="t-normal">How it works</span>
+          <span class="t-cat" hidden>How the cat works</span>
+        </a>
+      </nav>
+      <div class="topbar-actions">
+        <a
+          href="#"
+          class="update-btn"
+          id="update-btn"
+          data-update-url="https://github.com/ElPold/wm2026-agent/actions/workflows/update-predictions.yml"
+          aria-haspopup="dialog"
+        >
+          <span class="t-normal">↻ Update matchday</span>
+          <span class="t-cat" hidden>↻ Refill the bowl</span>
+        </a>
+        <button type="button" class="catify-btn" id="catify-btn" aria-pressed="false">
+          <span aria-hidden="true">😺</span>
+          <span class="t-normal">Catify</span>
+          <span class="t-cat" hidden>Un-Catify</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <div class="update-gate" id="update-gate" hidden>
+    <div class="update-gate-backdrop" data-update-gate-close></div>
+    <div
+      class="update-gate-dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="update-gate-title"
+    >
+      <h2 class="update-gate-title" id="update-gate-title">
+        <span class="t-normal">Update matchday</span>
+        <span class="t-cat" hidden>Refill the bowl</span>
+      </h2>
+      <p class="update-gate-lead">
+        <span class="t-normal">Enter the password to open the GitHub Actions workflow.</span>
+        <span class="t-cat" hidden>Whisper the secret phrase to send the cat to the odds window.</span>
+      </p>
+      <label class="update-gate-label" for="update-gate-input">
+        <span class="t-normal">Password</span>
+        <span class="t-cat" hidden>Secret purr</span>
+      </label>
+      <input
+        class="update-gate-input"
+        id="update-gate-input"
+        type="password"
+        autocomplete="off"
+        spellcheck="false"
+      >
+      <p class="update-gate-error" id="update-gate-error" hidden>
+        <span class="t-normal">Wrong password. Try again.</span>
+        <span class="t-cat" hidden>Wrong purr. The cat is not impressed.</span>
+      </p>
+      <div class="update-gate-actions">
+        <button type="button" class="update-gate-btn update-gate-btn-ghost" data-update-gate-close>
+          <span class="t-normal">Cancel</span>
+          <span class="t-cat" hidden>Never mind</span>
+        </button>
+        <button type="button" class="update-gate-btn update-gate-btn-primary" id="update-gate-submit">
+          <span class="t-normal">Continue</span>
+          <span class="t-cat" hidden>Let the cat go</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <section class="hero shell hero-compact">
+    <p class="eyebrow">
+      <span class="t-normal">Pre-tournament · Kicktipp bonus</span>
+      <span class="t-cat" hidden>Before kickoff · tuna side bets</span>
+    </p>
+    <h1>
+      <span class="t-normal">Bonus questions</span>
+      <span class="t-cat" hidden>Bonus yarn balls</span>
+    </h1>
+    <p class="hero-copy">
+      <span class="t-normal">Answers for the pre-tournament Kicktipp bonus round — 4 points per correct pick. Derived from Pinnacle odds, Poisson calibration and group-stage Monte Carlo simulation.</span>
+      <span class="t-cat" hidden>Pre-tournament cat picks for extra tuna — 4 treats per correct answer, sniffed from market odds and nap simulations.</span>
+    </p>
+    <div class="bonus-meta-row">
+      <div class="bonus-meta-chip">
+        <span class="bonus-meta-label">
+          <span class="t-normal">Generated</span>
+          <span class="t-cat" hidden>Purred</span>
+        </span>
+        <span class="bonus-meta-value mono">10.06.2026 19:55</span>
+      </div>
+      <div class="bonus-meta-chip">
+        <span class="bonus-meta-label">
+          <span class="t-normal">Priced fixtures used</span>
+          <span class="t-cat" hidden>Sniffed windows</span>
+        </span>
+        <span class="bonus-meta-value mono">14</span>
+      </div>
+      <div class="bonus-meta-chip">
+        <span class="bonus-meta-label">
+          <span class="t-normal">Group simulations</span>
+          <span class="t-cat" hidden>Nap runs</span>
+        </span>
+        <span class="bonus-meta-value mono">4000</span>
+      </div>
+    </div>
+  </section>
+
+  <main class="shell main">
+    <section class="bonus-feature-grid">
+      <article class="bonus-card bonus-card-highlight">
+        <p class="bonus-card-kicker">
+          <span class="t-normal">Tournament winner</span>
+          <span class="t-cat" hidden>Biggest bowl</span>
+        </p>
+        <h2 class="bonus-card-question">Who will be world champion?</h2>
+        <p class="bonus-pick"><span class="team-name"><img src="https://flagcdn.com/w40/ar.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Argentina</span>
+</span></p>
+        
+        <p class="bonus-confidence mono">46.0% model confidence</p>
+        
+        <p class="bonus-reasoning">Argentina tops the market-derived power index (2100 pts) across all available Pinnacle fixtures. Tournament winners usually need sustained knockout strength; this rating aggregates every linked 1X2 line we have.</p>
+      </article>
+
+      <article class="bonus-card bonus-card-highlight">
+        <p class="bonus-card-kicker">
+          <span class="t-normal">Top scorer team</span>
+          <span class="t-cat" hidden>Golden tuna nation</span>
+        </p>
+        <h2 class="bonus-card-question">Which team supplies the top scorer?</h2>
+        <p class="bonus-pick"><span class="team-name"><img src="https://flagcdn.com/w40/ar.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Argentina</span>
+</span></p>
+        
+        <p class="bonus-confidence mono">46.0% model confidence</p>
+        
+        <p class="bonus-reasoning">Argentina leads the expected-goals index (2.33 λ avg per appearance in priced matches). Golden Boot teams usually come from high-volume, high-quality attacks — Poisson λ calibrated to market goals lines is our proxy.</p>
+      </article>
+    </section>
+
+    <section class="bonus-card bonus-card-wide">
+      <p class="bonus-card-kicker">
+        <span class="t-normal">Semi-finalists</span>
+        <span class="t-cat" hidden>Last four nappers</span>
+      </p>
+      <h2 class="bonus-card-question">Who reaches the semi-final?</h2>
+      <ul class="bonus-pick-list">
+        
+        <li><span class="team-name"><img src="https://flagcdn.com/w40/ar.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Argentina</span>
+</span></li>
+        
+        <li><span class="team-name"><img src="https://flagcdn.com/w40/fr.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>France</span>
+</span></li>
+        
+        <li><span class="team-name"><img src="https://flagcdn.com/w40/gb-eng.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>England</span>
+</span></li>
+        
+        <li><span class="team-name"><img src="https://flagcdn.com/w40/br.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Brazil</span>
+</span></li>
+        
+      </ul>
+      <p class="bonus-reasoning">Four teams with the highest market power index — Argentina, France, England, Brazil. Chosen before running a simplified knockout bracket on group-winner simulations; aligns with outright favourite clusters in the odds.</p>
+    </section>
+
+    <section class="bonus-groups">
+      <div class="bonus-groups-head">
+        <h2>
+          <span class="t-normal">Group winners</span>
+          <span class="t-cat" hidden>Group bowl winners</span>
+        </h2>
+        <p>
+          <span class="t-normal">Groups A–L · one pick each</span>
+          <span class="t-cat" hidden>12 yarn groups · one cat per bowl</span>
+        </p>
+      </div>
+      <div class="bonus-group-grid">
+        
+        <article class="bonus-card bonus-card-compact">
+          <p class="bonus-group-label mono">Group A</p>
+          <h3 class="bonus-card-question">Who wins Group A?</h3>
+          <p class="bonus-pick"><span class="team-name"><img src="https://flagcdn.com/w40/mx.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Mexico</span>
+</span></p>
+          
+          <p class="bonus-confidence mono">54.0% sim. win rate</p>
+          
+          <p class="bonus-reasoning">Monte Carlo group simulation (4,000 runs, 2 priced fixtures) gives Mexico a 54% chance to top Group A. Market strength ranks them above South Korea (1977 vs 1899 power index).</p>
+        </article>
+        
+        <article class="bonus-card bonus-card-compact">
+          <p class="bonus-group-label mono">Group B</p>
+          <h3 class="bonus-card-question">Who wins Group B?</h3>
+          <p class="bonus-pick"><span class="team-name"><img src="https://flagcdn.com/w40/ch.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Switzerland</span>
+</span></p>
+          
+          <p class="bonus-confidence mono">56.0% sim. win rate</p>
+          
+          <p class="bonus-reasoning">Monte Carlo group simulation (4,000 runs, 2 priced fixtures) gives Switzerland a 56% chance to top Group B. Market strength ranks them above Canada (1960 vs 1854 power index).</p>
+        </article>
+        
+        <article class="bonus-card bonus-card-compact">
+          <p class="bonus-group-label mono">Group C</p>
+          <h3 class="bonus-card-question">Who wins Group C?</h3>
+          <p class="bonus-pick"><span class="team-name"><img src="https://flagcdn.com/w40/br.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Brazil</span>
+</span></p>
+          
+          <p class="bonus-confidence mono">58.0% sim. win rate</p>
+          
+          <p class="bonus-reasoning">Monte Carlo group simulation (4,000 runs, 2 priced fixtures) gives Brazil a 58% chance to top Group C. Market strength ranks them above Morocco (2057 vs 1938 power index).</p>
+        </article>
+        
+        <article class="bonus-card bonus-card-compact">
+          <p class="bonus-group-label mono">Group D</p>
+          <h3 class="bonus-card-question">Who wins Group D?</h3>
+          <p class="bonus-pick"><span class="team-name"><img src="https://flagcdn.com/w40/us.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>USA</span>
+</span></p>
+          
+          <p class="bonus-confidence mono">41.0% sim. win rate</p>
+          
+          <p class="bonus-reasoning">Monte Carlo group simulation (4,000 runs, 1 priced fixtures) gives USA a 41% chance to top Group D. Market strength ranks them above Paraguay (1960 vs 1910 power index).</p>
+        </article>
+        
+        <article class="bonus-card bonus-card-compact">
+          <p class="bonus-group-label mono">Group E</p>
+          <h3 class="bonus-card-question">Who wins Group E?</h3>
+          <p class="bonus-pick"><span class="team-name"><img src="https://flagcdn.com/w40/de.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Germany</span>
+</span></p>
+          
+          <p class="bonus-confidence mono">56.0% sim. win rate</p>
+          
+          <p class="bonus-reasoning">Monte Carlo group simulation (4,000 runs, 1 priced fixtures) gives Germany a 56% chance to top Group E. Market strength ranks them above Ecuador (2020 vs 1926 power index).</p>
+        </article>
+        
+        <article class="bonus-card bonus-card-compact">
+          <p class="bonus-group-label mono">Group F</p>
+          <h3 class="bonus-card-question">Who wins Group F?</h3>
+          <p class="bonus-pick"><span class="team-name"><img src="https://flagcdn.com/w40/nl.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Netherlands</span>
+</span></p>
+          
+          <p class="bonus-confidence mono">44.0% sim. win rate</p>
+          
+          <p class="bonus-reasoning">Monte Carlo group simulation (4,000 runs, 2 priced fixtures) gives Netherlands a 44% chance to top Group F. Market strength ranks them above Japan (2012 vs 1948 power index).</p>
+        </article>
+        
+        <article class="bonus-card bonus-card-compact">
+          <p class="bonus-group-label mono">Group G</p>
+          <h3 class="bonus-card-question">Who wins Group G?</h3>
+          <p class="bonus-pick"><span class="team-name"><img src="https://flagcdn.com/w40/be.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Belgium</span>
+</span></p>
+          
+          <p class="bonus-confidence mono">53.0% sim. win rate</p>
+          
+          <p class="bonus-reasoning">Monte Carlo group simulation (4,000 runs, 2 priced fixtures) gives Belgium a 53% chance to top Group G. Market strength ranks them above Egypt (1991 vs 1864 power index).</p>
+        </article>
+        
+        <article class="bonus-card bonus-card-compact">
+          <p class="bonus-group-label mono">Group H</p>
+          <h3 class="bonus-card-question">Who wins Group H?</h3>
+          <p class="bonus-pick"><span class="team-name"><img src="https://flagcdn.com/w40/es.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Spain</span>
+</span></p>
+          
+          <p class="bonus-confidence mono">46.0% sim. win rate</p>
+          
+          <p class="bonus-reasoning">Monte Carlo group simulation (4,000 runs, 2 priced fixtures) gives Spain a 46% chance to top Group H. Market strength ranks them above Uruguay (2039 vs 1983 power index).</p>
+        </article>
+        
+        <article class="bonus-card bonus-card-compact">
+          <p class="bonus-group-label mono">Group I</p>
+          <h3 class="bonus-card-question">Who wins Group I?</h3>
+          <p class="bonus-pick"><span class="team-name"><img src="https://flagcdn.com/w40/fr.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>France</span>
+</span></p>
+          
+          <p class="bonus-confidence mono">59.0% sim. win rate</p>
+          
+          <p class="bonus-reasoning">Monte Carlo group simulation (4,000 runs, 0 priced fixtures) gives France a 59% chance to top Group I. Market strength ranks them above Senegal (2080 vs 1940 power index).</p>
+        </article>
+        
+        <article class="bonus-card bonus-card-compact">
+          <p class="bonus-group-label mono">Group J</p>
+          <h3 class="bonus-card-question">Who wins Group J?</h3>
+          <p class="bonus-pick"><span class="team-name"><img src="https://flagcdn.com/w40/ar.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Argentina</span>
+</span></p>
+          
+          <p class="bonus-confidence mono">67.0% sim. win rate</p>
+          
+          <p class="bonus-reasoning">Monte Carlo group simulation (4,000 runs, 0 priced fixtures) gives Argentina a 67% chance to top Group J. Market strength ranks them above Austria (2100 vs 1930 power index).</p>
+        </article>
+        
+        <article class="bonus-card bonus-card-compact">
+          <p class="bonus-group-label mono">Group K</p>
+          <h3 class="bonus-card-question">Who wins Group K?</h3>
+          <p class="bonus-pick"><span class="team-name"><img src="https://flagcdn.com/w40/pt.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Portugal</span>
+</span></p>
+          
+          <p class="bonus-confidence mono">56.0% sim. win rate</p>
+          
+          <p class="bonus-reasoning">Monte Carlo group simulation (4,000 runs, 0 priced fixtures) gives Portugal a 56% chance to top Group K. Market strength ranks them above Colombia (2030 vs 1970 power index).</p>
+        </article>
+        
+        <article class="bonus-card bonus-card-compact">
+          <p class="bonus-group-label mono">Group L</p>
+          <h3 class="bonus-card-question">Who wins Group L?</h3>
+          <p class="bonus-pick"><span class="team-name"><img src="https://flagcdn.com/w40/gb-eng.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>England</span>
+</span></p>
+          
+          <p class="bonus-confidence mono">59.0% sim. win rate</p>
+          
+          <p class="bonus-reasoning">Monte Carlo group simulation (4,000 runs, 0 priced fixtures) gives England a 59% chance to top Group L. Market strength ranks them above Croatia (2060 vs 1985 power index).</p>
+        </article>
+        
+      </div>
+    </section>
+
+    <section class="explain-card bonus-method">
+      <h2>
+        <span class="t-normal">How these picks are built</span>
+        <span class="t-cat" hidden>How the cat chose</span>
+      </h2>
+      <p>
+        <span class="t-normal">Team strength is updated from every linked Pinnacle 1X2 line. Group winners come from 4000 Monte Carlo group-stage runs (mini round-robin per group). Semi-finalists and the champion use the global power index; the top-scorer team uses average Poisson λ (expected goals) per priced appearance.</span>
+        <span class="t-cat" hidden>The cat sniffs all Pinnacle lines, simulates group naps thousands of times, then picks the strongest bowls for semis, the title and the likely Golden Tuna nation.</span>
+      </p>
+    </section>
+  </main>
+
+  <footer class="footer shell">
+    <p>
+      <span class="t-normal">Kicktipp bonus · 4 pts per correct answer · submit before kickoff</span>
+      <span class="t-cat" hidden>Kicktipp bonus yarn · 4 treats each · slide into Kicktipp before the first nap</span>
+    </p>
+  </footer>
+
+  <script>
+    (function () {
+      var CAT_KEY = "wm2026-cat-mode";
+      var catBtn = document.getElementById("catify-btn");
+
+      function setCatMode(enabled) {
+        document.documentElement.classList.toggle("cat-mode", enabled);
+        document.body.classList.toggle("cat-mode", enabled);
+        document.querySelectorAll(".t-normal").forEach(function (el) {
+          el.hidden = enabled;
+        });
+        document.querySelectorAll(".t-cat").forEach(function (el) {
+          el.hidden = !enabled;
+        });
+        var catLayer = document.querySelector(".cat-layer");
+        if (catLayer) {
+          catLayer.hidden = !enabled;
+        }
+        if (catBtn) {
+          catBtn.setAttribute("aria-pressed", enabled ? "true" : "false");
+        }
+      }
+
+      function readCatMode() {
+        try {
+          return localStorage.getItem(CAT_KEY) === "1";
+        } catch (err) {
+          return false;
+        }
+      }
+
+      function storeCatMode(enabled) {
+        try {
+          localStorage.setItem(CAT_KEY, enabled ? "1" : "0");
+        } catch (err) {
+          /* ignore */
+        }
+      }
+
+      document.querySelectorAll(".t-cat").forEach(function (el) {
+        el.hidden = true;
+      });
+
+      setCatMode(readCatMode());
+
+      if (catBtn) {
+        catBtn.addEventListener("click", function (event) {
+          event.preventDefault();
+          var next = !document.body.classList.contains("cat-mode");
+          setCatMode(next);
+          storeCatMode(next);
+        });
+      }
+    })();
+
+    (function () {
+      var UPDATE_UNLOCK_KEY = "wm2026-update-unlocked";
+      var UPDATE_PASSWORD = "ThomasWMAgent2026";
+      var updateBtn = document.getElementById("update-btn");
+      var gate = document.getElementById("update-gate");
+      var input = document.getElementById("update-gate-input");
+      var error = document.getElementById("update-gate-error");
+      var submitBtn = document.getElementById("update-gate-submit");
+      var workflowUrl = updateBtn ? updateBtn.getAttribute("data-update-url") : "";
+
+      function isUnlocked() {
+        try {
+          return sessionStorage.getItem(UPDATE_UNLOCK_KEY) === "1";
+        } catch (err) {
+          return false;
+        }
+      }
+
+      function storeUnlock() {
+        try {
+          sessionStorage.setItem(UPDATE_UNLOCK_KEY, "1");
+        } catch (err) {
+          /* ignore */
+        }
+      }
+
+      function openWorkflow() {
+        if (!workflowUrl) {
+          return;
+        }
+        window.open(workflowUrl, "_blank", "noopener,noreferrer");
+      }
+
+      function showGate() {
+        if (!gate || !input) {
+          return;
+        }
+        gate.hidden = false;
+        if (error) {
+          error.hidden = true;
+        }
+        input.value = "";
+        input.focus();
+      }
+
+      function hideGate() {
+        if (!gate) {
+          return;
+        }
+        gate.hidden = true;
+        if (input) {
+          input.value = "";
+        }
+        if (error) {
+          error.hidden = true;
+        }
+      }
+
+      function tryUnlock() {
+        if (!input) {
+          return;
+        }
+        if (input.value === UPDATE_PASSWORD) {
+          storeUnlock();
+          hideGate();
+          openWorkflow();
+          return;
+        }
+        if (error) {
+          error.hidden = false;
+        }
+        input.select();
+      }
+
+      if (updateBtn) {
+        updateBtn.addEventListener("click", function (event) {
+          event.preventDefault();
+          if (isUnlocked()) {
+            openWorkflow();
+            return;
+          }
+          showGate();
+        });
+      }
+
+      if (submitBtn) {
+        submitBtn.addEventListener("click", tryUnlock);
+      }
+
+      if (input) {
+        input.addEventListener("keydown", function (event) {
+          if (event.key === "Enter") {
+            event.preventDefault();
+            tryUnlock();
+          }
+          if (event.key === "Escape") {
+            hideGate();
+          }
+        });
+      }
+
+      document.querySelectorAll("[data-update-gate-close]").forEach(function (el) {
+        el.addEventListener("click", hideGate);
+      });
+    })();
+  </script>
+</body>
+</html>

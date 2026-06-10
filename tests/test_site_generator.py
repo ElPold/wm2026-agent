@@ -81,6 +81,7 @@ def test_build_site_from_predictions(tmp_path):
     assert html_multi.count('class="day-tab') >= 5
     assert (docs / "track.html").exists()
     assert (docs / "pipeline.html").exists()
+    assert (docs / "bonus.html").exists()
     assert "flagcdn.com" in html or "team-flag" in html
     assert (docs / "static" / "style.css").exists()
     assert (docs / ".nojekyll").exists()

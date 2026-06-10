@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+{% from '_macros.html' import team %}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bonus tips · WM 2026 Agent</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/style.css">
+{% include '_cat_head.html' %}
+</head>
+<body>
+  <div class="page-glow" aria-hidden="true"></div>
+{% include '_cat_layer.html' %}
+{% include '_topbar.html' %}
+{% include '_update_gate.html' %}
+
+  <section class="hero shell hero-compact">
+    <p class="eyebrow">
+      <span class="t-normal">Pre-tournament · Kicktipp bonus</span>
+      <span class="t-cat" hidden>Before kickoff · tuna side bets</span>
+    </p>
+    <h1>
+      <span class="t-normal">Bonus questions</span>
+      <span class="t-cat" hidden>Bonus yarn balls</span>
+    </h1>
+    <p class="hero-copy">
+      <span class="t-normal">Answers for the pre-tournament Kicktipp bonus round — 4 points per correct pick. Derived from Pinnacle odds, Poisson calibration and group-stage Monte Carlo simulation.</span>
+      <span class="t-cat" hidden>Pre-tournament cat picks for extra tuna — 4 treats per correct answer, sniffed from market odds and nap simulations.</span>
+    </p>
+    <div class="bonus-meta-row">
+      <div class="bonus-meta-chip">
+        <span class="bonus-meta-label">
+          <span class="t-normal">Generated</span>
+          <span class="t-cat" hidden>Purred</span>
+        </span>
+        <span class="bonus-meta-value mono">{{ bonus.generated_at_display }}</span>
+      </div>
+      <div class="bonus-meta-chip">
+        <span class="bonus-meta-label">
+          <span class="t-normal">Priced fixtures used</span>
+          <span class="t-cat" hidden>Sniffed windows</span>
+        </span>
+        <span class="bonus-meta-value mono">{{ bonus.odds_fixtures_used }}</span>
+      </div>
+      <div class="bonus-meta-chip">
+        <span class="bonus-meta-label">
+          <span class="t-normal">Group simulations</span>
+          <span class="t-cat" hidden>Nap runs</span>
+        </span>
+        <span class="bonus-meta-value mono">{{ bonus.simulation_runs }}</span>
+      </div>
+    </div>
+  </section>
+
+  <main class="shell main">
+    <section class="bonus-feature-grid">
+      <article class="bonus-card bonus-card-highlight">
+        <p class="bonus-card-kicker">
+          <span class="t-normal">Tournament winner</span>
+          <span class="t-cat" hidden>Biggest bowl</span>
+        </p>
+        <h2 class="bonus-card-question">{{ bonus.world_champion.question }}</h2>
+        <p class="bonus-pick">{{ team(bonus.world_champion.pick, bonus.world_champion.flag_url) }}</p>
+        {% if bonus.world_champion.confidence %}
+        <p class="bonus-confidence mono">{{ (bonus.world_champion.confidence * 100)|round(0) }}% model confidence</p>
+        {% endif %}
+        <p class="bonus-reasoning">{{ bonus.world_champion.reasoning }}</p>
+      </article>
+
+      <article class="bonus-card bonus-card-highlight">
+        <p class="bonus-card-kicker">
+          <span class="t-normal">Top scorer team</span>
+          <span class="t-cat" hidden>Golden tuna nation</span>
+        </p>
+        <h2 class="bonus-card-question">{{ bonus.top_scorer_team.question }}</h2>
+        <p class="bonus-pick">{{ team(bonus.top_scorer_team.pick, bonus.top_scorer_team.flag_url) }}</p>
+        {% if bonus.top_scorer_team.confidence %}
+        <p class="bonus-confidence mono">{{ (bonus.top_scorer_team.confidence * 100)|round(0) }}% model confidence</p>
+        {% endif %}
+        <p class="bonus-reasoning">{{ bonus.top_scorer_team.reasoning }}</p>
+      </article>
+    </section>
+
+    <section class="bonus-card bonus-card-wide">
+      <p class="bonus-card-kicker">
+        <span class="t-normal">Semi-finalists</span>
+        <span class="t-cat" hidden>Last four nappers</span>
+      </p>
+      <h2 class="bonus-card-question">{{ bonus.semi_finalists.question }}</h2>
+      <ul class="bonus-pick-list">
+        {% for semi in bonus.semi_finalists.picks %}
+        <li>{{ team(semi.pick, semi.flag_url) }}</li>
+        {% endfor %}
+      </ul>
+      <p class="bonus-reasoning">{{ bonus.semi_finalists.reasoning }}</p>
+    </section>
+
+    <section class="bonus-groups">
+      <div class="bonus-groups-head">
+        <h2>
+          <span class="t-normal">Group winners</span>
+          <span class="t-cat" hidden>Group bowl winners</span>
+        </h2>
+        <p>
+          <span class="t-normal">Groups A–L · one pick each</span>
+          <span class="t-cat" hidden>12 yarn groups · one cat per bowl</span>
+        </p>
+      </div>
+      <div class="bonus-group-grid">
+        {% for item in bonus.group_winners %}
+        <article class="bonus-card bonus-card-compact">
+          <p class="bonus-group-label mono">{{ item.group }}</p>
+          <h3 class="bonus-card-question">{{ item.question }}</h3>
+          <p class="bonus-pick">{{ team(item.pick, item.flag_url) }}</p>
+          {% if item.confidence %}
+          <p class="bonus-confidence mono">{{ (item.confidence * 100)|round(0) }}% sim. win rate</p>
+          {% endif %}
+          <p class="bonus-reasoning">{{ item.reasoning }}</p>
+        </article>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="explain-card bonus-method">
+      <h2>
+        <span class="t-normal">How these picks are built</span>
+        <span class="t-cat" hidden>How the cat chose</span>
+      </h2>
+      <p>
+        <span class="t-normal">Team strength is updated from every linked Pinnacle 1X2 line. Group winners come from {{ bonus.simulation_runs|int }} Monte Carlo group-stage runs (mini round-robin per group). Semi-finalists and the champion use the global power index; the top-scorer team uses average Poisson λ (expected goals) per priced appearance.</span>
+        <span class="t-cat" hidden>The cat sniffs all Pinnacle lines, simulates group naps thousands of times, then picks the strongest bowls for semis, the title and the likely Golden Tuna nation.</span>
+      </p>
+    </section>
+  </main>
+
+  <footer class="footer shell">
+    <p>
+      <span class="t-normal">Kicktipp bonus · 4 pts per correct answer · submit before kickoff</span>
+      <span class="t-cat" hidden>Kicktipp bonus yarn · 4 treats each · slide into Kicktipp before the first nap</span>
+    </p>
+  </footer>
+
+{% include '_scripts.html' %}
+</body>
+</html>

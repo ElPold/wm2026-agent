@@ -21,6 +21,7 @@ from src.pipeline.day_tips import (
     save_predictions,
     save_round_payload,
 )
+from src.bonus.tips import compute_bonus_tips, save_bonus_payload
 from src.site.generator import build_site
 from src.sources.config import Settings
 
@@ -60,6 +61,16 @@ def main() -> None:
         "--build-site",
         action="store_true",
         help="Statische Website nach docs/ generieren",
+    )
+    parser.add_argument(
+        "--bonus",
+        action="store_true",
+        help="Bonusfragen berechnen (optional mit frischen Quoten) und speichern",
+    )
+    parser.add_argument(
+        "--refresh-bonus-odds",
+        action="store_true",
+        help="Mit --bonus: Gruppenphase-Quoten neu von der API laden",
     )
     parser.add_argument(
         "--date",
@@ -108,6 +119,24 @@ def main() -> None:
     if args.build_site:
         site_path = build_site()
         print(f"Website generiert → {site_path}")
+        return
+
+    if args.bonus:
+        settings = Settings.load()
+        payload = compute_bonus_tips(
+            settings=settings,
+            refresh_odds=args.refresh_bonus_odds,
+        )
+        path = save_bonus_payload(payload)
+        print(f"Bonusfragen gespeichert → {path}")
+        print(f"  Weltmeister: {payload['world_champion']['pick']}")
+        print(f"  Torschützen-Team: {payload['top_scorer_team']['pick']}")
+        print(f"  Halbfinalisten: {', '.join(payload['semi_finalists']['picks'])}")
+        for item in payload["group_winners"]:
+            print(f"  {item['group']}: {item['pick']}")
+        if not args.no_site:
+            site_path = build_site()
+            print(f"Website generiert → {site_path}")
         return
 
     settings = Settings.load()

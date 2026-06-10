@@ -12,6 +12,7 @@ from zoneinfo import ZoneInfo
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
+from src.bonus.tips import compute_bonus_tips, load_bonus_payload, save_bonus_payload
 from src.optimizer.scoring import kicktipp_points
 from src.site.flags import team_flag_url
 from src.sources.config import Settings
@@ -62,6 +63,11 @@ def build_site(
         "pipeline.html": {
             **shared,
             "active_page": "pipeline",
+        },
+        "bonus.html": {
+            **shared,
+            "active_page": "bonus",
+            "bonus": _load_bonus_context(),
         },
     }
 
@@ -266,6 +272,51 @@ def _jinja_env() -> Environment:
         loader=FileSystemLoader(str(TEMPLATES)),
         autoescape=select_autoescape(["html", "xml"]),
     )
+
+
+def _load_bonus_context() -> dict[str, Any]:
+    payload = load_bonus_payload()
+    if not payload:
+        payload = compute_bonus_tips()
+        save_bonus_payload(payload)
+    return _enrich_bonus_payload(payload)
+
+
+def _enrich_bonus_payload(payload: dict[str, Any]) -> dict[str, Any]:
+    generated_at = payload.get("generated_at", "")
+    display = ""
+    if generated_at:
+        try:
+            dt = datetime.fromisoformat(generated_at)
+            display = dt.strftime("%d.%m.%Y %H:%M")
+        except ValueError:
+            display = generated_at[:16]
+
+    enriched = dict(payload)
+    enriched["generated_at_display"] = display or "—"
+
+    for key in ("world_champion", "top_scorer_team"):
+        item = dict(enriched[key])
+        item["flag_url"] = team_flag_url(item.get("pick", ""))
+        enriched[key] = item
+
+    semi = dict(enriched["semi_finalists"])
+    semi["picks"] = [
+        {
+            "pick": team,
+            "flag_url": team_flag_url(team),
+        }
+        for team in semi.get("picks", [])
+    ]
+    enriched["semi_finalists"] = semi
+
+    group_winners = []
+    for item in enriched.get("group_winners", []):
+        row = dict(item)
+        row["flag_url"] = team_flag_url(row.get("pick", ""))
+        group_winners.append(row)
+    enriched["group_winners"] = group_winners
+    return enriched
 
 
 def _shared_context() -> dict[str, Any]:

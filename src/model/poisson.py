@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import random
 from typing import Dict, Tuple
 
 from scipy.stats import poisson
@@ -64,3 +65,17 @@ def most_likely_score(dist: Distribution) -> Tuple[Score, float]:
 def top_scores(dist: Distribution, n: int = 5) -> list[Tuple[Score, float]]:
     """Top-n Ergebnisse nach Wahrscheinlichkeit."""
     return sorted(dist.items(), key=lambda item: item[1], reverse=True)[:n]
+
+
+def sample_score(
+    lambda_home: float,
+    lambda_away: float,
+    *,
+    rng: random.Random | None = None,
+) -> Score:
+    """Zieht ein Torergebnis aus unabhängigen Poisson-Verteilungen."""
+    rng = rng or random.Random()
+    seed = rng.randint(0, 2**31 - 1)
+    home_goals = int(poisson.rvs(lambda_home, random_state=seed))
+    away_goals = int(poisson.rvs(lambda_away, random_state=seed + 1))
+    return home_goals, away_goals

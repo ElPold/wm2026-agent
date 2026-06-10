@@ -1,0 +1,145 @@
+{
+  "generated_at": "2026-06-10T19:55:53.300605+02:00",
+  "odds_fixtures_used": 14,
+  "simulation_runs": 4000,
+  "world_champion": {
+    "question_id": "world-champion",
+    "question": "Who will be world champion?",
+    "pick": "Argentina",
+    "confidence": 0.455,
+    "reasoning": "Argentina tops the market-derived power index (2100 pts) across all available Pinnacle fixtures. Tournament winners usually need sustained knockout strength; this rating aggregates every linked 1X2 line we have.",
+    "category": "champion",
+    "group": null
+  },
+  "top_scorer_team": {
+    "question_id": "top-scorer-team",
+    "question": "Which team supplies the top scorer?",
+    "pick": "Argentina",
+    "confidence": 0.455,
+    "reasoning": "Argentina leads the expected-goals index (2.33 λ avg per appearance in priced matches). Golden Boot teams usually come from high-volume, high-quality attacks — Poisson λ calibrated to market goals lines is our proxy.",
+    "category": "scorer",
+    "group": null
+  },
+  "semi_finalists": {
+    "question_id": "semi-finalists",
+    "question": "Who reaches the semi-final?",
+    "picks": [
+      "Argentina",
+      "France",
+      "England",
+      "Brazil"
+    ],
+    "reasoning": "Four teams with the highest market power index — Argentina, France, England, Brazil. Chosen before running a simplified knockout bracket on group-winner simulations; aligns with outright favourite clusters in the odds.",
+    "category": "semi"
+  },
+  "group_winners": [
+    {
+      "question_id": "group-a",
+      "question": "Who wins Group A?",
+      "pick": "Mexico",
+      "confidence": 0.538,
+      "reasoning": "Monte Carlo group simulation (4,000 runs, 2 priced fixtures) gives Mexico a 54% chance to top Group A. Market strength ranks them above South Korea (1977 vs 1899 power index).",
+      "category": "group",
+      "group": "Group A"
+    },
+    {
+      "question_id": "group-b",
+      "question": "Who wins Group B?",
+      "pick": "Switzerland",
+      "confidence": 0.561,
+      "reasoning": "Monte Carlo group simulation (4,000 runs, 2 priced fixtures) gives Switzerland a 56% chance to top Group B. Market strength ranks them above Canada (1960 vs 1854 power index).",
+      "category": "group",
+      "group": "Group B"
+    },
+    {
+      "question_id": "group-c",
+      "question": "Who wins Group C?",
+      "pick": "Brazil",
+      "confidence": 0.582,
+      "reasoning": "Monte Carlo group simulation (4,000 runs, 2 priced fixtures) gives Brazil a 58% chance to top Group C. Market strength ranks them above Morocco (2057 vs 1938 power index).",
+      "category": "group",
+      "group": "Group C"
+    },
+    {
+      "question_id": "group-d",
+      "question": "Who wins Group D?",
+      "pick": "USA",
+      "confidence": 0.406,
+      "reasoning": "Monte Carlo group simulation (4,000 runs, 1 priced fixtures) gives USA a 41% chance to top Group D. Market strength ranks them above Paraguay (1960 vs 1910 power index).",
+      "category": "group",
+      "group": "Group D"
+    },
+    {
+      "question_id": "group-e",
+      "question": "Who wins Group E?",
+      "pick": "Germany",
+      "confidence": 0.561,
+      "reasoning": "Monte Carlo group simulation (4,000 runs, 1 priced fixtures) gives Germany a 56% chance to top Group E. Market strength ranks them above Ecuador (2020 vs 1926 power index).",
+      "category": "group",
+      "group": "Group E"
+    },
+    {
+      "question_id": "group-f",
+      "question": "Who wins Group F?",
+      "pick": "Netherlands",
+      "confidence": 0.441,
+      "reasoning": "Monte Carlo group simulation (4,000 runs, 2 priced fixtures) gives Netherlands a 44% chance to top Group F. Market strength ranks them above Japan (2012 vs 1948 power index).",
+      "category": "group",
+      "group": "Group F"
+    },
+    {
+      "question_id": "group-g",
+      "question": "Who wins Group G?",
+      "pick": "Belgium",
+      "confidence": 0.533,
+      "reasoning": "Monte Carlo group simulation (4,000 runs, 2 priced fixtures) gives Belgium a 53% chance to top Group G. Market strength ranks them above Egypt (1991 vs 1864 power index).",
+      "category": "group",
+      "group": "Group G"
+    },
+    {
+      "question_id": "group-h",
+      "question": "Who wins Group H?",
+      "pick": "Spain",
+      "confidence": 0.461,
+      "reasoning": "Monte Carlo group simulation (4,000 runs, 2 priced fixtures) gives Spain a 46% chance to top Group H. Market strength ranks them above Uruguay (2039 vs 1983 power index).",
+      "category": "group",
+      "group": "Group H"
+    },
+    {
+      "question_id": "group-i",
+      "question": "Who wins Group I?",
+      "pick": "France",
+      "confidence": 0.594,
+      "reasoning": "Monte Carlo group simulation (4,000 runs, 0 priced fixtures) gives France a 59% chance to top Group I. Market strength ranks them above Senegal (2080 vs 1940 power index).",
+      "category": "group",
+      "group": "Group I"
+    },
+    {
+      "question_id": "group-j",
+      "question": "Who wins Group J?",
+      "pick": "Argentina",
+      "confidence": 0.674,
+      "reasoning": "Monte Carlo group simulation (4,000 runs, 0 priced fixtures) gives Argentina a 67% chance to top Group J. Market strength ranks them above Austria (2100 vs 1930 power index).",
+      "category": "group",
+      "group": "Group J"
+    },
+    {
+      "question_id": "group-k",
+      "question": "Who wins Group K?",
+      "pick": "Portugal",
+      "confidence": 0.563,
+      "reasoning": "Monte Carlo group simulation (4,000 runs, 0 priced fixtures) gives Portugal a 56% chance to top Group K. Market strength ranks them above Colombia (2030 vs 1970 power index).",
+      "category": "group",
+      "group": "Group K"
+    },
+    {
+      "question_id": "group-l",
+      "question": "Who wins Group L?",
+      "pick": "England",
+      "confidence": 0.586,
+      "reasoning": "Monte Carlo group simulation (4,000 runs, 0 priced fixtures) gives England a 59% chance to top Group L. Market strength ranks them above Croatia (2060 vs 1985 power index).",
+      "category": "group",
+      "group": "Group L"
+    }
+  ]
+}
