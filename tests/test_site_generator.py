@@ -67,6 +67,7 @@ def test_build_site_from_predictions(tmp_path):
     assert "Transfer to Kicktipp" in html
     assert "data-kicktipp-btn" in html
     assert "kicktipp-spieltag-1.yml" in html
+    assert "Kicktipp Spieltag" in html
 
     # Test with multiple round archives
     rounds_dir = history / "rounds"

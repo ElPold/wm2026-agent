@@ -9,6 +9,7 @@ Funktionsnachweis der Kern-Pipeline:
 ```
 Wettquoten (1X2 + O/U 2.5) → margenbereinigte Wahrscheinlichkeiten
   → Poisson-Kalibrierung → Ergebnisverteilung → EV-optimaler Kicktipp-Tipp
+  → GitHub Pages Dashboard → optional Kicktipp-Abgabe (kicktipp.de)
 ```
 
 ## Schnellstart
@@ -20,11 +21,12 @@ source .venv/bin/activate
 pip install -r requirements.txt
 cp .env.example .env    # API-Keys eintragen
 
-python demo.py              # Pipeline-Demo (ohne API)
-python run.py --discover    # IDs & API-Verfügbarkeit prüfen
-python run.py --date 2026-06-11   # Live-Tipps + Website bauen
+python demo.py                    # Pipeline-Demo (ohne API)
+python run.py --discover          # IDs & API-Verfügbarkeit prüfen
+python run.py --round "Matchday 1"   # Tipps für einen Spieltag + Website
+python run.py --date 2026-06-11   # Live-Tipps nach Kalenderdatum
 python run.py --build-site        # nur Website neu generieren
-pytest                      # Tests
+pytest                            # Tests (52+)
 ```
 
 ## Website (GitHub Pages)
@@ -34,35 +36,69 @@ Nach jedem Tipp-Lauf wird `docs/` neu generiert. GitHub Pages einrichten:
 1. Repo **Settings → Pages → Build and deployment**
 2. Source: **Deploy from a branch**
 3. Branch: **main**, Folder: **/docs**
-4. URL: `https://<user>.github.io/wm2026-agent/`
+4. URL: `https://elpold.github.io/wm2026-agent/`
 
-### GitHub Actions („Update matchday“)
+### Dashboard-Aktionen
 
-Unter **Settings → Secrets and variables → Actions** müssen mindestens diese Secrets hinterlegt sein:
+| Button | Zweck |
+|--------|-------|
+| **↻ Update matchday** | Öffnet Workflow **Update predictions** — Tipps neu generieren |
+| **→ Transfer to Kicktipp** (pro Matchday-Tab) | Öffnet Workflow **Kicktipp Spieltag N** — alle Agent-Tipps dieser Kicktipp-Runde abgeben |
+
+Beide Buttons sind passwortgeschützt (Zugangstor für GitHub Actions, kein echtes Secret).
+
+### Kicktipp-Spieltag-Mapping
+
+Kicktipp bündelt die **k-te Gruppenspielrunde** (8 Spiele pro Seite), nicht chronologische Kalendertage.
+
+| Agent Matchdays | Kicktipp Spieltag |
+|-----------------|-------------------|
+| 1, 2, 3 | 1 |
+| 4, 5, 6 | 2 |
+| 7, 8, 9 | 3 |
+| … | `(matchday + 2) // 3` |
+
+Der Button **Transfer to Kicktipp** überträgt immer den **gesamten** Kicktipp-Spieltag (merged aus `state/history/rounds/matchday-*.json`), nicht nur die Spiele des aktuellen Tabs.
+
+## GitHub Actions
+
+Unter **Settings → Secrets and variables → Actions**:
 
 | Secret | Pflicht? | Beschreibung |
 |--------|----------|--------------|
-| `ODDSPAPI_API_KEY` | ja | OddsPapi API-Key |
+| `ODDSPAPI_API_KEY` | ja (für Tipps) | OddsPapi API-Key |
 | `ODDSPAPI_TOURNAMENT_ID` | empfohlen | WM-ID (`16` für Nationalmannschaften) |
 | `THE_ODDS_API_KEY` | optional | Fallback-Quotenquelle |
 | `KICKTIPP_EMAIL` | nur bei Abgabe | Kicktipp-Login |
 | `KICKTIPP_PASSWORD` | nur bei Abgabe | Kicktipp-Passwort |
-| `KICKTIPP_COMMUNITY` | nur bei Abgabe | Community-Slug (URL-Teil auf kicktipp.com) |
+| `KICKTIPP_COMMUNITY` | nur bei Abgabe | Community-Slug (z. B. `entertainment`) |
 
-Workflow **Update predictions** hat die Option **Submit to Kicktipp** (`submit_kicktipp: true`).
-Dann wird nach der Tipp-Generierung [kicktipp-agent](https://github.com/christianheidorn/kicktipp-agent) als CLI installiert und `scripts/submit_kicktipp.py` liest `state/predictions.json` (+ optional `state/bonus.json`) und ruft `kicktipp bet` auf. Das ist dieselbe Engine wie der MCP-Server `kicktipp-mcp` — in CI braucht man die CLI, nicht den MCP-Protokoll-Client.
+### Workflows
 
-Lokal testen (ohne Abgabe):
+| Workflow | Auslöser | Zweck |
+|----------|----------|-------|
+| **Tests** | Push/PR auf `main` | `pytest` |
+| **Update predictions** | manuell | Tipps generieren; optional `submit_kicktipp` + `kicktipp_spieltag` |
+| **Kicktipp Spieltag 1/2** | manuell (vom Dashboard-Button) | Nur Kicktipp-Abgabe, ohne Tipp-Neugenerierung |
+| **Check fixture odds** | manuell | Quoten-Diagnose für einzelne Spiele |
+
+### Kicktipp-Abgabe
+
+Deutsche Runden laufen auf **kicktipp.de** mit `/tippabgabe` (nicht kicktipp.com/predict). Der Workflow patcht [kicktipp-agent](https://github.com/christianheidorn/kicktipp-agent) automatisch (`scripts/patch_kicktipp_agent.py`). Teamnamen werden über `config/kicktipp_aliases.json` gemappt.
 
 ```bash
-python scripts/submit_kicktipp.py --dry-run
+# Vollständigen Kicktipp-Spieltag 1 abgeben (MD 1+2+3 aus History)
+python scripts/submit_kicktipp.py --kicktipp-spieltag 1 --no-bonus
+
+# Dry-run (keine Abgabe)
+python scripts/submit_kicktipp.py --kicktipp-spieltag 1 --dry-run
 ```
 
-Deutsche Runden laufen auf **kicktipp.de** mit `/tippabgabe` (nicht kicktipp.com/predict). Der Workflow patcht kicktipp-agent automatisch (`scripts/patch_kicktipp_agent.py`). Teamnamen werden über `config/kicktipp_aliases.json` gemappt. **Bonusfragen** sind einmalig — der Workflow nutzt `submit_kicktipp.py --no-bonus`; manuell nur noch mit `--bonus-only`.
+**Bonusfragen** sind einmalig — CI nutzt `--no-bonus`; manuell nur noch mit `--bonus-only`.
 
-Quoten-Check für einzelne Spiele: `python scripts/check_fixture_odds.py --home Australia --away Turkey` (oder Workflow **Check fixture odds**).
+Quoten-Check: `python scripts/check_fixture_odds.py --home Australia --away Turkey`
 
-Lokal aus `.env` setzen:
+Secrets aus `.env` setzen:
 
 ```bash
 gh secret set ODDSPAPI_API_KEY --repo ElPold/wm2026-agent < <(grep '^ODDSPAPI_API_KEY=' .env | cut -d= -f2-)
@@ -84,16 +120,21 @@ Spielplan aktualisieren: `python scripts/fetch_schedule.py`
 
 ```
 wm2026-agent/
-├── data/                 # Spielplan, Quoten-Cache, Beispieldaten
-├── state/                # Team-Stärken, Vorhersagen (später)
+├── config/               # kicktipp_aliases.json, kicktipp_spieltag.json
+├── data/schedule/        # openfootball Spielplan
+├── docs/                 # generierte GitHub Pages (nicht von Hand editieren)
+├── scripts/              # submit_kicktipp, patch_kicktipp_agent, check_fixture_odds
+├── site/templates/       # Jinja2-Templates für das Dashboard
+├── state/                # predictions.json, history/rounds/, bonus.json
 ├── src/
 │   ├── sources/          # openfootball, OddsPapi, The Odds API
 │   ├── pipeline/         # Tages-Tipps erzeugen
 │   ├── model/            # Quoten, Poisson, Kalibrierung
-│   └── optimizer/        # Kicktipp-Punkte, EV-Optimierer
-├── tests/
-├── demo.py               # Funktionsnachweis einzelnes Spiel
-└── run.py                # Täglicher Lauf (Stub)
+│   ├── optimizer/        # Kicktipp-Punkte, EV-Optimierer
+│   └── site/             # Static-Site-Generator
+├── tests/                # pytest (52 Tests)
+├── demo.py
+└── run.py                # CLI: --round, --date, --build-site
 ```
 
 ## Nächste Schritte (Phase 0)
@@ -101,4 +142,6 @@ wm2026-agent/
 - [x] OddsPapi-Anbindung (+ The Odds API Fallback)
 - [x] Spielplan via openfootball (lokal, Berlin-Zeitzone)
 - [x] Statische Website (GitHub Pages, `docs/`)
-- [ ] GitHub Actions Cron
+- [x] GitHub Actions (Tipps + Kicktipp-Abgabe)
+- [x] CI-Tests (`test.yml`)
+- [ ] GitHub Actions Cron (automatischer Tipp-Lauf)

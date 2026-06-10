@@ -11,6 +11,13 @@ from dotenv import load_dotenv
 ROOT = Path(__file__).resolve().parents[2]
 
 
+def _env(name: str, default: str | None = None) -> str | None:
+    value = os.getenv(name, default)
+    if value is None:
+        return None
+    return value.strip()
+
+
 @dataclass(frozen=True)
 class Settings:
     oddspapi_api_key: str | None
@@ -40,37 +47,35 @@ class Settings:
             env_file = ROOT / ".env"
         load_dotenv(env_file)
 
-        tournament_raw = os.getenv("ODDSPAPI_TOURNAMENT_ID")
+        tournament_raw = _env("ODDSPAPI_TOURNAMENT_ID")
         tournament_id = int(tournament_raw) if tournament_raw else None
 
         return cls(
-            oddspapi_api_key=os.getenv("ODDSPAPI_API_KEY"),
-            api_football_api_key=os.getenv("API_FOOTBALL_API_KEY"),
-            the_odds_api_key=os.getenv("THE_ODDS_API_KEY"),
-            oddspapi_base_url=os.getenv(
-                "ODDSPAPI_BASE_URL", "https://api.oddspapi.io/v4"
-            ),
-            oddspapi_sport_id=int(os.getenv("ODDSPAPI_SPORT_ID", "10")),
+            oddspapi_api_key=_env("ODDSPAPI_API_KEY"),
+            api_football_api_key=_env("API_FOOTBALL_API_KEY"),
+            the_odds_api_key=_env("THE_ODDS_API_KEY"),
+            oddspapi_base_url=_env("ODDSPAPI_BASE_URL", "https://api.oddspapi.io/v4")
+            or "https://api.oddspapi.io/v4",
+            oddspapi_sport_id=int(_env("ODDSPAPI_SPORT_ID", "10") or "10"),
             oddspapi_tournament_id=tournament_id,
-            oddspapi_bookmaker=os.getenv("ODDSPAPI_BOOKMAKER", "pinnacle"),
-            api_football_base_url=os.getenv(
+            oddspapi_bookmaker=_env("ODDSPAPI_BOOKMAKER", "pinnacle") or "pinnacle",
+            api_football_base_url=_env(
                 "API_FOOTBALL_BASE_URL", "https://v3.football.api-sports.io"
-            ),
-            api_football_league_id=int(os.getenv("API_FOOTBALL_LEAGUE_ID", "1")),
-            api_football_season=int(os.getenv("API_FOOTBALL_SEASON", "2026")),
-            the_odds_api_base_url=os.getenv(
+            )
+            or "https://v3.football.api-sports.io",
+            api_football_league_id=int(_env("API_FOOTBALL_LEAGUE_ID", "1") or "1"),
+            api_football_season=int(_env("API_FOOTBALL_SEASON", "2026") or "2026"),
+            the_odds_api_base_url=_env(
                 "THE_ODDS_API_BASE_URL", "https://api.the-odds-api.com/v4"
-            ),
-            the_odds_api_sport=os.getenv(
-                "THE_ODDS_API_SPORT", "soccer_fifa_world_cup"
-            ),
-            the_odds_api_region=os.getenv("THE_ODDS_API_REGION", "eu"),
-            timezone=os.getenv("TIMEZONE", "Europe/Berlin"),
+            )
+            or "https://api.the-odds-api.com/v4",
+            the_odds_api_sport=_env("THE_ODDS_API_SPORT", "soccer_fifa_world_cup")
+            or "soccer_fifa_world_cup",
+            the_odds_api_region=_env("THE_ODDS_API_REGION", "eu") or "eu",
+            timezone=_env("TIMEZONE", "Europe/Berlin") or "Europe/Berlin",
             schedule_path=Path(
-                os.getenv(
-                    "SCHEDULE_PATH",
-                    str(ROOT / "data" / "schedule" / "worldcup.json"),
-                )
+                _env("SCHEDULE_PATH", str(ROOT / "data" / "schedule" / "worldcup.json"))
+                or str(ROOT / "data" / "schedule" / "worldcup.json")
             ),
         )
 

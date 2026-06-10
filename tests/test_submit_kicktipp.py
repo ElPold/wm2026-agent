@@ -53,6 +53,21 @@ def test_load_predictions_for_kicktipp_spieltag(tmp_path):
     assert payload["agent_rounds"] == ["Matchday 1", "Matchday 2"]
 
 
+def test_match_bets_maps_bosnia_alias():
+    payload = {
+        "predictions": [
+            {
+                "home_team": "Canada",
+                "away_team": "Bosnia & Herzegovina",
+                "tip": "1:0",
+            },
+        ]
+    }
+    aliases = {"Bosnia & Herzegovina": "Bosnien-Herzegowina"}
+    bets = match_bets_from_predictions(payload, aliases)
+    assert bets == ["Canada vs Bosnien-Herzegowina=1:0"]
+
+
 def test_match_bets_skips_pending():
     payload = {
         "predictions": [
