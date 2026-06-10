@@ -848,6 +848,66 @@ body {
   border-color: rgba(248, 169, 74, 0.35);
 }
 
+.badge-blowout {
+  color: var(--gold);
+  border-color: rgba(245, 196, 81, 0.45);
+  background: var(--gold-dim);
+  text-transform: none;
+  letter-spacing: 0.01em;
+  font-size: 0.68rem;
+}
+
+.ev-alternatives {
+  margin-top: 1.25rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--border);
+}
+
+.ev-alt-label {
+  margin: 0 0 0.65rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.ev-alt-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.ev-alt-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.45rem 0.65rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.ev-alt-row.is-pick {
+  border-color: rgba(245, 196, 81, 0.35);
+  background: var(--gold-dim);
+}
+
+.ev-alt-score {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.ev-alt-ev {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.ev-alt-row.is-pick .ev-alt-ev {
+  color: var(--gold);
+}
+
 .no-odds-callout {
   margin-top: 1.25rem;
   padding: 1rem 1.1rem;

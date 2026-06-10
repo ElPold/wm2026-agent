@@ -14,6 +14,7 @@ from src.model.calibration import calibrate_poisson_to_market
 from src.model.odds import parse_market_odds
 from src.model.poisson import top_scores
 from src.optimizer.ev import find_optimal_tip
+from src.optimizer.tip_payload import top_alternatives_to_json
 from src.sources.config import Settings
 from src.sources.models import MatchFixture, MatchPrediction
 from src.sources.odds_provider import OddsProvider
@@ -129,6 +130,7 @@ def _generate_predictions_for_fixtures(
                 lambda_away=calibration.lambda_away,
                 market_probs=calibration.market_probs,
                 top_scores=top_scores(calibration.distribution, n=5),
+                top_alternatives=recommendation.top_alternatives,
             )
         )
 
@@ -257,4 +259,5 @@ def _prediction_to_dict(prediction: MatchPrediction) -> dict[str, Any]:
             {"score": f"{h}:{a}", "probability": round(p, 4)}
             for (h, a), p in prediction.top_scores
         ],
+        "top_alternatives": top_alternatives_to_json(prediction.top_alternatives),
     }

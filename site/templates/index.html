@@ -220,12 +220,29 @@
                 {% for badge in match.badges %}
                 <span class="badge badge-{{ badge.slug }}">
                   <span class="t-normal">{{ badge.label }}</span>
-                  <span class="t-cat" hidden>{% if badge.slug == 'ev-pick' %}Tuna Pick{% elif badge.slug == 'market' %}Nap Signal{% elif badge.slug == 'high' %}Purring{% elif badge.slug == 'low' %}Suspicious Cat{% elif badge.slug == 'no-odds' %}Cat still waiting at the window{% else %}{{ badge.label }}{% endif %}</span>
+                  <span class="t-cat" hidden>{% if badge.slug == 'ev-pick' %}Tuna Pick{% elif badge.slug == 'market' %}Nap Signal{% elif badge.slug == 'blowout' %}Big nap gap · wider bowl{% elif badge.slug == 'high' %}Purring{% elif badge.slug == 'low' %}Suspicious Cat{% elif badge.slug == 'no-odds' %}Cat still waiting at the window{% else %}{{ badge.label }}{% endif %}</span>
                 </span>
                 {% endfor %}
               </div>
             </div>
           </div>
+
+          {% if match.ev_alternatives_display %}
+          <div class="ev-alternatives">
+            <p class="ev-alt-label">
+              <span class="t-normal">Top EV alternatives</span>
+              <span class="t-cat cat-label-with-icon" hidden><img class="cat-icon" width="16" height="16" src="static/cats/tuna.svg" alt="">Top tuna alternatives</span>
+            </p>
+            <div class="ev-alt-list">
+              {% for row in match.ev_alternatives_display %}
+              <div class="ev-alt-row{% if row.is_pick %} is-pick{% endif %}">
+                <span class="ev-alt-score mono">{{ row.score }}</span>
+                <span class="ev-alt-ev mono">{{ "%.3f"|format(row.expected_points) }} EV</span>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          {% endif %}
 
           {% if match.top_scores_display %}
           <div class="score-dist">
@@ -329,6 +346,26 @@
           <dd>
             <span class="t-normal">Strength of the strongest 1/X/2 market signal. High when one outcome dominates; low when the market is split.</span>
             <span class="t-cat" hidden>How loudly the market purrs toward one outcome. High when one side dominates; low when the odds are suspiciously balanced.</span>
+          </dd>
+        </div>
+        <div class="glossary-item">
+          <dt>
+            <span class="t-normal">Top EV alternatives</span>
+            <span class="t-cat" hidden>Top tuna alternatives</span>
+          </dt>
+          <dd>
+            <span class="t-normal">The chosen tip (highlighted) plus the three next-best scores by expected Kicktipp points from the EV optimizer — not the same as probability-ranked scores below.</span>
+            <span class="t-cat" hidden>The chosen bowl plus the three next-best scores by expected tuna — not the same as probability-ranked naps below.</span>
+          </dd>
+        </div>
+        <div class="glossary-item">
+          <dt>
+            <span class="t-normal">Clear mismatch · wider score band</span>
+            <span class="t-cat" hidden>Big nap gap · wider bowl</span>
+          </dt>
+          <dd>
+            <span class="t-normal">Golden blowout badge when the EV-optimal tip is not the usual narrow 1:0 or 0:1 — typical for clear favorites where a wider win (e.g. 2:0) scores more expected points.</span>
+            <span class="t-cat" hidden>Golden badge when the optimal bowl is not a tight 1:0 or 0:1 nap — the cat expects a bigger gap.</span>
           </dd>
         </div>
         <div class="glossary-item">

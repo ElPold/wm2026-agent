@@ -51,3 +51,6 @@ class MatchPrediction:
     lambda_away: float
     market_probs: dict[str, float]
     top_scores: list[tuple[tuple[int, int], float]] = field(default_factory=list)
+    top_alternatives: list[tuple[tuple[int, int], float]] = field(
+        default_factory=list
+    )

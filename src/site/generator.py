@@ -14,6 +14,11 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 from src.bonus.tips import compute_bonus_tips, load_bonus_payload, save_bonus_payload
 from src.optimizer.scoring import kicktipp_points
+from src.optimizer.tip_payload import (
+    build_ev_alternatives_display,
+    is_blowout_tip,
+    parse_tip_scores,
+)
 from src.site.flags import team_flag_url
 from src.sources.config import Settings
 from src.sources.openfootball import OpenFootballSchedule
@@ -220,6 +225,8 @@ def _enrich_match(item: dict[str, Any]) -> dict[str, Any]:
         enriched["confidence"] = "low"
         enriched["signal_strength"] = 0
         enriched["top_scores_display"] = []
+        enriched["ev_alternatives_display"] = []
+        enriched["is_blowout"] = False
         return _attach_team_flags(enriched)
 
     probs = enriched.get("market_probs", {})
@@ -245,7 +252,12 @@ def _enrich_match(item: dict[str, Any]) -> dict[str, Any]:
         _format_tip_display(most_likely) if most_likely else None
     )
     enriched["has_odds"] = bool(enriched.get("odds_1x2"))
+    tip_scores = parse_tip_scores(enriched.get("tip"))
+    enriched["is_blowout"] = (
+        tip_scores is not None and is_blowout_tip(*tip_scores)
+    )
     enriched["badges"] = _build_badges(enriched, max_prob)
+    enriched["ev_alternatives_display"] = build_ev_alternatives_display(enriched)
     enriched["confidence"] = _confidence_level(max_prob)
     enriched["signal_strength"] = int(round(max_prob * 100))
     top_scores = enriched.get("top_scores", [])
@@ -531,6 +543,14 @@ def _build_badges(match: dict[str, Any], max_prob: float) -> list[dict[str, str]
         {"slug": "ev-pick", "label": "EV Pick"},
         {"slug": "market", "label": "Market Signal"},
     ]
+    tip_scores = parse_tip_scores(match.get("tip"))
+    if tip_scores and is_blowout_tip(*tip_scores):
+        badges.append(
+            {
+                "slug": "blowout",
+                "label": "Clear mismatch · wider score band",
+            }
+        )
     if max_prob >= 0.55:
         badges.append({"slug": "high", "label": "High Confidence"})
     elif max_prob < 0.40:

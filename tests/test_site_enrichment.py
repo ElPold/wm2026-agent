@@ -15,6 +15,23 @@ def test_enrich_match_adds_display_and_badges():
     assert any(b["slug"] == "ev-pick" for b in match["badges"])
 
 
+def test_enrich_match_backfills_ev_alternatives_without_stored_field():
+    match = _enrich_match(
+        {
+            "tip": "1:0",
+            "expected_points": 1.21,
+            "most_likely_score": "1:1",
+            "market_probs": {"home": 0.36, "draw": 0.44, "away": 0.2},
+            "odds_1x2": {"home": 2.62, "draw": 2.17, "away": 4.66},
+            "odds_ou25": {"over": 1.99, "under": 1.9},
+            "top_scores": [{"score": "1:1", "probability": 0.13}],
+        }
+    )
+    assert len(match["ev_alternatives_display"]) == 4
+    assert match["ev_alternatives_display"][0]["is_pick"] is True
+    assert match["is_blowout"] is False
+
+
 def test_mark_day_highlight_flags_best_ev():
     picks = [
         {"fixture_id": "a", "expected_points": 1.2},
