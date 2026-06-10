@@ -29,6 +29,8 @@ TEMPLATES = ROOT / "site" / "templates"
 STATIC = ROOT / "site" / "static"
 DOCS = ROOT / "docs"
 DISPLAY_MATCHDAYS = tuple(f"Matchday {index}" for index in range(1, 6))
+# Bei jedem Site-Deploy um 1 erhöhen (sichtbar rechts oben im Dashboard).
+SITE_VERSION = 1
 
 
 def build_site(
@@ -345,6 +347,7 @@ def _shared_context() -> dict[str, Any]:
             "https://github.com/ElPold/wm2026-agent/actions/workflows/"
             "update-predictions.yml"
         ),
+        "site_version": SITE_VERSION,
     }
 
 

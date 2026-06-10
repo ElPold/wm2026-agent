@@ -176,6 +176,16 @@ body {
   flex-shrink: 0;
 }
 
+.site-version {
+  margin-left: 0.15rem;
+  padding: 0.35rem 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+  opacity: 0.85;
+}
+
 .update-btn,
 .catify-btn {
   display: inline-flex;
