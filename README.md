@@ -45,6 +45,20 @@ Unter **Settings → Secrets and variables → Actions** müssen mindestens dies
 | `ODDSPAPI_API_KEY` | ja | OddsPapi API-Key |
 | `ODDSPAPI_TOURNAMENT_ID` | empfohlen | WM-ID (`16` für Nationalmannschaften) |
 | `THE_ODDS_API_KEY` | optional | Fallback-Quotenquelle |
+| `KICKTIPP_EMAIL` | nur bei Abgabe | Kicktipp-Login |
+| `KICKTIPP_PASSWORD` | nur bei Abgabe | Kicktipp-Passwort |
+| `KICKTIPP_COMMUNITY` | nur bei Abgabe | Community-Slug (URL-Teil auf kicktipp.com) |
+
+Workflow **Update predictions** hat die Option **Submit to Kicktipp** (`submit_kicktipp: true`).
+Dann wird nach der Tipp-Generierung [kicktipp-agent](https://github.com/christianheidorn/kicktipp-agent) als CLI installiert und `scripts/submit_kicktipp.py` liest `state/predictions.json` (+ optional `state/bonus.json`) und ruft `kicktipp bet` auf. Das ist dieselbe Engine wie der MCP-Server `kicktipp-mcp` — in CI braucht man die CLI, nicht den MCP-Protokoll-Client.
+
+Lokal testen (ohne Abgabe):
+
+```bash
+python scripts/submit_kicktipp.py --dry-run
+```
+
+Teamnamen auf Kicktipp können abweichen — optional `config/kicktipp_aliases.json` anlegen (Vorlage: `config/kicktipp_aliases.example.json`).
 
 Lokal aus `.env` setzen:
 

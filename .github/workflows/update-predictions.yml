@@ -7,6 +7,11 @@ on:
         description: 'Spieltag/Runde, z. B. "Matchday 1". Empty = Matchday 1'
         required: false
         type: string
+      submit_kicktipp:
+        description: 'Tipps nach Kicktipp übertragen (kicktipp-agent CLI, braucht KICKTIPP_* Secrets)'
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -49,6 +54,45 @@ jobs:
             ROUND="Matchday 1"
           fi
           python run.py --round "$ROUND" --skip-started
+
+      - uses: actions/setup-node@v4
+        if: inputs.submit_kicktipp == true
+        with:
+          node-version: "22"
+
+      - name: Install kicktipp-agent CLI
+        if: inputs.submit_kicktipp == true
+        run: |
+          git clone --depth 1 --branch v1.0.0 https://github.com/christianheidorn/kicktipp-agent.git .kicktipp-agent
+          cd .kicktipp-agent
+          npm install
+          npm run build
+          npx playwright install chromium --with-deps
+
+      - name: Validate Kicktipp secrets
+        if: inputs.submit_kicktipp == true
+        env:
+          KICKTIPP_EMAIL: ${{ secrets.KICKTIPP_EMAIL }}
+          KICKTIPP_PASSWORD: ${{ secrets.KICKTIPP_PASSWORD }}
+          KICKTIPP_COMMUNITY: ${{ secrets.KICKTIPP_COMMUNITY }}
+        run: |
+          missing=0
+          for name in KICKTIPP_EMAIL KICKTIPP_PASSWORD KICKTIPP_COMMUNITY; do
+            if [ -z "${!name}" ]; then
+              echo "::error::Repository-Secret $name fehlt (Settings → Secrets and variables → Actions)."
+              missing=1
+            fi
+          done
+          exit $missing
+
+      - name: Submit tips to Kicktipp
+        if: inputs.submit_kicktipp == true
+        env:
+          KICKTIPP_EMAIL: ${{ secrets.KICKTIPP_EMAIL }}
+          KICKTIPP_PASSWORD: ${{ secrets.KICKTIPP_PASSWORD }}
+          KICKTIPP_COMMUNITY: ${{ secrets.KICKTIPP_COMMUNITY }}
+          KICKTIPP_BIN: ${{ github.workspace }}/.kicktipp-agent/dist/index.js
+        run: python scripts/submit_kicktipp.py
 
       - name: Commit updated site and state
         run: |
