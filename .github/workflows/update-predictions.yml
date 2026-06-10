@@ -64,9 +64,7 @@ jobs:
         if: inputs.submit_kicktipp == true
         run: |
           git clone --depth 1 --branch v1.0.0 https://github.com/christianheidorn/kicktipp-agent.git .kicktipp-agent
-          sed -i 's|https://www.kicktipp.com|https://www.kicktipp.de|g' .kicktipp-agent/src/url.ts
-          sed -i 's|/predict|/tippabgabe|g' .kicktipp-agent/src/url.ts
-          sed -i 's|height: 900|height: 2400|g' .kicktipp-agent/src/browser.ts
+          python scripts/patch_kicktipp_agent.py .kicktipp-agent
           cd .kicktipp-agent
           npm install
           npm run build
