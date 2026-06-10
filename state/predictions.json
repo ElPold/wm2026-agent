@@ -1,170 +1,137 @@
 {
-  "round": "Matchday 4",
-  "generated_at": "2026-06-10T22:10:07.451900+02:00",
-  "match_count": 4,
+  "round": "Matchday 1",
+  "generated_at": "2026-06-10T22:53:35.550736+02:00",
+  "match_count": 2,
   "predictions": [
     {
-      "fixture_id": "wc26-025",
-      "home_team": "Germany",
-      "away_team": "Curaçao",
-      "kickoff_berlin": "2026-06-14T19:00:00+02:00",
-      "venue": "Houston",
-      "round": "Matchday 4",
-      "pending": true
-    },
-    {
-      "fixture_id": "wc26-031",
-      "home_team": "Netherlands",
-      "away_team": "Japan",
-      "kickoff_berlin": "2026-06-14T22:00:00+02:00",
-      "venue": "Dallas (Arlington)",
-      "round": "Matchday 4",
+      "fixture_id": "wc26-001",
+      "home_team": "Mexico",
+      "away_team": "South Africa",
+      "kickoff_berlin": "2026-06-11T21:00:00+02:00",
+      "venue": "Mexico City",
+      "round": "Matchday 1",
       "odds_source": "oddspapi",
       "bookmaker": "pinnacle",
       "odds_1x2": {
-        "home": 2.62,
-        "draw": 2.17,
-        "away": 4.66
+        "home": 2.04,
+        "draw": 2.19,
+        "away": 8.77
       },
       "odds_ou25": {
-        "over": 1.99,
-        "under": 1.9
+        "over": 2.23,
+        "under": 1.694
       },
       "market_probs": {
-        "home": 0.361062313438165,
-        "draw": 0.43593698673179365,
-        "away": 0.20300069983004126,
-        "over_2_5": 0.48843187660668386
+        "home": 0.46208200708774516,
+        "draw": 0.4304325545474887,
+        "away": 0.10748543836476626,
+        "over_2_5": 0.43170234454638123
       },
-      "lambda_home": 1.3294071277556025,
-      "lambda_away": 1.0527382577179627,
+      "lambda_home": 1.376891845338255,
+      "lambda_away": 0.7750856812375843,
       "tip": "1:0",
-      "expected_points": 1.2135,
-      "most_likely_score": "1:1",
-      "top_scores": [
-        {
-          "score": "1:1",
-          "probability": 0.1293
-        },
-        {
-          "score": "1:0",
-          "probability": 0.1228
-        },
-        {
-          "score": "0:1",
-          "probability": 0.0973
-        },
-        {
-          "score": "0:0",
-          "probability": 0.0924
-        },
-        {
-          "score": "2:1",
-          "probability": 0.086
-        }
-      ]
-    },
-    {
-      "fixture_id": "wc26-026",
-      "home_team": "Ivory Coast",
-      "away_team": "Ecuador",
-      "kickoff_berlin": "2026-06-15T01:00:00+02:00",
-      "venue": "Philadelphia",
-      "round": "Matchday 4",
-      "odds_source": "oddspapi",
-      "bookmaker": "pinnacle",
-      "odds_1x2": {
-        "home": 3.64,
-        "draw": 2.82,
-        "away": 2.48
-      },
-      "odds_ou25": {
-        "over": 2.97,
-        "under": 1.414
-      },
-      "market_probs": {
-        "home": 0.2660620263566363,
-        "draw": 0.34342758011991353,
-        "away": 0.39051039352345013,
-        "over_2_5": 0.3225364963503649
-      },
-      "lambda_home": 0.8538099564102708,
-      "lambda_away": 1.0804243886119673,
-      "tip": "0:1",
-      "expected_points": 1.2043,
-      "most_likely_score": "0:1",
-      "top_scores": [
-        {
-          "score": "0:1",
-          "probability": 0.1562
-        },
-        {
-          "score": "0:0",
-          "probability": 0.1446
-        },
-        {
-          "score": "1:1",
-          "probability": 0.1334
-        },
-        {
-          "score": "1:0",
-          "probability": 0.1234
-        },
-        {
-          "score": "0:2",
-          "probability": 0.0844
-        }
-      ]
-    },
-    {
-      "fixture_id": "wc26-032",
-      "home_team": "Sweden",
-      "away_team": "Tunisia",
-      "kickoff_berlin": "2026-06-15T04:00:00+02:00",
-      "venue": "Monterrey (Guadalupe)",
-      "round": "Matchday 4",
-      "odds_source": "oddspapi",
-      "bookmaker": "pinnacle",
-      "odds_1x2": {
-        "home": 2.49,
-        "draw": 2.15,
-        "away": 5.27
-      },
-      "odds_ou25": {
-        "over": 2.29,
-        "under": 1.662
-      },
-      "market_probs": {
-        "home": 0.3801377561119629,
-        "draw": 0.44025256405525004,
-        "away": 0.17960967983278703,
-        "over_2_5": 0.42054655870445345
-      },
-      "lambda_home": 1.2206713023937035,
-      "lambda_away": 0.8847437945691661,
-      "tip": "1:0",
-      "expected_points": 1.2712,
+      "expected_points": 1.4449,
       "most_likely_score": "1:0",
       "top_scores": [
         {
           "score": "1:0",
-          "probability": 0.1487
+          "probability": 0.1602
         },
         {
           "score": "1:1",
-          "probability": 0.1316
+          "probability": 0.1241
         },
         {
           "score": "0:0",
-          "probability": 0.1218
-        },
-        {
-          "score": "0:1",
-          "probability": 0.1078
+          "probability": 0.1163
         },
         {
           "score": "2:0",
-          "probability": 0.0908
+          "probability": 0.1103
+        },
+        {
+          "score": "0:1",
+          "probability": 0.0902
+        }
+      ],
+      "top_alternatives": [
+        {
+          "score": "2:1",
+          "expected_points": 1.3702
+        },
+        {
+          "score": "3:2",
+          "expected_points": 1.2999
+        },
+        {
+          "score": "2:0",
+          "expected_points": 1.2878
+        }
+      ]
+    },
+    {
+      "fixture_id": "wc26-002",
+      "home_team": "South Korea",
+      "away_team": "Czech Republic",
+      "kickoff_berlin": "2026-06-12T04:00:00+02:00",
+      "venue": "Guadalajara (Zapopan)",
+      "round": "Matchday 1",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 2.74,
+        "draw": 3.14,
+        "away": 2.86
+      },
+      "odds_ou25": {
+        "over": 1.361,
+        "under": 2.98
+      },
+      "market_probs": {
+        "home": 0.3532753221821844,
+        "draw": 0.30827209642649206,
+        "away": 0.3384525813913235,
+        "over_2_5": 0.6864777700990555
+      },
+      "lambda_home": 1.7286348707479193,
+      "lambda_away": 1.69510182766164,
+      "tip": "2:1",
+      "expected_points": 1.0616,
+      "most_likely_score": "1:1",
+      "top_scores": [
+        {
+          "score": "1:1",
+          "probability": 0.0959
+        },
+        {
+          "score": "2:1",
+          "probability": 0.0829
+        },
+        {
+          "score": "1:2",
+          "probability": 0.0813
+        },
+        {
+          "score": "2:2",
+          "probability": 0.0702
+        },
+        {
+          "score": "1:0",
+          "probability": 0.0566
+        }
+      ],
+      "top_alternatives": [
+        {
+          "score": "1:0",
+          "expected_points": 1.0352
+        },
+        {
+          "score": "1:2",
+          "expected_points": 1.0288
+        },
+        {
+          "score": "3:2",
+          "expected_points": 1.0192
         }
       ]
     }
