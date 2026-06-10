@@ -38,23 +38,16 @@ def main() -> int:
             ),
         ],
     )
-    patch_file(
-        root / "src/commands/bet.ts",
-        [
-            (
-                "await Promise.all([\n"
-                "    page.waitForNavigation(),\n"
-                "    page.click('button[name=\"submitbutton\"]'),\n"
-                "  ]);",
-                "await dismissConsent(page);\n"
-                "  await page.locator('button[name=\"submitbutton\"]').scrollIntoViewIfNeeded();\n"
-                "  await Promise.all([\n"
-                "    page.waitForNavigation(),\n"
-                "    page.click('button[name=\"submitbutton\"]', { force: true }),\n"
-                "  ]);",
-            ),
-        ],
+    bet_ts = root / "src/commands/bet.ts"
+    bet_text = bet_ts.read_text(encoding="utf-8")
+    bet_text = bet_text.replace("/predict?bonus=true", "/tippabgabe?bonus=true")
+    bet_text = bet_text.replace(
+        "page.click('button[name=\"submitbutton\"]')",
+        "page.locator('button[name=\"submitbutton\"]').scrollIntoViewIfNeeded(), "
+        "page.click('button[name=\"submitbutton\"]', { force: true })",
     )
+    bet_ts.write_text(bet_text, encoding="utf-8")
+    print(f"Gepatcht: {bet_ts}")
     return 0
 
 
