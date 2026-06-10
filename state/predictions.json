@@ -1,213 +1,109 @@
 {
-  "round": "Matchday 5",
-  "generated_at": "2026-06-10T21:08:07.021155+02:00",
-  "match_count": 4,
+  "round": "Matchday 1",
+  "generated_at": "2026-06-10T21:34:43.181313+02:00",
+  "match_count": 2,
   "predictions": [
     {
-      "fixture_id": "wc26-043",
-      "home_team": "Spain",
-      "away_team": "Cape Verde",
-      "kickoff_berlin": "2026-06-15T18:00:00+02:00",
-      "venue": "Atlanta",
-      "round": "Matchday 5",
+      "fixture_id": "wc26-001",
+      "home_team": "Mexico",
+      "away_team": "South Africa",
+      "kickoff_berlin": "2026-06-11T21:00:00+02:00",
+      "venue": "Mexico City",
+      "round": "Matchday 1",
       "odds_source": "oddspapi",
       "bookmaker": "pinnacle",
       "odds_1x2": {
-        "home": 1.076,
-        "draw": 11.68,
-        "away": 28.46
+        "home": 1.432,
+        "draw": 4.42,
+        "away": 8.78
       },
       "odds_ou25": {
-        "over": 1.546,
-        "under": 2.36
+        "over": 3.4,
+        "under": 1.311
       },
       "market_probs": {
-        "home": 0.8850099988434611,
-        "draw": 0.08153003071537364,
-        "away": 0.03345997044116529,
-        "over_2_5": 0.6041986687147978
+        "home": 0.6724588459539075,
+        "draw": 0.21786449488823428,
+        "away": 0.10967665915785828,
+        "over_2_5": 0.27828486520908513
       },
-      "lambda_home": 2.869959276332446,
-      "lambda_away": 0.31243399743029915,
-      "tip": "2:0",
-      "expected_points": 2.1827,
-      "most_likely_score": "2:0",
+      "lambda_home": 1.5307816777847616,
+      "lambda_away": 0.35929515239215093,
+      "tip": "1:0",
+      "expected_points": 1.8719,
+      "most_likely_score": "1:0",
       "top_scores": [
         {
+          "score": "1:0",
+          "probability": 0.2315
+        },
+        {
           "score": "2:0",
-          "probability": 0.1757
+          "probability": 0.1772
+        },
+        {
+          "score": "0:0",
+          "probability": 0.1512
         },
         {
           "score": "3:0",
-          "probability": 0.168
+          "probability": 0.0904
         },
         {
-          "score": "1:0",
-          "probability": 0.1224
-        },
-        {
-          "score": "4:0",
-          "probability": 0.1206
-        },
-        {
-          "score": "5:0",
-          "probability": 0.0692
+          "score": "1:1",
+          "probability": 0.0832
         }
       ]
     },
     {
-      "fixture_id": "wc26-037",
-      "home_team": "Belgium",
-      "away_team": "Egypt",
-      "kickoff_berlin": "2026-06-15T21:00:00+02:00",
-      "venue": "Seattle",
-      "round": "Matchday 5",
+      "fixture_id": "wc26-002",
+      "home_team": "South Korea",
+      "away_team": "Czech Republic",
+      "kickoff_berlin": "2026-06-12T04:00:00+02:00",
+      "venue": "Guadalajara (Zapopan)",
+      "round": "Matchday 1",
       "odds_source": "oddspapi",
       "bookmaker": "pinnacle",
       "odds_1x2": {
-        "home": 1.662,
-        "draw": 3.96,
-        "away": 5.46
+        "home": 3.35,
+        "draw": 2.09,
+        "away": 3.57
       },
       "odds_ou25": {
-        "over": 2.03,
-        "under": 1.862
+        "over": 1.338,
+        "under": 3.09
       },
       "market_probs": {
-        "home": 0.5800152584766632,
-        "draw": 0.24343064636066017,
-        "away": 0.17655409516267656,
-        "over_2_5": 0.47841726618705044
+        "home": 0.2823864690053477,
+        "draw": 0.452629029266945,
+        "away": 0.26498450172770727,
+        "over_2_5": 0.6978319783197832
       },
-      "lambda_home": 1.7320443700418813,
-      "lambda_away": 0.8497556938009535,
-      "tip": "1:0",
-      "expected_points": 1.5502,
-      "most_likely_score": "1:0",
+      "lambda_home": 1.654619030191202,
+      "lambda_away": 1.6204761709388453,
+      "tip": "2:1",
+      "expected_points": 1.0607,
+      "most_likely_score": "1:1",
       "top_scores": [
         {
-          "score": "1:0",
-          "probability": 0.1313
-        },
-        {
-          "score": "2:0",
-          "probability": 0.1137
-        },
-        {
           "score": "1:1",
-          "probability": 0.1116
+          "probability": 0.1017
         },
         {
           "score": "2:1",
-          "probability": 0.0966
-        },
-        {
-          "score": "0:0",
-          "probability": 0.0758
-        }
-      ]
-    },
-    {
-      "fixture_id": "wc26-044",
-      "home_team": "Saudi Arabia",
-      "away_team": "Uruguay",
-      "kickoff_berlin": "2026-06-16T00:00:00+02:00",
-      "venue": "Miami (Miami Gardens)",
-      "round": "Matchday 5",
-      "odds_source": "oddspapi",
-      "bookmaker": "pinnacle",
-      "odds_1x2": {
-        "home": 7.75,
-        "draw": 4.47,
-        "away": 1.458
-      },
-      "odds_ou25": {
-        "over": 2.04,
-        "under": 1.854
-      },
-      "market_probs": {
-        "home": 0.12423469183514978,
-        "draw": 0.2153957185061322,
-        "away": 0.660369589658718,
-        "over_2_5": 0.4761171032357473
-      },
-      "lambda_home": 0.6845102001002762,
-      "lambda_away": 1.8962774935258002,
-      "tip": "0:1",
-      "expected_points": 1.7263,
-      "most_likely_score": "0:1",
-      "top_scores": [
-        {
-          "score": "0:1",
-          "probability": 0.1441
-        },
-        {
-          "score": "0:2",
-          "probability": 0.1366
-        },
-        {
-          "score": "1:1",
-          "probability": 0.0986
+          "probability": 0.0841
         },
         {
           "score": "1:2",
-          "probability": 0.0935
+          "probability": 0.0824
         },
         {
-          "score": "0:3",
-          "probability": 0.0863
-        }
-      ]
-    },
-    {
-      "fixture_id": "wc26-038",
-      "home_team": "Iran",
-      "away_team": "New Zealand",
-      "kickoff_berlin": "2026-06-16T03:00:00+02:00",
-      "venue": "Los Angeles (Inglewood)",
-      "round": "Matchday 5",
-      "odds_source": "oddspapi",
-      "bookmaker": "pinnacle",
-      "odds_1x2": {
-        "home": 1.892,
-        "draw": 3.5,
-        "away": 4.51
-      },
-      "odds_ou25": {
-        "over": 2.36,
-        "under": 1.625
-      },
-      "market_probs": {
-        "home": 0.5101823146278335,
-        "draw": 0.275789982650246,
-        "away": 0.21402770272192043,
-        "over_2_5": 0.4077791718946048
-      },
-      "lambda_home": 1.4541923730003705,
-      "lambda_away": 0.8491803497684336,
-      "tip": "1:0",
-      "expected_points": 1.4271,
-      "most_likely_score": "1:0",
-      "top_scores": [
+          "score": "2:2",
+          "probability": 0.0682
+        },
         {
           "score": "1:0",
-          "probability": 0.1454
-        },
-        {
-          "score": "1:1",
-          "probability": 0.1235
-        },
-        {
-          "score": "2:0",
-          "probability": 0.1057
-        },
-        {
-          "score": "0:0",
-          "probability": 0.1
-        },
-        {
-          "score": "2:1",
-          "probability": 0.0898
+          "probability": 0.0628
         }
       ]
     }
