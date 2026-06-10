@@ -109,17 +109,37 @@ def parse_bookmaker_odds(
 ) -> MarketOdds | None:
     """Extrahiert 1X2 + O/U 2.5 aus einer OddsPapi-Fixture."""
     bookmakers = fixture.get("bookmakerOdds", {})
-    if bookmaker not in bookmakers:
-        for fallback in ("pinnacle", "betfair-ex", "betfair"):
-            if fallback in bookmakers:
-                bookmaker = fallback
-                break
-        else:
-            if not bookmakers:
-                return None
-            bookmaker = next(iter(bookmakers))
+    if not bookmakers:
+        return None
 
-    markets = bookmakers[bookmaker].get("markets", {})
+    candidates: list[str] = []
+    for name in (bookmaker, "pinnacle", "betfair-ex", "betfair"):
+        if name in bookmakers and name not in candidates:
+            candidates.append(name)
+    for name in bookmakers:
+        if name not in candidates:
+            candidates.append(name)
+
+    for candidate in candidates:
+        market = _parse_bookmaker_markets(bookmakers[candidate].get("markets", {}))
+        if market is not None:
+            odds_1x2, odds_ou25 = market
+            return MarketOdds(
+                home=odds_1x2["home"],
+                draw=odds_1x2["draw"],
+                away=odds_1x2["away"],
+                over_2_5=odds_ou25["over"],
+                under_2_5=odds_ou25["under"],
+                source="oddspapi",
+                bookmaker=candidate,
+            )
+
+    return None
+
+
+def _parse_bookmaker_markets(
+    markets: dict[str, Any],
+) -> tuple[dict[str, float], dict[str, float]] | None:
     odds_1x2: dict[str, float] = {}
     odds_ou25: dict[str, float] = {}
 
@@ -137,23 +157,9 @@ def parse_bookmaker_odds(
                 _assign_ou25(label, float(price), bool(player.get("mainLine")), odds_ou25)
 
     if len(odds_1x2) != 3 or len(odds_ou25) != 2:
-        logger.debug(
-            "Unvollständige OddsPapi-Quoten (%s): 1x2=%s ou25=%s",
-            bookmaker,
-            odds_1x2,
-            odds_ou25,
-        )
         return None
 
-    return MarketOdds(
-        home=odds_1x2["home"],
-        draw=odds_1x2["draw"],
-        away=odds_1x2["away"],
-        over_2_5=odds_ou25["over"],
-        under_2_5=odds_ou25["under"],
-        source="oddspapi",
-        bookmaker=bookmaker,
-    )
+    return odds_1x2, odds_ou25
 
 
 def _assign_1x2(label: str, price: float, odds_1x2: dict[str, float]) -> None:

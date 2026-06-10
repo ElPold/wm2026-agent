@@ -28,6 +28,8 @@ def test_normalize_team_name():
 def test_teams_match_aliases():
     assert teams_match("Mexico", "mexico")
     assert teams_match("USA", "United States")
+    assert teams_match("Turkey", "Turkiye")
+    assert teams_match("Curaçao", "Curacao")
 
 
 def test_link_fixtures_by_time_and_name():

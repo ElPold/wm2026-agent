@@ -81,7 +81,8 @@ def main() -> int:
                 if market
                 else "keine parsebaren Pinnacle-Märkte"
             )
-            print(f"  {text} | start={item.get('startTime')} | {odds_txt}")
+            bms = list((item.get("bookmakerOdds") or {}).keys())
+            print(f"  {text} | start={item.get('startTime')} | {odds_txt} | BMs: {bms}")
 
     if schedule_hits:
         links = link_fixtures(schedule_hits, odds_matches)

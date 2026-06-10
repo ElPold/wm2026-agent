@@ -19,6 +19,7 @@ TEAM_ALIASES: dict[str, list[str]] = {
     "bosnia herzegovina": ["bosnia & herzegovina", "bosnia and herzegovina"],
     "cape verde": ["cabo verde"],
     "curacao": ["curaçao"],
+    "turkey": ["turkiye", "türkiye"],
     "czech republic": ["czechia"],
     "bosnia herzegovina": ["bosnia and herzegovina"],
 }
