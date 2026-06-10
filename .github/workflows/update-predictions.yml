@@ -94,7 +94,7 @@ jobs:
           KICKTIPP_COMMUNITY: ${{ secrets.KICKTIPP_COMMUNITY }}
           KICKTIPP_LOCALE: de
           KICKTIPP_BIN: ${{ github.workspace }}/.kicktipp-agent/dist/index.js
-        run: python scripts/submit_kicktipp.py
+        run: python scripts/submit_kicktipp.py --no-bonus
 
       - name: Commit updated site and state
         run: |

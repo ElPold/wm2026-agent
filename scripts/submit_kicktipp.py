@@ -193,7 +193,7 @@ def main() -> int:
     parser.add_argument(
         "--no-bonus",
         action="store_true",
-        help="Bonusfragen nicht übertragen",
+        help="Bonusfragen nicht übertragen (Standard in GitHub Actions)",
     )
     parser.add_argument(
         "--bonus-only",
