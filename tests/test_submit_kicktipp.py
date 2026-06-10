@@ -13,6 +13,8 @@ bonus_bets_from_state = _mod.bonus_bets_from_state
 match_bets_from_predictions = _mod.match_bets_from_predictions
 parse_matchday = _mod.parse_agent_matchday
 kicktipp_spieltag = _mod.kicktipp_spieltag
+agent_rounds_for_kicktipp_spieltag = _mod.agent_rounds_for_kicktipp_spieltag
+load_predictions_for_kicktipp_spieltag = _mod.load_predictions_for_kicktipp_spieltag
 map_bonus_question = _mod.map_bonus_question
 
 
@@ -28,6 +30,27 @@ def test_kicktipp_spieltag_mapping():
     assert kicktipp_spieltag(4) == 2
     assert kicktipp_spieltag(6) == 2
     assert kicktipp_spieltag(7) == 3
+
+
+def test_agent_rounds_for_kicktipp_spieltag():
+    assert agent_rounds_for_kicktipp_spieltag(1) == [1, 2, 3]
+    assert agent_rounds_for_kicktipp_spieltag(2) == [4, 5, 6]
+
+
+def test_load_predictions_for_kicktipp_spieltag(tmp_path):
+    history = tmp_path / "rounds"
+    history.mkdir()
+    (history / "matchday-1.json").write_text(
+        '{"round": "Matchday 1", "predictions": [{"home_team": "A", "away_team": "B", "tip": "1:0"}]}',
+        encoding="utf-8",
+    )
+    (history / "matchday-2.json").write_text(
+        '{"round": "Matchday 2", "predictions": [{"home_team": "C", "away_team": "D", "tip": "2:1"}]}',
+        encoding="utf-8",
+    )
+    payload = load_predictions_for_kicktipp_spieltag(1, history_dir=history)
+    assert len(payload["predictions"]) == 2
+    assert payload["agent_rounds"] == ["Matchday 1", "Matchday 2"]
 
 
 def test_match_bets_skips_pending():

@@ -27,6 +27,7 @@ DEFAULT_PREDICTIONS = ROOT / "state" / "predictions.json"
 DEFAULT_BONUS = ROOT / "state" / "bonus.json"
 DEFAULT_ALIASES = ROOT / "config" / "kicktipp_aliases.json"
 DEFAULT_SPIELTAG_MAP = ROOT / "config" / "kicktipp_spieltag.json"
+DEFAULT_HISTORY = ROOT / "state" / "history" / "rounds"
 
 BONUS_QUESTION_DE: dict[str, str] = {
     "Who will be world champion?": "Wer wird Weltmeister?",
@@ -42,11 +43,17 @@ def parse_agent_matchday(round_name: str) -> int | None:
     return int(match.group(1)) if match else None
 
 
+def agent_rounds_for_kicktipp_spieltag(kt: int) -> list[int]:
+    """Kicktipp Spieltag k = k-te Gruppenspielrunde (je 3 chronologische Agent-Tage)."""
+    return [3 * kt - 2, 3 * kt - 1, 3 * kt]
+
+
 def kicktipp_spieltag(agent_matchday: int, mapping_path: Path = DEFAULT_SPIELTAG_MAP) -> int:
     """
-    Mappt openfootball-Matchday N auf Kicktipp spieltagIndex.
+    Mappt chronologischen Agent-Matchday N auf Kicktipp spieltagIndex.
 
-    Entertainment-WM: 8 Spiele pro Kicktipp-Spieltag ≈ 3 Agent-Matchdays.
+    Kicktipp bündelt die k-te Gruppenspielrunde (8 Spiele), nicht den chronologischen Tag.
+    Agent-Matchdays 1–3 → Kicktipp 1, 4–6 → 2, usw.
     """
     if mapping_path.exists():
         data = json.loads(mapping_path.read_text(encoding="utf-8"))
@@ -55,6 +62,27 @@ def kicktipp_spieltag(agent_matchday: int, mapping_path: Path = DEFAULT_SPIELTAG
         if key in explicit:
             return int(explicit[key])
     return (agent_matchday + 2) // 3
+
+
+def load_predictions_for_kicktipp_spieltag(
+    kt: int,
+    history_dir: Path = DEFAULT_HISTORY,
+) -> dict:
+    """Spieltipps aus Agent-Matchday-Archiven für einen Kicktipp-Spieltag zusammenführen."""
+    predictions: list[dict] = []
+    agent_rounds: list[str] = []
+    for agent_md in agent_rounds_for_kicktipp_spieltag(kt):
+        path = history_dir / f"matchday-{agent_md}.json"
+        if not path.exists():
+            continue
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        agent_rounds.append(payload.get("round", f"Matchday {agent_md}"))
+        predictions.extend(payload.get("predictions", []))
+    return {
+        "round": f"Kicktipp Spieltag {kt}",
+        "agent_rounds": agent_rounds,
+        "predictions": predictions,
+    }
 
 
 def load_aliases(path: Path) -> dict[str, str]:
@@ -226,7 +254,14 @@ def main() -> int:
         "--matchday",
         type=int,
         default=None,
-        help="Spieltag-Nummer (Default: aus predictions.json round)",
+        help="Agent-Matchday-Nummer (Default: aus predictions.json round)",
+    )
+    parser.add_argument(
+        "--kicktipp-spieltag",
+        type=int,
+        default=None,
+        metavar="N",
+        help="Kicktipp-Spieltag direkt (lädt Agent-Matchdays 3N-2 … 3N aus state/history)",
     )
     parser.add_argument(
         "--dry-run",
@@ -245,7 +280,17 @@ def main() -> int:
     if args.bonus_only:
         args.no_bonus = False
 
-    predictions_payload = json.loads(args.predictions.read_text(encoding="utf-8"))
+    if args.kicktipp_spieltag:
+        predictions_payload = load_predictions_for_kicktipp_spieltag(args.kicktipp_spieltag)
+        kt_md = args.kicktipp_spieltag
+        agent_rounds = predictions_payload.get("agent_rounds") or []
+        print(
+            f"Kicktipp-Spieltag {kt_md}: Agent-Runden {', '.join(agent_rounds) or '(keine Archive)'}"
+        )
+    else:
+        predictions_payload = json.loads(args.predictions.read_text(encoding="utf-8"))
+        kt_md = None
+
     match_bets = [] if args.bonus_only else match_bets_from_predictions(predictions_payload, aliases)
     if not match_bets:
         if args.bonus_only:
@@ -253,14 +298,17 @@ def main() -> int:
         else:
             print("Keine abzugebenden Spieltipps gefunden.")
     else:
-        agent_md = args.matchday or parse_agent_matchday(predictions_payload.get("round", ""))
         cmd_args = ["bet", *match_bets]
-        if agent_md is not None:
-            kt_md = kicktipp_spieltag(agent_md)
+        if kt_md is not None:
             cmd_args.extend(["--matchday", str(kt_md)])
-            print(f"Kicktipp-Spieltag: {kt_md} (Agent Matchday {agent_md})")
         else:
-            print("Hinweis: Kein Spieltag erkannt — kicktipp nutzt den aktuellen Tag.")
+            agent_md = args.matchday or parse_agent_matchday(predictions_payload.get("round", ""))
+            if agent_md is not None:
+                kt_md = kicktipp_spieltag(agent_md)
+                cmd_args.extend(["--matchday", str(kt_md)])
+                print(f"Kicktipp-Spieltag: {kt_md} (Agent Matchday {agent_md})")
+            else:
+                print("Hinweis: Kein Spieltag erkannt — kicktipp nutzt den aktuellen Tag.")
         print(f"Community: {community}")
         print(f"Spieltipps ({len(match_bets)}):")
         for bet in match_bets:

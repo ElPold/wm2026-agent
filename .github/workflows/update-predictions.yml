@@ -12,6 +12,10 @@ on:
         required: false
         type: boolean
         default: false
+      kicktipp_spieltag:
+        description: 'Kicktipp-Spieltag direkt (z.B. 1). Lädt Agent-Matchdays 1–3 aus state/history, überspringt Tipp-Generierung.'
+        required: false
+        type: string
 
 permissions:
   contents: write
@@ -48,6 +52,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Generate tips for upcoming matches
+        if: inputs.kicktipp_spieltag == ''
         run: |
           ROUND="${{ inputs.round }}"
           if [ -z "$ROUND" ]; then
@@ -94,7 +99,12 @@ jobs:
           KICKTIPP_COMMUNITY: ${{ secrets.KICKTIPP_COMMUNITY }}
           KICKTIPP_LOCALE: de
           KICKTIPP_BIN: ${{ github.workspace }}/.kicktipp-agent/dist/index.js
-        run: python scripts/submit_kicktipp.py --no-bonus
+        run: |
+          if [ -n "${{ inputs.kicktipp_spieltag }}" ]; then
+            python scripts/submit_kicktipp.py --no-bonus --kicktipp-spieltag "${{ inputs.kicktipp_spieltag }}"
+          else
+            python scripts/submit_kicktipp.py --no-bonus
+          fi
 
       - name: Commit updated site and state
         run: |

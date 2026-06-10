@@ -1,4 +1,5 @@
 {
-  "_comment": "Kicktipp bündelt 8 Gruppenspiele pro Spieltag (~3 openfootball-Matchdays). Formel: (n+2)//3",
-  "formula": "(matchday + 2) // 3"
+  "_comment": "Kicktipp ordnet nach Gruppenspiel-Runde (1./2./3. Spiel je Gruppe), nicht chronologisch. Spieltag k = Agent-Matchdays 3k-2, 3k-1, 3k (8 Spiele pro Kicktipp-Seite).",
+  "agent_rounds_per_kicktipp_spieltag": 3,
+  "formula_agent_to_kicktipp": "(matchday + 2) // 3"
 }
