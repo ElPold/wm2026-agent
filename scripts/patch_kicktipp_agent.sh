@@ -9,4 +9,8 @@ if [ ! -f "$URL_FILE" ]; then
 fi
 sed -i.bak 's|https://www.kicktipp.com|https://www.kicktipp.de|g' "$URL_FILE"
 sed -i.bak 's|/predict|/tippabgabe|g' "$URL_FILE"
+BROWSER_FILE="$ROOT/src/browser.ts"
+if [ -f "$BROWSER_FILE" ]; then
+  sed -i.bak 's|height: 900|height: 2400|g' "$BROWSER_FILE"
+fi
 echo "Gepatcht: $URL_FILE (-> kicktipp.de/tippabgabe)"
