@@ -145,7 +145,13 @@ def test_generated_site_catify_contract(tmp_path: Path) -> None:
     with predictions_path.open("w", encoding="utf-8") as handle:
         json.dump(payload, handle)
 
-    build_site(predictions_path=predictions_path, history_dir=history, output_dir=docs)
+    build_site(
+        predictions_path=predictions_path,
+        history_dir=history,
+        output_dir=docs,
+        version_path=state / "site_version.json",
+        increment_version=False,
+    )
 
     for page in ("index.html", "track.html", "pipeline.html"):
         html = (docs / page).read_text(encoding="utf-8")

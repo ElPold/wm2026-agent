@@ -69,6 +69,8 @@ def test_build_site_includes_bonus_page(tmp_path):
         predictions_path=predictions_path,
         history_dir=history,
         output_dir=docs,
+        version_path=state / "site_version.json",
+        increment_version=False,
     )
 
     html = (docs / "bonus.html").read_text(encoding="utf-8")

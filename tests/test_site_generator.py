@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from src.site.generator import build_site
+from src.site.generator import build_site, resolve_site_version
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -43,10 +43,13 @@ def test_build_site_from_predictions(tmp_path):
     with predictions_path.open("w", encoding="utf-8") as handle:
         json.dump(payload, handle)
 
+    version_path = state / "site_version.json"
     index_path = build_site(
         predictions_path=predictions_path,
         history_dir=history,
         output_dir=docs,
+        version_path=version_path,
+        increment_version=False,
     )
 
     html = index_path.read_text(encoding="utf-8")
@@ -84,6 +87,8 @@ def test_build_site_from_predictions(tmp_path):
         predictions_path=predictions_path,
         history_dir=history,
         output_dir=docs,
+        version_path=version_path,
+        increment_version=False,
     )
     html_multi = index_path.read_text(encoding="utf-8")
     assert html_multi.count('class="day-tab') >= 5
@@ -93,3 +98,10 @@ def test_build_site_from_predictions(tmp_path):
     assert "flagcdn.com" in html or "team-flag" in html
     assert (docs / "static" / "style.css").exists()
     assert (docs / ".nojekyll").exists()
+
+
+def test_resolve_site_version_auto_increments(tmp_path):
+    version_path = tmp_path / "site_version.json"
+    assert resolve_site_version(version_path, increment=True) == 1
+    assert resolve_site_version(version_path, increment=True) == 2
+    assert json.loads(version_path.read_text(encoding="utf-8"))["version"] == 2

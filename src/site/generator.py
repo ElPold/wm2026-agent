@@ -29,8 +29,33 @@ TEMPLATES = ROOT / "site" / "templates"
 STATIC = ROOT / "site" / "static"
 DOCS = ROOT / "docs"
 DISPLAY_MATCHDAYS = tuple(f"Matchday {index}" for index in range(1, 6))
-# Bei jedem Site-Deploy um 1 erhöhen (sichtbar rechts oben im Dashboard).
-SITE_VERSION = 1
+DEFAULT_VERSION_PATH = ROOT / "state" / "site_version.json"
+
+
+def resolve_site_version(
+    version_path: Path | None = None,
+    *,
+    increment: bool = True,
+) -> int:
+    """Liest/erhöht die Site-Version (persistiert in state/site_version.json)."""
+    path = version_path or DEFAULT_VERSION_PATH
+    current = 0
+    if path.exists():
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+            current = int(data.get("version", 0))
+        except (json.JSONDecodeError, TypeError, ValueError):
+            current = 0
+
+    if increment:
+        current += 1
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(
+            json.dumps({"version": current}, indent=2) + "\n",
+            encoding="utf-8",
+        )
+
+    return current if current > 0 else 1
 
 
 def build_site(
@@ -38,16 +63,23 @@ def build_site(
     predictions_path: Path | None = None,
     history_dir: Path | None = None,
     output_dir: Path | None = None,
+    version_path: Path | None = None,
+    increment_version: bool = True,
 ) -> Path:
     predictions_path = predictions_path or ROOT / "state" / "predictions.json"
     history_dir = history_dir or ROOT / "state" / "history"
     output_dir = output_dir or DOCS
 
+    site_version = resolve_site_version(
+        version_path,
+        increment=increment_version,
+    )
+
     rounds = _load_prediction_rounds(predictions_path, history_dir)
     for round_block in rounds:
         _mark_day_highlight(round_block.get("predictions", []))
 
-    shared = _shared_context()
+    shared = _shared_context(site_version=site_version)
     track_rows, track_stats = _load_tracking_rows(predictions_path, history_dir)
     env = _jinja_env()
 
@@ -336,7 +368,7 @@ def _enrich_bonus_payload(payload: dict[str, Any]) -> dict[str, Any]:
     return enriched
 
 
-def _shared_context() -> dict[str, Any]:
+def _shared_context(*, site_version: int) -> dict[str, Any]:
     return {
         "title": "WM 2026 Agent",
         "generated_at": datetime.now(tz=ZoneInfo("Europe/Berlin")).strftime(
@@ -347,7 +379,7 @@ def _shared_context() -> dict[str, Any]:
             "https://github.com/ElPold/wm2026-agent/actions/workflows/"
             "update-predictions.yml"
         ),
-        "site_version": SITE_VERSION,
+        "site_version": site_version,
     }
 
 
