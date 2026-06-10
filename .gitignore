@@ -27,3 +27,5 @@ htmlcov/
 
 # State (wird später versioniert, Cache nicht)
 state/*.tmp
+.kicktipp-agent/
+state/kicktipp_debug.html
