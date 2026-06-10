@@ -7,12 +7,20 @@
       aria-labelledby="update-gate-title"
     >
       <h2 class="update-gate-title" id="update-gate-title">
-        <span class="t-normal">Update matchday</span>
-        <span class="t-cat" hidden>Refill the bowl</span>
+        <span class="t-normal gate-copy-update">Update matchday</span>
+        <span class="t-normal gate-copy-kicktipp" hidden>Transfer to Kicktipp</span>
+        <span class="t-cat gate-copy-update" hidden>Refill the bowl</span>
+        <span class="t-cat gate-copy-kicktipp" hidden>Send picks to the bowl</span>
       </h2>
-      <p class="update-gate-lead">
-        <span class="t-normal">Enter the password to open the GitHub Actions workflow.</span>
-        <span class="t-cat" hidden>Whisper the secret phrase to send the cat to the odds window.</span>
+      <p class="update-gate-lead" id="update-gate-lead">
+        <span class="t-normal gate-copy-update">Enter the password to open the GitHub Actions workflow.</span>
+        <span class="t-normal gate-copy-kicktipp" hidden>Enter the password, then run the Kicktipp workflow on GitHub.</span>
+        <span class="t-cat gate-copy-update" hidden>Whisper the secret phrase to send the cat to the odds window.</span>
+        <span class="t-cat gate-copy-kicktipp" hidden>Whisper the secret phrase, then let the cat deliver the tips.</span>
+      </p>
+      <p class="update-gate-hint" id="update-gate-hint" hidden>
+        <span class="t-normal">Then click <strong>Run workflow</strong> twice on GitHub (Spieltag <span id="update-gate-spieltag"></span>).</span>
+        <span class="t-cat" hidden>Then mash <strong>Run workflow</strong> twice on GitHub.</span>
       </p>
       <label class="update-gate-label" for="update-gate-input">
         <span class="t-normal">Password</span>

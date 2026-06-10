@@ -61,7 +61,10 @@
       var input = document.getElementById("update-gate-input");
       var error = document.getElementById("update-gate-error");
       var submitBtn = document.getElementById("update-gate-submit");
-      var workflowUrl = updateBtn ? updateBtn.getAttribute("data-update-url") : "";
+      var gateHint = document.getElementById("update-gate-hint");
+      var gateSpieltag = document.getElementById("update-gate-spieltag");
+      var pendingWorkflowUrl = "";
+      var pendingMode = "update";
 
       function isUnlocked() {
         try {
@@ -79,17 +82,35 @@
         }
       }
 
-      function openWorkflow() {
-        if (!workflowUrl) {
-          return;
+      function setGateMode(mode, spieltag) {
+        pendingMode = mode;
+        document.querySelectorAll(".gate-copy-update").forEach(function (el) {
+          el.hidden = mode !== "update";
+        });
+        document.querySelectorAll(".gate-copy-kicktipp").forEach(function (el) {
+          el.hidden = mode !== "kicktipp";
+        });
+        if (gateHint) {
+          gateHint.hidden = mode !== "kicktipp";
         }
-        window.open(workflowUrl, "_blank", "noopener,noreferrer");
+        if (gateSpieltag && spieltag) {
+          gateSpieltag.textContent = String(spieltag);
+        }
       }
 
-      function showGate() {
+      function openWorkflow(url) {
+        if (!url) {
+          return;
+        }
+        window.open(url, "_blank", "noopener,noreferrer");
+      }
+
+      function showGate(url, mode, spieltag) {
         if (!gate || !input) {
           return;
         }
+        pendingWorkflowUrl = url || "";
+        setGateMode(mode || "update", spieltag);
         gate.hidden = false;
         if (error) {
           error.hidden = true;
@@ -103,6 +124,8 @@
           return;
         }
         gate.hidden = true;
+        pendingWorkflowUrl = "";
+        setGateMode("update");
         if (input) {
           input.value = "";
         }
@@ -117,8 +140,9 @@
         }
         if (input.value === UPDATE_PASSWORD) {
           storeUnlock();
+          var url = pendingWorkflowUrl;
           hideGate();
-          openWorkflow();
+          openWorkflow(url);
           return;
         }
         if (error) {
@@ -127,16 +151,35 @@
         input.select();
       }
 
+      function handleProtectedAction(event, url, mode, spieltag) {
+        event.preventDefault();
+        if (isUnlocked()) {
+          openWorkflow(url);
+          return;
+        }
+        showGate(url, mode, spieltag);
+      }
+
       if (updateBtn) {
         updateBtn.addEventListener("click", function (event) {
-          event.preventDefault();
-          if (isUnlocked()) {
-            openWorkflow();
-            return;
-          }
-          showGate();
+          handleProtectedAction(
+            event,
+            updateBtn.getAttribute("data-update-url"),
+            "update"
+          );
         });
       }
+
+      document.querySelectorAll("[data-kicktipp-btn]").forEach(function (btn) {
+        btn.addEventListener("click", function (event) {
+          handleProtectedAction(
+            event,
+            btn.getAttribute("data-kicktipp-workflow-url"),
+            "kicktipp",
+            btn.getAttribute("data-kicktipp-spieltag")
+          );
+        });
+      });
 
       if (submitBtn) {
         submitBtn.addEventListener("click", tryUnlock);

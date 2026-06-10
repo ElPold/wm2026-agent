@@ -155,6 +155,7 @@ def _load_prediction_rounds(
                 )
 
         meta = round_meta.get(round_name, {})
+        kicktipp_spieltag = _kicktipp_spieltag(round_name)
         rounds.append(
             {
                 "round_id": _round_id(round_name),
@@ -163,6 +164,8 @@ def _load_prediction_rounds(
                 "date_label": _round_date_label(fixtures),
                 "generated_at": _format_generated_at(meta.get("generated_at", "")),
                 "match_count": len(predictions),
+                "kicktipp_spieltag": kicktipp_spieltag,
+                "kicktipp_workflow_url": _kicktipp_workflow_url(kicktipp_spieltag),
                 "predictions": predictions,
             }
         )
@@ -325,11 +328,27 @@ def _shared_context() -> dict[str, Any]:
         "generated_at": datetime.now(tz=ZoneInfo("Europe/Berlin")).strftime(
             "%d.%m.%Y %H:%M"
         ),
+        "github_repo": "ElPold/wm2026-agent",
         "update_workflow_url": (
             "https://github.com/ElPold/wm2026-agent/actions/workflows/"
             "update-predictions.yml"
         ),
     }
+
+
+def _kicktipp_spieltag(round_name: str) -> int:
+    match = re.search(r"Matchday\s+(\d+)", round_name, re.IGNORECASE)
+    if not match:
+        return 1
+    agent_matchday = int(match.group(1))
+    return (agent_matchday + 2) // 3
+
+
+def _kicktipp_workflow_url(spieltag: int, repo: str = "ElPold/wm2026-agent") -> str:
+    return (
+        f"https://github.com/{repo}/actions/workflows/"
+        f"kicktipp-spieltag-{spieltag}.yml"
+    )
 
 
 def _attach_team_flags(item: dict[str, Any]) -> dict[str, Any]:

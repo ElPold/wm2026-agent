@@ -96,12 +96,20 @@
       aria-labelledby="update-gate-title"
     >
       <h2 class="update-gate-title" id="update-gate-title">
-        <span class="t-normal">Update matchday</span>
-        <span class="t-cat" hidden>Refill the bowl</span>
+        <span class="t-normal gate-copy-update">Update matchday</span>
+        <span class="t-normal gate-copy-kicktipp" hidden>Transfer to Kicktipp</span>
+        <span class="t-cat gate-copy-update" hidden>Refill the bowl</span>
+        <span class="t-cat gate-copy-kicktipp" hidden>Send picks to the bowl</span>
       </h2>
-      <p class="update-gate-lead">
-        <span class="t-normal">Enter the password to open the GitHub Actions workflow.</span>
-        <span class="t-cat" hidden>Whisper the secret phrase to send the cat to the odds window.</span>
+      <p class="update-gate-lead" id="update-gate-lead">
+        <span class="t-normal gate-copy-update">Enter the password to open the GitHub Actions workflow.</span>
+        <span class="t-normal gate-copy-kicktipp" hidden>Enter the password, then run the Kicktipp workflow on GitHub.</span>
+        <span class="t-cat gate-copy-update" hidden>Whisper the secret phrase to send the cat to the odds window.</span>
+        <span class="t-cat gate-copy-kicktipp" hidden>Whisper the secret phrase, then let the cat deliver the tips.</span>
+      </p>
+      <p class="update-gate-hint" id="update-gate-hint" hidden>
+        <span class="t-normal">Then click <strong>Run workflow</strong> twice on GitHub (Spieltag <span id="update-gate-spieltag"></span>).</span>
+        <span class="t-cat" hidden>Then mash <strong>Run workflow</strong> twice on GitHub.</span>
       </p>
       <label class="update-gate-label" for="update-gate-input">
         <span class="t-normal">Password</span>
@@ -165,7 +173,7 @@
         </span>
       </div>
       <div class="hero-stat">
-        <span class="hero-stat-value mono">10.06.2026 22:10</span>
+        <span class="hero-stat-value mono">10.06.2026 22:26</span>
         <span class="hero-stat-label">
           <span class="t-normal">Last sync (Berlin)</span>
           <span class="t-cat" hidden>Last purr (Berlin)</span>
@@ -262,7 +270,22 @@
             <span class="t-normal">Donnerstag, 11.06.2026 – Freitag, 12.06.2026 · Generated 10.06.2026 21:34 · 2 matches</span>
             <span class="t-cat" hidden>Donnerstag, 11.06.2026 – Freitag, 12.06.2026 · Purred 10.06.2026 21:34 · 2 window watches</span>
           </p>
+          <p class="day-kicktipp-hint">
+            <span class="t-normal">Kicktipp Spieltag 1 · transfers all agent tips for this Kicktipp round</span>
+            <span class="t-cat" hidden>Kicktipp bowl round 1</span>
+          </p>
         </div>
+        <a
+          href="#"
+          class="kicktipp-btn"
+          data-kicktipp-btn
+          data-kicktipp-spieltag="1"
+          data-kicktipp-workflow-url="https://github.com/ElPold/wm2026-agent/actions/workflows/kicktipp-spieltag-1.yml"
+          aria-haspopup="dialog"
+        >
+          <span class="t-normal">→ Transfer to Kicktipp</span>
+          <span class="t-cat" hidden>→ Send to Kicktipp bowl</span>
+        </a>
       </div>
 
       <div class="match-list">
@@ -579,7 +602,22 @@
             <span class="t-normal">Freitag, 12.06.2026 – Samstag, 13.06.2026 · Generated 09.06.2026 20:12 · 2 matches</span>
             <span class="t-cat" hidden>Freitag, 12.06.2026 – Samstag, 13.06.2026 · Purred 09.06.2026 20:12 · 2 window watches</span>
           </p>
+          <p class="day-kicktipp-hint">
+            <span class="t-normal">Kicktipp Spieltag 1 · transfers all agent tips for this Kicktipp round</span>
+            <span class="t-cat" hidden>Kicktipp bowl round 1</span>
+          </p>
         </div>
+        <a
+          href="#"
+          class="kicktipp-btn"
+          data-kicktipp-btn
+          data-kicktipp-spieltag="1"
+          data-kicktipp-workflow-url="https://github.com/ElPold/wm2026-agent/actions/workflows/kicktipp-spieltag-1.yml"
+          aria-haspopup="dialog"
+        >
+          <span class="t-normal">→ Transfer to Kicktipp</span>
+          <span class="t-cat" hidden>→ Send to Kicktipp bowl</span>
+        </a>
       </div>
 
       <div class="match-list">
@@ -891,7 +929,22 @@
             <span class="t-normal">Samstag, 13.06.2026 – Sonntag, 14.06.2026 · Generated 10.06.2026 22:05 · 4 matches</span>
             <span class="t-cat" hidden>Samstag, 13.06.2026 – Sonntag, 14.06.2026 · Purred 10.06.2026 22:05 · 4 window watches</span>
           </p>
+          <p class="day-kicktipp-hint">
+            <span class="t-normal">Kicktipp Spieltag 1 · transfers all agent tips for this Kicktipp round</span>
+            <span class="t-cat" hidden>Kicktipp bowl round 1</span>
+          </p>
         </div>
+        <a
+          href="#"
+          class="kicktipp-btn"
+          data-kicktipp-btn
+          data-kicktipp-spieltag="1"
+          data-kicktipp-workflow-url="https://github.com/ElPold/wm2026-agent/actions/workflows/kicktipp-spieltag-1.yml"
+          aria-haspopup="dialog"
+        >
+          <span class="t-normal">→ Transfer to Kicktipp</span>
+          <span class="t-cat" hidden>→ Send to Kicktipp bowl</span>
+        </a>
       </div>
 
       <div class="match-list">
@@ -1499,7 +1552,22 @@
             <span class="t-normal">Sonntag, 14.06.2026 – Montag, 15.06.2026 · Generated 10.06.2026 22:10 · 4 matches</span>
             <span class="t-cat" hidden>Sonntag, 14.06.2026 – Montag, 15.06.2026 · Purred 10.06.2026 22:10 · 4 window watches</span>
           </p>
+          <p class="day-kicktipp-hint">
+            <span class="t-normal">Kicktipp Spieltag 2 · transfers all agent tips for this Kicktipp round</span>
+            <span class="t-cat" hidden>Kicktipp bowl round 2</span>
+          </p>
         </div>
+        <a
+          href="#"
+          class="kicktipp-btn"
+          data-kicktipp-btn
+          data-kicktipp-spieltag="2"
+          data-kicktipp-workflow-url="https://github.com/ElPold/wm2026-agent/actions/workflows/kicktipp-spieltag-2.yml"
+          aria-haspopup="dialog"
+        >
+          <span class="t-normal">→ Transfer to Kicktipp</span>
+          <span class="t-cat" hidden>→ Send to Kicktipp bowl</span>
+        </a>
       </div>
 
       <div class="match-list">
@@ -1998,7 +2066,22 @@
             <span class="t-normal">Montag, 15.06.2026 – Dienstag, 16.06.2026 · Generated 10.06.2026 21:08 · 4 matches</span>
             <span class="t-cat" hidden>Montag, 15.06.2026 – Dienstag, 16.06.2026 · Purred 10.06.2026 21:08 · 4 window watches</span>
           </p>
+          <p class="day-kicktipp-hint">
+            <span class="t-normal">Kicktipp Spieltag 2 · transfers all agent tips for this Kicktipp round</span>
+            <span class="t-cat" hidden>Kicktipp bowl round 2</span>
+          </p>
         </div>
+        <a
+          href="#"
+          class="kicktipp-btn"
+          data-kicktipp-btn
+          data-kicktipp-spieltag="2"
+          data-kicktipp-workflow-url="https://github.com/ElPold/wm2026-agent/actions/workflows/kicktipp-spieltag-2.yml"
+          aria-haspopup="dialog"
+        >
+          <span class="t-normal">→ Transfer to Kicktipp</span>
+          <span class="t-cat" hidden>→ Send to Kicktipp bowl</span>
+        </a>
       </div>
 
       <div class="match-list">
@@ -2779,7 +2862,10 @@
       var input = document.getElementById("update-gate-input");
       var error = document.getElementById("update-gate-error");
       var submitBtn = document.getElementById("update-gate-submit");
-      var workflowUrl = updateBtn ? updateBtn.getAttribute("data-update-url") : "";
+      var gateHint = document.getElementById("update-gate-hint");
+      var gateSpieltag = document.getElementById("update-gate-spieltag");
+      var pendingWorkflowUrl = "";
+      var pendingMode = "update";
 
       function isUnlocked() {
         try {
@@ -2797,17 +2883,35 @@
         }
       }
 
-      function openWorkflow() {
-        if (!workflowUrl) {
-          return;
+      function setGateMode(mode, spieltag) {
+        pendingMode = mode;
+        document.querySelectorAll(".gate-copy-update").forEach(function (el) {
+          el.hidden = mode !== "update";
+        });
+        document.querySelectorAll(".gate-copy-kicktipp").forEach(function (el) {
+          el.hidden = mode !== "kicktipp";
+        });
+        if (gateHint) {
+          gateHint.hidden = mode !== "kicktipp";
         }
-        window.open(workflowUrl, "_blank", "noopener,noreferrer");
+        if (gateSpieltag && spieltag) {
+          gateSpieltag.textContent = String(spieltag);
+        }
       }
 
-      function showGate() {
+      function openWorkflow(url) {
+        if (!url) {
+          return;
+        }
+        window.open(url, "_blank", "noopener,noreferrer");
+      }
+
+      function showGate(url, mode, spieltag) {
         if (!gate || !input) {
           return;
         }
+        pendingWorkflowUrl = url || "";
+        setGateMode(mode || "update", spieltag);
         gate.hidden = false;
         if (error) {
           error.hidden = true;
@@ -2821,6 +2925,8 @@
           return;
         }
         gate.hidden = true;
+        pendingWorkflowUrl = "";
+        setGateMode("update");
         if (input) {
           input.value = "";
         }
@@ -2835,8 +2941,9 @@
         }
         if (input.value === UPDATE_PASSWORD) {
           storeUnlock();
+          var url = pendingWorkflowUrl;
           hideGate();
-          openWorkflow();
+          openWorkflow(url);
           return;
         }
         if (error) {
@@ -2845,16 +2952,35 @@
         input.select();
       }
 
+      function handleProtectedAction(event, url, mode, spieltag) {
+        event.preventDefault();
+        if (isUnlocked()) {
+          openWorkflow(url);
+          return;
+        }
+        showGate(url, mode, spieltag);
+      }
+
       if (updateBtn) {
         updateBtn.addEventListener("click", function (event) {
-          event.preventDefault();
-          if (isUnlocked()) {
-            openWorkflow();
-            return;
-          }
-          showGate();
+          handleProtectedAction(
+            event,
+            updateBtn.getAttribute("data-update-url"),
+            "update"
+          );
         });
       }
+
+      document.querySelectorAll("[data-kicktipp-btn]").forEach(function (btn) {
+        btn.addEventListener("click", function (event) {
+          handleProtectedAction(
+            event,
+            btn.getAttribute("data-kicktipp-workflow-url"),
+            "kicktipp",
+            btn.getAttribute("data-kicktipp-spieltag")
+          );
+        });
+      });
 
       if (submitBtn) {
         submitBtn.addEventListener("click", tryUnlock);

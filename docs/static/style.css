@@ -511,6 +511,14 @@ body {
   display: block;
 }
 
+.day-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
 .day-head h2 {
   margin: 0;
   font-size: 1.35rem;
@@ -522,6 +530,44 @@ body {
   margin: 0.35rem 0 0;
   color: var(--muted);
   font-size: 0.9rem;
+}
+
+.day-kicktipp-hint {
+  margin: 0.45rem 0 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.kicktipp-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 229, 168, 0.35);
+  background: rgba(0, 229, 168, 0.08);
+  color: var(--accent);
+  font-family: var(--font);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color 0.2s, background 0.2s, transform 0.15s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.kicktipp-btn:hover {
+  border-color: var(--accent);
+  background: rgba(0, 229, 168, 0.16);
+  transform: translateY(-1px);
+}
+
+.update-gate-hint {
+  margin: 0 0 1rem;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.45;
 }
 
 /* Match list — one card per game, stacked */

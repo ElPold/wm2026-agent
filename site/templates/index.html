@@ -108,7 +108,22 @@
             <span class="t-normal">{{ round.date_label }} · Generated {{ round.generated_at }} · {{ round.match_count }} match{% if round.match_count != 1 %}es{% endif %}</span>
             <span class="t-cat" hidden>{{ round.date_label }} · Purred {{ round.generated_at }} · {{ round.match_count }} window watch{% if round.match_count != 1 %}es{% endif %}</span>
           </p>
+          <p class="day-kicktipp-hint">
+            <span class="t-normal">Kicktipp Spieltag {{ round.kicktipp_spieltag }} · transfers all agent tips for this Kicktipp round</span>
+            <span class="t-cat" hidden>Kicktipp bowl round {{ round.kicktipp_spieltag }}</span>
+          </p>
         </div>
+        <a
+          href="#"
+          class="kicktipp-btn"
+          data-kicktipp-btn
+          data-kicktipp-spieltag="{{ round.kicktipp_spieltag }}"
+          data-kicktipp-workflow-url="{{ round.kicktipp_workflow_url }}"
+          aria-haspopup="dialog"
+        >
+          <span class="t-normal">→ Transfer to Kicktipp</span>
+          <span class="t-cat" hidden>→ Send to Kicktipp bowl</span>
+        </a>
       </div>
 
       <div class="match-list">

@@ -94,12 +94,20 @@
       aria-labelledby="update-gate-title"
     >
       <h2 class="update-gate-title" id="update-gate-title">
-        <span class="t-normal">Update matchday</span>
-        <span class="t-cat" hidden>Refill the bowl</span>
+        <span class="t-normal gate-copy-update">Update matchday</span>
+        <span class="t-normal gate-copy-kicktipp" hidden>Transfer to Kicktipp</span>
+        <span class="t-cat gate-copy-update" hidden>Refill the bowl</span>
+        <span class="t-cat gate-copy-kicktipp" hidden>Send picks to the bowl</span>
       </h2>
-      <p class="update-gate-lead">
-        <span class="t-normal">Enter the password to open the GitHub Actions workflow.</span>
-        <span class="t-cat" hidden>Whisper the secret phrase to send the cat to the odds window.</span>
+      <p class="update-gate-lead" id="update-gate-lead">
+        <span class="t-normal gate-copy-update">Enter the password to open the GitHub Actions workflow.</span>
+        <span class="t-normal gate-copy-kicktipp" hidden>Enter the password, then run the Kicktipp workflow on GitHub.</span>
+        <span class="t-cat gate-copy-update" hidden>Whisper the secret phrase to send the cat to the odds window.</span>
+        <span class="t-cat gate-copy-kicktipp" hidden>Whisper the secret phrase, then let the cat deliver the tips.</span>
+      </p>
+      <p class="update-gate-hint" id="update-gate-hint" hidden>
+        <span class="t-normal">Then click <strong>Run workflow</strong> twice on GitHub (Spieltag <span id="update-gate-spieltag"></span>).</span>
+        <span class="t-cat" hidden>Then mash <strong>Run workflow</strong> twice on GitHub.</span>
       </p>
       <label class="update-gate-label" for="update-gate-input">
         <span class="t-normal">Password</span>
@@ -982,8 +990,8 @@
 
   <footer class="footer shell">
     <p>
-      <span class="t-normal">Updated 10.06.2026 22:10 (Berlin) · Results from <code>state/results.json</code> when available</span>
-      <span class="t-cat" hidden>Updated 10.06.2026 22:10 · outcomes from <code>state/results.json</code></span>
+      <span class="t-normal">Updated 10.06.2026 22:26 (Berlin) · Results from <code>state/results.json</code> when available</span>
+      <span class="t-cat" hidden>Updated 10.06.2026 22:26 · outcomes from <code>state/results.json</code></span>
     </p>
   </footer>
 
@@ -1050,7 +1058,10 @@
       var input = document.getElementById("update-gate-input");
       var error = document.getElementById("update-gate-error");
       var submitBtn = document.getElementById("update-gate-submit");
-      var workflowUrl = updateBtn ? updateBtn.getAttribute("data-update-url") : "";
+      var gateHint = document.getElementById("update-gate-hint");
+      var gateSpieltag = document.getElementById("update-gate-spieltag");
+      var pendingWorkflowUrl = "";
+      var pendingMode = "update";
 
       function isUnlocked() {
         try {
@@ -1068,17 +1079,35 @@
         }
       }
 
-      function openWorkflow() {
-        if (!workflowUrl) {
-          return;
+      function setGateMode(mode, spieltag) {
+        pendingMode = mode;
+        document.querySelectorAll(".gate-copy-update").forEach(function (el) {
+          el.hidden = mode !== "update";
+        });
+        document.querySelectorAll(".gate-copy-kicktipp").forEach(function (el) {
+          el.hidden = mode !== "kicktipp";
+        });
+        if (gateHint) {
+          gateHint.hidden = mode !== "kicktipp";
         }
-        window.open(workflowUrl, "_blank", "noopener,noreferrer");
+        if (gateSpieltag && spieltag) {
+          gateSpieltag.textContent = String(spieltag);
+        }
       }
 
-      function showGate() {
+      function openWorkflow(url) {
+        if (!url) {
+          return;
+        }
+        window.open(url, "_blank", "noopener,noreferrer");
+      }
+
+      function showGate(url, mode, spieltag) {
         if (!gate || !input) {
           return;
         }
+        pendingWorkflowUrl = url || "";
+        setGateMode(mode || "update", spieltag);
         gate.hidden = false;
         if (error) {
           error.hidden = true;
@@ -1092,6 +1121,8 @@
           return;
         }
         gate.hidden = true;
+        pendingWorkflowUrl = "";
+        setGateMode("update");
         if (input) {
           input.value = "";
         }
@@ -1106,8 +1137,9 @@
         }
         if (input.value === UPDATE_PASSWORD) {
           storeUnlock();
+          var url = pendingWorkflowUrl;
           hideGate();
-          openWorkflow();
+          openWorkflow(url);
           return;
         }
         if (error) {
@@ -1116,16 +1148,35 @@
         input.select();
       }
 
+      function handleProtectedAction(event, url, mode, spieltag) {
+        event.preventDefault();
+        if (isUnlocked()) {
+          openWorkflow(url);
+          return;
+        }
+        showGate(url, mode, spieltag);
+      }
+
       if (updateBtn) {
         updateBtn.addEventListener("click", function (event) {
-          event.preventDefault();
-          if (isUnlocked()) {
-            openWorkflow();
-            return;
-          }
-          showGate();
+          handleProtectedAction(
+            event,
+            updateBtn.getAttribute("data-update-url"),
+            "update"
+          );
         });
       }
+
+      document.querySelectorAll("[data-kicktipp-btn]").forEach(function (btn) {
+        btn.addEventListener("click", function (event) {
+          handleProtectedAction(
+            event,
+            btn.getAttribute("data-kicktipp-workflow-url"),
+            "kicktipp",
+            btn.getAttribute("data-kicktipp-spieltag")
+          );
+        });
+      });
 
       if (submitBtn) {
         submitBtn.addEventListener("click", tryUnlock);
