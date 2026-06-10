@@ -26,6 +26,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_PREDICTIONS = ROOT / "state" / "predictions.json"
 DEFAULT_BONUS = ROOT / "state" / "bonus.json"
 DEFAULT_ALIASES = ROOT / "config" / "kicktipp_aliases.json"
+DEFAULT_SPIELTAG_MAP = ROOT / "config" / "kicktipp_spieltag.json"
 
 BONUS_QUESTION_DE: dict[str, str] = {
     "Who will be world champion?": "Wer wird Weltmeister?",
@@ -36,9 +37,24 @@ BONUS_QUESTION_DE: dict[str, str] = {
 }
 
 
-def parse_matchday(round_name: str) -> int | None:
+def parse_agent_matchday(round_name: str) -> int | None:
     match = re.search(r"matchday\s*(\d+)", round_name, re.IGNORECASE)
     return int(match.group(1)) if match else None
+
+
+def kicktipp_spieltag(agent_matchday: int, mapping_path: Path = DEFAULT_SPIELTAG_MAP) -> int:
+    """
+    Mappt openfootball-Matchday N auf Kicktipp spieltagIndex.
+
+    Entertainment-WM: 8 Spiele pro Kicktipp-Spieltag ≈ 3 Agent-Matchdays.
+    """
+    if mapping_path.exists():
+        data = json.loads(mapping_path.read_text(encoding="utf-8"))
+        explicit = data.get("matchdays") or {}
+        key = str(agent_matchday)
+        if key in explicit:
+            return int(explicit[key])
+    return (agent_matchday + 2) // 3
 
 
 def load_aliases(path: Path) -> dict[str, str]:
@@ -237,10 +253,12 @@ def main() -> int:
         else:
             print("Keine abzugebenden Spieltipps gefunden.")
     else:
-        matchday = args.matchday or parse_matchday(predictions_payload.get("round", ""))
+        agent_md = args.matchday or parse_agent_matchday(predictions_payload.get("round", ""))
         cmd_args = ["bet", *match_bets]
-        if matchday is not None:
-            cmd_args.extend(["--matchday", str(matchday)])
+        if agent_md is not None:
+            kt_md = kicktipp_spieltag(agent_md)
+            cmd_args.extend(["--matchday", str(kt_md)])
+            print(f"Kicktipp-Spieltag: {kt_md} (Agent Matchday {agent_md})")
         else:
             print("Hinweis: Kein Spieltag erkannt — kicktipp nutzt den aktuellen Tag.")
         print(f"Community: {community}")

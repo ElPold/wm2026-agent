@@ -11,7 +11,8 @@ _spec.loader.exec_module(_mod)
 
 bonus_bets_from_state = _mod.bonus_bets_from_state
 match_bets_from_predictions = _mod.match_bets_from_predictions
-parse_matchday = _mod.parse_matchday
+parse_matchday = _mod.parse_agent_matchday
+kicktipp_spieltag = _mod.kicktipp_spieltag
 map_bonus_question = _mod.map_bonus_question
 
 
@@ -19,6 +20,14 @@ def test_parse_matchday():
     assert parse_matchday("Matchday 5") == 5
     assert parse_matchday("matchday 12") == 12
     assert parse_matchday("Round of 16") is None
+
+
+def test_kicktipp_spieltag_mapping():
+    assert kicktipp_spieltag(1) == 1
+    assert kicktipp_spieltag(3) == 1
+    assert kicktipp_spieltag(4) == 2
+    assert kicktipp_spieltag(6) == 2
+    assert kicktipp_spieltag(7) == 3
 
 
 def test_match_bets_skips_pending():

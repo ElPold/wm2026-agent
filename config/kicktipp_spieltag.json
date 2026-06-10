@@ -1,0 +1,4 @@
+{
+  "_comment": "Kicktipp bündelt 8 Gruppenspiele pro Spieltag (~3 openfootball-Matchdays). Formel: (n+2)//3",
+  "formula": "(matchday + 2) // 3"
+}
