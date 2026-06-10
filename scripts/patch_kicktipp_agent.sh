@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Deutsche Kicktipp-Instanz: kicktipp.de + /tippabgabe statt .com/predict
-set -euo pipefail
+set -eu
 ROOT="${1:-.kicktipp-agent}"
 URL_FILE="$ROOT/src/url.ts"
 if [ ! -f "$URL_FILE" ]; then
