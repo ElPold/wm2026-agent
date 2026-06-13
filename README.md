@@ -80,6 +80,7 @@ Unter **Settings → Secrets and variables → Actions**:
 | **Tests** | Push/PR auf `main` | `pytest` |
 | **Update predictions** | manuell | Tipps generieren; optional `submit_kicktipp` + `kicktipp_spieltag` |
 | **Kicktipp Spieltag 1/2** | manuell (vom Dashboard-Button) | Nur Kicktipp-Abgabe, ohne Tipp-Neugenerierung |
+| **Update track record** | täglich 05:00/23:00 UTC + manuell | Ergebnisse von Kicktipp → `state/results.json` + Site |
 | **Check fixture odds** | manuell | Quoten-Diagnose für einzelne Spiele |
 
 ### Kicktipp-Abgabe
@@ -112,9 +113,16 @@ gh secret set ODDSPAPI_TOURNAMENT_ID --repo ElPold/wm2026-agent < <(grep '^ODDSP
 | **Spielplan** (104 Spiele) | [openfootball/worldcup.json](https://github.com/openfootball/worldcup.json) | nein — liegt in `data/schedule/` |
 | **Quoten** (1X2 + O/U 2.5) | [OddsPapi](https://oddspapi.io) | ja — `ODDSPAPI_API_KEY` |
 | **Quoten-Fallback** | [The Odds API](https://the-odds-api.com) | optional |
-| Ergebnisse (Phase 1) | worldcup26.ir o.ä. | nein |
+| Ergebnisse (Track record) | Kicktipp-Spielplan (`/schedule`) | Kicktipp-Login + `KICKTIPP_COMMUNITY` |
 
 Spielplan aktualisieren: `python scripts/fetch_schedule.py`
+
+Track record (Ergebnisse + Punkte auf `track.html`):
+
+```bash
+python scripts/fetch_results.py          # schreibt state/results.json
+python run.py --fetch-results            # fetch + Site neu bauen
+```
 
 ## Projektstruktur
 
@@ -125,7 +133,7 @@ wm2026-agent/
 ├── docs/                 # generierte GitHub Pages (nicht von Hand editieren)
 ├── scripts/              # submit_kicktipp, patch_kicktipp_agent, check_fixture_odds
 ├── site/templates/       # Jinja2-Templates für das Dashboard
-├── state/                # predictions.json, history/rounds/, bonus.json
+├── state/                # predictions.json, results.json, history/rounds/, bonus.json
 ├── src/
 │   ├── sources/          # openfootball, OddsPapi, The Odds API
 │   ├── pipeline/         # Tages-Tipps erzeugen

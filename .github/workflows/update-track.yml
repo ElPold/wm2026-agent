@@ -1,0 +1,59 @@
+name: Update track record
+
+on:
+  schedule:
+    - cron: "0 5,23 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch-results:
+    runs-on: ubuntu-latest
+    env:
+      KICKTIPP_EMAIL: ${{ secrets.KICKTIPP_EMAIL }}
+      KICKTIPP_PASSWORD: ${{ secrets.KICKTIPP_PASSWORD }}
+      KICKTIPP_COMMUNITY: ${{ secrets.KICKTIPP_COMMUNITY }}
+      KICKTIPP_LOCALE: de
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install playwright
+          playwright install chromium --with-deps
+
+      - name: Validate Kicktipp secrets
+        run: |
+          missing=0
+          for name in KICKTIPP_EMAIL KICKTIPP_PASSWORD KICKTIPP_COMMUNITY; do
+            if [ -z "${!name}" ]; then
+              echo "::error::Repository-Secret $name fehlt (Settings → Secrets and variables → Actions)."
+              missing=1
+            fi
+          done
+          exit $missing
+
+      - name: Fetch results from Kicktipp
+        run: python scripts/fetch_results.py --matchdays 1-18
+
+      - name: Rebuild site
+        run: python run.py --build-site
+
+      - name: Commit updated track record
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/ state/results.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "Update track record $(TZ=Europe/Berlin date +%d.%m.)"
+          git push

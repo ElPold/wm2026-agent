@@ -1,0 +1,201 @@
+#!/usr/bin/env python3
+"""Lädt abgeschlossene Spielergebnisse von Kicktipp und schreibt state/results.json."""
+
+from __future__ import annotations
+
+import argparse
+import os
+import sys
+from pathlib import Path
+
+from dotenv import load_dotenv
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+
+from src.pipeline.results import (  # noqa: E402
+    fixture_index_for_schedule,
+    kicktipp_rows_to_results,
+    load_results,
+    merge_results,
+    save_results,
+)
+
+URL_BASE = os.environ.get("KICKTIPP_BASE_URL", "https://www.kicktipp.de")
+URL_LOGIN = f"{URL_BASE}/info/profil/login"
+DEFAULT_RESULTS = ROOT / "state" / "results.json"
+DEFAULT_ALIASES = ROOT / "config" / "kicktipp_aliases.json"
+
+
+def dismiss_consent(page) -> None:
+    try:
+        page.wait_for_selector('iframe[src*="privacy-mgmt"]', timeout=2000)
+        for frame in page.frames:
+            btn = frame.query_selector('button:has-text("Accept and continue")')
+            if btn:
+                btn.click()
+                page.wait_for_selector(
+                    'iframe[src*="privacy-mgmt"]', state="hidden", timeout=3000
+                )
+                return
+    except Exception:
+        pass
+
+
+def login(page, email: str, password: str) -> None:
+    page.goto(URL_LOGIN)
+    page.wait_for_load_state("domcontentloaded")
+    dismiss_consent(page)
+    page.fill('input[name="kennung"]', email)
+    page.fill('input[name="passwort"]', password)
+    with page.expect_navigation():
+        page.click('button[type="submit"]')
+    if "/login" in page.url:
+        raise RuntimeError("Kicktipp-Login fehlgeschlagen.")
+
+
+def parse_schedule_page(page) -> list[dict[str, str]]:
+    rows: list[dict[str, str]] = []
+    table = page.locator("table#spiele tbody tr")
+    for index in range(table.count()):
+        cells = table.nth(index).locator("td")
+        if cells.count() < 5:
+            continue
+        date = cells.nth(0).inner_text().strip()
+        home = cells.nth(2).inner_text().strip()
+        away = cells.nth(3).inner_text().strip()
+        result_cell = cells.nth(4)
+        home_goals = ""
+        away_goals = ""
+        if result_cell.locator("span.kicktipp-heim").count():
+            home_goals = result_cell.locator("span.kicktipp-heim").inner_text().strip()
+        if result_cell.locator("span.kicktipp-gast").count():
+            away_goals = result_cell.locator("span.kicktipp-gast").inner_text().strip()
+        if home_goals and away_goals:
+            result = f"{home_goals}:{away_goals}"
+        else:
+            result = "-:-"
+        rows.append({"date": date, "home": home, "away": away, "result": result})
+    return rows
+
+
+def fetch_schedule_matchdays(
+    page,
+    community: str,
+    matchdays: range,
+) -> list[dict[str, str]]:
+    rows: list[dict[str, str]] = []
+    seen: set[tuple[str, str, str]] = set()
+    for md in matchdays:
+        url = f"{URL_BASE}/{community}/schedule?spieltagIndex={md}"
+        page.goto(url)
+        page.wait_for_load_state("domcontentloaded")
+        dismiss_consent(page)
+        try:
+            page.wait_for_selector("table#spiele", timeout=5000)
+        except Exception:
+            continue
+        for row in parse_schedule_page(page):
+            key = (row["date"], row["home"], row["away"])
+            if key in seen:
+                continue
+            seen.add(key)
+            rows.append(row)
+    return rows
+
+
+def parse_matchday_range(value: str) -> range:
+    if "-" in value:
+        start, end = value.split("-", 1)
+        return range(int(start), int(end) + 1)
+    day = int(value)
+    return range(day, day + 1)
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Kicktipp-Ergebnisse nach state/results.json")
+    parser.add_argument("--community", default=os.environ.get("KICKTIPP_COMMUNITY"))
+    parser.add_argument(
+        "--matchdays",
+        default="1-18",
+        help="Kicktipp-Spieltage zum Abfragen, z. B. 1-18 oder 5",
+    )
+    parser.add_argument("--output", type=Path, default=DEFAULT_RESULTS)
+    parser.add_argument("--aliases", type=Path, default=DEFAULT_ALIASES)
+    parser.add_argument(
+        "--no-login",
+        action="store_true",
+        help="Ohne Kicktipp-Login (öffentlicher Spielplan)",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Nur anzeigen, results.json nicht schreiben",
+    )
+    args = parser.parse_args()
+
+    load_dotenv(ROOT / ".env")
+    community = args.community or os.environ.get("KICKTIPP_COMMUNITY", "")
+    if not community:
+        print("KICKTIPP_COMMUNITY in .env setzen oder --community nutzen.", file=sys.stderr)
+        return 1
+
+    email = os.environ.get("KICKTIPP_EMAIL", "")
+    password = os.environ.get("KICKTIPP_PASSWORD", "")
+    if not args.no_login and (not email or not password):
+        print(
+            "Hinweis: Ohne KICKTIPP_EMAIL/PASSWORD wird ohne Login geladen.",
+            file=sys.stderr,
+        )
+        args.no_login = True
+
+    try:
+        from playwright.sync_api import sync_playwright
+    except ImportError:
+        print("playwright fehlt: pip install playwright && playwright install chromium", file=sys.stderr)
+        return 1
+
+    matchdays = parse_matchday_range(args.matchdays)
+    fixture_index = fixture_index_for_schedule(aliases_path=args.aliases)
+
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch(headless=True)
+        page = browser.new_page(viewport={"width": 1280, "height": 900})
+        if not args.no_login:
+            login(page, email, password)
+        rows = fetch_schedule_matchdays(page, community, matchdays)
+        browser.close()
+
+    if not rows:
+        print(
+            f"Warnung: Keine Spiele auf Kicktipp-Schedule gefunden "
+            f"(Community {community!r}, Spieltage {args.matchdays}). "
+            "KICKTIPP_COMMUNITY prüfen oder --matchdays anpassen.",
+            file=sys.stderr,
+        )
+
+    incoming = kicktipp_rows_to_results(rows, fixture_index)
+    existing = load_results(args.output)
+    merged = merge_results(existing, incoming)
+
+    new_count = len(incoming)
+    total_known = len(merged)
+    print(f"Kicktipp-Zeilen: {len(rows)}")
+    print(f"Neue/zugeordnete Ergebnisse: {new_count}")
+    print(f"Ergebnisse gesamt in {args.output.name}: {total_known}")
+
+    for fixture_id in sorted(merged):
+        entry = merged[fixture_id]
+        if fixture_id in incoming:
+            print(f"  {fixture_id}: {entry['score']}")
+
+    if args.dry_run:
+        return 0
+
+    save_results(args.output, merged)
+    print(f"Geschrieben → {args.output}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

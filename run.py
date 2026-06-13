@@ -91,6 +91,11 @@ def main() -> None:
         help="Ausgabepfad für Tipps (JSON)",
     )
     parser.add_argument(
+        "--fetch-results",
+        action="store_true",
+        help="Abgeschlossene Ergebnisse von Kicktipp laden (state/results.json)",
+    )
+    parser.add_argument(
         "--no-site",
         action="store_true",
         help="Website nach Tipp-Lauf nicht neu bauen",
@@ -110,6 +115,13 @@ def main() -> None:
 
     if args.fetch_schedule:
         _run_script("fetch_schedule")
+        return
+
+    if args.fetch_results:
+        _run_script("fetch_results")
+        if not args.no_site:
+            site_path = build_site()
+            print(f"Website generiert → {site_path}")
         return
 
     if args.discover:

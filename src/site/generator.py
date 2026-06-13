@@ -62,12 +62,14 @@ def build_site(
     *,
     predictions_path: Path | None = None,
     history_dir: Path | None = None,
+    results_path: Path | None = None,
     output_dir: Path | None = None,
     version_path: Path | None = None,
     increment_version: bool = True,
 ) -> Path:
     predictions_path = predictions_path or ROOT / "state" / "predictions.json"
     history_dir = history_dir or ROOT / "state" / "history"
+    results_path = results_path or ROOT / "state" / "results.json"
     output_dir = output_dir or DOCS
 
     site_version = resolve_site_version(
@@ -80,7 +82,11 @@ def build_site(
         _mark_day_highlight(round_block.get("predictions", []))
 
     shared = _shared_context(site_version=site_version)
-    track_rows, track_stats = _load_tracking_rows(predictions_path, history_dir)
+    track_rows, track_stats = _load_tracking_rows(
+        predictions_path,
+        history_dir,
+        results_path=results_path,
+    )
     env = _jinja_env()
 
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -404,8 +410,8 @@ def _attach_team_flags(item: dict[str, Any]) -> dict[str, Any]:
     return item
 
 
-def _load_results() -> dict[str, dict[str, Any]]:
-    path = ROOT / "state" / "results.json"
+def _load_results(results_path: Path | None = None) -> dict[str, dict[str, Any]]:
+    path = results_path or ROOT / "state" / "results.json"
     if not path.exists():
         return {}
     payload = _read_json(path)
@@ -427,9 +433,11 @@ def _parse_tip_scores(tip: str | None) -> tuple[int, int] | None:
 def _load_tracking_rows(
     predictions_path: Path,
     history_dir: Path,
+    *,
+    results_path: Path | None = None,
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     predictions_by_id = _predictions_index(predictions_path, history_dir)
-    results = _load_results()
+    results = _load_results(results_path)
     settings = Settings.load()
     fixtures = [
         fixture
