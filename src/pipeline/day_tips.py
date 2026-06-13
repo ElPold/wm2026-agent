@@ -19,6 +19,7 @@ from src.sources.config import Settings
 from src.sources.models import MatchFixture, MatchPrediction
 from src.sources.odds_provider import OddsProvider
 from src.pipeline.prediction_store import is_fixture_started, load_predictions_index
+from src.sources.openfootball import OpenFootballSchedule
 
 logger = logging.getLogger(__name__)
 
