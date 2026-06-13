@@ -18,7 +18,7 @@ from src.optimizer.tip_payload import top_alternatives_to_json
 from src.sources.config import Settings
 from src.sources.models import MatchFixture, MatchPrediction
 from src.sources.odds_provider import OddsProvider
-from src.sources.openfootball import OpenFootballSchedule
+from src.pipeline.prediction_store import is_fixture_started, load_predictions_index
 
 logger = logging.getLogger(__name__)
 
@@ -59,14 +59,24 @@ def generate_round_tips(
     prediction_by_id = {
         item.fixture.fixture_id: item for item in predictions
     }
+    archived = load_predictions_index()
 
     entries: list[dict[str, Any]] = []
     for fixture in sorted(schedule, key=lambda item: item.kickoff_berlin):
         prediction = prediction_by_id.get(fixture.fixture_id)
         if prediction:
             entries.append(_prediction_to_dict(prediction))
-        else:
-            entries.append(_pending_fixture_dict(fixture))
+            continue
+
+        existing = archived.get(fixture.fixture_id)
+        if existing and existing.get("tip"):
+            entry = dict(existing)
+            if is_fixture_started(fixture.kickoff_berlin.isoformat()):
+                entry["locked"] = True
+            entries.append(entry)
+            continue
+
+        entries.append(_pending_fixture_dict(fixture))
 
     return {
         "round": round_name,

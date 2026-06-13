@@ -601,6 +601,13 @@ body {
   border-style: dashed;
 }
 
+.match-card.is-locked {
+  border-color: rgba(148, 163, 184, 0.35);
+  background:
+    linear-gradient(145deg, rgba(148, 163, 184, 0.06), transparent 42%),
+    linear-gradient(180deg, #141d2c, var(--bg-card));
+}
+
 .match-card.is-highlight {
   border-color: rgba(0, 229, 168, 0.22);
   background:
@@ -951,6 +958,34 @@ body {
 
 .ev-badge-pending .ev-badge-label {
   color: #f8a94a;
+}
+
+.ev-badge-final {
+  background: rgba(148, 163, 184, 0.12);
+  border-color: rgba(148, 163, 184, 0.35);
+}
+
+.ev-badge-final .ev-badge-label {
+  color: #94a3b8;
+}
+
+.ev-badge-final .ev-badge-value {
+  color: #e2e8f0;
+  font-size: 0.95rem !important;
+}
+
+.match-body-locked {
+  grid-template-columns: 1fr;
+}
+
+.pick-hero-locked .pick-context {
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.badge-final {
+  border-color: rgba(148, 163, 184, 0.4);
+  color: #cbd5e1;
 }
 
 .no-odds-value {

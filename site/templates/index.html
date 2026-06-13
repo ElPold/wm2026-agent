@@ -128,13 +128,18 @@
 
       <div class="match-list">
         {% for match in round.predictions %}
-        <article class="match-card{% if match.is_day_highlight %} is-highlight{% endif %}{% if match.is_pending %} is-pending{% endif %}">
+        <article class="match-card{% if match.is_day_highlight %} is-highlight{% endif %}{% if match.is_locked %} is-locked{% elif match.is_pending %} is-pending{% endif %}">
           <div class="match-top">
             <div>
-              {% if match.is_day_highlight %}
+              {% if match.is_day_highlight and not match.is_locked %}
               <p class="match-kicker">
                 <span class="t-normal">Day Highlight · EV Pick</span>
                 <span class="t-cat" hidden>Day Highlight · Tuna Pick</span>
+              </p>
+              {% elif match.is_locked %}
+              <p class="match-kicker">
+                <span class="t-normal">Final pick · locked</span>
+                <span class="t-cat" hidden>Final bowl · locked</span>
               </p>
               {% else %}
               <p class="match-round">{{ match.round or "WM 2026" }}</p>
@@ -142,7 +147,18 @@
               <h3 class="match-title">{{ matchup(match.home_team, match.away_team, match.home_flag_url, match.away_flag_url) }}</h3>
               <p class="match-meta mono">{{ match.kickoff_time }} Berlin{% if match.venue %} · {{ match.venue }}{% endif %}</p>
             </div>
-            {% if match.is_pending %}
+            {% if match.is_locked %}
+            <div class="ev-badge ev-badge-final">
+              <span class="ev-badge-label">
+                <span class="t-normal">Status</span>
+                <span class="t-cat" hidden>Window status</span>
+              </span>
+              <span class="ev-badge-value">
+                <span class="t-normal">Final pick</span>
+                <span class="t-cat" hidden>Bowl sealed</span>
+              </span>
+            </div>
+            {% elif match.is_pending %}
             <div class="ev-badge ev-badge-pending">
               <span class="ev-badge-label">
                 <span class="t-normal">Status</span>
@@ -164,7 +180,45 @@
             {% endif %}
           </div>
 
-          {% if match.is_pending %}
+          {% if match.is_locked %}
+          <div class="match-body match-body-locked">
+            <div class="pick-hero pick-hero-locked">
+              <span class="pick-label">
+                <span class="t-normal">Final Pick</span>
+                <span class="t-cat cat-label-with-icon" hidden><img class="cat-icon" width="16" height="16" src="static/cats/pick.svg" alt="">Final Bowl</span>
+              </span>
+              <span class="pick-score mono">{{ match.tip_display }}</span>
+              <p class="pick-context">
+                <span class="t-normal">Kickoff passed — this pick is frozen and will not change on later updates.</span>
+                <span class="t-cat" hidden>Kickoff passed — this bowl is sealed.</span>
+              </p>
+            </div>
+            {% if match.has_odds %}
+            <div class="match-side">
+              <p class="side-label">
+                <span class="t-normal">Market Probability (at pick time)</span>
+                <span class="t-cat cat-label-with-icon" hidden><img class="cat-icon" width="16" height="16" src="static/cats/nap.svg" alt="">Nap Probability</span>
+              </p>
+              <div class="prob-chips">
+                {% for chip in match.prob_chips %}
+                <div class="prob-chip">
+                  <span class="chip-key">{{ chip.key }}</span>
+                  <span class="chip-val mono">{{ (chip.value * 100)|round(1) }}%</span>
+                </div>
+                {% endfor %}
+              </div>
+              <div class="badge-row">
+                {% for badge in match.badges %}
+                <span class="badge badge-{{ badge.slug }}">
+                  <span class="t-normal">{{ badge.label }}</span>
+                  <span class="t-cat" hidden>{% if badge.slug == 'final' %}Bowl sealed{% else %}{{ badge.label }}{% endif %}</span>
+                </span>
+                {% endfor %}
+              </div>
+            </div>
+            {% endif %}
+          </div>
+          {% elif match.is_pending %}
           <div class="no-odds-callout">
             <p class="no-odds-title">
               <span class="t-normal">No odds available for this match yet</span>

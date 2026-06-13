@@ -13,6 +13,11 @@ from zoneinfo import ZoneInfo
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 from src.bonus.tips import compute_bonus_tips, load_bonus_payload, save_bonus_payload
+from src.pipeline.prediction_store import (
+    collect_payloads,
+    is_fixture_started,
+    load_predictions_index,
+)
 from src.optimizer.scoring import kicktipp_points
 from src.optimizer.tip_payload import (
     build_ev_alternatives_display,
@@ -136,7 +141,7 @@ def _load_prediction_rounds(
     history_dir: Path,
 ) -> list[dict[str, Any]]:
     payloads = _collect_payloads(predictions_path, history_dir)
-    predictions_by_id: dict[str, dict[str, Any]] = {}
+    predictions_by_id = load_predictions_index(history_dir, predictions_path)
     round_meta: dict[str, dict[str, str]] = {}
 
     for payload in payloads:
@@ -149,10 +154,6 @@ def _load_prediction_rounds(
             }
 
         for item in payload.get("predictions", []):
-            fixture_id = item.get("fixture_id")
-            if not fixture_id:
-                continue
-            predictions_by_id[fixture_id] = item
             round_name = item.get("round") or payload_round
             if round_name and round_name not in round_meta:
                 round_meta[round_name] = {
@@ -222,21 +223,7 @@ def _collect_payloads(
     predictions_path: Path,
     history_dir: Path,
 ) -> list[dict[str, Any]]:
-    payloads: list[dict[str, Any]] = []
-
-    rounds_dir = history_dir / "rounds"
-    if rounds_dir.exists():
-        for path in sorted(rounds_dir.glob("*.json")):
-            payloads.append(_read_json(path))
-
-    if history_dir.exists():
-        for path in sorted(history_dir.glob("*.json")):
-            payloads.append(_read_json(path))
-
-    if predictions_path.exists():
-        payloads.append(_read_json(predictions_path))
-
-    return payloads
+    return collect_payloads(history_dir, predictions_path)
 
 
 def _read_json(path: Path) -> dict[str, Any]:
@@ -246,7 +233,13 @@ def _read_json(path: Path) -> dict[str, Any]:
 
 def _enrich_match(item: dict[str, Any]) -> dict[str, Any]:
     enriched = dict(item)
-    pending = bool(enriched.get("pending")) or not enriched.get("tip")
+    kickoff = enriched.get("kickoff_berlin", "")
+    started = is_fixture_started(kickoff)
+    has_tip = bool(enriched.get("tip"))
+    is_locked = bool(enriched.get("locked")) or (started and has_tip)
+    enriched["is_locked"] = is_locked
+
+    pending = (bool(enriched.get("pending")) or not has_tip) and not is_locked
     enriched["is_pending"] = pending
 
     if pending:
@@ -262,6 +255,30 @@ def _enrich_match(item: dict[str, Any]) -> dict[str, Any]:
         ]
         enriched["has_odds"] = False
         enriched["badges"] = [{"slug": "no-odds", "label": "No odds yet"}]
+        enriched["confidence"] = "low"
+        enriched["signal_strength"] = 0
+        enriched["top_scores_display"] = []
+        enriched["ev_alternatives_display"] = []
+        enriched["is_blowout"] = False
+        return _attach_team_flags(enriched)
+
+    if is_locked and not enriched.get("market_probs"):
+        enriched["tip_display"] = _format_tip_display(enriched.get("tip", ""))
+        enriched["most_likely_display"] = (
+            _format_tip_display(enriched["most_likely_score"])
+            if enriched.get("most_likely_score")
+            else None
+        )
+        enriched["expected_points"] = float(enriched.get("expected_points") or 0)
+        enriched["kickoff_time"] = _format_kickoff(kickoff)
+        enriched["prob_bars"] = [("1", 0.0), ("X", 0.0), ("2", 0.0)]
+        enriched["prob_chips"] = [
+            {"key": "1", "value": 0.0},
+            {"key": "X", "value": 0.0},
+            {"key": "2", "value": 0.0},
+        ]
+        enriched["has_odds"] = bool(enriched.get("odds_1x2"))
+        enriched["badges"] = [{"slug": "final", "label": "Final pick"}]
         enriched["confidence"] = "low"
         enriched["signal_strength"] = 0
         enriched["top_scores_display"] = []
@@ -297,6 +314,11 @@ def _enrich_match(item: dict[str, Any]) -> dict[str, Any]:
         tip_scores is not None and is_blowout_tip(*tip_scores)
     )
     enriched["badges"] = _build_badges(enriched, max_prob)
+    if is_locked:
+        enriched["badges"] = [
+            {"slug": "final", "label": "Final pick"},
+            *enriched["badges"],
+        ]
     enriched["ev_alternatives_display"] = build_ev_alternatives_display(enriched)
     enriched["confidence"] = _confidence_level(max_prob)
     enriched["signal_strength"] = int(round(max_prob * 100))
@@ -538,13 +560,7 @@ def _predictions_index(
     predictions_path: Path,
     history_dir: Path,
 ) -> dict[str, dict[str, Any]]:
-    index: dict[str, dict[str, Any]] = {}
-    for payload in _collect_payloads(predictions_path, history_dir):
-        for item in payload.get("predictions", []):
-            fixture_id = item.get("fixture_id")
-            if fixture_id:
-                index[fixture_id] = item
-    return index
+    return load_predictions_index(history_dir, predictions_path)
 
 
 def _round_short_label(round_name: str | None) -> str:

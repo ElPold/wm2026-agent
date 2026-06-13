@@ -1,0 +1,16 @@
+{
+  "generated_at": "2026-06-11T20:00:00+02:00",
+  "match_count": 1,
+  "predictions": [
+    {
+      "fixture_id": "wc26-002",
+      "home_team": "South Korea",
+      "away_team": "Czech Republic",
+      "kickoff_berlin": "2026-06-12T04:00:00+02:00",
+      "venue": "Guadalajara (Zapopan)",
+      "round": "Matchday 1",
+      "tip": "2:1",
+      "locked": true
+    }
+  ]
+}

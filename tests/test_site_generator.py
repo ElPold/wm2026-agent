@@ -20,7 +20,7 @@ def test_build_site_from_predictions(tmp_path):
                 "fixture_id": "wc26-001",
                 "home_team": "Mexico",
                 "away_team": "South Africa",
-                "kickoff_berlin": "2026-06-11T21:00:00+02:00",
+                "kickoff_berlin": "2030-06-11T21:00:00+02:00",
                 "venue": "Mexico City",
                 "round": "Matchday 1",
                 "bookmaker": "pinnacle",

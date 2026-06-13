@@ -1,10 +1,26 @@
 from src.site.generator import _enrich_match, _mark_day_highlight
 
 
+def test_enrich_match_marks_started_tip_as_locked():
+    match = _enrich_match(
+        {
+            "tip": "1:0",
+            "kickoff_berlin": "2026-06-11T21:00:00+02:00",
+            "expected_points": 1.79,
+            "market_probs": {"home": 0.68, "draw": 0.21, "away": 0.11},
+            "odds_1x2": {"home": 1.4, "draw": 4.6, "away": 8.7},
+        }
+    )
+    assert match["is_locked"] is True
+    assert match["is_pending"] is False
+    assert any(b["slug"] == "final" for b in match["badges"])
+
+
 def test_enrich_match_adds_display_and_badges():
     match = _enrich_match(
         {
             "tip": "1:0",
+            "kickoff_berlin": "2030-06-11T21:00:00+02:00",
             "expected_points": 1.79,
             "market_probs": {"home": 0.68, "draw": 0.21, "away": 0.11},
             "odds_1x2": {"home": 1.4, "draw": 4.6, "away": 8.7},
