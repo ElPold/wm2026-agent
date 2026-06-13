@@ -4,7 +4,9 @@
 from __future__ import annotations
 
 import argparse
+import json
 import os
+import subprocess
 import sys
 from pathlib import Path
 
@@ -25,19 +27,63 @@ URL_BASE = os.environ.get("KICKTIPP_BASE_URL", "https://www.kicktipp.de")
 URL_LOGIN = f"{URL_BASE}/info/profil/login"
 DEFAULT_RESULTS = ROOT / "state" / "results.json"
 DEFAULT_ALIASES = ROOT / "config" / "kicktipp_aliases.json"
+DEFAULT_AGENT_ROOT = ROOT / ".kicktipp-agent"
+SCHEDULE_JSON_SCRIPT = ROOT / "scripts" / "kicktipp_schedule_json.mjs"
+
+
+def kicktipp_agent_root() -> Path | None:
+    custom = os.environ.get("KICKTIPP_AGENT_ROOT")
+    if custom:
+        path = Path(custom)
+        return path if (path / "dist" / "browser.js").exists() else None
+    if (DEFAULT_AGENT_ROOT / "dist" / "browser.js").exists():
+        return DEFAULT_AGENT_ROOT
+    return None
+
+
+def fetch_rows_via_kicktipp_agent(matchdays: str) -> list[dict[str, str]]:
+    agent_root = kicktipp_agent_root()
+    if not agent_root or not SCHEDULE_JSON_SCRIPT.exists():
+        return []
+
+    env = os.environ.copy()
+    env["KICKTIPP_AGENT_ROOT"] = str(agent_root)
+    result = subprocess.run(
+        ["node", str(SCHEDULE_JSON_SCRIPT), matchdays],
+        check=False,
+        capture_output=True,
+        text=True,
+        env=env,
+    )
+    if result.returncode != 0:
+        stderr = result.stderr.strip() or result.stdout.strip()
+        print(f"kicktipp-agent schedule dump fehlgeschlagen: {stderr}", file=sys.stderr)
+        return []
+
+    payload = json.loads(result.stdout)
+    return [
+        {
+            "date": row.get("date", ""),
+            "home": row["home"],
+            "away": row["away"],
+            "result": row["result"],
+        }
+        for row in payload
+    ]
 
 
 def dismiss_consent(page) -> None:
     try:
         page.wait_for_selector('iframe[src*="privacy-mgmt"]', timeout=2000)
         for frame in page.frames:
-            btn = frame.query_selector('button:has-text("Accept and continue")')
-            if btn:
-                btn.click()
-                page.wait_for_selector(
-                    'iframe[src*="privacy-mgmt"]', state="hidden", timeout=3000
-                )
-                return
+            for label in ("Accept and continue", "Akzeptieren und weiter"):
+                btn = frame.query_selector(f'button:has-text("{label}")')
+                if btn:
+                    btn.click()
+                    page.wait_for_selector(
+                        'iframe[src*="privacy-mgmt"]', state="hidden", timeout=3000
+                    )
+                    return
     except Exception:
         pass
 
@@ -79,28 +125,40 @@ def parse_schedule_page(page) -> list[dict[str, str]]:
     return rows
 
 
-def fetch_schedule_matchdays(
-    page,
+def fetch_schedule_matchdays_playwright(
     community: str,
     matchdays: range,
+    *,
+    no_login: bool,
 ) -> list[dict[str, str]]:
+    from playwright.sync_api import sync_playwright
+
+    email = os.environ.get("KICKTIPP_EMAIL", "")
+    password = os.environ.get("KICKTIPP_PASSWORD", "")
     rows: list[dict[str, str]] = []
     seen: set[tuple[str, str, str]] = set()
-    for md in matchdays:
-        url = f"{URL_BASE}/{community}/schedule?spieltagIndex={md}"
-        page.goto(url)
-        page.wait_for_load_state("domcontentloaded")
-        dismiss_consent(page)
-        try:
-            page.wait_for_selector("table#spiele", timeout=5000)
-        except Exception:
-            continue
-        for row in parse_schedule_page(page):
-            key = (row["date"], row["home"], row["away"])
-            if key in seen:
+
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch(headless=True)
+        page = browser.new_page(viewport={"width": 1280, "height": 2400})
+        if not no_login:
+            login(page, email, password)
+        for md in matchdays:
+            url = f"{URL_BASE}/{community}/schedule?spieltagIndex={md}"
+            page.goto(url)
+            page.wait_for_load_state("domcontentloaded")
+            dismiss_consent(page)
+            try:
+                page.wait_for_selector("table#spiele", timeout=5000)
+            except Exception:
                 continue
-            seen.add(key)
-            rows.append(row)
+            for row in parse_schedule_page(page):
+                key = (row["date"], row["home"], row["away"])
+                if key in seen:
+                    continue
+                seen.add(key)
+                rows.append(row)
+        browser.close()
     return rows
 
 
@@ -110,6 +168,28 @@ def parse_matchday_range(value: str) -> range:
         return range(int(start), int(end) + 1)
     day = int(value)
     return range(day, day + 1)
+
+
+def fetch_schedule_rows(matchdays: str, community: str, *, no_login: bool) -> list[dict[str, str]]:
+    rows = fetch_rows_via_kicktipp_agent(matchdays)
+    if rows:
+        print(f"Quelle: kicktipp-agent ({len(rows)} Zeilen)")
+        return rows
+
+    print("Quelle: Playwright-Fallback", file=sys.stderr)
+    try:
+        return fetch_schedule_matchdays_playwright(
+            community,
+            parse_matchday_range(matchdays),
+            no_login=no_login,
+        )
+    except ImportError:
+        print(
+            "Weder kicktipp-agent noch Playwright verfügbar. "
+            "kicktipp-agent bauen oder: pip install playwright",
+            file=sys.stderr,
+        )
+        return []
 
 
 def main() -> int:
@@ -125,7 +205,7 @@ def main() -> int:
     parser.add_argument(
         "--no-login",
         action="store_true",
-        help="Ohne Kicktipp-Login (öffentlicher Spielplan)",
+        help="Nur für Playwright-Fallback ohne Login",
     )
     parser.add_argument(
         "--dry-run",
@@ -140,37 +220,23 @@ def main() -> int:
         print("KICKTIPP_COMMUNITY in .env setzen oder --community nutzen.", file=sys.stderr)
         return 1
 
-    email = os.environ.get("KICKTIPP_EMAIL", "")
-    password = os.environ.get("KICKTIPP_PASSWORD", "")
-    if not args.no_login and (not email or not password):
+    if not args.no_login and not (
+        os.environ.get("KICKTIPP_EMAIL") and os.environ.get("KICKTIPP_PASSWORD")
+    ):
         print(
-            "Hinweis: Ohne KICKTIPP_EMAIL/PASSWORD wird ohne Login geladen.",
+            "Hinweis: Ohne KICKTIPP_EMAIL/PASSWORD nur öffentlicher Playwright-Fallback.",
             file=sys.stderr,
         )
         args.no_login = True
 
-    try:
-        from playwright.sync_api import sync_playwright
-    except ImportError:
-        print("playwright fehlt: pip install playwright && playwright install chromium", file=sys.stderr)
-        return 1
-
-    matchdays = parse_matchday_range(args.matchdays)
     fixture_index = fixture_index_for_schedule(aliases_path=args.aliases)
-
-    with sync_playwright() as playwright:
-        browser = playwright.chromium.launch(headless=True)
-        page = browser.new_page(viewport={"width": 1280, "height": 900})
-        if not args.no_login:
-            login(page, email, password)
-        rows = fetch_schedule_matchdays(page, community, matchdays)
-        browser.close()
+    rows = fetch_schedule_rows(args.matchdays, community, no_login=args.no_login)
 
     if not rows:
         print(
             f"Warnung: Keine Spiele auf Kicktipp-Schedule gefunden "
             f"(Community {community!r}, Spieltage {args.matchdays}). "
-            "KICKTIPP_COMMUNITY prüfen oder --matchdays anpassen.",
+            "KICKTIPP_COMMUNITY prüfen oder kicktipp-agent installieren.",
             file=sys.stderr,
         )
 

@@ -12,6 +12,7 @@ jobs:
   fetch-results:
     runs-on: ubuntu-latest
     env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
       KICKTIPP_EMAIL: ${{ secrets.KICKTIPP_EMAIL }}
       KICKTIPP_PASSWORD: ${{ secrets.KICKTIPP_PASSWORD }}
       KICKTIPP_COMMUNITY: ${{ secrets.KICKTIPP_COMMUNITY }}
@@ -23,11 +24,21 @@ jobs:
         with:
           python-version: "3.11"
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
       - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Install kicktipp-agent CLI
         run: |
-          pip install -r requirements.txt
-          pip install playwright
-          playwright install chromium --with-deps
+          git clone --depth 1 --branch v1.0.0 https://github.com/christianheidorn/kicktipp-agent.git .kicktipp-agent
+          python scripts/patch_kicktipp_agent.py .kicktipp-agent
+          cd .kicktipp-agent
+          npm install
+          npm run build
+          npx playwright install chromium --with-deps
 
       - name: Validate Kicktipp secrets
         run: |
