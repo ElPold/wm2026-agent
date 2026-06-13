@@ -42,7 +42,7 @@ Nach jedem Tipp-Lauf wird `docs/` neu generiert. GitHub Pages einrichten:
 
 | Button | Zweck |
 |--------|-------|
-| **↻ Update matchday** | Öffnet Workflow **Update predictions** — Tipps neu generieren |
+| **↻ Update matchday** | Öffnet Workflow **Update predictions** — Tipps neu generieren, Ergebnisse von Kicktipp laden, Site bauen |
 | **→ Transfer to Kicktipp** (pro Matchday-Tab) | Öffnet Workflow **Kicktipp Spieltag N** — alle Agent-Tipps dieser Kicktipp-Runde abgeben |
 
 Beide Buttons sind passwortgeschützt (Zugangstor für GitHub Actions, kein echtes Secret).
@@ -78,7 +78,7 @@ Unter **Settings → Secrets and variables → Actions**:
 | Workflow | Auslöser | Zweck |
 |----------|----------|-------|
 | **Tests** | Push/PR auf `main` | `pytest` |
-| **Update predictions** | manuell | Tipps generieren; optional `submit_kicktipp` + `kicktipp_spieltag` |
+| **Update predictions** | manuell | Tipps generieren, Track record von Kicktipp aktualisieren; optional `submit_kicktipp` + `kicktipp_spieltag` |
 | **Kicktipp Spieltag 1/2** | manuell (vom Dashboard-Button) | Nur Kicktipp-Abgabe, ohne Tipp-Neugenerierung |
 | **Update track record** | täglich 05:00/23:00 UTC + manuell | Ergebnisse von Kicktipp → `state/results.json` + Site |
 | **Check fixture odds** | manuell | Quoten-Diagnose für einzelne Spiele |

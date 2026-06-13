@@ -1,5 +1,42 @@
 {
-  "updated_at": "2026-06-13T14:06:45.059467+00:00",
+  "updated_at": "2026-06-13T18:27:20.018348+00:00",
   "source": "kicktipp",
-  "results": {}
+  "results": {
+    "wc26-001": {
+      "home": 2,
+      "away": 0,
+      "score": "2:0",
+      "source": "kicktipp",
+      "kicktipp_home": "Mexiko",
+      "kicktipp_away": "Südafrika",
+      "date": "11.06.26 21:00"
+    },
+    "wc26-002": {
+      "home": 2,
+      "away": 1,
+      "score": "2:1",
+      "source": "kicktipp",
+      "kicktipp_home": "Südkorea",
+      "kicktipp_away": "Tschechien",
+      "date": "12.06.26 04:00"
+    },
+    "wc26-007": {
+      "home": 1,
+      "away": 1,
+      "score": "1:1",
+      "source": "kicktipp",
+      "kicktipp_home": "Kanada",
+      "kicktipp_away": "Bosnien-Herzegowina",
+      "date": "12.06.26 21:00"
+    },
+    "wc26-019": {
+      "home": 4,
+      "away": 1,
+      "score": "4:1",
+      "source": "kicktipp",
+      "kicktipp_home": "USA",
+      "kicktipp_away": "Paraguay",
+      "date": "13.06.26 03:00"
+    }
+  }
 }

@@ -100,28 +100,63 @@ def login(page, email: str, password: str) -> None:
         raise RuntimeError("Kicktipp-Login fehlgeschlagen.")
 
 
-def parse_schedule_page(page) -> list[dict[str, str]]:
+def schedule_overview_segment() -> str:
+    """kicktipp.de nutzt /tippuebersicht, kicktipp.com /schedule."""
+    if "kicktipp.de" in URL_BASE:
+        return "tippuebersicht"
+    return "schedule"
+
+
+def schedule_table_selector(page) -> str | None:
+    for selector in ("table#spielplanSpiele", "table#spiele"):
+        if page.locator(selector).count():
+            return selector
+    return None
+
+
+def _result_from_cell(result_cell) -> str:
+    home_goals = ""
+    away_goals = ""
+    if result_cell.locator("span.kicktipp-heim").count():
+        home_goals = result_cell.locator("span.kicktipp-heim").inner_text().strip()
+    if result_cell.locator("span.kicktipp-gast").count():
+        away_goals = result_cell.locator("span.kicktipp-gast").inner_text().strip()
+    if home_goals and away_goals:
+        return f"{home_goals}:{away_goals}"
+    text = result_cell.inner_text().strip().replace(" ", "")
+    if text and text not in {"-:-", "–:–"}:
+        return text
+    return "-:-"
+
+
+def parse_schedule_page(page, table_selector: str) -> list[dict[str, str]]:
+    german = table_selector == "table#spielplanSpiele"
     rows: list[dict[str, str]] = []
-    table = page.locator("table#spiele tbody tr")
+    table = page.locator(f"{table_selector} tbody tr")
     for index in range(table.count()):
         cells = table.nth(index).locator("td")
-        if cells.count() < 5:
-            continue
-        date = cells.nth(0).inner_text().strip()
-        home = cells.nth(2).inner_text().strip()
-        away = cells.nth(3).inner_text().strip()
-        result_cell = cells.nth(4)
-        home_goals = ""
-        away_goals = ""
-        if result_cell.locator("span.kicktipp-heim").count():
-            home_goals = result_cell.locator("span.kicktipp-heim").inner_text().strip()
-        if result_cell.locator("span.kicktipp-gast").count():
-            away_goals = result_cell.locator("span.kicktipp-gast").inner_text().strip()
-        if home_goals and away_goals:
-            result = f"{home_goals}:{away_goals}"
+        if german:
+            if cells.count() < 4:
+                continue
+            date = cells.nth(0).inner_text().strip()
+            home = cells.nth(1).inner_text().strip()
+            away = cells.nth(2).inner_text().strip()
+            result_cell = cells.nth(4) if cells.count() >= 5 else cells.nth(3)
         else:
-            result = "-:-"
-        rows.append({"date": date, "home": home, "away": away, "result": result})
+            if cells.count() < 5:
+                continue
+            date = cells.nth(0).inner_text().strip()
+            home = cells.nth(2).inner_text().strip()
+            away = cells.nth(3).inner_text().strip()
+            result_cell = cells.nth(4)
+        rows.append(
+            {
+                "date": date,
+                "home": home,
+                "away": away,
+                "result": _result_from_cell(result_cell),
+            }
+        )
     return rows
 
 
@@ -143,16 +178,23 @@ def fetch_schedule_matchdays_playwright(
         page = browser.new_page(viewport={"width": 1280, "height": 2400})
         if not no_login:
             login(page, email, password)
+        overview = schedule_overview_segment()
         for md in matchdays:
-            url = f"{URL_BASE}/{community}/schedule?spieltagIndex={md}"
+            url = f"{URL_BASE}/{community}/{overview}?spieltagIndex={md}"
             page.goto(url)
             page.wait_for_load_state("domcontentloaded")
             dismiss_consent(page)
             try:
-                page.wait_for_selector("table#spiele", timeout=5000)
+                page.wait_for_selector(
+                    "table#spielplanSpiele, table#spiele",
+                    timeout=5000,
+                )
             except Exception:
                 continue
-            for row in parse_schedule_page(page):
+            table_selector = schedule_table_selector(page)
+            if not table_selector:
+                continue
+            for row in parse_schedule_page(page, table_selector):
                 key = (row["date"], row["home"], row["away"])
                 if key in seen:
                     continue

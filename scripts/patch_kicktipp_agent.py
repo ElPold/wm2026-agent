@@ -60,6 +60,78 @@ def main() -> int:
     bet_text = bet_text.replace(submit_old, submit_new)
     bet_ts.write_text(bet_text, encoding="utf-8")
     print(f"Gepatcht: {bet_ts}")
+    patch_file(
+        root / "src/core.ts",
+        [
+            (
+                "let url = `${URL_BASE}/${encodeURIComponent(community)}/schedule`;",
+                "let url = `${URL_BASE}/${encodeURIComponent(community)}/tippuebersicht`;",
+            ),
+            (
+                "  const table = content.find('table#spiele');\n"
+                "  if (!table.length) return { title, matches: [] };\n"
+                "  const tbody = table.find('tbody');\n"
+                "  if (!tbody.length) return { title, matches: [] };\n"
+                "\n"
+                "  const matches: ScheduleMatch[] = [];\n"
+                "  tbody.children('tr').each((_, tr) => {\n"
+                "    const cols = $(tr).children('td');\n"
+                "    if (cols.length < 5) return;\n"
+                "    const date = $(cols[0]).text().trim();\n"
+                "    const home = $(cols[2]).text().trim();\n"
+                "    const away = $(cols[3]).text().trim();\n"
+                "    const resultSpan = $(cols[4]).find('span.kicktipp-ergebnis');\n"
+                "    let result: string;\n"
+                "    if (resultSpan.length) {\n"
+                "      const h = resultSpan.find('span.kicktipp-heim').text().trim();\n"
+                "      const g = resultSpan.find('span.kicktipp-gast').text().trim();\n"
+                "      result = `${h}:${g}`;\n"
+                "    } else {\n"
+                "      result = '-:-';\n"
+                "    }\n"
+                "    matches.push({ date, home, away, result });\n"
+                "  });",
+                "  const table = content.find('table#spielplanSpiele, table#spiele');\n"
+                "  if (!table.length) return { title, matches: [] };\n"
+                "  const tbody = table.find('tbody');\n"
+                "  if (!tbody.length) return { title, matches: [] };\n"
+                "  const german = table.is('#spielplanSpiele');\n"
+                "\n"
+                "  const matches: ScheduleMatch[] = [];\n"
+                "  tbody.children('tr').each((_, tr) => {\n"
+                "    const cols = $(tr).children('td');\n"
+                "    if (german ? cols.length < 4 : cols.length < 5) return;\n"
+                "    const date = $(cols[0]).text().trim();\n"
+                "    const home = german ? $(cols[1]).text().trim() : $(cols[2]).text().trim();\n"
+                "    const away = german ? $(cols[2]).text().trim() : $(cols[3]).text().trim();\n"
+                "    const resultCell = german ? $(cols[cols.length >= 5 ? 4 : 3]) : $(cols[4]);\n"
+                "    const resultSpan = resultCell.find('span.kicktipp-ergebnis');\n"
+                "    let result: string;\n"
+                "    if (resultSpan.length) {\n"
+                "      const h = resultSpan.find('span.kicktipp-heim').text().trim();\n"
+                "      const g = resultSpan.find('span.kicktipp-gast').text().trim();\n"
+                "      result = `${h}:${g}`;\n"
+                "    } else {\n"
+                "      const text = resultCell.text().trim().replace(/\\s+/g, '');\n"
+                "      result = text && text !== '-:-' ? text : '-:-';\n"
+                "    }\n"
+                "    matches.push({ date, home, away, result });\n"
+                "  });",
+            ),
+        ],
+    )
+    schedule_cmd = root / "src/commands/schedule.ts"
+    if schedule_cmd.exists():
+        patch_file(
+            schedule_cmd,
+            [
+                (
+                    "let url = `${URL_BASE}/${community}/schedule`;",
+                    "let url = `${URL_BASE}/${community}/tippuebersicht`;",
+                ),
+            ],
+        )
+
     return 0
 
 
