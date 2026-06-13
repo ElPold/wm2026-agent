@@ -1,6 +1,6 @@
 {
   "round": "Matchday 1",
-  "generated_at": "2026-06-11T21:36:36.868520+02:00",
+  "generated_at": "2026-06-13T15:11:58.139780+02:00",
   "match_count": 2,
   "predictions": [
     {
@@ -19,64 +19,7 @@
       "kickoff_berlin": "2026-06-12T04:00:00+02:00",
       "venue": "Guadalajara (Zapopan)",
       "round": "Matchday 1",
-      "odds_source": "oddspapi",
-      "bookmaker": "pinnacle",
-      "odds_1x2": {
-        "home": 3.48,
-        "draw": 2.12,
-        "away": 3.63
-      },
-      "odds_ou25": {
-        "over": 1.364,
-        "under": 3.0
-      },
-      "market_probs": {
-        "home": 0.27776334026334026,
-        "draw": 0.4559511434511434,
-        "away": 0.2662855162855163,
-        "over_2_5": 0.687442713107241
-      },
-      "lambda_home": 1.6207573225860097,
-      "lambda_away": 1.5985033931393298,
-      "tip": "2:1",
-      "expected_points": 1.0539,
-      "most_likely_score": "1:1",
-      "top_scores": [
-        {
-          "score": "1:1",
-          "probability": 0.1039
-        },
-        {
-          "score": "2:1",
-          "probability": 0.0842
-        },
-        {
-          "score": "1:2",
-          "probability": 0.083
-        },
-        {
-          "score": "2:2",
-          "probability": 0.0673
-        },
-        {
-          "score": "1:0",
-          "probability": 0.065
-        }
-      ],
-      "top_alternatives": [
-        {
-          "score": "1:0",
-          "expected_points": 1.0347
-        },
-        {
-          "score": "1:2",
-          "expected_points": 1.0313
-        },
-        {
-          "score": "0:1",
-          "expected_points": 1.0124
-        }
-      ]
+      "pending": true
     }
   ]
 }
