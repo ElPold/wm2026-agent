@@ -53,6 +53,21 @@ def test_load_predictions_for_kicktipp_spieltag(tmp_path):
     assert payload["agent_rounds"] == ["Matchday 1", "Matchday 2"]
 
 
+def test_match_bets_maps_curacao_alias():
+    payload = {
+        "predictions": [
+            {
+                "home_team": "Germany",
+                "away_team": "Curaçao",
+                "tip": "2:0",
+            },
+        ]
+    }
+    aliases = {"Germany": "Deutschland", "Curaçao": "Curaçao"}
+    bets = match_bets_from_predictions(payload, aliases)
+    assert bets == ["Deutschland vs Curaçao=2:0"]
+
+
 def test_match_bets_maps_bosnia_alias():
     payload = {
         "predictions": [
