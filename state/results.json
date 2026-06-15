@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-14T08:40:00.783381+00:00",
+  "updated_at": "2026-06-15T00:07:20.754439+00:00",
   "source": "kicktipp",
   "results": {
     "wc26-001": {
@@ -73,6 +73,33 @@
       "kicktipp_home": "Australien",
       "kicktipp_away": "Türkei",
       "date": "14.06.26 04:00"
+    },
+    "wc26-025": {
+      "home": 7,
+      "away": 1,
+      "score": "7:1",
+      "source": "kicktipp",
+      "kicktipp_home": "Deutschland",
+      "kicktipp_away": "Curaçao",
+      "date": "14.06.26 17:00"
+    },
+    "wc26-031": {
+      "home": 2,
+      "away": 2,
+      "score": "2:2",
+      "source": "kicktipp",
+      "kicktipp_home": "Niederlande",
+      "kicktipp_away": "Japan",
+      "date": "14.06.26 20:00"
+    },
+    "wc26-026": {
+      "home": 0,
+      "away": 0,
+      "score": "0:0",
+      "source": "kicktipp",
+      "kicktipp_home": "Elfenbeinküste",
+      "kicktipp_away": "Ecuador",
+      "date": "14.06.26 23:00"
     }
   }
 }
