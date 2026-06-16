@@ -377,9 +377,27 @@ def main() -> int:
         print(
             f"Kicktipp-Spieltag {kt_md}: Agent-Runden {', '.join(agent_rounds) or '(keine Archive)'}"
         )
+    elif args.matchday:
+        kt_md = kicktipp_spieltag(args.matchday)
+        predictions_payload = load_predictions_for_kicktipp_spieltag(kt_md)
+        agent_rounds = predictions_payload.get("agent_rounds") or []
+        print(
+            f"Kicktipp-Spieltag {kt_md}: Agent Matchday {args.matchday} "
+            f"({', '.join(agent_rounds) or 'keine Archive'})"
+        )
     else:
-        predictions_payload = json.loads(args.predictions.read_text(encoding="utf-8"))
-        kt_md = None
+        kt_md = resolve_upcoming_kicktipp_spieltag()
+        if kt_md is not None:
+            predictions_payload = load_predictions_for_kicktipp_spieltag(kt_md)
+            agent_rounds = predictions_payload.get("agent_rounds") or []
+            print(
+                f"Kicktipp-Spieltag {kt_md} (nächstes Spiel): "
+                f"{', '.join(agent_rounds) or '(keine Archive)'}"
+            )
+        else:
+            predictions_payload = json.loads(args.predictions.read_text(encoding="utf-8"))
+            agent_rounds = []
+            print("Hinweis: Kein anstehender Spieltag — Fallback predictions.json")
 
     match_bets = [] if args.bonus_only else match_bets_from_predictions(predictions_payload, aliases)
     agent_rounds = predictions_payload.get("agent_rounds") or []
@@ -403,7 +421,7 @@ def main() -> int:
         if kt_md is not None:
             cmd_args.extend(["--matchday", str(kt_md)])
         else:
-            agent_md = args.matchday or parse_agent_matchday(predictions_payload.get("round", ""))
+            agent_md = parse_agent_matchday(predictions_payload.get("round", ""))
             if agent_md is not None:
                 kt_md = kicktipp_spieltag(agent_md)
                 cmd_args.extend(["--matchday", str(kt_md)])
