@@ -116,6 +116,8 @@ jobs:
 
       - name: Submit tips to Kicktipp
         if: github.event_name == 'schedule' || inputs.submit_kicktipp == true
+        continue-on-error: true
+        id: kicktipp_submit
         env:
           KICKTIPP_EMAIL: ${{ secrets.KICKTIPP_EMAIL }}
           KICKTIPP_PASSWORD: ${{ secrets.KICKTIPP_PASSWORD }}
@@ -128,6 +130,7 @@ jobs:
           elif [ "${{ github.event_name }}" = "schedule" ]; then
             KT=$(python scripts/submit_kicktipp.py --print-upcoming-spieltag)
             if [ -z "$KT" ]; then
+              python scripts/submit_kicktipp.py --record-kicktipp-skipped
               echo "Kein anstehender Kicktipp-Spieltag — Übergabe übersprungen."
               exit 0
             fi
@@ -136,6 +139,10 @@ jobs:
           else
             python scripts/submit_kicktipp.py --no-bonus
           fi
+
+      - name: Warn if Kicktipp submit failed
+        if: steps.kicktipp_submit.outcome == 'failure'
+        run: echo "::warning::Kicktipp-Übertragung fehlgeschlagen — Status steht in state/sync_status.json."
 
       - name: Rebuild site
         run: python run.py --build-site

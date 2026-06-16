@@ -69,6 +69,31 @@ def resolve_upcoming_kicktipp_spieltag(
     return kicktipp_spieltag(agent_md)
 
 
+def record_kicktipp_sync(
+    *,
+    status: str,
+    spieltag: int | None,
+    tips_count: int,
+    agent_rounds: list[str] | None = None,
+    error: str | None = None,
+) -> None:
+    sys.path.insert(0, str(ROOT))
+    from src.pipeline.sync_status import sync_mode, update_sync_status
+
+    update_sync_status(
+        "kicktipp",
+        {
+            "synced_at": datetime.now(tz=ZoneInfo("Europe/Berlin")).isoformat(),
+            "status": status,
+            "spieltag": spieltag,
+            "tips_count": tips_count,
+            "agent_rounds": agent_rounds or [],
+            "mode": sync_mode(),
+            "error": error,
+        },
+    )
+
+
 def parse_agent_matchday(round_name: str) -> int | None:
     match = re.search(r"matchday\s*(\d+)", round_name, re.IGNORECASE)
     return int(match.group(1)) if match else None
@@ -300,6 +325,17 @@ def main() -> int:
         help="Nächsten Kicktipp-Spieltag (aus Spielplan) ausgeben und beenden",
     )
     parser.add_argument(
+        "--record-kicktipp-skipped",
+        action="store_true",
+        help="Kicktipp-Überspringen in sync_status.json protokollieren und beenden",
+    )
+    parser.add_argument(
+        "--skip-reason",
+        type=str,
+        default="Kein anstehender Kicktipp-Spieltag",
+        help="Grund für --record-kicktipp-skipped",
+    )
+    parser.add_argument(
         "--dry-run",
         action="store_true",
         help="Nur Befehle ausgeben, nichts abgeben",
@@ -312,6 +348,16 @@ def main() -> int:
             print("", end="")
             return 0
         print(kt)
+        return 0
+
+    if args.record_kicktipp_skipped:
+        record_kicktipp_sync(
+            status="skipped",
+            spieltag=None,
+            tips_count=0,
+            error=args.skip_reason,
+        )
+        print(f"Kicktipp-Sync protokolliert: skipped ({args.skip_reason})")
         return 0
 
     if not args.dry_run:
@@ -336,11 +382,22 @@ def main() -> int:
         kt_md = None
 
     match_bets = [] if args.bonus_only else match_bets_from_predictions(predictions_payload, aliases)
+    agent_rounds = predictions_payload.get("agent_rounds") or []
+    tips_submitted = 0
+
     if not match_bets:
         if args.bonus_only:
             print("Nur Bonusfragen — Spieltipps übersprungen.")
         else:
             print("Keine abzugebenden Spieltipps gefunden.")
+            if not args.dry_run:
+                record_kicktipp_sync(
+                    status="skipped",
+                    spieltag=kt_md,
+                    tips_count=0,
+                    agent_rounds=agent_rounds,
+                    error="Keine abzugebenden Spieltipps",
+                )
     else:
         cmd_args = ["bet", *match_bets]
         if kt_md is not None:
@@ -359,7 +416,16 @@ def main() -> int:
             print(f"  {bet}")
         code = run_kicktipp(cmd_args, dry_run=args.dry_run)
         if code != 0:
+            if not args.dry_run:
+                record_kicktipp_sync(
+                    status="failed",
+                    spieltag=kt_md,
+                    tips_count=len(match_bets),
+                    agent_rounds=agent_rounds,
+                    error=f"kicktipp-agent exit code {code}",
+                )
             return code
+        tips_submitted = len(match_bets)
 
     bonus_path = None if args.no_bonus else (args.bonus or DEFAULT_BONUS)
     if bonus_path and bonus_path.exists():
@@ -371,11 +437,27 @@ def main() -> int:
                 print(f"  {bet}")
             code = run_kicktipp(["bet", "--bonus", *bonus_bets], dry_run=args.dry_run)
             if code != 0:
+                if not args.dry_run:
+                    record_kicktipp_sync(
+                        status="failed",
+                        spieltag=kt_md,
+                        tips_count=tips_submitted,
+                        agent_rounds=agent_rounds,
+                        error=f"Bonus-Übertragung exit code {code}",
+                    )
                 return code
         else:
             print("Keine Bonusantworten in bonus.json.")
     elif not args.no_bonus:
         print("Keine bonus.json — Bonus übersprungen.")
+
+    if not args.dry_run and (tips_submitted > 0 or args.bonus_only):
+        record_kicktipp_sync(
+            status="ok",
+            spieltag=kt_md,
+            tips_count=tips_submitted,
+            agent_rounds=agent_rounds,
+        )
 
     print("Kicktipp-Übertragung abgeschlossen.")
     return 0

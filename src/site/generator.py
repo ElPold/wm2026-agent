@@ -33,6 +33,7 @@ ROOT = Path(__file__).resolve().parents[2]
 TEMPLATES = ROOT / "site" / "templates"
 STATIC = ROOT / "site" / "static"
 DOCS = ROOT / "docs"
+from src.pipeline.sync_status import build_sync_display
 from src.sources.schedule_rounds import round_sort_key, schedule_round_names
 
 DEFAULT_VERSION_PATH = ROOT / "state" / "site_version.json"
@@ -69,6 +70,7 @@ def build_site(
     predictions_path: Path | None = None,
     history_dir: Path | None = None,
     results_path: Path | None = None,
+    sync_status_path: Path | None = None,
     output_dir: Path | None = None,
     version_path: Path | None = None,
     increment_version: bool = True,
@@ -76,6 +78,7 @@ def build_site(
     predictions_path = predictions_path or ROOT / "state" / "predictions.json"
     history_dir = history_dir or ROOT / "state" / "history"
     results_path = results_path or ROOT / "state" / "results.json"
+    sync_status_path = sync_status_path or ROOT / "state" / "sync_status.json"
     output_dir = output_dir or DOCS
 
     site_version = resolve_site_version(
@@ -88,6 +91,7 @@ def build_site(
         _mark_day_highlight(round_block.get("predictions", []))
 
     shared = _shared_context(site_version=site_version)
+    sync_status = build_sync_display(sync_status_path)
     track_rows, track_stats = _load_tracking_rows(
         predictions_path,
         history_dir,
@@ -101,6 +105,7 @@ def build_site(
             **shared,
             "active_page": "dashboard",
             "rounds": rounds,
+            "sync_status": sync_status,
             "total_matches": sum(
                 round_block["match_count"] for round_block in rounds
             ),

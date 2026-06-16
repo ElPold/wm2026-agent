@@ -44,11 +44,39 @@ def test_build_site_from_predictions(tmp_path):
         json.dump(payload, handle)
 
     version_path = state / "site_version.json"
+    sync_path = state / "sync_status.json"
+    sync_path.write_text(
+        json.dumps(
+            {
+                "predictions": {
+                    "updated_at": "2026-06-16T10:00:00+02:00",
+                    "rounds": 1,
+                    "mode": "round",
+                    "round": "Matchday 1",
+                    "source": "manual",
+                },
+                "kicktipp": {
+                    "synced_at": "2026-06-16T10:05:00+02:00",
+                    "status": "ok",
+                    "spieltag": 1,
+                    "tips_count": 1,
+                    "agent_rounds": ["Matchday 1"],
+                    "mode": "manual",
+                    "error": None,
+                },
+            },
+            ensure_ascii=False,
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
     index_path = build_site(
         predictions_path=predictions_path,
         history_dir=history,
         output_dir=docs,
         version_path=version_path,
+        sync_status_path=sync_path,
         increment_version=False,
     )
 
@@ -75,6 +103,9 @@ def test_build_site_from_predictions(tmp_path):
     assert "ev-alternatives" in html
     assert 'class="site-version' in html
     assert ">v" in html
+    assert "sync-status" in html
+    assert "Kicktipp Spieltag 1 transferred" in html
+    assert "Tips updated" in html
 
     # Test with multiple round archives
     rounds_dir = history / "rounds"

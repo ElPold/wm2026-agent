@@ -6,9 +6,10 @@ from __future__ import annotations
 import argparse
 import logging
 import sys
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 from typing import Any
+from zoneinfo import ZoneInfo
 
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
@@ -23,11 +24,30 @@ from src.pipeline.day_tips import (
 )
 from src.bonus.tips import compute_bonus_tips, save_bonus_payload
 from src.site.generator import build_site
+from src.pipeline.sync_status import sync_mode, update_sync_status
 from src.sources.config import Settings
 from src.sources.schedule_rounds import schedule_round_names
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
 logger = logging.getLogger(__name__)
+
+
+def _record_predictions_sync(
+    *,
+    rounds: int,
+    mode: str,
+    round_name: str | None = None,
+) -> None:
+    update_sync_status(
+        "predictions",
+        {
+            "updated_at": datetime.now(tz=ZoneInfo("Europe/Berlin")).isoformat(),
+            "rounds": rounds,
+            "mode": mode,
+            "round": round_name,
+            "source": sync_mode(),
+        },
+    )
 
 
 def _run_script(name: str) -> None:
@@ -188,6 +208,7 @@ def main() -> None:
             )
         if latest_payload:
             save_round_payload(latest_payload, output_path)
+            _record_predictions_sync(rounds=archived_count, mode="all-rounds")
             print(
                 f"{archived_count} Runden archiviert, "
                 f"predictions.json → {latest_payload['round']}"
@@ -208,6 +229,7 @@ def main() -> None:
 
         save_round_payload(payload, output_path)
         history_path = archive_round_predictions(payload, history_dir)
+        _record_predictions_sync(rounds=1, mode="round", round_name=args.round)
         tipped = sum(1 for item in payload["predictions"] if item.get("tip"))
         print(
             f"{tipped}/{payload['match_count']} Tipps für {args.round} "

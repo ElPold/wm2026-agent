@@ -399,6 +399,58 @@ body {
   font-size: 0.82rem;
 }
 
+.sync-status {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin-top: 1.25rem;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.sync-status-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-size: 0.88rem;
+  color: var(--text);
+  line-height: 1.45;
+}
+
+.sync-status-dot {
+  flex-shrink: 0;
+  width: 0.55rem;
+  height: 0.55rem;
+  margin-top: 0.35rem;
+  border-radius: 50%;
+  background: var(--muted);
+}
+
+.sync-status-dot-ok {
+  background: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0, 229, 168, 0.15);
+}
+
+.sync-status-dot-failed {
+  background: #ff6b6b;
+  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.15);
+}
+
+.sync-status-dot-skipped {
+  background: #f0b429;
+  box-shadow: 0 0 0 3px rgba(240, 180, 41, 0.12);
+}
+
+.sync-status-item-failed {
+  color: #ffb4b4;
+}
+
+.sync-status-item-skipped {
+  color: var(--muted);
+}
+
 /* Main */
 .main {
   padding-bottom: 3rem;

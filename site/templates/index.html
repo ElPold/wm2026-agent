@@ -59,6 +59,43 @@
         </span>
       </div>
     </div>
+    {% if sync_status %}
+    <div class="sync-status" role="status" aria-live="polite">
+      {% if sync_status.predictions %}
+      <div class="sync-status-item">
+        <span class="sync-status-dot sync-status-dot-ok" aria-hidden="true"></span>
+        <span class="t-normal">
+          Tips updated {{ sync_status.predictions.updated_at }}
+          {% if sync_status.predictions.mode == 'all-rounds' %}
+          · {{ sync_status.predictions.rounds }} rounds
+          {% elif sync_status.predictions.round %}
+          · {{ sync_status.predictions.round }}
+          {% endif %}
+          {% if sync_status.predictions.mode == 'auto' or sync_status.predictions.source == 'auto' %}
+          · auto
+          {% endif %}
+        </span>
+        <span class="t-cat" hidden>Bowl refilled {{ sync_status.predictions.updated_at }}</span>
+      </div>
+      {% endif %}
+      {% if sync_status.kicktipp %}
+      <div class="sync-status-item sync-status-item-{{ sync_status.kicktipp.status_class }}">
+        <span class="sync-status-dot sync-status-dot-{{ sync_status.kicktipp.status_class }}" aria-hidden="true"></span>
+        <span class="t-normal">
+          {% if sync_status.kicktipp.status == 'ok' %}
+          Kicktipp Spieltag {{ sync_status.kicktipp.spieltag }} transferred · {{ sync_status.kicktipp.tips_count }} tips · {{ sync_status.kicktipp.synced_at }}
+          {% elif sync_status.kicktipp.status == 'failed' %}
+          Kicktipp transfer failed · {{ sync_status.kicktipp.synced_at }}{% if sync_status.kicktipp.error %} · {{ sync_status.kicktipp.error }}{% endif %}
+          {% else %}
+          Kicktipp transfer skipped · {{ sync_status.kicktipp.synced_at }}{% if sync_status.kicktipp.error %} · {{ sync_status.kicktipp.error }}{% endif %}
+          {% endif %}
+          {% if sync_status.kicktipp.mode == 'auto' %} · auto{% endif %}
+        </span>
+        <span class="t-cat" hidden>Kicktipp bowl status</span>
+      </div>
+      {% endif %}
+    </div>
+    {% endif %}
     {% endif %}
   </section>
 
