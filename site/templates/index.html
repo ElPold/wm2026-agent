@@ -117,17 +117,25 @@
         <span class="t-normal">{{ rounds|length }} group-stage matchdays</span>
         <span class="t-cat" hidden>{{ rounds|length }} nap days in the bowl</span>
       </p>
-      <div class="day-tabs" role="tablist" aria-label="Matchdays">
+      <div class="day-tabs" role="tablist" aria-label="Matchdays"{% if current_round_id %} data-current-round="{{ current_round_id }}"{% endif %}>
       {% for round in rounds %}
+      {% set is_current_round = current_round_id and round.round_id == current_round_id %}
+      {% set is_default_active = is_current_round or (not current_round_id and loop.first) %}
       <button
         type="button"
-        class="day-tab{% if loop.first %} is-active{% endif %}"
+        class="day-tab{% if is_current_round %} is-current{% endif %}{% if is_default_active %} is-active{% endif %}"
         role="tab"
         id="tab-{{ round.round_id }}"
-        aria-selected="{% if loop.first %}true{% else %}false{% endif %}"
+        aria-selected="{% if is_default_active %}true{% else %}false{% endif %}"
         aria-controls="panel-{{ round.round_id }}"
         data-round="{{ round.round_id }}"
       >
+        {% if is_current_round %}
+        <span class="day-tab-now">
+          <span class="t-normal">Now</span>
+          <span class="t-cat" hidden>Now napping</span>
+        </span>
+        {% endif %}
         <span class="day-tab-name">{{ round.tab_label }}</span>
         <span class="day-tab-meta mono">{{ round.match_count }} {% if round.match_count == 1 %}game{% else %}games{% endif %}</span>
       </button>
@@ -136,13 +144,15 @@
     </div>
 
     {% for round in rounds %}
+    {% set is_current_round = current_round_id and round.round_id == current_round_id %}
+    {% set is_default_active = is_current_round or (not current_round_id and loop.first) %}
     <section
-      class="day-panel{% if loop.first %} is-active{% endif %}"
+      class="day-panel{% if is_default_active %} is-active{% endif %}"
       id="panel-{{ round.round_id }}"
       role="tabpanel"
       aria-labelledby="tab-{{ round.round_id }}"
       data-round="{{ round.round_id }}"
-      {% if not loop.first %}hidden{% endif %}
+      {% if not is_default_active %}hidden{% endif %}
     >
       <div class="day-head">
         <div>
@@ -563,6 +573,8 @@
       });
 
       if (tabs.length) {
+        var tablist = document.querySelector(".day-tabs");
+        var currentRound = tablist ? tablist.getAttribute("data-current-round") : null;
         var storedRound = null;
         try {
           storedRound = localStorage.getItem(TAB_KEY);
@@ -571,6 +583,8 @@
         }
         if (storedRound && tabs.some(function (tab) { return tab.getAttribute("data-round") === storedRound; })) {
           activateRound(storedRound);
+        } else if (currentRound && tabs.some(function (tab) { return tab.getAttribute("data-round") === currentRound; })) {
+          activateRound(currentRound);
         }
       }
     })();

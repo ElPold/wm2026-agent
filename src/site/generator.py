@@ -87,6 +87,7 @@ def build_site(
     )
 
     rounds = _load_prediction_rounds(predictions_path, history_dir)
+    current_round_id = _current_round_id(rounds)
     for round_block in rounds:
         _mark_day_highlight(round_block.get("predictions", []))
 
@@ -105,6 +106,7 @@ def build_site(
             **shared,
             "active_page": "dashboard",
             "rounds": rounds,
+            "current_round_id": current_round_id,
             "sync_status": sync_status,
             "total_matches": sum(
                 round_block["match_count"] for round_block in rounds
@@ -223,6 +225,43 @@ def _load_prediction_rounds(
         )
 
     return rounds
+
+
+def _current_round_id(
+    rounds: list[dict[str, Any]],
+    *,
+    now: datetime | None = None,
+) -> str | None:
+    """Spieltag mit dem nächsten anstehenden (noch nicht gestarteten) Spiel."""
+    now = now or datetime.now(tz=ZoneInfo("Europe/Berlin"))
+    best_id: str | None = None
+    best_kickoff: datetime | None = None
+
+    for round_block in rounds:
+        round_id = round_block.get("round_id")
+        if not round_id:
+            continue
+        for item in round_block.get("predictions", []):
+            if item.get("is_locked"):
+                continue
+            kickoff_raw = item.get("kickoff_berlin")
+            if not kickoff_raw:
+                continue
+            try:
+                kickoff = datetime.fromisoformat(kickoff_raw)
+                if kickoff.tzinfo is None:
+                    kickoff = kickoff.replace(tzinfo=ZoneInfo("Europe/Berlin"))
+            except ValueError:
+                continue
+            if kickoff <= now:
+                continue
+            if best_kickoff is None or kickoff < best_kickoff:
+                best_kickoff = kickoff
+                best_id = str(round_id)
+
+    if best_id:
+        return best_id
+    return str(rounds[0]["round_id"]) if rounds else None
 
 
 def _collect_payloads(

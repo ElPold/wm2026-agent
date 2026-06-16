@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from src.site.generator import build_site, resolve_site_version
+from src.site.generator import _current_round_id, build_site, resolve_site_version
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -106,6 +106,8 @@ def test_build_site_from_predictions(tmp_path):
     assert "sync-status" in html
     assert "Kicktipp Spieltag 1 transferred" in html
     assert "Tips updated" in html
+    assert "is-current" in html
+    assert "day-tab-now" in html
 
     # Test with multiple round archives
     rounds_dir = history / "rounds"
@@ -124,7 +126,7 @@ def test_build_site_from_predictions(tmp_path):
     html_multi = index_path.read_text(encoding="utf-8")
     assert html_multi.count('class="day-tab') >= 17
     assert "MD 1" in html_multi
-    assert "R32" in html_multi
+    assert "MD 17" in html_multi
     assert "Final" in html_multi
     assert (docs / "track.html").exists()
     assert (docs / "pipeline.html").exists()
@@ -132,6 +134,29 @@ def test_build_site_from_predictions(tmp_path):
     assert "flagcdn.com" in html or "team-flag" in html
     assert (docs / "static" / "style.css").exists()
     assert (docs / ".nojekyll").exists()
+
+
+def test_current_round_id_picks_next_upcoming_matchday():
+    rounds = [
+        {
+            "round_id": "matchday-1",
+            "predictions": [
+                {"kickoff_berlin": "2026-06-11T21:00:00+02:00", "is_locked": True},
+            ],
+        },
+        {
+            "round_id": "matchday-6",
+            "predictions": [
+                {"kickoff_berlin": "2026-06-17T00:00:00+02:00", "is_locked": False},
+                {"kickoff_berlin": "2026-06-16T21:00:00+02:00", "is_locked": False},
+            ],
+        },
+    ]
+    from datetime import datetime
+    from zoneinfo import ZoneInfo
+
+    now = datetime(2026, 6, 16, 15, 0, tzinfo=ZoneInfo("Europe/Berlin"))
+    assert _current_round_id(rounds, now=now) == "matchday-6"
 
 
 def test_resolve_site_version_auto_increments(tmp_path):
