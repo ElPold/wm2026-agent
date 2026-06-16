@@ -112,7 +112,12 @@
       </p>
     </section>
     {% else %}
-    <div class="day-tabs" role="tablist" aria-label="Matchdays">
+    <div class="day-tabs-wrap">
+      <p class="day-tabs-hint">
+        <span class="t-normal">{{ rounds|length }} group-stage matchdays</span>
+        <span class="t-cat" hidden>{{ rounds|length }} nap days in the bowl</span>
+      </p>
+      <div class="day-tabs" role="tablist" aria-label="Matchdays">
       {% for round in rounds %}
       <button
         type="button"
@@ -127,6 +132,7 @@
         <span class="day-tab-meta mono">{{ round.match_count }} {% if round.match_count == 1 %}game{% else %}games{% endif %}</span>
       </button>
       {% endfor %}
+      </div>
     </div>
 
     {% for round in rounds %}
@@ -541,6 +547,12 @@
           localStorage.setItem(TAB_KEY, roundId);
         } catch (err) {
           /* ignore */
+        }
+        var activeTab = tabs.find(function (tab) {
+          return tab.getAttribute("data-round") === roundId;
+        });
+        if (activeTab && typeof activeTab.scrollIntoView === "function") {
+          activeTab.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
         }
       }
 

@@ -84,7 +84,7 @@
           <span class="t-normal">Catify</span>
           <span class="t-cat" hidden>Un-Catify</span>
         </button>
-        <span class="site-version mono" title="Site build version">v13</span>
+        <span class="site-version mono" title="Site build version">v14</span>
       </div>
     </div>
   </header>
@@ -174,7 +174,7 @@
         </span>
       </div>
       <div class="hero-stat">
-        <span class="hero-stat-value mono">16.06.2026 22:45</span>
+        <span class="hero-stat-value mono">16.06.2026 22:50</span>
         <span class="hero-stat-label">
           <span class="t-normal">Last sync (Berlin)</span>
           <span class="t-cat" hidden>Last purr (Berlin)</span>
@@ -187,7 +187,12 @@
 
   <main class="shell main">
     
-    <div class="day-tabs" role="tablist" aria-label="Matchdays">
+    <div class="day-tabs-wrap">
+      <p class="day-tabs-hint">
+        <span class="t-normal">17 group-stage matchdays</span>
+        <span class="t-cat" hidden>17 nap days in the bowl</span>
+      </p>
+      <div class="day-tabs" role="tablist" aria-label="Matchdays">
       
       <button
         type="button"
@@ -410,6 +415,7 @@
         <span class="day-tab-meta mono">6 games</span>
       </button>
       
+      </div>
     </div>
 
     
@@ -12778,6 +12784,12 @@
           localStorage.setItem(TAB_KEY, roundId);
         } catch (err) {
           /* ignore */
+        }
+        var activeTab = tabs.find(function (tab) {
+          return tab.getAttribute("data-round") === roundId;
+        });
+        if (activeTab && typeof activeTab.scrollIntoView === "function") {
+          activeTab.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
         }
       }
 

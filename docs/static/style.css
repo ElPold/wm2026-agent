@@ -457,18 +457,37 @@ body {
 }
 
 /* Matchday tabs */
+.day-tabs-wrap {
+  margin-bottom: 1.5rem;
+}
+
+.day-tabs-hint {
+  margin: 0 0 0.55rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
 .day-tabs {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   gap: 0.65rem;
-  margin-bottom: 1.5rem;
   padding: 0.35rem;
   border-radius: calc(var(--radius) + 2px);
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid var(--border);
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
+}
+
+@media (max-width: 720px) {
+  .day-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+
+  .day-tabs-hint::after {
+    content: " · swipe for more";
+  }
 }
 
 .day-tab {
