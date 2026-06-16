@@ -16,6 +16,7 @@ kicktipp_spieltag = _mod.kicktipp_spieltag
 agent_rounds_for_kicktipp_spieltag = _mod.agent_rounds_for_kicktipp_spieltag
 load_predictions_for_kicktipp_spieltag = _mod.load_predictions_for_kicktipp_spieltag
 map_bonus_question = _mod.map_bonus_question
+resolve_upcoming_kicktipp_spieltag = _mod.resolve_upcoming_kicktipp_spieltag
 
 
 def test_parse_matchday():
@@ -101,6 +102,22 @@ def test_match_bets_skips_pending():
     }
     bets = match_bets_from_predictions(payload, {"Cape Verde": "Cabo Verde"})
     assert bets == ["Spain vs Cabo Verde=1:0"]
+
+
+def test_resolve_upcoming_kicktipp_spieltag_before_tournament():
+    from datetime import datetime
+    from zoneinfo import ZoneInfo
+
+    before = datetime(2026, 6, 10, 12, 0, tzinfo=ZoneInfo("Europe/Berlin"))
+    assert resolve_upcoming_kicktipp_spieltag(now=before) == 1
+
+
+def test_resolve_upcoming_kicktipp_spieltag_after_group_stage():
+    from datetime import datetime
+    from zoneinfo import ZoneInfo
+
+    after = datetime(2026, 7, 20, 12, 0, tzinfo=ZoneInfo("Europe/Berlin"))
+    assert resolve_upcoming_kicktipp_spieltag(now=after) is None
 
 
 def test_map_bonus_question_de():

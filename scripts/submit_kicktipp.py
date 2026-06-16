@@ -20,7 +20,9 @@ import re
 import shutil
 import subprocess
 import sys
+from datetime import datetime
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_PREDICTIONS = ROOT / "state" / "predictions.json"
@@ -36,6 +38,35 @@ BONUS_QUESTION_DE: dict[str, str] = {
     ),
     "Who reaches the semi-final?": "Wer erreicht das Halbfinale?",
 }
+
+
+def resolve_upcoming_kicktipp_spieltag(
+    *,
+    now: datetime | None = None,
+) -> int | None:
+    """Kicktipp-Spieltag für das nächste anstehende Gruppenspiel."""
+    sys.path.insert(0, str(ROOT))
+    from src.sources.config import Settings
+    from src.sources.openfootball import OpenFootballSchedule
+    from src.sources.team_names import is_tippable_match
+
+    settings = Settings.load()
+    now = now or datetime.now(tz=ZoneInfo("Europe/Berlin"))
+    upcoming = [
+        fixture
+        for fixture in OpenFootballSchedule(settings).load_all()
+        if fixture.round_name
+        and is_tippable_match(fixture.home_team, fixture.away_team)
+        and fixture.kickoff_berlin > now
+    ]
+    if not upcoming:
+        return None
+
+    earliest = min(upcoming, key=lambda item: item.kickoff_berlin)
+    agent_md = parse_agent_matchday(earliest.round_name or "")
+    if agent_md is None:
+        return None
+    return kicktipp_spieltag(agent_md)
 
 
 def parse_agent_matchday(round_name: str) -> int | None:
@@ -264,11 +295,24 @@ def main() -> int:
         help="Kicktipp-Spieltag direkt (lädt Agent-Matchdays 3N-2 … 3N aus state/history)",
     )
     parser.add_argument(
+        "--print-upcoming-spieltag",
+        action="store_true",
+        help="Nächsten Kicktipp-Spieltag (aus Spielplan) ausgeben und beenden",
+    )
+    parser.add_argument(
         "--dry-run",
         action="store_true",
         help="Nur Befehle ausgeben, nichts abgeben",
     )
     args = parser.parse_args()
+
+    if args.print_upcoming_spieltag:
+        kt = resolve_upcoming_kicktipp_spieltag()
+        if kt is None:
+            print("", end="")
+            return 0
+        print(kt)
+        return 0
 
     if not args.dry_run:
         ensure_credentials()

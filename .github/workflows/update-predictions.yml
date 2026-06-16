@@ -1,6 +1,10 @@
 name: Update predictions
 
 on:
+  schedule:
+    # 10:00 und 16:00 MESZ — Tipps aktualisieren und an Kicktipp übertragen
+    - cron: "0 8 * * *"
+    - cron: "0 14 * * *"
   workflow_dispatch:
     inputs:
       round:
@@ -52,13 +56,12 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Generate tips for upcoming matches
-        if: inputs.kicktipp_spieltag == ''
+        if: github.event_name == 'schedule' || inputs.kicktipp_spieltag == ''
         run: |
-          ROUND="${{ inputs.round }}"
-          if [ -z "$ROUND" ]; then
+          if [ "${{ github.event_name }}" = "schedule" ] || [ -z "${{ inputs.round }}" ]; then
             python run.py --all-rounds --skip-started --no-site
           else
-            python run.py --round "$ROUND" --skip-started --no-site
+            python run.py --round "${{ inputs.round }}" --skip-started --no-site
           fi
 
       - uses: actions/setup-node@v4
@@ -93,6 +96,10 @@ jobs:
           else
             echo "configured=false" >> "$GITHUB_OUTPUT"
           fi
+          if [ "${{ github.event_name }}" = "schedule" ] && [ $missing -eq 1 ]; then
+            echo "::error::Automatischer Kicktipp-Lauf braucht KICKTIPP_* Secrets."
+            exit 1
+          fi
           if [ "${{ inputs.submit_kicktipp }}" = "true" ] && [ $missing -eq 1 ]; then
             echo "::error::Kicktipp-Abgabe angefordert, aber KICKTIPP_* Secrets fehlen."
             exit 1
@@ -108,7 +115,7 @@ jobs:
         run: python scripts/fetch_results.py --matchdays 1-18
 
       - name: Submit tips to Kicktipp
-        if: inputs.submit_kicktipp == true
+        if: github.event_name == 'schedule' || inputs.submit_kicktipp == true
         env:
           KICKTIPP_EMAIL: ${{ secrets.KICKTIPP_EMAIL }}
           KICKTIPP_PASSWORD: ${{ secrets.KICKTIPP_PASSWORD }}
@@ -118,6 +125,14 @@ jobs:
         run: |
           if [ -n "${{ inputs.kicktipp_spieltag }}" ]; then
             python scripts/submit_kicktipp.py --no-bonus --kicktipp-spieltag "${{ inputs.kicktipp_spieltag }}"
+          elif [ "${{ github.event_name }}" = "schedule" ]; then
+            KT=$(python scripts/submit_kicktipp.py --print-upcoming-spieltag)
+            if [ -z "$KT" ]; then
+              echo "Kein anstehender Kicktipp-Spieltag — Übergabe übersprungen."
+              exit 0
+            fi
+            echo "Automatischer Kicktipp-Spieltag: $KT"
+            python scripts/submit_kicktipp.py --no-bonus --kicktipp-spieltag "$KT"
           else
             python scripts/submit_kicktipp.py --no-bonus
           fi
@@ -134,5 +149,11 @@ jobs:
             echo "No changes to commit."
             exit 0
           fi
-          git commit -m "Update predictions $(TZ=Europe/Berlin date +%d.%m.)"
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            MSG="Auto-update Kicktipp $(TZ=Europe/Berlin date +%d.%m.)"
+          else
+            MSG="Update predictions $(TZ=Europe/Berlin date +%d.%m.)"
+          fi
+          git commit -m "$MSG"
+          git pull --rebase origin main
           git push
