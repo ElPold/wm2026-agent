@@ -1,0 +1,271 @@
+{
+  "round": "Matchday 12",
+  "generated_at": "2026-06-16T22:21:59.884724+02:00",
+  "match_count": 4,
+  "predictions": [
+    {
+      "fixture_id": "wc26-057",
+      "home_team": "Argentina",
+      "away_team": "Austria",
+      "kickoff_berlin": "2026-06-22T19:00:00+02:00",
+      "venue": "Dallas (Arlington)",
+      "round": "Matchday 12",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 2.12,
+        "draw": 2.3,
+        "away": 5.92
+      },
+      "odds_ou25": {
+        "over": 1.961,
+        "under": 1.826
+      },
+      "market_probs": {
+        "home": 0.43862587944231113,
+        "draw": 0.4042986367033477,
+        "away": 0.15707548385434117,
+        "over_2_5": 0.48217586480063374
+      },
+      "lambda_home": 1.4534283707200724,
+      "lambda_away": 0.9448844286941762,
+      "tip": "1:0",
+      "expected_points": 1.356,
+      "most_likely_score": "1:0",
+      "top_scores": [
+        {
+          "score": "1:0",
+          "probability": 0.1322
+        },
+        {
+          "score": "1:1",
+          "probability": 0.1249
+        },
+        {
+          "score": "2:0",
+          "probability": 0.0961
+        },
+        {
+          "score": "0:0",
+          "probability": 0.0909
+        },
+        {
+          "score": "2:1",
+          "probability": 0.0908
+        }
+      ],
+      "top_alternatives": [
+        {
+          "score": "2:1",
+          "expected_points": 1.3146
+        },
+        {
+          "score": "3:2",
+          "expected_points": 1.2446
+        },
+        {
+          "score": "4:3",
+          "expected_points": 1.2262
+        }
+      ]
+    },
+    {
+      "fixture_id": "wc26-051",
+      "home_team": "France",
+      "away_team": "Iraq",
+      "kickoff_berlin": "2026-06-22T23:00:00+02:00",
+      "venue": "Philadelphia",
+      "round": "Matchday 12",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 1.348,
+        "draw": 3.52,
+        "away": 16.52
+      },
+      "odds_ou25": {
+        "over": 1.598,
+        "under": 2.23
+      },
+      "market_probs": {
+        "home": 0.6828023754548853,
+        "draw": 0.26148227332760954,
+        "away": 0.05571535121750518,
+        "over_2_5": 0.5825496342737723
+      },
+      "lambda_home": 2.1831457092517965,
+      "lambda_away": 0.7699820969820216,
+      "tip": "1:0",
+      "expected_points": 1.7475,
+      "most_likely_score": "2:0",
+      "top_scores": [
+        {
+          "score": "2:0",
+          "probability": 0.1252
+        },
+        {
+          "score": "1:0",
+          "probability": 0.1147
+        },
+        {
+          "score": "2:1",
+          "probability": 0.0964
+        },
+        {
+          "score": "3:0",
+          "probability": 0.0911
+        },
+        {
+          "score": "1:1",
+          "probability": 0.0883
+        }
+      ],
+      "top_alternatives": [
+        {
+          "score": "2:1",
+          "expected_points": 1.7292
+        },
+        {
+          "score": "2:0",
+          "expected_points": 1.7276
+        },
+        {
+          "score": "3:1",
+          "expected_points": 1.6726
+        }
+      ]
+    },
+    {
+      "fixture_id": "wc26-052",
+      "home_team": "Norway",
+      "away_team": "Senegal",
+      "kickoff_berlin": "2026-06-23T02:00:00+02:00",
+      "venue": "New York/New Jersey (East Rutherford)",
+      "round": "Matchday 12",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 2.29,
+        "draw": 3.48,
+        "away": 2.93
+      },
+      "odds_ou25": {
+        "over": 1.943,
+        "under": 1.84
+      },
+      "market_probs": {
+        "home": 0.4099005841135584,
+        "draw": 0.2697334303505887,
+        "away": 0.32036598553585277,
+        "over_2_5": 0.48638646576790906
+      },
+      "lambda_home": 1.4005766355505758,
+      "lambda_away": 1.2098254711816732,
+      "tip": "1:0",
+      "expected_points": 1.1485,
+      "most_likely_score": "1:1",
+      "top_scores": [
+        {
+          "score": "1:1",
+          "probability": 0.1247
+        },
+        {
+          "score": "1:0",
+          "probability": 0.103
+        },
+        {
+          "score": "0:1",
+          "probability": 0.089
+        },
+        {
+          "score": "2:1",
+          "probability": 0.0873
+        },
+        {
+          "score": "1:2",
+          "probability": 0.0754
+        }
+      ],
+      "top_alternatives": [
+        {
+          "score": "2:1",
+          "expected_points": 1.1328
+        },
+        {
+          "score": "3:2",
+          "expected_points": 1.0701
+        },
+        {
+          "score": "4:3",
+          "expected_points": 1.049
+        }
+      ]
+    },
+    {
+      "fixture_id": "wc26-058",
+      "home_team": "Jordan",
+      "away_team": "Algeria",
+      "kickoff_berlin": "2026-06-23T05:00:00+02:00",
+      "venue": "San Francisco Bay Area (Santa Clara)",
+      "round": "Matchday 12",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 5.96,
+        "draw": 2.31,
+        "away": 2.1
+      },
+      "odds_ou25": {
+        "over": 1.884,
+        "under": 1.9
+      },
+      "market_probs": {
+        "home": 0.1558073654390935,
+        "draw": 0.40199649264805076,
+        "away": 0.4421961419128558,
+        "over_2_5": 0.5021141649048626
+      },
+      "lambda_home": 0.9778042510253737,
+      "lambda_away": 1.502193872536738,
+      "tip": "0:1",
+      "expected_points": 1.3569,
+      "most_likely_score": "0:1",
+      "top_scores": [
+        {
+          "score": "0:1",
+          "probability": 0.1259
+        },
+        {
+          "score": "1:1",
+          "probability": 0.1231
+        },
+        {
+          "score": "0:2",
+          "probability": 0.0946
+        },
+        {
+          "score": "1:2",
+          "probability": 0.0925
+        },
+        {
+          "score": "0:0",
+          "probability": 0.0838
+        }
+      ],
+      "top_alternatives": [
+        {
+          "score": "1:2",
+          "expected_points": 1.3234
+        },
+        {
+          "score": "2:3",
+          "expected_points": 1.2536
+        },
+        {
+          "score": "3:4",
+          "expected_points": 1.2337
+        }
+      ]
+    }
+  ]
+}

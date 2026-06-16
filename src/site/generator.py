@@ -33,7 +33,8 @@ ROOT = Path(__file__).resolve().parents[2]
 TEMPLATES = ROOT / "site" / "templates"
 STATIC = ROOT / "site" / "static"
 DOCS = ROOT / "docs"
-DISPLAY_MATCHDAYS = tuple(f"Matchday {index}" for index in range(1, 6))
+from src.sources.schedule_rounds import round_sort_key, schedule_round_names
+
 DEFAULT_VERSION_PATH = ROOT / "state" / "site_version.json"
 
 
@@ -172,7 +173,7 @@ def _load_prediction_rounds(
         schedule_by_round.setdefault(fixture.round_name, []).append(fixture)
 
     rounds: list[dict[str, Any]] = []
-    for round_name in DISPLAY_MATCHDAYS:
+    for round_name in schedule_round_names(settings):
         fixtures = sorted(
             schedule_by_round.get(round_name, []),
             key=lambda item: item.kickoff_berlin,
@@ -206,7 +207,7 @@ def _load_prediction_rounds(
             {
                 "round_id": _round_id(round_name),
                 "round": round_name,
-                "tab_label": round_name,
+                "tab_label": _round_tab_label(round_name),
                 "date_label": _round_date_label(fixtures),
                 "generated_at": _format_generated_at(meta.get("generated_at", "")),
                 "match_count": len(predictions),
@@ -411,19 +412,21 @@ def _shared_context(*, site_version: int) -> dict[str, Any]:
     }
 
 
-def _kicktipp_spieltag(round_name: str) -> int:
+def _kicktipp_spieltag(round_name: str) -> int | None:
     match = re.search(r"Matchday\s+(\d+)", round_name, re.IGNORECASE)
     if not match:
-        return 1
+        return None
     agent_matchday = int(match.group(1))
     return (agent_matchday + 2) // 3
 
 
-def _kicktipp_workflow_url(spieltag: int, repo: str = "ElPold/wm2026-agent") -> str:
-    return (
-        f"https://github.com/{repo}/actions/workflows/"
-        f"kicktipp-spieltag-{spieltag}.yml"
-    )
+def _kicktipp_workflow_url(
+    spieltag: int | None,
+    repo: str = "ElPold/wm2026-agent",
+) -> str | None:
+    if spieltag is None:
+        return None
+    return f"https://github.com/{repo}/actions/workflows/kicktipp-spieltag.yml"
 
 
 def _attach_team_flags(item: dict[str, Any]) -> dict[str, Any]:
@@ -632,21 +635,22 @@ def _mark_day_highlight(predictions: list[dict[str, Any]]) -> None:
 
 
 def _round_sort_key(round_name: str) -> tuple:
+    return round_sort_key(round_name)
+
+
+def _round_tab_label(round_name: str) -> str:
     match = re.search(r"Matchday\s+(\d+)", round_name, re.IGNORECASE)
     if match:
-        return (0, int(match.group(1)))
-
-    order = {
-        "Round of 32": (1, 0),
-        "Round of 16": (1, 1),
-        "Quarter-final": (1, 2),
-        "Semi-final": (1, 3),
-        "Match for third place": (1, 4),
-        "Final": (1, 5),
+        return f"MD {match.group(1)}"
+    short = {
+        "Round of 32": "R32",
+        "Round of 16": "R16",
+        "Quarter-final": "QF",
+        "Semi-final": "SF",
+        "Match for third place": "3rd",
+        "Final": "Final",
     }
-    if round_name in order:
-        return order[round_name]
-    return (2, round_name.lower())
+    return short.get(round_name, round_name)
 
 
 def _round_id(round_name: str) -> str:

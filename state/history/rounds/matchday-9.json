@@ -1,0 +1,271 @@
+{
+  "round": "Matchday 9",
+  "generated_at": "2026-06-16T22:21:52.278551+02:00",
+  "match_count": 4,
+  "predictions": [
+    {
+      "fixture_id": "wc26-021",
+      "home_team": "USA",
+      "away_team": "Australia",
+      "kickoff_berlin": "2026-06-19T21:00:00+02:00",
+      "venue": "Seattle",
+      "round": "Matchday 9",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 1.581,
+        "draw": 4.48,
+        "away": 5.49
+      },
+      "odds_ou25": {
+        "over": 1.99,
+        "under": 1.892
+      },
+      "market_probs": {
+        "home": 0.6094291136502339,
+        "draw": 0.21506862247344188,
+        "away": 0.17550226387632417,
+        "over_2_5": 0.48737764039155074
+      },
+      "lambda_home": 1.8151816475356468,
+      "lambda_away": 0.8276655797887793,
+      "tip": "1:0",
+      "expected_points": 1.5973,
+      "most_likely_score": "1:0",
+      "top_scores": [
+        {
+          "score": "1:0",
+          "probability": 0.1295
+        },
+        {
+          "score": "2:0",
+          "probability": 0.1175
+        },
+        {
+          "score": "1:1",
+          "probability": 0.1072
+        },
+        {
+          "score": "2:1",
+          "probability": 0.0973
+        },
+        {
+          "score": "0:0",
+          "probability": 0.0714
+        }
+      ],
+      "top_alternatives": [
+        {
+          "score": "2:1",
+          "expected_points": 1.5651
+        },
+        {
+          "score": "2:0",
+          "expected_points": 1.5195
+        },
+        {
+          "score": "3:2",
+          "expected_points": 1.4922
+        }
+      ]
+    },
+    {
+      "fixture_id": "wc26-015",
+      "home_team": "Scotland",
+      "away_team": "Morocco",
+      "kickoff_berlin": "2026-06-20T00:00:00+02:00",
+      "venue": "Boston (Foxborough)",
+      "round": "Matchday 9",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 5.83,
+        "draw": 2.18,
+        "away": 2.4
+      },
+      "odds_ou25": {
+        "over": 4.45,
+        "under": 1.205
+      },
+      "market_probs": {
+        "home": 0.1638409940689059,
+        "draw": 0.4381619245053767,
+        "away": 0.39799708142571727,
+        "over_2_5": 0.21308576480990277
+      },
+      "lambda_home": 0.4894865812445996,
+      "lambda_away": 0.8491436258592506,
+      "tip": "0:1",
+      "expected_points": 1.33,
+      "most_likely_score": "0:0",
+      "top_scores": [
+        {
+          "score": "0:0",
+          "probability": 0.2622
+        },
+        {
+          "score": "0:1",
+          "probability": 0.2227
+        },
+        {
+          "score": "1:0",
+          "probability": 0.1283
+        },
+        {
+          "score": "1:1",
+          "probability": 0.109
+        },
+        {
+          "score": "0:2",
+          "probability": 0.0945
+        }
+      ],
+      "top_alternatives": [
+        {
+          "score": "0:0",
+          "expected_points": 1.2905
+        },
+        {
+          "score": "1:2",
+          "expected_points": 1.1537
+        },
+        {
+          "score": "2:3",
+          "expected_points": 1.1106
+        }
+      ]
+    },
+    {
+      "fixture_id": "wc26-016",
+      "home_team": "Brazil",
+      "away_team": "Haiti",
+      "kickoff_berlin": "2026-06-20T02:30:00+02:00",
+      "venue": "Philadelphia",
+      "round": "Matchday 9",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 1.375,
+        "draw": 3.69,
+        "away": 15.57
+      },
+      "odds_ou25": {
+        "over": 1.543,
+        "under": 2.37
+      },
+      "market_probs": {
+        "home": 0.6844910038386481,
+        "draw": 0.25506101091548544,
+        "away": 0.06044798524586648,
+        "over_2_5": 0.6056733963710709
+      },
+      "lambda_home": 2.250684429858531,
+      "lambda_away": 0.8131746244199594,
+      "tip": "1:0",
+      "expected_points": 1.7374,
+      "most_likely_score": "2:0",
+      "top_scores": [
+        {
+          "score": "2:0",
+          "probability": 0.1193
+        },
+        {
+          "score": "1:0",
+          "probability": 0.106
+        },
+        {
+          "score": "2:1",
+          "probability": 0.097
+        },
+        {
+          "score": "3:0",
+          "probability": 0.0895
+        },
+        {
+          "score": "1:1",
+          "probability": 0.0862
+        }
+      ],
+      "top_alternatives": [
+        {
+          "score": "2:1",
+          "expected_points": 1.7284
+        },
+        {
+          "score": "2:0",
+          "expected_points": 1.724
+        },
+        {
+          "score": "3:1",
+          "expected_points": 1.6775
+        }
+      ]
+    },
+    {
+      "fixture_id": "wc26-022",
+      "home_team": "Turkey",
+      "away_team": "Paraguay",
+      "kickoff_berlin": "2026-06-20T05:00:00+02:00",
+      "venue": "San Francisco Bay Area (Santa Clara)",
+      "round": "Matchday 9",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 2.68,
+        "draw": 2.18,
+        "away": 4.69
+      },
+      "odds_ou25": {
+        "over": 2.14,
+        "under": 1.751
+      },
+      "market_probs": {
+        "home": 0.357042583060365,
+        "draw": 0.43893308376228357,
+        "away": 0.20402433317735144,
+        "over_2_5": 0.4500128501670521
+      },
+      "lambda_home": 1.2435656298391409,
+      "lambda_away": 0.9823283132312868,
+      "tip": "1:0",
+      "expected_points": 1.2133,
+      "most_likely_score": "1:0",
+      "top_scores": [
+        {
+          "score": "1:0",
+          "probability": 0.1343
+        },
+        {
+          "score": "1:1",
+          "probability": 0.1319
+        },
+        {
+          "score": "0:0",
+          "probability": 0.108
+        },
+        {
+          "score": "0:1",
+          "probability": 0.1061
+        },
+        {
+          "score": "2:0",
+          "probability": 0.0835
+        }
+      ],
+      "top_alternatives": [
+        {
+          "score": "2:1",
+          "expected_points": 1.161
+        },
+        {
+          "score": "3:2",
+          "expected_points": 1.0957
+        },
+        {
+          "score": "4:3",
+          "expected_points": 1.0807
+        }
+      ]
+    }
+  ]
+}

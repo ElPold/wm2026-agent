@@ -1,0 +1,403 @@
+{
+  "round": "Matchday 15",
+  "generated_at": "2026-06-16T22:22:07.791426+02:00",
+  "match_count": 6,
+  "predictions": [
+    {
+      "fixture_id": "wc26-029",
+      "home_team": "Curaçao",
+      "away_team": "Ivory Coast",
+      "kickoff_berlin": "2026-06-25T22:00:00+02:00",
+      "venue": "Philadelphia",
+      "round": "Matchday 15",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 13.22,
+        "draw": 3.1,
+        "away": 1.465
+      },
+      "odds_ou25": {
+        "over": 1.694,
+        "under": 2.08
+      },
+      "market_probs": {
+        "home": 0.06998680860769169,
+        "draw": 0.2984598741269949,
+        "away": 0.6315533172653134,
+        "over_2_5": 0.5511393746687865
+      },
+      "lambda_home": 0.7986890253373272,
+      "lambda_away": 1.9865081855772033,
+      "tip": "0:1",
+      "expected_points": 1.6744,
+      "most_likely_score": "0:1",
+      "top_scores": [
+        {
+          "score": "0:1",
+          "probability": 0.1231
+        },
+        {
+          "score": "0:2",
+          "probability": 0.1223
+        },
+        {
+          "score": "1:1",
+          "probability": 0.0984
+        },
+        {
+          "score": "1:2",
+          "probability": 0.0977
+        },
+        {
+          "score": "0:3",
+          "probability": 0.081
+        }
+      ],
+      "top_alternatives": [
+        {
+          "score": "1:2",
+          "expected_points": 1.649
+        },
+        {
+          "score": "0:2",
+          "expected_points": 1.6245
+        },
+        {
+          "score": "2:3",
+          "expected_points": 1.5771
+        }
+      ]
+    },
+    {
+      "fixture_id": "wc26-030",
+      "home_team": "Ecuador",
+      "away_team": "Germany",
+      "kickoff_berlin": "2026-06-25T22:00:00+02:00",
+      "venue": "New York/New Jersey (East Rutherford)",
+      "round": "Matchday 15",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 4.82,
+        "draw": 3.73,
+        "away": 1.675
+      },
+      "odds_ou25": {
+        "over": 1.892,
+        "under": 1.892
+      },
+      "market_probs": {
+        "home": 0.19342969084995754,
+        "draw": 0.24995472115195586,
+        "away": 0.5566155879980867,
+        "over_2_5": 0.5
+      },
+      "lambda_home": 0.9330721568703848,
+      "lambda_away": 1.7288281690069311,
+      "tip": "0:1",
+      "expected_points": 1.4903,
+      "most_likely_score": "0:1",
+      "top_scores": [
+        {
+          "score": "0:1",
+          "probability": 0.121
+        },
+        {
+          "score": "1:1",
+          "probability": 0.1129
+        },
+        {
+          "score": "0:2",
+          "probability": 0.1046
+        },
+        {
+          "score": "1:2",
+          "probability": 0.0976
+        },
+        {
+          "score": "0:0",
+          "probability": 0.07
+        }
+      ],
+      "top_alternatives": [
+        {
+          "score": "1:2",
+          "expected_points": 1.4669
+        },
+        {
+          "score": "0:2",
+          "expected_points": 1.3987
+        },
+        {
+          "score": "2:3",
+          "expected_points": 1.3956
+        }
+      ]
+    },
+    {
+      "fixture_id": "wc26-035",
+      "home_team": "Japan",
+      "away_team": "Sweden",
+      "kickoff_berlin": "2026-06-26T01:00:00+02:00",
+      "venue": "Dallas (Arlington)",
+      "round": "Matchday 15",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 2.12,
+        "draw": 3.42,
+        "away": 3.32
+      },
+      "odds_ou25": {
+        "over": 2.03,
+        "under": 1.746
+      },
+      "market_probs": {
+        "home": 0.4427840519123978,
+        "draw": 0.27447432457727583,
+        "away": 0.28274162351032633,
+        "over_2_5": 0.46239406779661024
+      },
+      "lambda_home": 1.4239298901119517,
+      "lambda_away": 1.0884308367909519,
+      "tip": "1:0",
+      "expected_points": 1.2405,
+      "most_likely_score": "1:1",
+      "top_scores": [
+        {
+          "score": "1:1",
+          "probability": 0.1258
+        },
+        {
+          "score": "1:0",
+          "probability": 0.1155
+        },
+        {
+          "score": "2:1",
+          "probability": 0.0895
+        },
+        {
+          "score": "0:1",
+          "probability": 0.0883
+        },
+        {
+          "score": "2:0",
+          "probability": 0.0823
+        }
+      ],
+      "top_alternatives": [
+        {
+          "score": "2:1",
+          "expected_points": 1.2145
+        },
+        {
+          "score": "3:2",
+          "expected_points": 1.1481
+        },
+        {
+          "score": "4:3",
+          "expected_points": 1.1279
+        }
+      ]
+    },
+    {
+      "fixture_id": "wc26-036",
+      "home_team": "Tunisia",
+      "away_team": "Netherlands",
+      "kickoff_berlin": "2026-06-26T01:00:00+02:00",
+      "venue": "Kansas City",
+      "round": "Matchday 15",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 8.85,
+        "draw": 5.24,
+        "away": 1.294
+      },
+      "odds_ou25": {
+        "over": 2.32,
+        "under": 1.564
+      },
+      "market_probs": {
+        "home": 0.10495173392877431,
+        "draw": 0.1772562681812314,
+        "away": 0.7177919978899943,
+        "over_2_5": 0.40267765190525234
+      },
+      "lambda_home": 0.4607496581423539,
+      "lambda_away": 1.8721806689978582,
+      "tip": "0:1",
+      "expected_points": 1.8867,
+      "most_likely_score": "0:1",
+      "top_scores": [
+        {
+          "score": "0:1",
+          "probability": 0.1822
+        },
+        {
+          "score": "0:2",
+          "probability": 0.1706
+        },
+        {
+          "score": "0:3",
+          "probability": 0.1064
+        },
+        {
+          "score": "0:0",
+          "probability": 0.0973
+        },
+        {
+          "score": "1:1",
+          "probability": 0.0839
+        }
+      ],
+      "top_alternatives": [
+        {
+          "score": "0:2",
+          "expected_points": 1.8273
+        },
+        {
+          "score": "1:2",
+          "expected_points": 1.7831
+        },
+        {
+          "score": "2:3",
+          "expected_points": 1.7158
+        }
+      ]
+    },
+    {
+      "fixture_id": "wc26-023",
+      "home_team": "Turkey",
+      "away_team": "USA",
+      "kickoff_berlin": "2026-06-26T04:00:00+02:00",
+      "venue": "Los Angeles (Inglewood)",
+      "round": "Matchday 15",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 3.45,
+        "draw": 2.28,
+        "away": 2.91
+      },
+      "odds_ou25": {
+        "over": 1.806,
+        "under": 1.99
+      },
+      "market_probs": {
+        "home": 0.2703634429896945,
+        "draw": 0.4091025782080904,
+        "away": 0.3205339788022151,
+        "over_2_5": 0.5242360379346681
+      },
+      "lambda_home": 1.2374776962206215,
+      "lambda_away": 1.3299611947593133,
+      "tip": "0:1",
+      "expected_points": 1.0925,
+      "most_likely_score": "1:1",
+      "top_scores": [
+        {
+          "score": "1:1",
+          "probability": 0.1264
+        },
+        {
+          "score": "0:1",
+          "probability": 0.1021
+        },
+        {
+          "score": "1:0",
+          "probability": 0.095
+        },
+        {
+          "score": "1:2",
+          "probability": 0.084
+        },
+        {
+          "score": "2:1",
+          "probability": 0.0782
+        }
+      ],
+      "top_alternatives": [
+        {
+          "score": "1:2",
+          "expected_points": 1.0744
+        },
+        {
+          "score": "2:3",
+          "expected_points": 1.0134
+        },
+        {
+          "score": "3:4",
+          "expected_points": 0.9935
+        }
+      ]
+    },
+    {
+      "fixture_id": "wc26-024",
+      "home_team": "Paraguay",
+      "away_team": "Australia",
+      "kickoff_berlin": "2026-06-26T04:00:00+02:00",
+      "venue": "San Francisco Bay Area (Santa Clara)",
+      "round": "Matchday 15",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 2.81,
+        "draw": 2.08,
+        "away": 4.24
+      },
+      "odds_ou25": {
+        "over": 2.23,
+        "under": 1.621
+      },
+      "market_probs": {
+        "home": 0.3318183186346808,
+        "draw": 0.44827378623242925,
+        "away": 0.21990789513288983,
+        "over_2_5": 0.4209296286678785
+      },
+      "lambda_home": 1.1416231519102316,
+      "lambda_away": 0.9556384343979649,
+      "tip": "1:0",
+      "expected_points": 1.1693,
+      "most_likely_score": "1:0",
+      "top_scores": [
+        {
+          "score": "1:0",
+          "probability": 0.1402
+        },
+        {
+          "score": "1:1",
+          "probability": 0.134
+        },
+        {
+          "score": "0:0",
+          "probability": 0.1228
+        },
+        {
+          "score": "0:1",
+          "probability": 0.1174
+        },
+        {
+          "score": "2:0",
+          "probability": 0.08
+        }
+      ],
+      "top_alternatives": [
+        {
+          "score": "2:1",
+          "expected_points": 1.1056
+        },
+        {
+          "score": "3:2",
+          "expected_points": 1.043
+        },
+        {
+          "score": "4:3",
+          "expected_points": 1.0304
+        }
+      ]
+    }
+  ]
+}

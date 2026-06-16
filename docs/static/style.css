@@ -407,13 +407,16 @@ body {
 /* Matchday tabs */
 .day-tabs {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 0.65rem;
   margin-bottom: 1.5rem;
   padding: 0.35rem;
   border-radius: calc(var(--radius) + 2px);
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid var(--border);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
 }
 
 .day-tab {
@@ -423,6 +426,7 @@ body {
   text-align: center;
   gap: 0.2rem;
   min-width: 7.5rem;
+  flex-shrink: 0;
   padding: 0.7rem 1rem;
   border: 1px solid transparent;
   border-radius: var(--radius-sm);
@@ -546,6 +550,11 @@ body {
   margin: 0.45rem 0 0;
   color: var(--muted);
   font-size: 0.82rem;
+}
+
+.day-kicktipp-hint-muted {
+  font-style: italic;
+  opacity: 0.85;
 }
 
 .kicktipp-btn {

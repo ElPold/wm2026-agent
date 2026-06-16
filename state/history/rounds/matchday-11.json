@@ -1,0 +1,271 @@
+{
+  "round": "Matchday 11",
+  "generated_at": "2026-06-16T22:21:57.300450+02:00",
+  "match_count": 4,
+  "predictions": [
+    {
+      "fixture_id": "wc26-045",
+      "home_team": "Spain",
+      "away_team": "Saudi Arabia",
+      "kickoff_berlin": "2026-06-21T18:00:00+02:00",
+      "venue": "Atlanta",
+      "round": "Matchday 11",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 1.092,
+        "draw": 10.39,
+        "away": 24.56
+      },
+      "odds_ou25": {
+        "over": 1.657,
+        "under": 2.18
+      },
+      "market_probs": {
+        "home": 0.8698953241895687,
+        "draw": 0.09142691953946189,
+        "away": 0.03867775627096943,
+        "over_2_5": 0.5681522022413343
+      },
+      "lambda_home": 2.699530004395991,
+      "lambda_away": 0.3098976627187481,
+      "tip": "2:0",
+      "expected_points": 2.1663,
+      "most_likely_score": "2:0",
+      "top_scores": [
+        {
+          "score": "2:0",
+          "probability": 0.1835
+        },
+        {
+          "score": "3:0",
+          "probability": 0.1651
+        },
+        {
+          "score": "1:0",
+          "probability": 0.1359
+        },
+        {
+          "score": "4:0",
+          "probability": 0.1114
+        },
+        {
+          "score": "5:0",
+          "probability": 0.0602
+        }
+      ],
+      "top_alternatives": [
+        {
+          "score": "3:0",
+          "expected_points": 2.1102
+        },
+        {
+          "score": "1:0",
+          "expected_points": 2.0797
+        },
+        {
+          "score": "3:1",
+          "expected_points": 2.0339
+        }
+      ]
+    },
+    {
+      "fixture_id": "wc26-039",
+      "home_team": "Belgium",
+      "away_team": "Iran",
+      "kickoff_berlin": "2026-06-21T21:00:00+02:00",
+      "venue": "Los Angeles (Inglewood)",
+      "round": "Matchday 11",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 1.429,
+        "draw": 4.73,
+        "away": 7.86
+      },
+      "odds_ou25": {
+        "over": 1.9,
+        "under": 1.99
+      },
+      "market_probs": {
+        "home": 0.6738904212535648,
+        "draw": 0.20359184185440674,
+        "away": 0.1225177368920285,
+        "over_2_5": 0.5115681233933163
+      },
+      "lambda_home": 2.0072214227474,
+      "lambda_away": 0.7203251960659819,
+      "tip": "1:0",
+      "expected_points": 1.7336,
+      "most_likely_score": "2:0",
+      "top_scores": [
+        {
+          "score": "2:0",
+          "probability": 0.1323
+        },
+        {
+          "score": "1:0",
+          "probability": 0.1318
+        },
+        {
+          "score": "2:1",
+          "probability": 0.0953
+        },
+        {
+          "score": "1:1",
+          "probability": 0.095
+        },
+        {
+          "score": "3:0",
+          "probability": 0.0885
+        }
+      ],
+      "top_alternatives": [
+        {
+          "score": "2:1",
+          "expected_points": 1.6971
+        },
+        {
+          "score": "2:0",
+          "expected_points": 1.6898
+        },
+        {
+          "score": "3:2",
+          "expected_points": 1.6247
+        }
+      ]
+    },
+    {
+      "fixture_id": "wc26-046",
+      "home_team": "Uruguay",
+      "away_team": "Cape Verde",
+      "kickoff_berlin": "2026-06-22T00:00:00+02:00",
+      "venue": "Miami (Miami Gardens)",
+      "round": "Matchday 11",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 1.471,
+        "draw": 4.25,
+        "away": 8.13
+      },
+      "odds_ou25": {
+        "over": 2.32,
+        "under": 1.649
+      },
+      "market_probs": {
+        "home": 0.6548563514006279,
+        "draw": 0.22665733950831146,
+        "away": 0.11848630909106071,
+        "over_2_5": 0.4154698916603679
+      },
+      "lambda_home": 1.7541378573569648,
+      "lambda_away": 0.5916050871585209,
+      "tip": "1:0",
+      "expected_points": 1.751,
+      "most_likely_score": "1:0",
+      "top_scores": [
+        {
+          "score": "1:0",
+          "probability": 0.1684
+        },
+        {
+          "score": "2:0",
+          "probability": 0.1477
+        },
+        {
+          "score": "1:1",
+          "probability": 0.0996
+        },
+        {
+          "score": "0:0",
+          "probability": 0.096
+        },
+        {
+          "score": "2:1",
+          "probability": 0.0874
+        }
+      ],
+      "top_alternatives": [
+        {
+          "score": "2:1",
+          "expected_points": 1.67
+        },
+        {
+          "score": "2:0",
+          "expected_points": 1.6639
+        },
+        {
+          "score": "3:2",
+          "expected_points": 1.5977
+        }
+      ]
+    },
+    {
+      "fixture_id": "wc26-040",
+      "home_team": "New Zealand",
+      "away_team": "Egypt",
+      "kickoff_berlin": "2026-06-22T03:00:00+02:00",
+      "venue": "Vancouver",
+      "round": "Matchday 11",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 5.41,
+        "draw": 4.23,
+        "away": 1.621
+      },
+      "odds_ou25": {
+        "over": 3.97,
+        "under": 1.25
+      },
+      "market_probs": {
+        "home": 0.1780498115590612,
+        "draw": 0.22771855331785365,
+        "away": 0.5942316351230852,
+        "over_2_5": 0.23946360153256702
+      },
+      "lambda_home": 0.4778797451686545,
+      "lambda_away": 1.3355731681869945,
+      "tip": "0:1",
+      "expected_points": 1.6779,
+      "most_likely_score": "0:1",
+      "top_scores": [
+        {
+          "score": "0:1",
+          "probability": 0.2179
+        },
+        {
+          "score": "0:0",
+          "probability": 0.1632
+        },
+        {
+          "score": "0:2",
+          "probability": 0.1455
+        },
+        {
+          "score": "1:1",
+          "probability": 0.1041
+        },
+        {
+          "score": "1:0",
+          "probability": 0.078
+        }
+      ],
+      "top_alternatives": [
+        {
+          "score": "1:2",
+          "expected_points": 1.5295
+        },
+        {
+          "score": "0:2",
+          "expected_points": 1.4893
+        },
+        {
+          "score": "2:3",
+          "expected_points": 1.4674
+        }
+      ]
+    }
+  ]
+}

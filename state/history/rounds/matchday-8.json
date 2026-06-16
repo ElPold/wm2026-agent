@@ -1,0 +1,271 @@
+{
+  "round": "Matchday 8",
+  "generated_at": "2026-06-16T22:21:49.799297+02:00",
+  "match_count": 4,
+  "predictions": [
+    {
+      "fixture_id": "wc26-003",
+      "home_team": "Czech Republic",
+      "away_team": "South Africa",
+      "kickoff_berlin": "2026-06-18T18:00:00+02:00",
+      "venue": "Atlanta",
+      "round": "Matchday 8",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 1.775,
+        "draw": 3.87,
+        "away": 4.67
+      },
+      "odds_ou25": {
+        "over": 4.35,
+        "under": 1.212
+      },
+      "market_probs": {
+        "home": 0.5438500935861865,
+        "draw": 0.24944028840193308,
+        "away": 0.20670961801188031,
+        "over_2_5": 0.2179072276159655
+      },
+      "lambda_home": 1.2101312644328248,
+      "lambda_away": 0.5356561881130191,
+      "tip": "1:0",
+      "expected_points": 1.5556,
+      "most_likely_score": "1:0",
+      "top_scores": [
+        {
+          "score": "1:0",
+          "probability": 0.2112
+        },
+        {
+          "score": "0:0",
+          "probability": 0.1746
+        },
+        {
+          "score": "2:0",
+          "probability": 0.1278
+        },
+        {
+          "score": "1:1",
+          "probability": 0.1131
+        },
+        {
+          "score": "0:1",
+          "probability": 0.0935
+        }
+      ],
+      "top_alternatives": [
+        {
+          "score": "2:1",
+          "expected_points": 1.4128
+        },
+        {
+          "score": "3:2",
+          "expected_points": 1.3517
+        },
+        {
+          "score": "4:3",
+          "expected_points": 1.3447
+        }
+      ]
+    },
+    {
+      "fixture_id": "wc26-009",
+      "home_team": "Switzerland",
+      "away_team": "Bosnia & Herzegovina",
+      "kickoff_berlin": "2026-06-18T21:00:00+02:00",
+      "venue": "Los Angeles (Inglewood)",
+      "round": "Matchday 8",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 2.18,
+        "draw": 2.29,
+        "away": 6.55
+      },
+      "odds_ou25": {
+        "over": 2.16,
+        "under": 1.74
+      },
+      "market_probs": {
+        "home": 0.43767708275582345,
+        "draw": 0.41665329275445206,
+        "away": 0.14566962448972445,
+        "over_2_5": 0.4461538461538462
+      },
+      "lambda_home": 1.3736489047657778,
+      "lambda_away": 0.8643032679203159,
+      "tip": "1:0",
+      "expected_points": 1.374,
+      "most_likely_score": "1:0",
+      "top_scores": [
+        {
+          "score": "1:0",
+          "probability": 0.1466
+        },
+        {
+          "score": "1:1",
+          "probability": 0.1267
+        },
+        {
+          "score": "0:0",
+          "probability": 0.1067
+        },
+        {
+          "score": "2:0",
+          "probability": 0.1007
+        },
+        {
+          "score": "0:1",
+          "probability": 0.0923
+        }
+      ],
+      "top_alternatives": [
+        {
+          "score": "2:1",
+          "expected_points": 1.3145
+        },
+        {
+          "score": "3:2",
+          "expected_points": 1.2446
+        },
+        {
+          "score": "4:3",
+          "expected_points": 1.2291
+        }
+      ]
+    },
+    {
+      "fixture_id": "wc26-010",
+      "home_team": "Canada",
+      "away_team": "Qatar",
+      "kickoff_berlin": "2026-06-19T00:00:00+02:00",
+      "venue": "Vancouver",
+      "round": "Matchday 8",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 1.719,
+        "draw": 2.69,
+        "away": 10.34
+      },
+      "odds_ou25": {
+        "over": 2.44,
+        "under": 1.564
+      },
+      "market_probs": {
+        "home": 0.5539303732467,
+        "draw": 0.35398004149110684,
+        "away": 0.09208958526219317,
+        "over_2_5": 0.39060939060939065
+      },
+      "lambda_home": 1.4720305530066258,
+      "lambda_away": 0.6319248193058926,
+      "tip": "1:0",
+      "expected_points": 1.6082,
+      "most_likely_score": "1:0",
+      "top_scores": [
+        {
+          "score": "1:0",
+          "probability": 0.1797
+        },
+        {
+          "score": "2:0",
+          "probability": 0.1323
+        },
+        {
+          "score": "0:0",
+          "probability": 0.1221
+        },
+        {
+          "score": "1:1",
+          "probability": 0.1136
+        },
+        {
+          "score": "2:1",
+          "probability": 0.0836
+        }
+      ],
+      "top_alternatives": [
+        {
+          "score": "2:1",
+          "expected_points": 1.5121
+        },
+        {
+          "score": "2:0",
+          "expected_points": 1.4618
+        },
+        {
+          "score": "3:2",
+          "expected_points": 1.4415
+        }
+      ]
+    },
+    {
+      "fixture_id": "wc26-004",
+      "home_team": "Mexico",
+      "away_team": "South Korea",
+      "kickoff_berlin": "2026-06-19T03:00:00+02:00",
+      "venue": "Guadalajara (Zapopan)",
+      "round": "Matchday 8",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 2.79,
+        "draw": 2.08,
+        "away": 4.81
+      },
+      "odds_ou25": {
+        "over": 2.44,
+        "under": 1.591
+      },
+      "market_probs": {
+        "home": 0.3423030734332607,
+        "draw": 0.4591469109994218,
+        "away": 0.19855001556731755,
+        "over_2_5": 0.3946911436368146
+      },
+      "lambda_home": 1.101316347880633,
+      "lambda_away": 0.8692050327737283,
+      "tip": "1:0",
+      "expected_points": 1.2068,
+      "most_likely_score": "1:0",
+      "top_scores": [
+        {
+          "score": "1:0",
+          "probability": 0.1535
+        },
+        {
+          "score": "0:0",
+          "probability": 0.1394
+        },
+        {
+          "score": "1:1",
+          "probability": 0.1335
+        },
+        {
+          "score": "0:1",
+          "probability": 0.1212
+        },
+        {
+          "score": "2:0",
+          "probability": 0.0845
+        }
+      ],
+      "top_alternatives": [
+        {
+          "score": "2:1",
+          "expected_points": 1.1267
+        },
+        {
+          "score": "3:2",
+          "expected_points": 1.0649
+        },
+        {
+          "score": "4:3",
+          "expected_points": 1.0542
+        }
+      ]
+    }
+  ]
+}

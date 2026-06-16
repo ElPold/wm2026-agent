@@ -1,0 +1,271 @@
+{
+  "round": "Matchday 10",
+  "generated_at": "2026-06-16T22:21:54.779344+02:00",
+  "match_count": 4,
+  "predictions": [
+    {
+      "fixture_id": "wc26-033",
+      "home_team": "Netherlands",
+      "away_team": "Sweden",
+      "kickoff_berlin": "2026-06-20T19:00:00+02:00",
+      "venue": "Houston",
+      "round": "Matchday 10",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 2.31,
+        "draw": 2.36,
+        "away": 5.3
+      },
+      "odds_ou25": {
+        "over": 1.909,
+        "under": 1.98
+      },
+      "market_probs": {
+        "home": 0.414136531292008,
+        "draw": 0.40536245223921125,
+        "away": 0.18050101646878086,
+        "over_2_5": 0.5091283106196965
+      },
+      "lambda_home": 1.467300932345225,
+      "lambda_away": 1.0390827913977199,
+      "tip": "1:0",
+      "expected_points": 1.2966,
+      "most_likely_score": "1:1",
+      "top_scores": [
+        {
+          "score": "1:1",
+          "probability": 0.1245
+        },
+        {
+          "score": "1:0",
+          "probability": 0.1198
+        },
+        {
+          "score": "2:1",
+          "probability": 0.0913
+        },
+        {
+          "score": "2:0",
+          "probability": 0.0879
+        },
+        {
+          "score": "0:1",
+          "probability": 0.0848
+        }
+      ],
+      "top_alternatives": [
+        {
+          "score": "2:1",
+          "expected_points": 1.2681
+        },
+        {
+          "score": "3:2",
+          "expected_points": 1.2
+        },
+        {
+          "score": "4:3",
+          "expected_points": 1.1798
+        }
+      ]
+    },
+    {
+      "fixture_id": "wc26-027",
+      "home_team": "Germany",
+      "away_team": "Ivory Coast",
+      "kickoff_berlin": "2026-06-20T22:00:00+02:00",
+      "venue": "Toronto",
+      "round": "Matchday 10",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 1.54,
+        "draw": 4.67,
+        "away": 5.72
+      },
+      "odds_ou25": {
+        "over": 1.68,
+        "under": 2.26
+      },
+      "market_probs": {
+        "home": 0.6253927375740407,
+        "draw": 0.20623229461756373,
+        "away": 0.1683749678083956,
+        "over_2_5": 0.5736040609137056
+      },
+      "lambda_home": 2.04584473775456,
+      "lambda_away": 0.9506081545243248,
+      "tip": "1:0",
+      "expected_points": 1.594,
+      "most_likely_score": "2:0",
+      "top_scores": [
+        {
+          "score": "2:0",
+          "probability": 0.1051
+        },
+        {
+          "score": "1:0",
+          "probability": 0.1027
+        },
+        {
+          "score": "2:1",
+          "probability": 0.0999
+        },
+        {
+          "score": "1:1",
+          "probability": 0.0977
+        },
+        {
+          "score": "3:0",
+          "probability": 0.0717
+        }
+      ],
+      "top_alternatives": [
+        {
+          "score": "2:1",
+          "expected_points": 1.5912
+        },
+        {
+          "score": "2:0",
+          "expected_points": 1.5477
+        },
+        {
+          "score": "3:2",
+          "expected_points": 1.5236
+        }
+      ]
+    },
+    {
+      "fixture_id": "wc26-028",
+      "home_team": "Ecuador",
+      "away_team": "Curaçao",
+      "kickoff_berlin": "2026-06-21T02:00:00+02:00",
+      "venue": "Kansas City",
+      "round": "Matchday 10",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 1.087,
+        "draw": 10.76,
+        "away": 25.67
+      },
+      "odds_ou25": {
+        "over": 1.621,
+        "under": 2.21
+      },
+      "market_probs": {
+        "home": 0.8746094667906616,
+        "draw": 0.08835506416370346,
+        "away": 0.03703546904563495,
+        "over_2_5": 0.5768728791438267
+      },
+      "lambda_home": 2.7432847763813575,
+      "lambda_away": 0.307137428858416,
+      "tip": "2:0",
+      "expected_points": 2.1731,
+      "most_likely_score": "2:0",
+      "top_scores": [
+        {
+          "score": "2:0",
+          "probability": 0.1822
+        },
+        {
+          "score": "3:0",
+          "probability": 0.1666
+        },
+        {
+          "score": "1:0",
+          "probability": 0.1328
+        },
+        {
+          "score": "4:0",
+          "probability": 0.1142
+        },
+        {
+          "score": "5:0",
+          "probability": 0.0627
+        }
+      ],
+      "top_alternatives": [
+        {
+          "score": "3:0",
+          "expected_points": 2.1233
+        },
+        {
+          "score": "1:0",
+          "expected_points": 2.0819
+        },
+        {
+          "score": "3:1",
+          "expected_points": 2.0421
+        }
+      ]
+    },
+    {
+      "fixture_id": "wc26-034",
+      "home_team": "Tunisia",
+      "away_team": "Japan",
+      "kickoff_berlin": "2026-06-21T06:00:00+02:00",
+      "venue": "Monterrey (Guadalupe)",
+      "round": "Matchday 10",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 6.95,
+        "draw": 4.22,
+        "away": 1.523
+      },
+      "odds_ou25": {
+        "over": 3.64,
+        "under": 1.28
+      },
+      "market_probs": {
+        "home": 0.138690845734363,
+        "draw": 0.22841264878052675,
+        "away": 0.6328965054851102,
+        "over_2_5": 0.26016260162601623
+      },
+      "lambda_home": 0.4153938309263804,
+      "lambda_away": 1.4302798723351506,
+      "tip": "0:1",
+      "expected_points": 1.7803,
+      "most_likely_score": "0:1",
+      "top_scores": [
+        {
+          "score": "0:1",
+          "probability": 0.226
+        },
+        {
+          "score": "0:2",
+          "probability": 0.1616
+        },
+        {
+          "score": "0:0",
+          "probability": 0.158
+        },
+        {
+          "score": "1:1",
+          "probability": 0.0939
+        },
+        {
+          "score": "0:3",
+          "probability": 0.0771
+        }
+      ],
+      "top_alternatives": [
+        {
+          "score": "1:2",
+          "expected_points": 1.6214
+        },
+        {
+          "score": "0:2",
+          "expected_points": 1.6118
+        },
+        {
+          "score": "2:3",
+          "expected_points": 1.5609
+        }
+      ]
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "round": "Matchday 3",
-  "generated_at": "2026-06-10T22:05:29.002576+02:00",
+  "generated_at": "2026-06-16T22:21:37.740493+02:00",
   "match_count": 4,
   "predictions": [
     {
@@ -53,7 +53,8 @@
           "score": "1:2",
           "probability": 0.0895
         }
-      ]
+      ],
+      "locked": true
     },
     {
       "fixture_id": "wc26-013",
@@ -105,7 +106,8 @@
           "score": "0:1",
           "probability": 0.0828
         }
-      ]
+      ],
+      "locked": true
     },
     {
       "fixture_id": "wc26-014",
@@ -157,7 +159,8 @@
           "score": "0:0",
           "probability": 0.0823
         }
-      ]
+      ],
+      "locked": true
     },
     {
       "fixture_id": "wc26-020",
@@ -209,7 +212,8 @@
           "score": "1:0",
           "probability": 0.0896
         }
-      ]
+      ],
+      "locked": true
     }
   ]
 }

@@ -1,0 +1,271 @@
+{
+  "round": "Matchday 13",
+  "generated_at": "2026-06-16T22:22:02.430155+02:00",
+  "match_count": 4,
+  "predictions": [
+    {
+      "fixture_id": "wc26-063",
+      "home_team": "Portugal",
+      "away_team": "Uzbekistan",
+      "kickoff_berlin": "2026-06-23T19:00:00+02:00",
+      "venue": "Houston",
+      "round": "Matchday 13",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 1.202,
+        "draw": 6.26,
+        "away": 11.27
+      },
+      "odds_ou25": {
+        "over": 2.04,
+        "under": 1.709
+      },
+      "market_probs": {
+        "home": 0.7700199713472615,
+        "draw": 0.14785367500949015,
+        "away": 0.0821263536432483,
+        "over_2_5": 0.4558548946385703
+      },
+      "lambda_home": 2.111989995756173,
+      "lambda_away": 0.42205242056778197,
+      "tip": "1:0",
+      "expected_points": 1.9634,
+      "most_likely_score": "2:0",
+      "top_scores": [
+        {
+          "score": "2:0",
+          "probability": 0.178
+        },
+        {
+          "score": "1:0",
+          "probability": 0.1686
+        },
+        {
+          "score": "3:0",
+          "probability": 0.1253
+        },
+        {
+          "score": "0:0",
+          "probability": 0.0798
+        },
+        {
+          "score": "2:1",
+          "probability": 0.0751
+        }
+      ],
+      "top_alternatives": [
+        {
+          "score": "2:0",
+          "expected_points": 1.9543
+        },
+        {
+          "score": "2:1",
+          "expected_points": 1.87
+        },
+        {
+          "score": "3:1",
+          "expected_points": 1.8292
+        }
+      ]
+    },
+    {
+      "fixture_id": "wc26-069",
+      "home_team": "England",
+      "away_team": "Ghana",
+      "kickoff_berlin": "2026-06-23T22:00:00+02:00",
+      "venue": "Boston (Foxborough)",
+      "round": "Matchday 13",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 1.3,
+        "draw": 5.22,
+        "away": 8.68
+      },
+      "odds_ou25": {
+        "over": 2.38,
+        "under": 1.54
+      },
+      "market_probs": {
+        "home": 0.7148924890658823,
+        "draw": 0.17803835934590942,
+        "away": 0.10706915158820819,
+        "over_2_5": 0.39285714285714285
+      },
+      "lambda_home": 1.8460420595236058,
+      "lambda_away": 0.45298400314324544,
+      "tip": "1:0",
+      "expected_points": 1.8863,
+      "most_likely_score": "1:0",
+      "top_scores": [
+        {
+          "score": "1:0",
+          "probability": 0.1858
+        },
+        {
+          "score": "2:0",
+          "probability": 0.1715
+        },
+        {
+          "score": "3:0",
+          "probability": 0.1055
+        },
+        {
+          "score": "0:0",
+          "probability": 0.1007
+        },
+        {
+          "score": "1:1",
+          "probability": 0.0842
+        }
+      ],
+      "top_alternatives": [
+        {
+          "score": "2:0",
+          "expected_points": 1.8215
+        },
+        {
+          "score": "2:1",
+          "expected_points": 1.7782
+        },
+        {
+          "score": "3:2",
+          "expected_points": 1.7113
+        }
+      ]
+    },
+    {
+      "fixture_id": "wc26-070",
+      "home_team": "Panama",
+      "away_team": "Croatia",
+      "kickoff_berlin": "2026-06-24T01:00:00+02:00",
+      "venue": "Toronto",
+      "round": "Matchday 13",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 6.72,
+        "draw": 2.26,
+        "away": 2.06
+      },
+      "odds_ou25": {
+        "over": 3.36,
+        "under": 1.281
+      },
+      "market_probs": {
+        "home": 0.1382057828177878,
+        "draw": 0.4109481683785549,
+        "away": 0.45084604880365736,
+        "over_2_5": 0.2760180995475113
+      },
+      "lambda_home": 0.5511877744066179,
+      "lambda_away": 1.0569324986260105,
+      "tip": "0:1",
+      "expected_points": 1.4411,
+      "most_likely_score": "0:1",
+      "top_scores": [
+        {
+          "score": "0:1",
+          "probability": 0.2117
+        },
+        {
+          "score": "0:0",
+          "probability": 0.2003
+        },
+        {
+          "score": "1:1",
+          "probability": 0.1167
+        },
+        {
+          "score": "0:2",
+          "probability": 0.1119
+        },
+        {
+          "score": "1:0",
+          "probability": 0.1104
+        }
+      ],
+      "top_alternatives": [
+        {
+          "score": "1:2",
+          "expected_points": 1.291
+        },
+        {
+          "score": "2:3",
+          "expected_points": 1.2354
+        },
+        {
+          "score": "3:4",
+          "expected_points": 1.2297
+        }
+      ]
+    },
+    {
+      "fixture_id": "wc26-064",
+      "home_team": "Colombia",
+      "away_team": "DR Congo",
+      "kickoff_berlin": "2026-06-24T04:00:00+02:00",
+      "venue": "Guadalajara (Zapopan)",
+      "round": "Matchday 13",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 2.01,
+        "draw": 2.23,
+        "away": 7.52
+      },
+      "odds_ou25": {
+        "over": 2.17,
+        "under": 1.657
+      },
+      "market_probs": {
+        "home": 0.4611200783125407,
+        "draw": 0.4156284113938147,
+        "away": 0.1232515102936445,
+        "over_2_5": 0.4329762215834858
+      },
+      "lambda_home": 1.3843211304205114,
+      "lambda_away": 0.7994544852143644,
+      "tip": "1:0",
+      "expected_points": 1.4296,
+      "most_likely_score": "1:0",
+      "top_scores": [
+        {
+          "score": "1:0",
+          "probability": 0.156
+        },
+        {
+          "score": "1:1",
+          "probability": 0.1247
+        },
+        {
+          "score": "0:0",
+          "probability": 0.1127
+        },
+        {
+          "score": "2:0",
+          "probability": 0.108
+        },
+        {
+          "score": "0:1",
+          "probability": 0.0901
+        }
+      ],
+      "top_alternatives": [
+        {
+          "score": "2:1",
+          "expected_points": 1.3599
+        },
+        {
+          "score": "3:2",
+          "expected_points": 1.2895
+        },
+        {
+          "score": "2:0",
+          "expected_points": 1.2755
+        }
+      ]
+    }
+  ]
+}

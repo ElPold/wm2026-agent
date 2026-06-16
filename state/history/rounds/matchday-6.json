@@ -1,0 +1,214 @@
+{
+  "round": "Matchday 6",
+  "generated_at": "2026-06-16T22:21:44.711686+02:00",
+  "match_count": 4,
+  "predictions": [
+    {
+      "fixture_id": "wc26-049",
+      "home_team": "France",
+      "away_team": "Senegal",
+      "kickoff_berlin": "2026-06-16T21:00:00+02:00",
+      "venue": "New York/New Jersey (East Rutherford)",
+      "round": "Matchday 6",
+      "pending": true
+    },
+    {
+      "fixture_id": "wc26-050",
+      "home_team": "Iraq",
+      "away_team": "Norway",
+      "kickoff_berlin": "2026-06-17T00:00:00+02:00",
+      "venue": "Boston (Foxborough)",
+      "round": "Matchday 6",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 14.0,
+        "draw": 7.0,
+        "away": 1.235
+      },
+      "odds_ou25": {
+        "over": 2.11,
+        "under": 1.746
+      },
+      "market_probs": {
+        "home": 0.06975430669302457,
+        "draw": 0.13950861338604914,
+        "away": 0.7907370799209262,
+        "over_2_5": 0.4528008298755187
+      },
+      "lambda_home": 0.3652236342385708,
+      "lambda_away": 2.1558699926096776,
+      "tip": "0:2",
+      "expected_points": 2.0126,
+      "most_likely_score": "0:2",
+      "top_scores": [
+        {
+          "score": "0:2",
+          "probability": 0.188
+        },
+        {
+          "score": "0:1",
+          "probability": 0.1744
+        },
+        {
+          "score": "0:3",
+          "probability": 0.1351
+        },
+        {
+          "score": "0:0",
+          "probability": 0.0809
+        },
+        {
+          "score": "0:4",
+          "probability": 0.0728
+        }
+      ],
+      "top_alternatives": [
+        {
+          "score": "0:1",
+          "expected_points": 2.0093
+        },
+        {
+          "score": "1:2",
+          "expected_points": 1.9035
+        },
+        {
+          "score": "0:3",
+          "expected_points": 1.8811
+        }
+      ]
+    },
+    {
+      "fixture_id": "wc26-055",
+      "home_team": "Argentina",
+      "away_team": "Algeria",
+      "kickoff_berlin": "2026-06-17T03:00:00+02:00",
+      "venue": "Kansas City",
+      "round": "Matchday 6",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 1.98,
+        "draw": 2.42,
+        "away": 8.49
+      },
+      "odds_ou25": {
+        "over": 2.0,
+        "under": 1.909
+      },
+      "market_probs": {
+        "home": 0.4874725963044159,
+        "draw": 0.39884121515815846,
+        "away": 0.1136861885374256,
+        "over_2_5": 0.4883601944231262
+      },
+      "lambda_home": 1.5515799259330023,
+      "lambda_away": 0.8713773518576896,
+      "tip": "1:0",
+      "expected_points": 1.4573,
+      "most_likely_score": "1:0",
+      "top_scores": [
+        {
+          "score": "1:0",
+          "probability": 0.1377
+        },
+        {
+          "score": "1:1",
+          "probability": 0.12
+        },
+        {
+          "score": "2:0",
+          "probability": 0.1068
+        },
+        {
+          "score": "2:1",
+          "probability": 0.0931
+        },
+        {
+          "score": "0:0",
+          "probability": 0.0888
+        }
+      ],
+      "top_alternatives": [
+        {
+          "score": "2:1",
+          "expected_points": 1.4127
+        },
+        {
+          "score": "3:2",
+          "expected_points": 1.3406
+        },
+        {
+          "score": "2:0",
+          "expected_points": 1.336
+        }
+      ]
+    },
+    {
+      "fixture_id": "wc26-056",
+      "home_team": "Austria",
+      "away_team": "Jordan",
+      "kickoff_berlin": "2026-06-17T06:00:00+02:00",
+      "venue": "San Francisco Bay Area (Santa Clara)",
+      "round": "Matchday 6",
+      "odds_source": "oddspapi",
+      "bookmaker": "pinnacle",
+      "odds_1x2": {
+        "home": 1.37,
+        "draw": 5.35,
+        "away": 9.6
+      },
+      "odds_ou25": {
+        "over": 1.862,
+        "under": 2.05
+      },
+      "market_probs": {
+        "home": 0.7149071219281334,
+        "draw": 0.1830696742133725,
+        "away": 0.10202320385849405,
+        "over_2_5": 0.5240286298568507
+      },
+      "lambda_home": 2.1328877050389146,
+      "lambda_away": 0.6532563236257273,
+      "tip": "1:0",
+      "expected_points": 1.8106,
+      "most_likely_score": "2:0",
+      "top_scores": [
+        {
+          "score": "2:0",
+          "probability": 0.1411
+        },
+        {
+          "score": "1:0",
+          "probability": 0.1324
+        },
+        {
+          "score": "3:0",
+          "probability": 0.1004
+        },
+        {
+          "score": "2:1",
+          "probability": 0.0922
+        },
+        {
+          "score": "1:1",
+          "probability": 0.0865
+        }
+      ],
+      "top_alternatives": [
+        {
+          "score": "2:0",
+          "expected_points": 1.79
+        },
+        {
+          "score": "2:1",
+          "expected_points": 1.7705
+        },
+        {
+          "score": "3:1",
+          "expected_points": 1.7144
+        }
+      ]
+    }
+  ]
+}

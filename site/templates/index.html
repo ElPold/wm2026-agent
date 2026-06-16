@@ -108,11 +108,14 @@
             <span class="t-normal">{{ round.date_label }} · Generated {{ round.generated_at }} · {{ round.match_count }} match{% if round.match_count != 1 %}es{% endif %}</span>
             <span class="t-cat" hidden>{{ round.date_label }} · Purred {{ round.generated_at }} · {{ round.match_count }} window watch{% if round.match_count != 1 %}es{% endif %}</span>
           </p>
+          {% if round.kicktipp_workflow_url %}
           <p class="day-kicktipp-hint">
             <span class="t-normal">Kicktipp Spieltag {{ round.kicktipp_spieltag }} · transfers all agent tips for this Kicktipp round</span>
             <span class="t-cat" hidden>Kicktipp bowl round {{ round.kicktipp_spieltag }}</span>
           </p>
+          {% endif %}
         </div>
+        {% if round.kicktipp_workflow_url %}
         <a
           href="#"
           class="kicktipp-btn"
@@ -124,6 +127,12 @@
           <span class="t-normal">→ Transfer to Kicktipp</span>
           <span class="t-cat" hidden>→ Send to Kicktipp bowl</span>
         </a>
+        {% else %}
+        <p class="day-kicktipp-hint day-kicktipp-hint-muted">
+          <span class="t-normal">Kicktipp transfer only for group-stage matchdays</span>
+          <span class="t-cat" hidden>Bowl transfer only for group naps</span>
+        </p>
+        {% endif %}
       </div>
 
       <div class="match-list">

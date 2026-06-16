@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       round:
-        description: 'Spieltag/Runde, z. B. "Matchday 1". Empty = Matchday 1'
+        description: 'Einzelne Runde, z. B. "Matchday 1". Leer = alle Runden (--all-rounds)'
         required: false
         type: string
       submit_kicktipp:
@@ -56,9 +56,10 @@ jobs:
         run: |
           ROUND="${{ inputs.round }}"
           if [ -z "$ROUND" ]; then
-            ROUND="Matchday 1"
+            python run.py --all-rounds --skip-started --no-site
+          else
+            python run.py --round "$ROUND" --skip-started --no-site
           fi
-          python run.py --round "$ROUND" --skip-started --no-site
 
       - uses: actions/setup-node@v4
         with:

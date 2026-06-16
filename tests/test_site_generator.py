@@ -69,7 +69,7 @@ def test_build_site_from_predictions(tmp_path):
     assert "Matchday 1" in html
     assert "Transfer to Kicktipp" in html
     assert "data-kicktipp-btn" in html
-    assert "kicktipp-spieltag-1.yml" in html
+    assert "kicktipp-spieltag.yml" in html
     assert "Kicktipp Spieltag" in html
     assert "Top EV alternatives" in html
     assert "ev-alternatives" in html
@@ -91,7 +91,10 @@ def test_build_site_from_predictions(tmp_path):
         increment_version=False,
     )
     html_multi = index_path.read_text(encoding="utf-8")
-    assert html_multi.count('class="day-tab') >= 5
+    assert html_multi.count('class="day-tab') >= 17
+    assert "MD 1" in html_multi
+    assert "R32" in html_multi
+    assert "Final" in html_multi
     assert (docs / "track.html").exists()
     assert (docs / "pipeline.html").exists()
     assert (docs / "bonus.html").exists()

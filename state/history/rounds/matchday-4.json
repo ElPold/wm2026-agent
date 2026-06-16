@@ -1,6 +1,6 @@
 {
   "round": "Matchday 4",
-  "generated_at": "2026-06-13T20:44:00.127867+02:00",
+  "generated_at": "2026-06-16T22:21:39.955994+02:00",
   "match_count": 4,
   "predictions": [
     {
@@ -67,7 +67,8 @@
           "score": "4:0",
           "expected_points": 2.1496
         }
-      ]
+      ],
+      "locked": true
     },
     {
       "fixture_id": "wc26-031",
@@ -133,7 +134,8 @@
           "score": "4:3",
           "expected_points": 1.1045
         }
-      ]
+      ],
+      "locked": true
     },
     {
       "fixture_id": "wc26-026",
@@ -199,7 +201,8 @@
           "score": "1:1",
           "expected_points": 0.9666
         }
-      ]
+      ],
+      "locked": true
     },
     {
       "fixture_id": "wc26-032",
@@ -265,7 +268,8 @@
           "score": "4:3",
           "expected_points": 1.154
         }
-      ]
+      ],
+      "locked": true
     }
   ]
 }

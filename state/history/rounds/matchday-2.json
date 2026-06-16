@@ -1,6 +1,6 @@
 {
   "round": "Matchday 2",
-  "generated_at": "2026-06-09T20:12:47.888891+02:00",
+  "generated_at": "2026-06-16T22:21:35.494712+02:00",
   "match_count": 2,
   "predictions": [
     {
@@ -53,7 +53,8 @@
           "score": "2:0",
           "probability": 0.0888
         }
-      ]
+      ],
+      "locked": true
     },
     {
       "fixture_id": "wc26-019",
@@ -105,7 +106,8 @@
           "score": "2:0",
           "probability": 0.0846
         }
-      ]
+      ],
+      "locked": true
     }
   ]
 }

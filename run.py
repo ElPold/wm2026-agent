@@ -8,7 +8,7 @@ import logging
 import sys
 from datetime import date
 from pathlib import Path
-from zoneinfo import ZoneInfo
+from typing import Any
 
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
@@ -24,6 +24,7 @@ from src.pipeline.day_tips import (
 from src.bonus.tips import compute_bonus_tips, save_bonus_payload
 from src.site.generator import build_site
 from src.sources.config import Settings
+from src.sources.schedule_rounds import schedule_round_names
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
 logger = logging.getLogger(__name__)
@@ -83,6 +84,11 @@ def main() -> None:
         type=str,
         default=None,
         help='Kompletter Spieltag/Runde, z. B. "Matchday 1"',
+    )
+    parser.add_argument(
+        "--all-rounds",
+        action="store_true",
+        help="Alle Runden aus dem Spielplan (Gruppe + K.-o.) aktualisieren",
     )
     parser.add_argument(
         "--output",
@@ -155,7 +161,41 @@ def main() -> None:
     output_path = ROOT / args.output
     history_dir = ROOT / "state" / "history"
 
-    if args.round:
+    if args.round and args.all_rounds:
+        parser.error("--round und --all-rounds schließen sich gegenseitig aus")
+
+    if args.all_rounds:
+        round_names = schedule_round_names(settings)
+        logger.info("Generiere Tipps für %d Runden", len(round_names))
+        latest_payload: dict[str, Any] | None = None
+        archived_count = 0
+        for round_name in round_names:
+            payload = generate_round_tips(
+                round_name,
+                settings=settings,
+                skip_started=args.skip_started,
+            )
+            if not payload["predictions"]:
+                continue
+            history_path = archive_round_predictions(payload, history_dir)
+            if history_path:
+                archived_count += 1
+            latest_payload = payload
+            tipped = sum(1 for item in payload["predictions"] if item.get("tip"))
+            print(
+                f"{tipped}/{payload['match_count']} Tipps für {round_name}"
+                + (f" → {history_path}" if history_path else "")
+            )
+        if latest_payload:
+            save_round_payload(latest_payload, output_path)
+            print(
+                f"{archived_count} Runden archiviert, "
+                f"predictions.json → {latest_payload['round']}"
+            )
+        else:
+            print("Keine Spiele in den Runden des Spielplans.")
+            return
+    elif args.round:
         logger.info("Generiere Tipps für Spieltag %s", args.round)
         payload = generate_round_tips(
             args.round,
