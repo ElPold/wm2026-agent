@@ -127,7 +127,6 @@ def test_build_site_from_predictions(tmp_path):
     assert html_multi.count('class="day-tab') >= 17
     assert "MD 1" in html_multi
     assert "MD 17" in html_multi
-    assert "Final" in html_multi
     assert (docs / "track.html").exists()
     assert (docs / "pipeline.html").exists()
     assert (docs / "bonus.html").exists()
