@@ -149,3 +149,5 @@ def test_track_page_shows_result_and_points(tmp_path):
     assert "2 : 0" in track_html
     assert "track-row-scored" in track_html
     assert ">2<" in track_html
+    assert "track-row-summary" in track_html
+    assert "Total points" in track_html

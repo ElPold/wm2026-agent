@@ -1365,6 +1365,28 @@ code {
   border-bottom: none;
 }
 
+.track-row-summary {
+  background: rgba(0, 229, 168, 0.06);
+}
+
+.track-row-summary td {
+  border-bottom: 1px solid var(--border);
+  font-weight: 600;
+}
+
+.track-summary-label {
+  text-align: right;
+  color: var(--text);
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+}
+
+.track-summary-value {
+  color: var(--gold);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
 .track-row-scored .track-points {
   color: var(--gold);
   font-weight: 700;

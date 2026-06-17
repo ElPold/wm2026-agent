@@ -68,6 +68,13 @@
           </tr>
         </thead>
         <tbody>
+          <tr class="track-row track-row-summary">
+            <td colspan="5" class="track-summary-label">
+              <span class="t-normal">Total points</span>
+              <span class="t-cat" hidden>Total treats</span>
+            </td>
+            <td class="mono track-points track-summary-value">{{ track_stats.points_scored }}</td>
+          </tr>
           {% from '_macros.html' import matchup %}
           {% for row in track_rows %}
           <tr class="track-row track-row-{{ row.status }}">
