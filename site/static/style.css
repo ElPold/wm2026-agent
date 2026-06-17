@@ -443,12 +443,21 @@ body {
   box-shadow: 0 0 0 3px rgba(240, 180, 41, 0.12);
 }
 
+.sync-status-dot-partial {
+  background: #f0b429;
+  box-shadow: 0 0 0 3px rgba(240, 180, 41, 0.12);
+}
+
 .sync-status-item-failed {
   color: #ffb4b4;
 }
 
 .sync-status-item-skipped {
   color: var(--muted);
+}
+
+.sync-status-item-partial {
+  color: #f5d27a;
 }
 
 /* Main */

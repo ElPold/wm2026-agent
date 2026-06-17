@@ -11,6 +11,8 @@ _spec.loader.exec_module(_mod)
 
 bonus_bets_from_state = _mod.bonus_bets_from_state
 match_bets_from_predictions = _mod.match_bets_from_predictions
+match_bets_for_kicktipp_spieltag = _mod.match_bets_for_kicktipp_spieltag
+kicktipp_pair_key = _mod.kicktipp_pair_key
 parse_matchday = _mod.parse_agent_matchday
 kicktipp_spieltag = _mod.kicktipp_spieltag
 agent_rounds_for_kicktipp_spieltag = _mod.agent_rounds_for_kicktipp_spieltag
@@ -52,6 +54,42 @@ def test_load_predictions_for_kicktipp_spieltag(tmp_path):
     payload = load_predictions_for_kicktipp_spieltag(1, history_dir=history)
     assert len(payload["predictions"]) == 2
     assert payload["agent_rounds"] == ["Matchday 1", "Matchday 2"]
+
+
+def test_match_bets_filters_to_kicktipp_page():
+    payload = {
+        "predictions": [
+            {"home_team": "Czech Republic", "away_team": "South Africa", "tip": "1:0"},
+            {"home_team": "Portugal", "away_team": "DR Congo", "tip": "2:0"},
+            {"home_team": "England", "away_team": "Croatia", "tip": "1:0"},
+        ]
+    }
+    aliases = {"Czech Republic": "Tschechien", "South Africa": "Südafrika", "DR Congo": "DR Kongo"}
+    kicktipp_matches = [
+        {"home": "Tschechien", "away": "Südafrika"},
+        {"home": "Portugal", "away": "DR Kongo"},
+    ]
+    bets, skipped = match_bets_for_kicktipp_spieltag(payload, aliases, kicktipp_matches)
+    assert bets == [
+        "Tschechien vs Südafrika=1:0",
+        "Portugal vs DR Kongo=2:0",
+    ]
+    assert skipped == ["England vs Croatia (nicht auf Kicktipp-Spieltag)"]
+
+
+def test_match_bets_without_kicktipp_page_falls_back_to_all():
+    payload = {
+        "predictions": [
+            {"home_team": "Germany", "away_team": "France", "tip": "2:1"},
+        ]
+    }
+    bets, skipped = match_bets_for_kicktipp_spieltag(payload, {"Germany": "Deutschland"}, [])
+    assert bets == ["Deutschland vs France=2:1"]
+    assert skipped == []
+
+
+def test_kicktipp_pair_key_ignores_home_away_order():
+    assert kicktipp_pair_key("A", "B") == kicktipp_pair_key("B", "A")
 
 
 def test_match_bets_maps_curacao_alias():

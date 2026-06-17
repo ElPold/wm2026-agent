@@ -49,4 +49,5 @@ jobs:
           KICKTIPP_COMMUNITY: ${{ secrets.KICKTIPP_COMMUNITY }}
           KICKTIPP_LOCALE: de
           KICKTIPP_BIN: ${{ github.workspace }}/.kicktipp-agent/dist/index.js
+          KICKTIPP_AGENT_ROOT: ${{ github.workspace }}/.kicktipp-agent
         run: python scripts/submit_kicktipp.py --no-bonus --kicktipp-spieltag 2

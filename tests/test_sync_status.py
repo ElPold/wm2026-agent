@@ -38,6 +38,31 @@ def test_update_and_load_sync_status(tmp_path):
     assert payload["kicktipp"]["status"] == "ok"
 
 
+def test_build_sync_display_partial_status(tmp_path):
+    path = tmp_path / "sync_status.json"
+    path.write_text(
+        json.dumps(
+            {
+                "kicktipp": {
+                    "synced_at": "2026-06-16T10:05:00+02:00",
+                    "status": "partial",
+                    "spieltag": 3,
+                    "tips_count": 6,
+                    "agent_rounds": ["Matchday 7", "Matchday 8", "Matchday 9"],
+                    "mode": "auto",
+                    "error": "2 von 8 fehlgeschlagen",
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    display = build_sync_display(path)
+    assert display is not None
+    assert display["kicktipp"]["status_class"] == "partial"
+    assert display["kicktipp"]["tips_count"] == 6
+
+
 def test_build_sync_display_formats_timestamps(tmp_path):
     path = tmp_path / "sync_status.json"
     path.write_text(

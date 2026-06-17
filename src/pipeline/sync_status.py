@@ -82,7 +82,7 @@ def build_sync_display(path: Path | None = None) -> dict[str, Any] | None:
         display["kicktipp"] = {
             "synced_at": format_sync_timestamp(kicktipp.get("synced_at")),
             "status": status,
-            "status_class": status if status in {"ok", "failed", "skipped"} else "unknown",
+            "status_class": status if status in {"ok", "failed", "skipped", "partial"} else "unknown",
             "spieltag": kicktipp.get("spieltag"),
             "tips_count": kicktipp.get("tips_count"),
             "agent_rounds": kicktipp.get("agent_rounds") or [],

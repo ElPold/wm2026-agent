@@ -30,6 +30,8 @@ DEFAULT_BONUS = ROOT / "state" / "bonus.json"
 DEFAULT_ALIASES = ROOT / "config" / "kicktipp_aliases.json"
 DEFAULT_SPIELTAG_MAP = ROOT / "config" / "kicktipp_spieltag.json"
 DEFAULT_HISTORY = ROOT / "state" / "history" / "rounds"
+DEFAULT_TIPPABGABE_JSON = ROOT / "scripts" / "kicktipp_tippabgabe_json.mjs"
+DEFAULT_AGENT_ROOT = ROOT / ".kicktipp-agent"
 
 BONUS_QUESTION_DE: dict[str, str] = {
     "Who will be world champion?": "Wer wird Weltmeister?",
@@ -164,6 +166,115 @@ def map_bonus_question(question: str) -> str:
     if group_match:
         return f"Wer gewinnt die Gruppe {group_match.group(1).upper()}?"
     return question
+
+
+def kicktipp_pair_key(home: str, away: str) -> tuple[str, str]:
+    return tuple(sorted([home, away]))
+
+
+def align_bet_string(
+    home: str,
+    away: str,
+    tip: str,
+    kicktipp_home: str,
+    kicktipp_away: str,
+) -> str:
+    if home == kicktipp_home and away == kicktipp_away:
+        return f"{kicktipp_home} vs {kicktipp_away}={tip}"
+    if home == kicktipp_away and away == kicktipp_home:
+        return f"{kicktipp_home} vs {kicktipp_away}={tip}"
+    return f"{kicktipp_home} vs {kicktipp_away}={tip}"
+
+
+def fetch_kicktipp_tippabgabe_matches(spieltag: int) -> list[dict[str, str]]:
+    script = DEFAULT_TIPPABGABE_JSON
+    if not script.exists():
+        print(f"Hinweis: {script} fehlt — keine Kicktipp-Seitenfilterung.", file=sys.stderr)
+        return []
+
+    agent_root = os.environ.get("KICKTIPP_AGENT_ROOT")
+    if not agent_root:
+        if (DEFAULT_AGENT_ROOT / "dist" / "browser.js").exists():
+            agent_root = str(DEFAULT_AGENT_ROOT)
+    env = os.environ.copy()
+    if agent_root:
+        env["KICKTIPP_AGENT_ROOT"] = agent_root
+
+    result = subprocess.run(
+        ["node", str(script), str(spieltag)],
+        check=False,
+        capture_output=True,
+        text=True,
+        env=env,
+    )
+    if result.returncode != 0:
+        stderr = result.stderr.strip() or result.stdout.strip()
+        print(f"Kicktipp-Tippabgabe-Abfrage fehlgeschlagen: {stderr}", file=sys.stderr)
+        return []
+
+    try:
+        payload = json.loads(result.stdout)
+    except json.JSONDecodeError:
+        print("Kicktipp-Tippabgabe lieferte kein gültiges JSON.", file=sys.stderr)
+        return []
+    if not isinstance(payload, list):
+        return []
+    return [row for row in payload if row.get("home") and row.get("away")]
+
+
+def match_bets_for_kicktipp_spieltag(
+    payload: dict,
+    aliases: dict[str, str],
+    kicktipp_matches: list[dict[str, str]],
+) -> tuple[list[str], list[str]]:
+    """Baut Wetten nur für Spiele, die auf der Kicktipp-Tippabgabe-Seite stehen."""
+    if not kicktipp_matches:
+        return match_bets_from_predictions(payload, aliases), []
+
+    indexed: dict[tuple[str, str], tuple[str, str]] = {}
+    for row in kicktipp_matches:
+        home = str(row["home"])
+        away = str(row["away"])
+        indexed[kicktipp_pair_key(home, away)] = (home, away)
+
+    bets: list[str] = []
+    skipped: list[str] = []
+    for item in payload.get("predictions", []):
+        if item.get("pending"):
+            continue
+        tip = item.get("tip")
+        if not tip:
+            continue
+        home = kicktipp_team(item["home_team"], aliases)
+        away = kicktipp_team(item["away_team"], aliases)
+        key = kicktipp_pair_key(home, away)
+        if key not in indexed:
+            skipped.append(f"{home} vs {away} (nicht auf Kicktipp-Spieltag)")
+            continue
+        kt_home, kt_away = indexed[key]
+        bets.append(align_bet_string(home, away, tip, kt_home, kt_away))
+    return bets, skipped
+
+
+def submit_match_bets(
+    match_bets: list[str],
+    *,
+    spieltag: int | None,
+    dry_run: bool,
+) -> tuple[int, list[str]]:
+    """Einzelne Wetten übertragen; ein Fehler stoppt nicht den ganzen Lauf."""
+    submitted = 0
+    failures: list[str] = []
+    for bet in match_bets:
+        cmd_args = ["bet", bet]
+        if spieltag is not None:
+            cmd_args.extend(["--matchday", str(spieltag)])
+        code = run_kicktipp(cmd_args, dry_run=dry_run)
+        if code != 0:
+            failures.append(bet)
+            continue
+        submitted += 1
+    return submitted, failures
 
 
 def match_bets_from_predictions(payload: dict, aliases: dict[str, str]) -> list[str]:
@@ -399,9 +510,29 @@ def main() -> int:
             agent_rounds = []
             print("Hinweis: Kein anstehender Spieltag — Fallback predictions.json")
 
-    match_bets = [] if args.bonus_only else match_bets_from_predictions(predictions_payload, aliases)
+    match_bets: list[str] = []
+    skipped_bets: list[str] = []
+    if not args.bonus_only:
+        kicktipp_matches: list[dict[str, str]] = []
+        if kt_md is not None and not args.dry_run:
+            kicktipp_matches = fetch_kicktipp_tippabgabe_matches(kt_md)
+            if kicktipp_matches:
+                print(f"Kicktipp-Seite Spieltag {kt_md}: {len(kicktipp_matches)} tippbare Spiele")
+                for row in kicktipp_matches:
+                    print(f"  {row['home']} vs {row['away']}")
+        match_bets, skipped_bets = match_bets_for_kicktipp_spieltag(
+            predictions_payload,
+            aliases,
+            kicktipp_matches,
+        )
+        if skipped_bets:
+            print(f"Übersprungen ({len(skipped_bets)}) — nicht auf Kicktipp-Spieltag:")
+            for line in skipped_bets:
+                print(f"  {line}")
+
     agent_rounds = predictions_payload.get("agent_rounds") or []
     tips_submitted = 0
+    submit_failures: list[str] = []
 
     if not match_bets:
         if args.bonus_only:
@@ -417,33 +548,36 @@ def main() -> int:
                     error="Keine abzugebenden Spieltipps",
                 )
     else:
-        cmd_args = ["bet", *match_bets]
-        if kt_md is not None:
-            cmd_args.extend(["--matchday", str(kt_md)])
-        else:
-            agent_md = parse_agent_matchday(predictions_payload.get("round", ""))
-            if agent_md is not None:
-                kt_md = kicktipp_spieltag(agent_md)
-                cmd_args.extend(["--matchday", str(kt_md)])
-                print(f"Kicktipp-Spieltag: {kt_md} (Agent Matchday {agent_md})")
-            else:
-                print("Hinweis: Kein Spieltag erkannt — kicktipp nutzt den aktuellen Tag.")
         print(f"Community: {community}")
         print(f"Spieltipps ({len(match_bets)}):")
         for bet in match_bets:
             print(f"  {bet}")
-        code = run_kicktipp(cmd_args, dry_run=args.dry_run)
-        if code != 0:
-            if not args.dry_run:
-                record_kicktipp_sync(
-                    status="failed",
-                    spieltag=kt_md,
-                    tips_count=len(match_bets),
-                    agent_rounds=agent_rounds,
-                    error=f"kicktipp-agent exit code {code}",
-                )
-            return code
-        tips_submitted = len(match_bets)
+        tips_submitted, submit_failures = submit_match_bets(
+            match_bets,
+            spieltag=kt_md,
+            dry_run=args.dry_run,
+        )
+        if submit_failures:
+            print(f"Fehlgeschlagen ({len(submit_failures)}):")
+            for bet in submit_failures:
+                print(f"  {bet}")
+        if not args.dry_run and submit_failures and tips_submitted == 0:
+            record_kicktipp_sync(
+                status="failed",
+                spieltag=kt_md,
+                tips_count=0,
+                agent_rounds=agent_rounds,
+                error=f"{len(submit_failures)} Tipps fehlgeschlagen",
+            )
+            return 1
+        if not args.dry_run and submit_failures:
+            record_kicktipp_sync(
+                status="partial",
+                spieltag=kt_md,
+                tips_count=tips_submitted,
+                agent_rounds=agent_rounds,
+                error=f"{len(submit_failures)} von {len(match_bets)} fehlgeschlagen",
+            )
 
     bonus_path = None if args.no_bonus else (args.bonus or DEFAULT_BONUS)
     if bonus_path and bonus_path.exists():
@@ -469,7 +603,7 @@ def main() -> int:
     elif not args.no_bonus:
         print("Keine bonus.json — Bonus übersprungen.")
 
-    if not args.dry_run and (tips_submitted > 0 or args.bonus_only):
+    if not args.dry_run and (tips_submitted > 0 or args.bonus_only) and not submit_failures:
         record_kicktipp_sync(
             status="ok",
             spieltag=kt_md,
@@ -478,7 +612,7 @@ def main() -> int:
         )
 
     print("Kicktipp-Übertragung abgeschlossen.")
-    return 0
+    return 1 if submit_failures and tips_submitted == 0 else 0
 
 
 if __name__ == "__main__":

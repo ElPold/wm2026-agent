@@ -84,6 +84,8 @@
         <span class="t-normal">
           {% if sync_status.kicktipp.status == 'ok' %}
           Kicktipp Spieltag {{ sync_status.kicktipp.spieltag }} transferred · {{ sync_status.kicktipp.tips_count }} tips · {{ sync_status.kicktipp.synced_at }}
+          {% elif sync_status.kicktipp.status == 'partial' %}
+          Kicktipp Spieltag {{ sync_status.kicktipp.spieltag }} partially transferred · {{ sync_status.kicktipp.tips_count }} tips · {{ sync_status.kicktipp.synced_at }}{% if sync_status.kicktipp.error %} · {{ sync_status.kicktipp.error }}{% endif %}
           {% elif sync_status.kicktipp.status == 'failed' %}
           Kicktipp transfer failed · {{ sync_status.kicktipp.synced_at }}{% if sync_status.kicktipp.error %} · {{ sync_status.kicktipp.error }}{% endif %}
           {% else %}
