@@ -1,6 +1,6 @@
 {
   "round": "Matchday 16",
-  "generated_at": "2026-06-17T18:53:07.814452+02:00",
+  "generated_at": "2026-06-17T21:33:10.272935+02:00",
   "match_count": 6,
   "predictions": [
     {
@@ -27,8 +27,8 @@
         "away": 0.3984553617268037,
         "over_2_5": 0.260797342192691
       },
-      "lambda_home": 0.6418145638220516,
-      "lambda_away": 0.9662633250669052,
+      "lambda_home": 0.6418145649162996,
+      "lambda_away": 0.9662633277117572,
       "tip": "0:1",
       "expected_points": 1.2927,
       "most_likely_score": "0:0",
@@ -93,8 +93,8 @@
         "away": 0.0988321422346174,
         "over_2_5": 0.5126649076517151
       },
-      "lambda_home": 2.109579968905479,
-      "lambda_away": 0.6285162107404916,
+      "lambda_home": 2.109579969006139,
+      "lambda_away": 0.6285162109817196,
       "tip": "1:0",
       "expected_points": 1.8217,
       "most_likely_score": "2:0",
@@ -159,8 +159,8 @@
         "away": 0.3099180866166194,
         "over_2_5": 0.44722295340879176
       },
-      "lambda_home": 1.0605463892745237,
-      "lambda_away": 1.159283648610898,
+      "lambda_home": 1.0605463906801247,
+      "lambda_away": 1.1592836572782153,
       "tip": "0:1",
       "expected_points": 1.107,
       "most_likely_score": "1:1",
@@ -225,8 +225,8 @@
         "away": 0.45728443127018537,
         "over_2_5": 0.5157199471598415
       },
-      "lambda_home": 0.9900422960722338,
-      "lambda_away": 1.5597023221101283,
+      "lambda_home": 0.990042272850112,
+      "lambda_away": 1.559702289011103,
       "tip": "0:1",
       "expected_points": 1.376,
       "most_likely_score": "0:1",
@@ -291,8 +291,8 @@
         "away": 0.2407516681040352,
         "over_2_5": 0.3828715365239294
       },
-      "lambda_home": 1.3115674069389152,
-      "lambda_away": 0.8825231042099584,
+      "lambda_home": 1.3115674059538343,
+      "lambda_away": 0.8825231036546933,
       "tip": "1:0",
       "expected_points": 1.3261,
       "most_likely_score": "1:0",
@@ -357,8 +357,8 @@
         "away": 0.7664475050358978,
         "over_2_5": 0.44886062533121357
       },
-      "lambda_home": 0.4192301887372341,
-      "lambda_away": 2.0860092494543454,
+      "lambda_home": 0.4192301879296647,
+      "lambda_away": 2.08600924971874,
       "tip": "0:1",
       "expected_points": 1.9612,
       "most_likely_score": "0:2",

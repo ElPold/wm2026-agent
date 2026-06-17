@@ -1,22 +1,36 @@
 {
   "predictions": {
-    "updated_at": "2026-06-17T18:53:10.092322+02:00",
+    "updated_at": "2026-06-17T21:33:13.273884+02:00",
     "rounds": 17,
     "mode": "all-rounds",
     "round": null,
-    "source": "auto"
+    "source": "manual"
   },
   "kicktipp": {
-    "synced_at": "2026-06-17T18:54:25.331448+02:00",
-    "status": "failed",
+    "synced_at": "2026-06-17T21:34:48.129497+02:00",
+    "status": "ok",
     "spieltag": 3,
-    "tips_count": 12,
+    "tips_count": 3,
     "agent_rounds": [
+      "Matchday 1",
+      "Matchday 2",
+      "Matchday 3",
+      "Matchday 4",
+      "Matchday 5",
+      "Matchday 6",
       "Matchday 7",
       "Matchday 8",
-      "Matchday 9"
+      "Matchday 9",
+      "Matchday 10",
+      "Matchday 11",
+      "Matchday 12",
+      "Matchday 13",
+      "Matchday 14",
+      "Matchday 15",
+      "Matchday 16",
+      "Matchday 17"
     ],
-    "mode": "auto",
-    "error": "kicktipp-agent exit code 1"
+    "mode": "manual",
+    "error": null
   }
 }

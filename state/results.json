@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-17T16:54:21.494654+00:00",
+  "updated_at": "2026-06-17T19:34:22.074470+00:00",
   "source": "kicktipp",
   "results": {
     "wc26-001": {
@@ -181,6 +181,15 @@
       "kicktipp_home": "Österreich",
       "kicktipp_away": "Jordanien",
       "date": "17.06.26 04:00"
+    },
+    "wc26-061": {
+      "home": 1,
+      "away": 1,
+      "score": "1:1",
+      "source": "kicktipp",
+      "kicktipp_home": "Portugal",
+      "kicktipp_away": "DR Kongo",
+      "date": "17.06.26 17:00"
     }
   }
 }

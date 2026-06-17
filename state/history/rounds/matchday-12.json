@@ -1,6 +1,6 @@
 {
   "round": "Matchday 12",
-  "generated_at": "2026-06-17T18:53:00.949774+02:00",
+  "generated_at": "2026-06-17T21:33:01.446397+02:00",
   "match_count": 4,
   "predictions": [
     {
@@ -27,8 +27,8 @@
         "away": 0.1568644376857353,
         "over_2_5": 0.48506694129763134
       },
-      "lambda_home": 1.7756328078313537,
-      "lambda_away": 0.8204660708538853,
+      "lambda_home": 1.7756328070476974,
+      "lambda_away": 0.8204660697614883,
       "tip": "1:0",
       "expected_points": 1.5879,
       "most_likely_score": "1:0",
@@ -93,8 +93,8 @@
         "away": 0.034549368384200994,
         "over_2_5": 0.6924643584521385
       },
-      "lambda_home": 3.163874011358781,
-      "lambda_away": 0.48502634914668064,
+      "lambda_home": 3.163874011135152,
+      "lambda_away": 0.4850263492966123,
       "tip": "2:0",
       "expected_points": 2.1161,
       "most_likely_score": "3:0",
@@ -159,8 +159,8 @@
         "away": 0.24797609139744273,
         "over_2_5": 0.49087168938030346
       },
-      "lambda_home": 1.2909763291126344,
-      "lambda_away": 1.1332369795573214,
+      "lambda_home": 1.290976301212271,
+      "lambda_away": 1.1332369585321567,
       "tip": "1:0",
       "expected_points": 1.1374,
       "most_likely_score": "1:1",
@@ -225,8 +225,8 @@
         "away": 0.4228077034645411,
         "over_2_5": 0.48612538540596095
       },
-      "lambda_home": 0.9710661397805443,
-      "lambda_away": 1.433238475630241,
+      "lambda_home": 0.9710661300354402,
+      "lambda_away": 1.4332384795080035,
       "tip": "0:1",
       "expected_points": 1.3269,
       "most_likely_score": "0:1",
