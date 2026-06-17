@@ -115,14 +115,14 @@ def test_match_bets_filters_to_kicktipp_page():
     assert skipped == ["England vs Croatia (nicht auf Kicktipp-Spieltag)"]
 
 
-def test_match_bets_without_kicktipp_page_falls_back_to_all():
+def test_match_bets_without_kicktipp_page_returns_empty():
     payload = {
         "predictions": [
             {"home_team": "Germany", "away_team": "France", "tip": "2:1"},
         ]
     }
     bets, skipped = match_bets_for_kicktipp_spieltag(payload, {"Germany": "Deutschland"}, [])
-    assert bets == ["Deutschland vs France=2:1"]
+    assert bets == []
     assert skipped == []
 
 

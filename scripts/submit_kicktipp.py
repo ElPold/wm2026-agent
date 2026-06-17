@@ -292,7 +292,7 @@ def match_bets_for_kicktipp_spieltag(
 ) -> tuple[list[str], list[str]]:
     """Baut Wetten nur für Spiele, die auf der Kicktipp-Tippabgabe-Seite stehen."""
     if not kicktipp_matches:
-        return match_bets_from_predictions(payload, aliases), []
+        return [], []
 
     indexed: dict[tuple[str, str], tuple[str, str]] = {}
     for row in kicktipp_matches:
@@ -466,10 +466,12 @@ def submit_spieltag_tips(
     kicktipp_matches: list[dict[str, str]] = []
     if not dry_run:
         kicktipp_matches = fetch_kicktipp_tippabgabe_matches(kt_md)
-        if kicktipp_matches:
-            print(f"Kicktipp-Seite Spieltag {kt_md}: {len(kicktipp_matches)} tippbare Spiele")
-            for row in kicktipp_matches:
-                print(f"  {row['home']} vs {row['away']}")
+        if not kicktipp_matches:
+            print(f"Spieltag {kt_md}: keine tippbaren Spiele auf Kicktipp-Seite.")
+            return 0, [], [], []
+        print(f"Kicktipp-Seite Spieltag {kt_md}: {len(kicktipp_matches)} tippbare Spiele")
+        for row in kicktipp_matches:
+            print(f"  {row['home']} vs {row['away']}")
 
     match_bets, skipped_bets = match_bets_for_kicktipp_spieltag(
         predictions_payload,
