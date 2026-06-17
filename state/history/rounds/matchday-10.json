@@ -1,6 +1,6 @@
 {
   "round": "Matchday 10",
-  "generated_at": "2026-06-17T21:32:56.841472+02:00",
+  "generated_at": "2026-06-17T21:39:34.592206+02:00",
   "match_count": 4,
   "predictions": [
     {
@@ -27,8 +27,8 @@
         "away": 0.20066196095991706,
         "over_2_5": 0.5046320123520329
       },
-      "lambda_home": 1.7275722394363842,
-      "lambda_away": 0.9560060741712652,
+      "lambda_home": 1.7275722388826666,
+      "lambda_away": 0.9560060740504058,
       "tip": "1:0",
       "expected_points": 1.474,
       "most_likely_score": "1:0",
@@ -93,8 +93,8 @@
         "away": 0.1736599530796805,
         "over_2_5": 0.33083762283575113
       },
-      "lambda_home": 1.5352714594015207,
-      "lambda_away": 0.5704552734572034,
+      "lambda_home": 1.5352714645870458,
+      "lambda_away": 0.5704552756478957,
       "tip": "1:0",
       "expected_points": 1.6874,
       "most_likely_score": "1:0",
@@ -225,8 +225,8 @@
         "away": 0.6334805714680102,
         "over_2_5": 0.45688545688545684
       },
-      "lambda_home": 0.7055432096670639,
-      "lambda_away": 1.7974092798290782,
+      "lambda_home": 0.7055432099620255,
+      "lambda_away": 1.7974092797005843,
       "tip": "0:1",
       "expected_points": 1.6791,
       "most_likely_score": "0:1",

@@ -1,16 +1,16 @@
 {
   "predictions": {
-    "updated_at": "2026-06-17T21:33:13.273884+02:00",
+    "updated_at": "2026-06-17T21:39:47.518135+02:00",
     "rounds": 17,
     "mode": "all-rounds",
     "round": null,
     "source": "manual"
   },
   "kicktipp": {
-    "synced_at": "2026-06-17T21:34:48.129497+02:00",
+    "synced_at": "2026-06-17T22:03:04.937053+02:00",
     "status": "ok",
-    "spieltag": 3,
-    "tips_count": 3,
+    "spieltag": null,
+    "tips_count": 168,
     "agent_rounds": [
       "Matchday 1",
       "Matchday 2",
