@@ -82,7 +82,7 @@
           <span class="t-normal">Catify</span>
           <span class="t-cat" hidden>Un-Catify</span>
         </button>
-        <span class="site-version mono" title="Site build version">v20</span>
+        <span class="site-version mono" title="Site build version">v21</span>
       </div>
     </div>
   </header>
@@ -203,12 +203,39 @@
         <div class="flow-node output">
           <span class="flow-tag">Optional</span>
           <strong>Kicktipp submit</strong>
-          <p>Dashboard button <em>Transfer to Kicktipp</em> → GitHub Actions → kicktipp-agent CLI → kicktipp.de. Kicktipp bundles group-round games (8 per page), not chronological matchdays.</p>
+          <p>Dashboard button <em>Transfer to Kicktipp</em> → GitHub Actions → kicktipp-agent CLI → kicktipp.de. Cron submits all group spieltage 1–6; only matches actually open on each Kicktipp page are transferred.</p>
         </div>
       </div>
     </section>
 
     <section class="pipeline-grid">
+      <article class="pipeline-card">
+        <h2><span class="t-normal">Automation</span><span class="t-cat" hidden>Cat schedule</span></h2>
+        <ul>
+          <li><span class="t-normal"><strong>Update predictions</strong> — Cron 10:00 &amp; 16:00 MESZ</span><span class="t-cat" hidden>Bowl refill — twice daily</span></li>
+          <li><span class="t-normal">Regenerates all group-round tips, fetches Kicktipp results</span><span class="t-cat" hidden>Refreshes all naps, fetches outcomes</span></li>
+          <li><span class="t-normal">Submits tips for Kicktipp spieltage 1–6 automatically</span><span class="t-cat" hidden>Sends treats for all bowl rounds</span></li>
+          <li><span class="t-normal">Sync status shown on dashboard hero</span><span class="t-cat" hidden>Last purr logged on the board</span></li>
+        </ul>
+      </article>
+      <article class="pipeline-card">
+        <h2><span class="t-normal">Kicktipp submit</span><span class="t-cat" hidden>Bowl delivery</span></h2>
+        <ul>
+          <li><span class="t-normal">Reads editable matches from kicktipp.de per spieltag</span><span class="t-cat" hidden>Reads tippable naps from the bowl page</span></li>
+          <li><span class="t-normal">Matches agent picks via team aliases</span><span class="t-cat" hidden>Matches cat picks via name aliases</span></li>
+          <li><span class="t-normal">One bet per CLI call — partial success allowed</span><span class="t-cat" hidden>One treat at a time — no total wipeout</span></li>
+          <li><span class="t-normal">Manual override: dashboard <em>Transfer to Kicktipp</em> button</span><span class="t-cat" hidden>Manual: dashboard bowl button</span></li>
+        </ul>
+      </article>
+      <article class="pipeline-card">
+        <h2><span class="t-normal">Track record</span><span class="t-cat" hidden>Treat ledger</span></h2>
+        <ul>
+          <li><span class="t-normal">All fixtures with agent pick, result, Kicktipp points</span><span class="t-cat" hidden>Every nap with pick, outcome, treats</span></li>
+          <li><span class="t-normal"><strong>Total points</strong> row at top of the table</span><span class="t-cat" hidden>Total treats at top of ledger</span></li>
+          <li><span class="t-normal">Results from <code>state/results.json</code> (Kicktipp fetch)</span><span class="t-cat" hidden>Outcomes from Kicktipp fetch</span></li>
+          <li><span class="t-normal">Stats: tips submitted, exact hits, avg pts / played</span><span class="t-cat" hidden>Stats above the ledger table</span></li>
+        </ul>
+      </article>
       <article class="pipeline-card">
         <h2><span class="t-normal">Inputs per match</span><span class="t-cat" hidden>Sniff inputs</span></h2>
         <ul>

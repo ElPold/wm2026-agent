@@ -2,8 +2,8 @@
 
 **Projekt:** Automatisierter Tippgeber für die FIFA-Weltmeisterschaft 2026  
 **Repo:** https://github.com/ElPold/wm2026-agent  
-**Stand:** 09.06.2026 — WM-Start 11.06.2026  
-**Abgabe:** manuell durch Thomas, einmal täglich (~3 h vor dem ersten Spiel des Tages, Münchner/Berliner Zeit)
+**Stand:** 17.06.2026 — WM läuft  
+**Abgabe:** automatisch via GitHub Actions Cron (10:00 + 16:00 MESZ) + optional manuell vom Dashboard
 
 ---
 
@@ -41,6 +41,13 @@ Den Wettmarkt bei den reinen Wahrscheinlichkeiten zu schlagen, ist praktisch unm
  │ (optional)   │                                                        │
  └──────────────┘                                                        ▼
                                                                   docs/ (GitHub Pages)
+                                                                  track.html (Punkte)
+                                                                  sync_status.json
+
+  UMGESETZT (Phase 0, erweitert):
+  · Automatische Kicktipp-Abgabe (Cron, alle Gruppenspieltage 1–6)
+  · Track record mit Punktesumme
+  · Sync-Status auf dem Dashboard
 
   NOCH NICHT UMGESETZT (Phase 1+):
   · Monte-Carlo-Turniersim (Bonusfragen)
@@ -84,7 +91,7 @@ EV(th, ta) = Σ  P(h, a) × Punkte(Tipp, Ergebnis)
 | **Spielplan** | [openfootball/worldcup.json](https://github.com/openfootball/worldcup.json) | ✅ umgesetzt | nein |
 | **Quoten 1X2 + O/U 2.5** | [OddsPapi](https://oddspapi.io) (Pinnacle) | ✅ umgesetzt | ja |
 | **Quoten-Fallback** | [The Odds API](https://the-odds-api.com) | ✅ vorbereitet | optional |
-| **Ergebnisse / Lernen** | worldcup26.ir o.ä. | ⏳ Phase 1 | nein |
+| **Ergebnisse / Track record** | Kicktipp (`/tippuebersicht`) | ✅ umgesetzt | Kicktipp-Login |
 | **Elo-Ratings** | eloratings.net | ⏳ Phase 1 | nein |
 | **Begründungen** | Claude API | ⏳ Phase 2 | ja |
 | ~~API-Football~~ | ~~api-football.com~~ | ❌ bewusst verworfen (zu teuer) | — |
@@ -107,23 +114,31 @@ Tournament-ID 357 = FIFA **Club** World Cup (falsch). ID 24660/38785 liefern kei
 - Spielplan-Anstoßzeiten werden aus Venue-Zeitzonen (`UTC-6` etc.) nach **Europe/Berlin** umgerechnet.
 - **Tagesgrenze:** „Erstes Spiel des Tages“ = frühestes Spiel am Berliner Kalenderdatum (späte US-Spiele können auf den Folgetag in Berlin fallen).
 
-### Manueller Workflow (aktuell)
+### Automatischer Workflow (Cron + manuell)
+
+**Cron** (`Update predictions`): täglich **10:00** und **16:00 MESZ**
+
+1. Tipps für alle Vorrunden aktualisieren (`run.py --all-rounds`)
+2. Ergebnisse von Kicktipp laden (`fetch_results.py`)
+3. Tipps an Kicktipp übertragen (`submit_kicktipp.py --all-group-spieltage`)
+4. Website neu bauen und nach `main` pushen
+
+**Manuell** (Dashboard-Buttons oder `workflow_dispatch`):
 
 ```bash
-# 1. Tipps für heutigen Spieltag erzeugen (+ Website bauen)
+# Tipps für heutigen Spieltag erzeugen (+ Website bauen)
 python run.py --date 2026-06-11
 
-# 2. Veröffentlichen
+# Alle Gruppenspieltage an Kicktipp senden
+python scripts/submit_kicktipp.py --all-group-spieltage --no-bonus
+
+# Veröffentlichen (falls lokal)
 git add docs/ state/
 git commit -m "Tipps 11.06."
 git push
 ```
 
 Die Website unter **https://elpold.github.io/wm2026-agent/** aktualisiert sich nach dem Push (GitHub Pages aus `/docs`).
-
-### Geplant, aber bewusst nicht umgesetzt
-
-- **GitHub Actions Cron** — Thomas gibt manuell ab; kein automatisierter Push gewünscht.
 
 ---
 
@@ -142,9 +157,11 @@ Die Website unter **https://elpold.github.io/wm2026-agent/** aktualisiert sich n
 | Team-Matching (Aliase USA, DR Congo …) | `src/sources/team_names.py`, `match_linker.py` | ✅ |
 | Tages-Pipeline | `src/pipeline/day_tips.py` | ✅ |
 | Vorhersagen protokollieren | `state/predictions.json`, `state/history/` | ✅ |
-| Statische Website | `src/site/generator.py` → `docs/` | ✅ |
-| Tests (27 Stück) | `tests/` | ✅ |
-| Live-Nachweis | Mexiko–Südafrika 1:0, EV 1,79 | ✅ |
+| Statische Website (17 Vorrunden-Tabs, Sync-Status) | `src/site/generator.py` → `docs/` | ✅ |
+| Track record + Punktesumme | `track.html`, `state/results.json` | ✅ |
+| Kicktipp-Abgabe automatisch | `scripts/submit_kicktipp.py`, GitHub Actions Cron | ✅ |
+| Tests (89 Stück) | `tests/` | ✅ |
+| Live-Nachweis | Mexiko–Südafrika 1:0, EV 1,79; Kicktipp-Submit Spieltage 1–6 | ✅ |
 
 ### Phase 1 — Turniertage ⏳
 
@@ -179,7 +196,9 @@ wm2026-agent/
 │   ├── templates/index.html     # Jinja2-Template
 │   └── static/style.css
 ├── scripts/
-│   ├── discover_ids.py          # OddsPapi-Turnier-ID prüfen
+│   ├── submit_kicktipp.py       # Kicktipp-Abgabe (Cron + manuell)
+│   ├── fetch_results.py         # Ergebnisse von Kicktipp
+│   ├── patch_kicktipp_agent.py  # kicktipp.de-Patch
 │   └── fetch_schedule.py        # Spielplan aktualisieren
 ├── src/
 │   ├── sources/                 # Datenquellen
@@ -189,7 +208,9 @@ wm2026-agent/
 │   └── site/                    # Website-Generator
 ├── state/
 │   ├── predictions.json         # Letzter Lauf
-│   └── history/YYYY-MM-DD.json  # Archiv pro Spieltag
+│   ├── results.json             # Kicktipp-Ergebnisse (Track record)
+│   ├── sync_status.json         # Letztes Update + Kicktipp-Sync
+│   └── history/rounds/          # Archiv pro Matchday
 ├── demo.py                      # Pipeline ohne API
 ├── run.py                       # Orchestrierung
 └── tests/
@@ -216,7 +237,7 @@ Für die Abteilungs-Challenge „beste KI-Bewertung“ ist vorgesehen:
 3. ~~Website~~ — GitHub Pages ✅
 4. Bonusfragen-Deadlines der Kicktipp-Runde klären
 5. Elfmeter-Konvention K.-o.-Phase (vor Ende Gruppenphase)
-6. GitHub Actions Cron — **bewusst zurückgestellt** (manuelle Abgabe)
+6. ~~GitHub Actions Cron~~ — ✅ umgesetzt (10:00 + 16:00 MESZ, Kicktipp automatisch)
 
 ---
 
@@ -228,8 +249,11 @@ Für die Abteilungs-Challenge „beste KI-Bewertung“ ist vorgesehen:
 | `python run.py --discover` | Datenquellen + Turnier-ID prüfen |
 | `python run.py --date YYYY-MM-DD` | Tipps + Website + History |
 | `python run.py --build-site` | Nur Website neu generieren |
+| `python run.py --all-rounds` | Alle Vorrunden-Tipps + Archive |
+| `python scripts/submit_kicktipp.py --all-group-spieltage` | Alle Kicktipp-Gruppenspieltage abgeben |
+| `python scripts/fetch_results.py` | Ergebnisse von Kicktipp laden |
 | `python scripts/fetch_schedule.py` | Spielplan von GitHub aktualisieren |
-| `pytest` | 27 Tests |
+| `pytest` | 89 Tests |
 
 ---
 
