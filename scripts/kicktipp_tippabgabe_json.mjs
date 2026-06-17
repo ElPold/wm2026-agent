@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /** Editable Kicktipp matches for one Spieltag (tippabgabe page) as JSON. */
 
+import { createRequire } from "module";
 import fs from "fs";
 import os from "os";
 import path from "path";
@@ -11,6 +12,8 @@ const agentRoot =
   process.env.KICKTIPP_AGENT_ROOT ||
   path.resolve(__dirname, "..", ".kicktipp-agent");
 const URL_BASE = process.env.KICKTIPP_BASE_URL || "https://www.kicktipp.de";
+const require = createRequire(import.meta.url);
+const cheerio = require(path.join(agentRoot, "node_modules", "cheerio"));
 
 function writeCommunity(name) {
   const dir = path.join(os.homedir(), ".config", "kicktipp-agent");
@@ -21,38 +24,28 @@ function writeCommunity(name) {
 }
 
 function parseEditableMatches(html) {
+  const $ = cheerio.load(html);
   const rows = [];
-  const rowRe = /<tr[^>]*>([\s\S]*?)<\/tr>/gi;
-  let rowMatch;
-  while ((rowMatch = rowRe.exec(html)) !== null) {
-    const rowHtml = rowMatch[1];
-    const cellRe = /<td[^>]*>([\s\S]*?)<\/td>/gi;
-    const cells = [];
-    let cellMatch;
-    while ((cellMatch = cellRe.exec(rowHtml)) !== null) {
-      cells.push(cellMatch[1]);
+  $("#kicktipp-content tbody tr").each((_, tr) => {
+    const cols = $(tr).find("td");
+    if (cols.length < 4) {
+      return;
     }
-    if (cells.length < 5) {
-      continue;
+    const betTd = $(cols[3]);
+    if (betTd.hasClass("nichttippbar")) {
+      return;
     }
-    const betTd = cells[3];
-    if (/nichttippbar/.test(betTd)) {
-      continue;
+    const heimInput = betTd.find('input[id$="_heimTipp"]');
+    const gastInput = betTd.find('input[id$="_gastTipp"]');
+    if (!heimInput.length || !gastInput.length) {
+      return;
     }
-    if (!/_heimTipp/.test(betTd) || !/_gastTipp/.test(betTd)) {
-      continue;
-    }
-    const strip = (value) =>
-      value
-        .replace(/<[^>]+>/g, " ")
-        .replace(/\s+/g, " ")
-        .trim();
     rows.push({
-      date: strip(cells[0]),
-      home: strip(cells[1]),
-      away: strip(cells[2]),
+      date: $(cols[0]).text().trim(),
+      home: $(cols[1]).text().trim(),
+      away: $(cols[2]).text().trim(),
     });
-  }
+  });
   return rows;
 }
 
