@@ -4,7 +4,7 @@
 import fs from "fs";
 import os from "os";
 import path from "path";
-import { fileURLToPath } from "url";
+import { fileURLToPath, pathToFileURL } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const agentRoot =
@@ -26,26 +26,31 @@ function parseEditableMatches(html) {
   let rowMatch;
   while ((rowMatch = rowRe.exec(html)) !== null) {
     const rowHtml = rowMatch[1];
-    if (!/_heimTipp/.test(rowHtml) || /nichttippbar/.test(rowHtml)) {
-      continue;
-    }
-    const cells = [];
     const cellRe = /<td[^>]*>([\s\S]*?)<\/td>/gi;
+    const cells = [];
     let cellMatch;
     while ((cellMatch = cellRe.exec(rowHtml)) !== null) {
-      const text = cellMatch[1]
+      cells.push(cellMatch[1]);
+    }
+    if (cells.length < 5) {
+      continue;
+    }
+    const betTd = cells[3];
+    if (/nichttippbar/.test(betTd)) {
+      continue;
+    }
+    if (!/_heimTipp/.test(betTd) || !/_gastTipp/.test(betTd)) {
+      continue;
+    }
+    const strip = (value) =>
+      value
         .replace(/<[^>]+>/g, " ")
         .replace(/\s+/g, " ")
         .trim();
-      cells.push(text);
-    }
-    if (cells.length < 3) {
-      continue;
-    }
     rows.push({
-      date: cells[0],
-      home: cells[1],
-      away: cells[2],
+      date: strip(cells[0]),
+      home: strip(cells[1]),
+      away: strip(cells[2]),
     });
   }
   return rows;
@@ -59,13 +64,15 @@ if (!community) {
 }
 writeCommunity(community);
 
-const { launchBrowser } = await import(path.join(agentRoot, "dist", "browser.js"));
+const browserModule = path.join(agentRoot, "dist", "browser.js");
+const { launchBrowser, dismissConsent } = await import(pathToFileURL(browserModule).href);
 const { browser, page } = await launchBrowser();
 
 try {
   const url = `${URL_BASE}/${encodeURIComponent(community)}/tippabgabe?spieltagIndex=${spieltag}`;
   await page.goto(url);
   await page.waitForLoadState("domcontentloaded");
+  await dismissConsent(page);
   const html = await page.content();
   const matches = parseEditableMatches(html);
   process.stdout.write(`${JSON.stringify(matches)}\n`);

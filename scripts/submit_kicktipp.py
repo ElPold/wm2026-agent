@@ -79,20 +79,28 @@ def record_kicktipp_sync(
     agent_rounds: list[str] | None = None,
     error: str | None = None,
 ) -> None:
-    sys.path.insert(0, str(ROOT))
-    from src.pipeline.sync_status import sync_mode, update_sync_status
-
-    update_sync_status(
-        "kicktipp",
-        {
-            "synced_at": datetime.now(tz=ZoneInfo("Europe/Berlin")).isoformat(),
-            "status": status,
-            "spieltag": spieltag,
-            "tips_count": tips_count,
-            "agent_rounds": agent_rounds or [],
-            "mode": sync_mode(),
-            "error": error,
-        },
+    sync_path = ROOT / "state" / "sync_status.json"
+    payload: dict = {}
+    if sync_path.exists():
+        try:
+            loaded = json.loads(sync_path.read_text(encoding="utf-8"))
+            if isinstance(loaded, dict):
+                payload = loaded
+        except (json.JSONDecodeError, OSError):
+            payload = {}
+    payload["kicktipp"] = {
+        "synced_at": datetime.now(tz=ZoneInfo("Europe/Berlin")).isoformat(),
+        "status": status,
+        "spieltag": spieltag,
+        "tips_count": tips_count,
+        "agent_rounds": agent_rounds or [],
+        "mode": "auto" if os.environ.get("GITHUB_EVENT_NAME") == "schedule" else "manual",
+        "error": error,
+    }
+    sync_path.parent.mkdir(parents=True, exist_ok=True)
+    sync_path.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
     )
 
 
