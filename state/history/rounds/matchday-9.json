@@ -1,6 +1,6 @@
 {
   "round": "Matchday 9",
-  "generated_at": "2026-06-16T22:21:52.278551+02:00",
+  "generated_at": "2026-06-17T14:10:38.118864+02:00",
   "match_count": 4,
   "predictions": [
     {
@@ -13,41 +13,41 @@
       "odds_source": "oddspapi",
       "bookmaker": "pinnacle",
       "odds_1x2": {
-        "home": 1.581,
-        "draw": 4.48,
-        "away": 5.49
+        "home": 1.602,
+        "draw": 4.5,
+        "away": 5.24
       },
       "odds_ou25": {
-        "over": 1.99,
+        "over": 2.0,
         "under": 1.892
       },
       "market_probs": {
-        "home": 0.6094291136502339,
-        "draw": 0.21506862247344188,
-        "away": 0.17550226387632417,
-        "over_2_5": 0.48737764039155074
+        "home": 0.6017842213095926,
+        "draw": 0.21423518278621498,
+        "away": 0.18398059590419225,
+        "over_2_5": 0.48612538540596095
       },
-      "lambda_home": 1.8151816475356468,
-      "lambda_away": 0.8276655797887793,
+      "lambda_home": 1.7966598846558228,
+      "lambda_away": 0.8451818737379999,
       "tip": "1:0",
-      "expected_points": 1.5973,
+      "expected_points": 1.5782,
       "most_likely_score": "1:0",
       "top_scores": [
         {
           "score": "1:0",
-          "probability": 0.1295
+          "probability": 0.1283
         },
         {
           "score": "2:0",
-          "probability": 0.1175
+          "probability": 0.1153
         },
         {
           "score": "1:1",
-          "probability": 0.1072
+          "probability": 0.1084
         },
         {
           "score": "2:1",
-          "probability": 0.0973
+          "probability": 0.0974
         },
         {
           "score": "0:0",
@@ -57,15 +57,15 @@
       "top_alternatives": [
         {
           "score": "2:1",
-          "expected_points": 1.5651
+          "expected_points": 1.5473
         },
         {
           "score": "2:0",
-          "expected_points": 1.5195
+          "expected_points": 1.4973
         },
         {
           "score": "3:2",
-          "expected_points": 1.4922
+          "expected_points": 1.4745
         }
       ]
     },
@@ -79,59 +79,59 @@
       "odds_source": "oddspapi",
       "bookmaker": "pinnacle",
       "odds_1x2": {
-        "home": 5.83,
-        "draw": 2.18,
-        "away": 2.4
+        "home": 5.27,
+        "draw": 3.65,
+        "away": 1.746
       },
       "odds_ou25": {
-        "over": 4.45,
-        "under": 1.205
+        "over": 2.32,
+        "under": 1.645
       },
       "market_probs": {
-        "home": 0.1638409940689059,
-        "draw": 0.4381619245053767,
-        "away": 0.39799708142571727,
-        "over_2_5": 0.21308576480990277
+        "home": 0.18307764877841945,
+        "draw": 0.2643340298800741,
+        "away": 0.5525883213415065,
+        "over_2_5": 0.4148802017654477
       },
-      "lambda_home": 0.4894865812445996,
-      "lambda_away": 0.8491436258592506,
+      "lambda_home": 0.782584097700848,
+      "lambda_away": 1.5491232439150424,
       "tip": "0:1",
-      "expected_points": 1.33,
-      "most_likely_score": "0:0",
+      "expected_points": 1.5229,
+      "most_likely_score": "0:1",
       "top_scores": [
         {
-          "score": "0:0",
-          "probability": 0.2622
-        },
-        {
           "score": "0:1",
-          "probability": 0.2227
-        },
-        {
-          "score": "1:0",
-          "probability": 0.1283
+          "probability": 0.1506
         },
         {
           "score": "1:1",
-          "probability": 0.109
+          "probability": 0.1179
         },
         {
           "score": "0:2",
-          "probability": 0.0945
+          "probability": 0.1167
+        },
+        {
+          "score": "0:0",
+          "probability": 0.0972
+        },
+        {
+          "score": "1:2",
+          "probability": 0.0913
         }
       ],
       "top_alternatives": [
         {
-          "score": "0:0",
-          "expected_points": 1.2905
+          "score": "1:2",
+          "expected_points": 1.4636
         },
         {
-          "score": "1:2",
-          "expected_points": 1.1537
+          "score": "0:2",
+          "expected_points": 1.3981
         },
         {
           "score": "2:3",
-          "expected_points": 1.1106
+          "expected_points": 1.3907
         }
       ]
     },
@@ -145,59 +145,59 @@
       "odds_source": "oddspapi",
       "bookmaker": "pinnacle",
       "odds_1x2": {
-        "home": 1.375,
-        "draw": 3.69,
-        "away": 15.57
+        "home": 1.378,
+        "draw": 3.68,
+        "away": 15.44
       },
       "odds_ou25": {
-        "over": 1.543,
-        "under": 2.37
+        "over": 1.546,
+        "under": 2.36
       },
       "market_probs": {
-        "home": 0.6844910038386481,
-        "draw": 0.25506101091548544,
-        "away": 0.06044798524586648,
-        "over_2_5": 0.6056733963710709
+        "home": 0.6831976698326828,
+        "draw": 0.25582782310582525,
+        "away": 0.06097450706149203,
+        "over_2_5": 0.6041986687147978
       },
-      "lambda_home": 2.250684429858531,
-      "lambda_away": 0.8131746244199594,
+      "lambda_home": 2.2435673875871274,
+      "lambda_away": 0.8129439518497412,
       "tip": "1:0",
-      "expected_points": 1.7374,
+      "expected_points": 1.7358,
       "most_likely_score": "2:0",
       "top_scores": [
         {
           "score": "2:0",
-          "probability": 0.1193
+          "probability": 0.1194
         },
         {
           "score": "1:0",
-          "probability": 0.106
+          "probability": 0.1064
         },
         {
           "score": "2:1",
-          "probability": 0.097
+          "probability": 0.0971
         },
         {
           "score": "3:0",
-          "probability": 0.0895
+          "probability": 0.0893
         },
         {
           "score": "1:1",
-          "probability": 0.0862
+          "probability": 0.0865
         }
       ],
       "top_alternatives": [
         {
           "score": "2:1",
-          "expected_points": 1.7284
+          "expected_points": 1.7264
         },
         {
           "score": "2:0",
-          "expected_points": 1.724
+          "expected_points": 1.7215
         },
         {
           "score": "3:1",
-          "expected_points": 1.6775
+          "expected_points": 1.6747
         }
       ]
     },
@@ -211,59 +211,59 @@
       "odds_source": "oddspapi",
       "bookmaker": "pinnacle",
       "odds_1x2": {
-        "home": 2.68,
-        "draw": 2.18,
-        "away": 4.69
+        "home": 2.04,
+        "draw": 3.43,
+        "away": 3.98
       },
       "odds_ou25": {
         "over": 2.14,
         "under": 1.751
       },
       "market_probs": {
-        "home": 0.357042583060365,
-        "draw": 0.43893308376228357,
-        "away": 0.20402433317735144,
+        "home": 0.4745375037368169,
+        "draw": 0.28223221796592024,
+        "away": 0.24323027829726293,
         "over_2_5": 0.4500128501670521
       },
-      "lambda_home": 1.2435656298391409,
-      "lambda_away": 0.9823283132312868,
+      "lambda_home": 1.4644351410358076,
+      "lambda_away": 0.9870658037853074,
       "tip": "1:0",
-      "expected_points": 1.2133,
+      "expected_points": 1.3315,
       "most_likely_score": "1:0",
       "top_scores": [
         {
           "score": "1:0",
-          "probability": 0.1343
+          "probability": 0.1263
         },
         {
           "score": "1:1",
-          "probability": 0.1319
-        },
-        {
-          "score": "0:0",
-          "probability": 0.108
-        },
-        {
-          "score": "0:1",
-          "probability": 0.1061
+          "probability": 0.1247
         },
         {
           "score": "2:0",
-          "probability": 0.0835
+          "probability": 0.0925
+        },
+        {
+          "score": "2:1",
+          "probability": 0.0913
+        },
+        {
+          "score": "0:0",
+          "probability": 0.0862
         }
       ],
       "top_alternatives": [
         {
           "score": "2:1",
-          "expected_points": 1.161
+          "expected_points": 1.2965
         },
         {
           "score": "3:2",
-          "expected_points": 1.0957
+          "expected_points": 1.2272
         },
         {
           "score": "4:3",
-          "expected_points": 1.0807
+          "expected_points": 1.2078
         }
       ]
     }

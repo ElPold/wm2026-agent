@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-16T10:06:07.263303+00:00",
+  "updated_at": "2026-06-17T12:11:31.403892+00:00",
   "source": "kicktipp",
   "results": {
     "wc26-001": {
@@ -145,6 +145,42 @@
       "kicktipp_home": "Iran",
       "kicktipp_away": "Neuseeland",
       "date": "16.06.26 01:00"
+    },
+    "wc26-049": {
+      "home": 3,
+      "away": 1,
+      "score": "3:1",
+      "source": "kicktipp",
+      "kicktipp_home": "Frankreich",
+      "kicktipp_away": "Senegal",
+      "date": "16.06.26 19:00"
+    },
+    "wc26-050": {
+      "home": 1,
+      "away": 4,
+      "score": "1:4",
+      "source": "kicktipp",
+      "kicktipp_home": "Irak",
+      "kicktipp_away": "Norwegen",
+      "date": "16.06.26 22:00"
+    },
+    "wc26-055": {
+      "home": 3,
+      "away": 0,
+      "score": "3:0",
+      "source": "kicktipp",
+      "kicktipp_home": "Argentinien",
+      "kicktipp_away": "Algerien",
+      "date": "17.06.26 01:00"
+    },
+    "wc26-056": {
+      "home": 3,
+      "away": 1,
+      "score": "3:1",
+      "source": "kicktipp",
+      "kicktipp_home": "Österreich",
+      "kicktipp_away": "Jordanien",
+      "date": "17.06.26 04:00"
     }
   }
 }
