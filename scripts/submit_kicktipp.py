@@ -45,6 +45,7 @@ BONUS_QUESTION_DE: dict[str, str] = {
 def resolve_upcoming_kicktipp_spieltag(
     *,
     now: datetime | None = None,
+    aliases: dict[str, str] | None = None,
 ) -> int | None:
     """Kicktipp-Spieltag für das nächste anstehende Gruppenspiel."""
     sys.path.insert(0, str(ROOT))
@@ -68,7 +69,41 @@ def resolve_upcoming_kicktipp_spieltag(
     agent_md = parse_agent_matchday(earliest.round_name or "")
     if agent_md is None:
         return None
+
+    if aliases is not None:
+        probed = resolve_kicktipp_spieltag_by_probe(
+            earliest.home_team,
+            earliest.away_team,
+            aliases,
+        )
+        if probed is not None:
+            return probed
+
     return kicktipp_spieltag(agent_md)
+
+
+def resolve_kicktipp_spieltag_by_probe(
+    home: str,
+    away: str,
+    aliases: dict[str, str],
+    *,
+    max_spieltag: int = 6,
+) -> int | None:
+    """Findet den Kicktipp-Spieltag, auf dem ein Team-Paar tippbar ist."""
+    if not os.environ.get("KICKTIPP_COMMUNITY"):
+        return None
+
+    kh = kicktipp_team(home, aliases)
+    ka = kicktipp_team(away, aliases)
+    key = kicktipp_pair_key(kh, ka)
+    for kt in range(1, max_spieltag + 1):
+        matches = fetch_kicktipp_tippabgabe_matches(kt)
+        if not matches:
+            continue
+        indexed = {kicktipp_pair_key(str(row["home"]), str(row["away"])) for row in matches}
+        if key in indexed:
+            return kt
+    return None
 
 
 def record_kicktipp_sync(
@@ -128,6 +163,26 @@ def kicktipp_spieltag(agent_matchday: int, mapping_path: Path = DEFAULT_SPIELTAG
         if key in explicit:
             return int(explicit[key])
     return (agent_matchday + 2) // 3
+
+
+def load_all_predictions_from_history(
+    history_dir: Path = DEFAULT_HISTORY,
+) -> dict:
+    """Alle archivierten Spieltipps für Kicktipp-Seitenfilterung zusammenführen."""
+    predictions: list[dict] = []
+    agent_rounds: list[str] = []
+    for path in sorted(
+        history_dir.glob("matchday-*.json"),
+        key=lambda item: int(item.stem.rsplit("-", 1)[-1]),
+    ):
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        agent_rounds.append(payload.get("round", path.stem))
+        predictions.extend(payload.get("predictions", []))
+    return {
+        "round": "All archived matchdays",
+        "agent_rounds": agent_rounds,
+        "predictions": predictions,
+    }
 
 
 def load_predictions_for_kicktipp_spieltag(
@@ -462,7 +517,8 @@ def main() -> int:
     args = parser.parse_args()
 
     if args.print_upcoming_spieltag:
-        kt = resolve_upcoming_kicktipp_spieltag()
+        aliases = load_aliases(DEFAULT_ALIASES)
+        kt = resolve_upcoming_kicktipp_spieltag(aliases=aliases)
         if kt is None:
             print("", end="")
             return 0
@@ -490,28 +546,28 @@ def main() -> int:
         args.no_bonus = False
 
     if args.kicktipp_spieltag:
-        predictions_payload = load_predictions_for_kicktipp_spieltag(args.kicktipp_spieltag)
+        predictions_payload = load_all_predictions_from_history()
         kt_md = args.kicktipp_spieltag
         agent_rounds = predictions_payload.get("agent_rounds") or []
         print(
-            f"Kicktipp-Spieltag {kt_md}: Agent-Runden {', '.join(agent_rounds) or '(keine Archive)'}"
+            f"Kicktipp-Spieltag {kt_md}: alle Agent-Archive ({len(agent_rounds)} Runden)"
         )
     elif args.matchday:
         kt_md = kicktipp_spieltag(args.matchday)
-        predictions_payload = load_predictions_for_kicktipp_spieltag(kt_md)
+        predictions_payload = load_all_predictions_from_history()
         agent_rounds = predictions_payload.get("agent_rounds") or []
         print(
             f"Kicktipp-Spieltag {kt_md}: Agent Matchday {args.matchday} "
-            f"({', '.join(agent_rounds) or 'keine Archive'})"
+            f"({len(agent_rounds)} Archive)"
         )
     else:
-        kt_md = resolve_upcoming_kicktipp_spieltag()
+        kt_md = resolve_upcoming_kicktipp_spieltag(aliases=aliases)
         if kt_md is not None:
-            predictions_payload = load_predictions_for_kicktipp_spieltag(kt_md)
+            predictions_payload = load_all_predictions_from_history()
             agent_rounds = predictions_payload.get("agent_rounds") or []
             print(
                 f"Kicktipp-Spieltag {kt_md} (nächstes Spiel): "
-                f"{', '.join(agent_rounds) or '(keine Archive)'}"
+                f"{len(agent_rounds)} Agent-Archive"
             )
         else:
             predictions_payload = json.loads(args.predictions.read_text(encoding="utf-8"))

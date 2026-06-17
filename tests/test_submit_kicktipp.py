@@ -17,6 +17,8 @@ parse_matchday = _mod.parse_agent_matchday
 kicktipp_spieltag = _mod.kicktipp_spieltag
 agent_rounds_for_kicktipp_spieltag = _mod.agent_rounds_for_kicktipp_spieltag
 load_predictions_for_kicktipp_spieltag = _mod.load_predictions_for_kicktipp_spieltag
+load_all_predictions_from_history = _mod.load_all_predictions_from_history
+resolve_kicktipp_spieltag_by_probe = _mod.resolve_kicktipp_spieltag_by_probe
 map_bonus_question = _mod.map_bonus_question
 resolve_upcoming_kicktipp_spieltag = _mod.resolve_upcoming_kicktipp_spieltag
 
@@ -38,6 +40,42 @@ def test_kicktipp_spieltag_mapping():
 def test_agent_rounds_for_kicktipp_spieltag():
     assert agent_rounds_for_kicktipp_spieltag(1) == [1, 2, 3]
     assert agent_rounds_for_kicktipp_spieltag(2) == [4, 5, 6]
+
+
+def test_load_all_predictions_from_history(tmp_path):
+    history = tmp_path / "rounds"
+    history.mkdir()
+    (history / "matchday-1.json").write_text(
+        '{"round": "Matchday 1", "predictions": [{"home_team": "A", "away_team": "B", "tip": "1:0"}]}',
+        encoding="utf-8",
+    )
+    (history / "matchday-9.json").write_text(
+        '{"round": "Matchday 9", "predictions": [{"home_team": "C", "away_team": "D", "tip": "2:1"}]}',
+        encoding="utf-8",
+    )
+    payload = load_all_predictions_from_history(history_dir=history)
+    assert len(payload["predictions"]) == 2
+    assert payload["agent_rounds"] == ["Matchday 1", "Matchday 9"]
+
+
+def test_resolve_kicktipp_spieltag_by_probe(monkeypatch):
+    calls: list[int] = []
+
+    def fake_fetch(spieltag: int):
+        calls.append(spieltag)
+        if spieltag == 4:
+            return [{"home": "Tschechien", "away": "Südafrika"}]
+        return []
+
+    monkeypatch.setenv("KICKTIPP_COMMUNITY", "entertainment")
+    monkeypatch.setattr(_mod, "fetch_kicktipp_tippabgabe_matches", fake_fetch)
+    kt = resolve_kicktipp_spieltag_by_probe(
+        "Czech Republic",
+        "South Africa",
+        {"Czech Republic": "Tschechien", "South Africa": "Südafrika"},
+    )
+    assert kt == 4
+    assert calls == [1, 2, 3, 4]
 
 
 def test_load_predictions_for_kicktipp_spieltag(tmp_path):
