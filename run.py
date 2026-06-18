@@ -185,8 +185,11 @@ def main() -> None:
         parser.error("--round und --all-rounds schließen sich gegenseitig aus")
 
     if args.all_rounds:
+        from src.sources.odds_provider import OddsProvider
+
         round_names = schedule_round_names(settings)
         logger.info("Generiere Tipps für %d Runden", len(round_names))
+        odds_provider = OddsProvider(settings)
         latest_payload: dict[str, Any] | None = None
         archived_count = 0
         for round_name in round_names:
@@ -194,6 +197,7 @@ def main() -> None:
                 round_name,
                 settings=settings,
                 skip_started=args.skip_started,
+                provider=odds_provider,
             )
             if not payload["predictions"]:
                 continue

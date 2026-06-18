@@ -44,6 +44,7 @@ def generate_round_tips(
     settings: Settings | None = None,
     *,
     skip_started: bool = False,
+    provider: OddsProvider | None = None,
 ) -> dict[str, Any]:
     """Erzeugt Tipps für alle Spiele einer Runde (z. B. Matchday 1)."""
     settings = settings or Settings.load()
@@ -56,6 +57,7 @@ def generate_round_tips(
         schedule,
         settings=settings,
         skip_started=skip_started,
+        provider=provider,
     )
     prediction_by_id = {
         item.fixture.fixture_id: item for item in predictions
@@ -92,6 +94,7 @@ def _generate_predictions_for_fixtures(
     *,
     settings: Settings,
     skip_started: bool,
+    provider: OddsProvider | None = None,
 ) -> list[MatchPrediction]:
     now = datetime.now(tz=ZoneInfo("Europe/Berlin"))
 
@@ -103,8 +106,8 @@ def _generate_predictions_for_fixtures(
             "ODDSPAPI_API_KEY oder THE_ODDS_API_KEY fehlt — keine Quotenquelle"
         )
 
-    provider = OddsProvider(settings)
-    odds_by_fixture = provider.fetch_odds_for_schedule(schedule)
+    odds_provider = provider or OddsProvider(settings)
+    odds_by_fixture = odds_provider.fetch_odds_for_schedule(schedule)
     predictions: list[MatchPrediction] = []
 
     for fixture in schedule:

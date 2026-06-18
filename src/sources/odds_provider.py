@@ -7,6 +7,7 @@ from typing import Any
 
 from .api_football import ApiFootballClient
 from .config import Settings
+from .http_client import ApiError
 from .match_linker import link_fixtures
 from .models import MarketOdds, MatchFixture
 from .oddspapi import OddsPapiClient, parse_bookmaker_odds
@@ -25,6 +26,8 @@ class OddsProvider:
         self._football = (
             ApiFootballClient(settings) if settings.has_api_football() else None
         )
+        self._oddspapi_raw: list[dict[str, Any]] | None = None
+        self._the_odds_events: list[dict[str, Any]] | None = None
 
     def fetch_odds_for_schedule(
         self,
@@ -36,11 +39,21 @@ class OddsProvider:
         results: dict[str, MarketOdds] = {}
 
         if self._oddspapi:
-            results.update(self._fetch_from_oddspapi(schedule))
+            try:
+                results.update(self._fetch_from_oddspapi(schedule))
+            except ApiError as exc:
+                logger.warning(
+                    "OddsPapi nicht verfügbar (%s) — Fallback auf The Odds API",
+                    exc,
+                )
+                self._oddspapi_raw = []
 
         missing = [game for game in schedule if game.fixture_id not in results]
         if missing and self._the_odds:
-            results.update(self._fetch_from_the_odds_api(missing))
+            try:
+                results.update(self._fetch_from_the_odds_api(missing))
+            except ApiError as exc:
+                logger.warning("The Odds API nicht verfügbar: %s", exc)
 
         still_missing = [game for game in schedule if game.fixture_id not in results]
         if still_missing:
@@ -52,12 +65,24 @@ class OddsProvider:
 
         return results
 
+    def _oddspapi_tournament_odds(self) -> list[dict[str, Any]]:
+        assert self._oddspapi is not None
+        if self._oddspapi_raw is None:
+            self._oddspapi_raw = self._oddspapi.get_odds_by_tournament()
+        return self._oddspapi_raw
+
+    def _the_odds_api_events(self) -> list[dict[str, Any]]:
+        assert self._the_odds is not None
+        if self._the_odds_events is None:
+            self._the_odds_events = self._the_odds.get_odds()
+        return self._the_odds_events
+
     def _fetch_from_oddspapi(
         self,
         schedule: list[MatchFixture],
     ) -> dict[str, MarketOdds]:
         assert self._oddspapi is not None
-        raw_fixtures = self._oddspapi.get_odds_by_tournament()
+        raw_fixtures = self._oddspapi_tournament_odds()
         odds_matches = [self._oddspapi.fixture_to_match(item) for item in raw_fixtures]
         links = link_fixtures(schedule, odds_matches)
 
@@ -86,7 +111,7 @@ class OddsProvider:
         schedule: list[MatchFixture],
     ) -> dict[str, MarketOdds]:
         assert self._the_odds is not None
-        events = self._the_odds.get_odds()
+        events = self._the_odds_api_events()
         odds_matches = [self._the_odds.event_to_match(event) for event in events]
         links = link_fixtures(schedule, odds_matches)
 

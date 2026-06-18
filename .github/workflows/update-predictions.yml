@@ -56,6 +56,8 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Generate tips for upcoming matches
+        id: generate_tips
+        continue-on-error: true
         if: github.event_name == 'schedule' || inputs.kicktipp_spieltag == ''
         run: |
           if [ "${{ github.event_name }}" = "schedule" ] || [ -z "${{ inputs.round }}" ]; then
@@ -63,6 +65,10 @@ jobs:
           else
             python run.py --round "${{ inputs.round }}" --skip-started --no-site
           fi
+
+      - name: Warn if tip generation failed
+        if: steps.generate_tips.outcome == 'failure'
+        run: echo "::warning::Tipp-Generierung fehlgeschlagen — Kicktipp-Übertragung läuft trotzdem mit bestehenden Archiven."
 
       - uses: actions/setup-node@v6
         with:
@@ -143,6 +149,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin main
           git add docs/ state/
           if git diff --staged --quiet; then
             echo "No changes to commit."
@@ -154,5 +161,4 @@ jobs:
             MSG="Update predictions $(TZ=Europe/Berlin date +%d.%m.)"
           fi
           git commit -m "$MSG"
-          git pull --rebase origin main
           git push

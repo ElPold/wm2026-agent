@@ -12,7 +12,7 @@ sys.path.insert(0, str(ROOT))
 
 from src.sources.config import Settings
 from src.sources.match_linker import link_fixtures
-from src.sources.oddspapi import OddsPapiClient, parse_bookmaker_odds, _parse_bookmaker_markets
+from src.sources.oddspapi import OddsPapiClient
 from src.sources.openfootball import OpenFootballSchedule
 from src.sources.odds_provider import OddsProvider
 from src.sources.team_names import teams_match
@@ -59,70 +59,42 @@ def main() -> int:
             ):
                 print(f"  NICHT im Spielplan: {home} vs {away}")
 
-    if not settings.has_oddspapi():
-        print("\nODDSPAPI_API_KEY fehlt.")
+    if not schedule_hits:
         return 1
 
-    client = OddsPapiClient(settings)
-    raw = client.get_odds_by_tournament()
-    print(f"\n=== OddsPapi Turnier {settings.oddspapi_tournament_id or 16} ===")
-    print(f"Fixtures in API: {len(raw)}")
+    if not settings.has_oddspapi() and not settings.has_the_odds_api():
+        print("\nWeder ODDSPAPI_API_KEY noch THE_ODDS_API_KEY gesetzt.", file=sys.stderr)
+        return 1
 
-    odds_matches = [client.fixture_to_match(item) for item in raw]
-    keywords = ("austral", "turk", "tür", "german", "cura")
-    print("\nAPI-Spiele mit Stichwort (austral/turk/german/cura):")
-    for item in raw:
-        text = f"{item.get('participant1Name')} vs {item.get('participant2Name')}"
-        blob = text.lower()
-        if any(k in blob for k in keywords):
-            market = parse_bookmaker_odds(item, settings.oddspapi_bookmaker)
-            odds_txt = (
-                f"1X2 {market.home}/{market.draw}/{market.away}"
-                if market
-                else "keine parsebaren Pinnacle-Märkte"
+    provider = OddsProvider(settings)
+    markets = provider.fetch_odds_for_schedule(schedule_hits)
+    print("\n=== Quoten (OddsPapi → The Odds API Fallback) ===")
+    ok = 0
+    for game in schedule_hits:
+        market = markets.get(game.fixture_id)
+        if market:
+            ok += 1
+            print(
+                f"  OK {game.home_team} vs {game.away_team}: "
+                f"1X2 {market.home}/{market.draw}/{market.away} "
+                f"O/U {market.over_2_5}/{market.under_2_5} "
+                f"({market.source}/{market.bookmaker})"
             )
-            bms = list((item.get("bookmakerOdds") or {}).keys())
-            partial = []
-            for bm in bms:
-                parsed = _parse_bookmaker_markets(
-                    (item.get("bookmakerOdds") or {}).get(bm, {}).get("markets", {})
-                )
-                if parsed is None:
-                    partial.append(f"{bm}:unvollständig")
-                else:
-                    x2, ou = parsed
-                    partial.append(
-                        f"{bm}:1X2={x2['home']}/{x2['draw']}/{x2['away']} "
-                        f"OU={ou['over']}/{ou['under']}"
-                    )
-            print(f"  {text} | start={item.get('startTime')} | {odds_txt}")
-            print(f"    Bookmaker-Detail: {', '.join(partial)}")
+        else:
+            print(f"  FEHLT {game.home_team} vs {game.away_team}")
 
-    if schedule_hits:
-        links = link_fixtures(schedule_hits, odds_matches)
-        provider = OddsProvider(settings)
-        markets = provider.fetch_odds_for_schedule(schedule_hits)
-        print("\n=== Linker-Ergebnis für Zielspiele ===")
-        for game in schedule_hits:
-            linked = links.get(game.fixture_id)
-            market = markets.get(game.fixture_id)
-            if linked:
-                print(
-                    f"  OK {game.home_team} vs {game.away_team} -> "
-                    f"API: {linked.home_team} vs {linked.away_team} "
-                    f"({linked.kickoff_berlin.isoformat()})"
-                )
-            else:
-                print(f"  KEIN LINK: {game.home_team} vs {game.away_team}")
-            if market:
-                print(
-                    f"    Quoten: {market.home}/{market.draw}/{market.away} "
-                    f"O/U {market.over_2_5}/{market.under_2_5}"
-                )
-            else:
-                print("    Keine Quoten im Provider")
+    if settings.has_oddspapi():
+        try:
+            client = OddsPapiClient(settings)
+            raw = client.get_odds_by_tournament()
+            odds_matches = [client.fixture_to_match(item) for item in raw]
+            links = link_fixtures(schedule_hits, odds_matches)
+            print(f"\n=== OddsPapi Diagnose (Turnier {settings.oddspapi_tournament_id or 16}) ===")
+            print(f"Fixtures in API: {len(raw)}, Links: {len(links)}/{len(schedule_hits)}")
+        except Exception as exc:
+            print(f"\n=== OddsPapi Diagnose ===\n  nicht verfügbar: {exc}")
 
-    return 0
+    return 0 if ok == len(schedule_hits) else 1
 
 
 if __name__ == "__main__":

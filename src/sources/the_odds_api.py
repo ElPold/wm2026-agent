@@ -54,11 +54,25 @@ def parse_event_odds(event: dict[str, Any]) -> MarketOdds | None:
     if not bookmakers:
         return None
 
-    bookmaker = _select_bookmaker(bookmakers)
-    odds_1x2: dict[str, float] = {}
-    odds_ou25: dict[str, float] = {}
     home = event.get("home_team", "")
     away = event.get("away_team", "")
+
+    for bookmaker in _ordered_bookmakers(bookmakers):
+        market = _parse_bookmaker_event(bookmaker, home=home, away=away)
+        if market is not None:
+            return market
+
+    return None
+
+
+def _parse_bookmaker_event(
+    bookmaker: dict[str, Any],
+    *,
+    home: str,
+    away: str,
+) -> MarketOdds | None:
+    odds_1x2: dict[str, float] = {}
+    odds_ou25: dict[str, float] = {}
 
     for market in bookmaker.get("markets", []):
         key = market.get("key")
@@ -98,12 +112,44 @@ def parse_event_odds(event: dict[str, Any]) -> MarketOdds | None:
     )
 
 
-def _select_bookmaker(bookmakers: list[dict[str, Any]]) -> dict[str, Any]:
+def _ordered_bookmakers(bookmakers: list[dict[str, Any]]) -> list[dict[str, Any]]:
     by_key = {bm["key"]: bm for bm in bookmakers}
+    ordered: list[dict[str, Any]] = []
+    seen: set[str] = set()
+
     for preferred in PREFERRED_BOOKMAKERS:
-        if preferred in by_key:
-            return by_key[preferred]
+        candidate = by_key.get(preferred)
+        if candidate is not None:
+            ordered.append(candidate)
+            seen.add(preferred)
+
+    for bookmaker in bookmakers:
+        if bookmaker["key"] not in seen:
+            ordered.append(bookmaker)
+
+    return ordered
+
+
+def _select_bookmaker(bookmakers: list[dict[str, Any]]) -> dict[str, Any]:
+    for bookmaker in _ordered_bookmakers(bookmakers):
+        if _bookmaker_has_ou25(bookmaker):
+            return bookmaker
     return bookmakers[0]
+
+
+def _bookmaker_has_ou25(bookmaker: dict[str, Any]) -> bool:
+    keys = {market.get("key") for market in bookmaker.get("markets", [])}
+    if "h2h" not in keys or "totals" not in keys:
+        return False
+
+    for market in bookmaker.get("markets", []):
+        if market.get("key") != "totals":
+            continue
+        for outcome in market.get("outcomes", []):
+            point = outcome.get("point")
+            if point is not None and float(point) == 2.5:
+                return True
+    return False
 
 
 def _parse_utc(value: str) -> datetime:
