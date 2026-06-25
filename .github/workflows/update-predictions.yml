@@ -43,13 +43,15 @@ jobs:
       - name: Validate API secrets
         run: |
           if [ -z "$ODDSPAPI_API_KEY" ] && [ -z "$THE_ODDS_API_KEY" ]; then
-            echo "::error::Keine Quoten-API konfiguriert. Bitte Repository-Secret ODDSPAPI_API_KEY setzen (Settings → Secrets and variables → Actions)."
+            echo "::error::Keine Quoten-API konfiguriert. Bitte THE_ODDS_API_KEY oder ODDSPAPI_API_KEY setzen (Settings → Secrets and variables → Actions)."
             exit 1
           fi
           if [ -z "$ODDSPAPI_API_KEY" ]; then
-            echo "Hinweis: ODDSPAPI_API_KEY fehlt — nutze nur THE_ODDS_API_KEY als Fallback."
-          else
+            echo "Nutze THE_ODDS_API_KEY als Quotenquelle."
+          elif [ -z "$THE_ODDS_API_KEY" ]; then
             echo "OddsPapi-Key vorhanden (Tournament ID: ${ODDSPAPI_TOURNAMENT_ID})."
+          else
+            echo "OddsPapi + The Odds API konfiguriert (Fallback)."
           fi
 
       - name: Install dependencies
@@ -149,7 +151,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git pull --rebase origin main
           git add docs/ state/
           if git diff --staged --quiet; then
             echo "No changes to commit."
@@ -161,4 +162,5 @@ jobs:
             MSG="Update predictions $(TZ=Europe/Berlin date +%d.%m.)"
           fi
           git commit -m "$MSG"
+          git pull --rebase origin main
           git push
