@@ -1,6 +1,6 @@
 {
   "round": "Matchday 8",
-  "generated_at": "2026-06-18T13:45:15.010330+02:00",
+  "generated_at": "2026-06-25T21:52:53.881184+02:00",
   "match_count": 4,
   "predictions": [
     {
@@ -67,7 +67,8 @@
           "score": "4:3",
           "expected_points": 1.1448
         }
-      ]
+      ],
+      "locked": true
     },
     {
       "fixture_id": "wc26-009",
@@ -133,7 +134,8 @@
           "score": "2:0",
           "expected_points": 1.2695
         }
-      ]
+      ],
+      "locked": true
     },
     {
       "fixture_id": "wc26-010",
@@ -199,7 +201,8 @@
           "score": "3:1",
           "expected_points": 1.7896
         }
-      ]
+      ],
+      "locked": true
     },
     {
       "fixture_id": "wc26-004",
@@ -265,7 +268,8 @@
           "score": "4:3",
           "expected_points": 1.2015
         }
-      ]
+      ],
+      "locked": true
     }
   ]
 }

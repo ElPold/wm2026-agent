@@ -1,6 +1,6 @@
 {
   "round": "Matchday 17",
-  "generated_at": "2026-06-18T13:45:38.344043+02:00",
+  "generated_at": "2026-06-25T21:52:56.642516+02:00",
   "match_count": 6,
   "predictions": [
     {
@@ -10,62 +10,62 @@
       "kickoff_berlin": "2026-06-27T23:00:00+02:00",
       "venue": "New York/New Jersey (East Rutherford)",
       "round": "Matchday 17",
-      "odds_source": "oddspapi",
-      "bookmaker": "pinnacle",
+      "odds_source": "the_odds_api",
+      "bookmaker": "williamhill",
       "odds_1x2": {
-        "home": 9.39,
-        "draw": 2.87,
-        "away": 1.584
+        "home": 13.0,
+        "draw": 7.5,
+        "away": 1.17
       },
       "odds_ou25": {
-        "over": 2.13,
-        "under": 1.653
+        "over": 1.44,
+        "under": 2.62
       },
       "market_probs": {
-        "home": 0.09804106783088924,
-        "draw": 0.32076851112614985,
-        "away": 0.5811904210429609,
-        "over_2_5": 0.4369547977795401
+        "home": 0.07223113964686999,
+        "draw": 0.12520064205457465,
+        "away": 0.8025682182985554,
+        "over_2_5": 0.645320197044335
       },
-      "lambda_home": 0.6910450496921451,
-      "lambda_away": 1.6283013353951086,
-      "tip": "0:1",
-      "expected_points": 1.6275,
-      "most_likely_score": "0:1",
+      "lambda_home": 0.6528654487256376,
+      "lambda_away": 2.714735149659638,
+      "tip": "0:2",
+      "expected_points": 1.9599,
+      "most_likely_score": "0:2",
       "top_scores": [
         {
-          "score": "0:1",
-          "probability": 0.1604
-        },
-        {
           "score": "0:2",
-          "probability": 0.1306
+          "probability": 0.1298
         },
         {
-          "score": "1:1",
-          "probability": 0.1108
+          "score": "0:3",
+          "probability": 0.1174
         },
         {
-          "score": "0:0",
-          "probability": 0.0985
+          "score": "0:1",
+          "probability": 0.0956
         },
         {
           "score": "1:2",
-          "probability": 0.0902
+          "probability": 0.0847
+        },
+        {
+          "score": "0:4",
+          "probability": 0.0797
         }
       ],
       "top_alternatives": [
         {
-          "score": "1:2",
-          "expected_points": 1.5573
+          "score": "0:1",
+          "expected_points": 1.9096
         },
         {
-          "score": "0:2",
-          "expected_points": 1.5155
+          "score": "1:3",
+          "expected_points": 1.9068
         },
         {
-          "score": "2:3",
-          "expected_points": 1.484
+          "score": "0:3",
+          "expected_points": 1.9016
         }
       ]
     },
@@ -76,62 +76,62 @@
       "kickoff_berlin": "2026-06-27T23:00:00+02:00",
       "venue": "Philadelphia",
       "round": "Matchday 17",
-      "odds_source": "oddspapi",
-      "bookmaker": "pinnacle",
+      "odds_source": "the_odds_api",
+      "bookmaker": "gtbets",
       "odds_1x2": {
-        "home": 1.595,
-        "draw": 3.79,
-        "away": 5.49
+        "home": 1.76,
+        "draw": 3.32,
+        "away": 5.54
       },
       "odds_ou25": {
-        "over": 2.02,
-        "under": 1.751
+        "over": 2.23,
+        "under": 1.67
       },
       "market_probs": {
-        "home": 0.5843263022800608,
-        "draw": 0.24591040953474852,
-        "away": 0.16976328818519068,
-        "over_2_5": 0.46433306815168385
+        "home": 0.5411811783536943,
+        "draw": 0.2868912270790669,
+        "away": 0.17192759456723863,
+        "over_2_5": 0.42820512820512824
       },
-      "lambda_home": 1.7113098605961965,
-      "lambda_away": 0.813347176527222,
+      "lambda_home": 1.549026077012426,
+      "lambda_away": 0.8008117451639472,
       "tip": "1:0",
-      "expected_points": 1.5683,
+      "expected_points": 1.509,
       "most_likely_score": "1:0",
       "top_scores": [
         {
           "score": "1:0",
-          "probability": 0.1373
-        },
-        {
-          "score": "2:0",
-          "probability": 0.1175
+          "probability": 0.1479
         },
         {
           "score": "1:1",
-          "probability": 0.1117
+          "probability": 0.1185
         },
         {
-          "score": "2:1",
-          "probability": 0.0956
+          "score": "2:0",
+          "probability": 0.1146
         },
         {
           "score": "0:0",
-          "probability": 0.0802
+          "probability": 0.0955
+        },
+        {
+          "score": "2:1",
+          "probability": 0.0917
         }
       ],
       "top_alternatives": [
         {
           "score": "2:1",
-          "expected_points": 1.5265
+          "expected_points": 1.4528
         },
         {
           "score": "2:0",
-          "expected_points": 1.4731
+          "expected_points": 1.3848
         },
         {
           "score": "3:2",
-          "expected_points": 1.4531
+          "expected_points": 1.38
         }
       ]
     },
@@ -142,62 +142,62 @@
       "kickoff_berlin": "2026-06-28T01:30:00+02:00",
       "venue": "Miami (Miami Gardens)",
       "round": "Matchday 17",
-      "odds_source": "oddspapi",
+      "odds_source": "the_odds_api",
       "bookmaker": "pinnacle",
       "odds_1x2": {
-        "home": 3.37,
-        "draw": 3.37,
-        "away": 2.11
+        "home": 4.19,
+        "draw": 3.86,
+        "away": 1.84
       },
       "odds_ou25": {
-        "over": 2.06,
-        "under": 1.719
+        "over": 2.05,
+        "under": 1.83
       },
       "market_probs": {
-        "home": 0.27799736495388666,
-        "draw": 0.27799736495388666,
-        "away": 0.44400527009222657,
-        "over_2_5": 0.45488224397988886
+        "home": 0.2292176315296882,
+        "draw": 0.2488139575412937,
+        "away": 0.5219684109290182,
+        "over_2_5": 0.4716494845360826
       },
-      "lambda_home": 1.067379855768157,
-      "lambda_away": 1.412787818926729,
+      "lambda_home": 0.965422602256786,
+      "lambda_away": 1.60046648816614,
       "tip": "0:1",
-      "expected_points": 1.2489,
-      "most_likely_score": "1:1",
+      "expected_points": 1.4122,
+      "most_likely_score": "0:1",
       "top_scores": [
         {
-          "score": "1:1",
-          "probability": 0.1264
-        },
-        {
           "score": "0:1",
-          "probability": 0.1184
+          "probability": 0.1232
         },
         {
-          "score": "1:0",
-          "probability": 0.0894
+          "score": "1:1",
+          "probability": 0.1189
+        },
+        {
+          "score": "0:2",
+          "probability": 0.0986
         },
         {
           "score": "1:2",
-          "probability": 0.0893
+          "probability": 0.0952
         },
         {
           "score": "0:0",
-          "probability": 0.0838
+          "probability": 0.077
         }
       ],
       "top_alternatives": [
         {
           "score": "1:2",
-          "expected_points": 1.2197
+          "expected_points": 1.3842
         },
         {
           "score": "2:3",
-          "expected_points": 1.1529
+          "expected_points": 1.3135
         },
         {
-          "score": "3:4",
-          "expected_points": 1.1333
+          "score": "0:2",
+          "expected_points": 1.3016
         }
       ]
     },
@@ -208,62 +208,62 @@
       "kickoff_berlin": "2026-06-28T01:30:00+02:00",
       "venue": "Atlanta",
       "round": "Matchday 17",
-      "odds_source": "oddspapi",
+      "odds_source": "the_odds_api",
       "bookmaker": "pinnacle",
       "odds_1x2": {
-        "home": 2.81,
-        "draw": 2.14,
-        "away": 4.01
+        "home": 1.75,
+        "draw": 4.23,
+        "away": 4.26
       },
       "odds_ou25": {
-        "over": 2.05,
-        "under": 1.729
+        "over": 1.92,
+        "under": 1.95
       },
       "market_probs": {
-        "home": 0.3318034713817863,
-        "draw": 0.4356858666274857,
-        "away": 0.23251066199072803,
-        "over_2_5": 0.45752844667901565
+        "home": 0.5480924528474054,
+        "draw": 0.2267521968044821,
+        "away": 0.22515535034811254,
+        "over_2_5": 0.5038759689922481
       },
-      "lambda_home": 1.2169113847979356,
-      "lambda_away": 1.0459119997521913,
+      "lambda_home": 1.7197310000970785,
+      "lambda_away": 0.989940509761595,
       "tip": "1:0",
-      "expected_points": 1.1526,
-      "most_likely_score": "1:1",
+      "expected_points": 1.4475,
+      "most_likely_score": "1:0",
       "top_scores": [
         {
-          "score": "1:1",
-          "probability": 0.1325
-        },
-        {
           "score": "1:0",
-          "probability": 0.1267
+          "probability": 0.1147
         },
         {
-          "score": "0:1",
-          "probability": 0.1089
+          "score": "1:1",
+          "probability": 0.1135
         },
         {
-          "score": "0:0",
-          "probability": 0.1041
+          "score": "2:0",
+          "probability": 0.0986
         },
         {
           "score": "2:1",
-          "probability": 0.0806
+          "probability": 0.0976
+        },
+        {
+          "score": "0:0",
+          "probability": 0.0667
         }
       ],
       "top_alternatives": [
         {
           "score": "2:1",
-          "expected_points": 1.1066
+          "expected_points": 1.4305
         },
         {
           "score": "3:2",
-          "expected_points": 1.043
+          "expected_points": 1.3605
         },
         {
-          "score": "4:3",
-          "expected_points": 1.0278
+          "score": "2:0",
+          "expected_points": 1.3551
         }
       ]
     },
@@ -274,62 +274,62 @@
       "kickoff_berlin": "2026-06-28T04:00:00+02:00",
       "venue": "Kansas City",
       "round": "Matchday 17",
-      "odds_source": "oddspapi",
-      "bookmaker": "pinnacle",
+      "odds_source": "the_odds_api",
+      "bookmaker": "williamhill",
       "odds_1x2": {
-        "home": 3.35,
-        "draw": 2.14,
-        "away": 3.27
+        "home": 3.5,
+        "draw": 2.25,
+        "away": 2.62
       },
       "odds_ou25": {
-        "over": 2.1,
-        "under": 1.699
+        "over": 2.62,
+        "under": 1.44
       },
       "market_probs": {
-        "home": 0.2785604248187793,
-        "draw": 0.4360642164219209,
-        "away": 0.28537535875929987,
-        "over_2_5": 0.44722295340879176
+        "home": 0.256974716652136,
+        "draw": 0.3997384481255449,
+        "away": 0.34328683522231906,
+        "over_2_5": 0.35467980295566504
       },
-      "lambda_home": 1.1059476957200185,
-      "lambda_away": 1.117622803200699,
+      "lambda_home": 0.8971965156831837,
+      "lambda_away": 1.0450138913466074,
       "tip": "0:1",
-      "expected_points": 1.0501,
-      "most_likely_score": "1:1",
+      "expected_points": 1.1472,
+      "most_likely_score": "0:1",
       "top_scores": [
         {
-          "score": "1:1",
-          "probability": 0.1338
-        },
-        {
           "score": "0:1",
-          "probability": 0.121
-        },
-        {
-          "score": "1:0",
-          "probability": 0.1197
+          "probability": 0.1499
         },
         {
           "score": "0:0",
-          "probability": 0.1083
+          "probability": 0.1434
         },
         {
-          "score": "1:2",
-          "probability": 0.0748
+          "score": "1:1",
+          "probability": 0.1345
+        },
+        {
+          "score": "1:0",
+          "probability": 0.1287
+        },
+        {
+          "score": "0:2",
+          "probability": 0.0783
         }
       ],
       "top_alternatives": [
         {
-          "score": "1:0",
-          "expected_points": 1.035
-        },
-        {
           "score": "1:2",
-          "expected_points": 1.0039
+          "expected_points": 1.0676
         },
         {
-          "score": "2:1",
-          "expected_points": 0.9892
+          "score": "2:3",
+          "expected_points": 1.0083
+        },
+        {
+          "score": "3:4",
+          "expected_points": 0.9982
         }
       ]
     },
@@ -340,62 +340,62 @@
       "kickoff_berlin": "2026-06-28T04:00:00+02:00",
       "venue": "Dallas (Arlington)",
       "round": "Matchday 17",
-      "odds_source": "oddspapi",
-      "bookmaker": "pinnacle",
+      "odds_source": "the_odds_api",
+      "bookmaker": "gtbets",
       "odds_1x2": {
-        "home": 12.45,
-        "draw": 6.86,
-        "away": 1.173
+        "home": 14.23,
+        "draw": 7.13,
+        "away": 1.21
       },
       "odds_ou25": {
-        "over": 2.04,
-        "under": 1.714
+        "over": 1.62,
+        "under": 2.3
       },
       "market_probs": {
-        "home": 0.07446748554451917,
-        "draw": 0.135148716476569,
-        "away": 0.7903837979789118,
-        "over_2_5": 0.45657964837506654
+        "home": 0.06776847818829508,
+        "draw": 0.13525181551464782,
+        "away": 0.7969797062970572,
+        "over_2_5": 0.586734693877551
       },
-      "lambda_home": 0.37331486828207344,
-      "lambda_away": 2.1667666273378354,
+      "lambda_home": 0.5599297735095222,
+      "lambda_away": 2.516756941856117,
       "tip": "0:2",
-      "expected_points": 2.0098,
+      "expected_points": 1.9732,
       "most_likely_score": "0:2",
       "top_scores": [
         {
           "score": "0:2",
-          "probability": 0.1864
-        },
-        {
-          "score": "0:1",
-          "probability": 0.1721
+          "probability": 0.1482
         },
         {
           "score": "0:3",
-          "probability": 0.1346
+          "probability": 0.1243
         },
         {
-          "score": "0:0",
-          "probability": 0.0794
+          "score": "0:1",
+          "probability": 0.1178
+        },
+        {
+          "score": "1:2",
+          "probability": 0.083
         },
         {
           "score": "0:4",
-          "probability": 0.0729
+          "probability": 0.0782
         }
       ],
       "top_alternatives": [
         {
           "score": "0:1",
-          "expected_points": 2.0051
+          "expected_points": 1.9342
         },
         {
           "score": "1:2",
-          "expected_points": 1.9026
+          "expected_points": 1.8994
         },
         {
-          "score": "0:3",
-          "expected_points": 1.8801
+          "score": "1:3",
+          "expected_points": 1.8946
         }
       ]
     }
