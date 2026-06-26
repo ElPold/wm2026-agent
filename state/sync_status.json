@@ -1,13 +1,13 @@
 {
   "predictions": {
-    "updated_at": "2026-06-26T12:43:39.066544+02:00",
+    "updated_at": "2026-06-26T18:11:19.044579+02:00",
     "rounds": 17,
     "mode": "all-rounds",
     "round": null,
     "source": "auto"
   },
   "kicktipp": {
-    "synced_at": "2026-06-26T12:45:05.097487+02:00",
+    "synced_at": "2026-06-26T18:12:53.244224+02:00",
     "status": "skipped",
     "spieltag": null,
     "tips_count": 0,
