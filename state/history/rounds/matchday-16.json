@@ -1,6 +1,6 @@
 {
   "round": "Matchday 16",
-  "generated_at": "2026-06-26T18:11:18.110048+02:00",
+  "generated_at": "2026-06-27T11:55:59.250663+02:00",
   "match_count": 6,
   "predictions": [
     {
@@ -67,7 +67,8 @@
           "score": "0:2",
           "expected_points": 1.4455
         }
-      ]
+      ],
+      "locked": true
     },
     {
       "fixture_id": "wc26-054",
@@ -133,7 +134,8 @@
           "score": "3:1",
           "expected_points": 1.8389
         }
-      ]
+      ],
+      "locked": true
     },
     {
       "fixture_id": "wc26-047",
@@ -199,7 +201,8 @@
           "score": "1:2",
           "expected_points": 1.0071
         }
-      ]
+      ],
+      "locked": true
     },
     {
       "fixture_id": "wc26-048",
@@ -265,7 +268,8 @@
           "score": "2:3",
           "expected_points": 1.4389
         }
-      ]
+      ],
+      "locked": true
     },
     {
       "fixture_id": "wc26-041",
@@ -331,7 +335,8 @@
           "score": "4:3",
           "expected_points": 1.0187
         }
-      ]
+      ],
+      "locked": true
     },
     {
       "fixture_id": "wc26-042",
@@ -397,7 +402,8 @@
           "score": "0:3",
           "expected_points": 1.8484
         }
-      ]
+      ],
+      "locked": true
     }
   ]
 }
