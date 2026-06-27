@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-27T15:13:10.091181+00:00",
+  "updated_at": "2026-06-27T23:59:22.310045+00:00",
   "source": "kicktipp",
   "results": {
     "wc26-001": {
@@ -595,6 +595,42 @@
       "kicktipp_home": "Ägypten",
       "kicktipp_away": "Iran",
       "date": "27.06.26 03:00"
+    },
+    "wc26-072": {
+      "home": 2,
+      "away": 1,
+      "score": "2:1",
+      "source": "kicktipp",
+      "kicktipp_home": "Kroatien",
+      "kicktipp_away": "Ghana",
+      "date": "27.06.26 21:00"
+    },
+    "wc26-071": {
+      "home": 0,
+      "away": 2,
+      "score": "0:2",
+      "source": "kicktipp",
+      "kicktipp_home": "Panama",
+      "kicktipp_away": "England",
+      "date": "27.06.26 21:00"
+    },
+    "wc26-066": {
+      "home": 0,
+      "away": 1,
+      "score": "0:1",
+      "source": "kicktipp",
+      "kicktipp_home": "DR Kongo",
+      "kicktipp_away": "Usbekistan",
+      "date": "27.06.26 23:30"
+    },
+    "wc26-065": {
+      "home": 0,
+      "away": 0,
+      "score": "0:0",
+      "source": "kicktipp",
+      "kicktipp_home": "Kolumbien",
+      "kicktipp_away": "Portugal",
+      "date": "27.06.26 23:30"
     }
   }
 }
