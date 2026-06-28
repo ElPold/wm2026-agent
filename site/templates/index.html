@@ -79,21 +79,10 @@
       </div>
       {% endif %}
       {% if sync_status.kicktipp %}
-      <div class="sync-status-item sync-status-item-{{ sync_status.kicktipp.status_class }}">
-        <span class="sync-status-dot sync-status-dot-{{ sync_status.kicktipp.status_class }}" aria-hidden="true"></span>
-        <span class="t-normal">
-          {% if sync_status.kicktipp.status == 'ok' %}
-          Kicktipp Spieltag {{ sync_status.kicktipp.spieltag }} transferred · {{ sync_status.kicktipp.tips_count }} tips · {{ sync_status.kicktipp.synced_at }}
-          {% elif sync_status.kicktipp.status == 'partial' %}
-          Kicktipp Spieltag {{ sync_status.kicktipp.spieltag }} partially transferred · {{ sync_status.kicktipp.tips_count }} tips · {{ sync_status.kicktipp.synced_at }}{% if sync_status.kicktipp.error %} · {{ sync_status.kicktipp.error }}{% endif %}
-          {% elif sync_status.kicktipp.status == 'failed' %}
-          Kicktipp transfer failed · {{ sync_status.kicktipp.synced_at }}{% if sync_status.kicktipp.error %} · {{ sync_status.kicktipp.error }}{% endif %}
-          {% else %}
-          Kicktipp transfer skipped · {{ sync_status.kicktipp.synced_at }}{% if sync_status.kicktipp.error %} · {{ sync_status.kicktipp.error }}{% endif %}
-          {% endif %}
-          {% if sync_status.kicktipp.mode == 'auto' %} · auto{% endif %}
-        </span>
-        <span class="t-cat" hidden>Kicktipp bowl status</span>
+      <div class="sync-status-item sync-status-item-muted">
+        <span class="sync-status-dot sync-status-dot-muted" aria-hidden="true"></span>
+        <span class="t-normal">Kicktipp: manual entry only — agent tips are not transferred automatically</span>
+        <span class="t-cat" hidden>Manual bowl entry only</span>
       </div>
       {% endif %}
     </div>
@@ -163,31 +152,13 @@
             <span class="t-normal">{{ round.date_label }} · Generated {{ round.generated_at }} · {{ round.match_count }} match{% if round.match_count != 1 %}es{% endif %}</span>
             <span class="t-cat" hidden>{{ round.date_label }} · Purred {{ round.generated_at }} · {{ round.match_count }} window watch{% if round.match_count != 1 %}es{% endif %}</span>
           </p>
-          {% if round.kicktipp_workflow_url %}
-          <p class="day-kicktipp-hint">
-            <span class="t-normal">Kicktipp Spieltag {{ round.kicktipp_spieltag }} · transfers all agent tips for this Kicktipp round</span>
-            <span class="t-cat" hidden>Kicktipp bowl round {{ round.kicktipp_spieltag }}</span>
+          {% if round.kicktipp_spieltag %}
+          <p class="day-kicktipp-hint day-kicktipp-hint-muted">
+            <span class="t-normal">Tipps manuell auf kicktipp.de eintragen (Spieltag {{ round.kicktipp_spieltag }})</span>
+            <span class="t-cat" hidden>Enter picks manually on the bowl site</span>
           </p>
           {% endif %}
         </div>
-        {% if round.kicktipp_workflow_url %}
-        <a
-          href="#"
-          class="kicktipp-btn"
-          data-kicktipp-btn
-          data-kicktipp-spieltag="{{ round.kicktipp_spieltag }}"
-          data-kicktipp-workflow-url="{{ round.kicktipp_workflow_url }}"
-          aria-haspopup="dialog"
-        >
-          <span class="t-normal">→ Transfer to Kicktipp</span>
-          <span class="t-cat" hidden>→ Send to Kicktipp bowl</span>
-        </a>
-        {% else %}
-        <p class="day-kicktipp-hint day-kicktipp-hint-muted">
-          <span class="t-normal">Kicktipp transfer only for group-stage matchdays</span>
-          <span class="t-cat" hidden>Bowl transfer only for group naps</span>
-        </p>
-        {% endif %}
       </div>
 
       <div class="match-list">
@@ -518,12 +489,12 @@
         </div>
         <div class="glossary-item">
           <dt>
-            <span class="t-normal">Transfer to Kicktipp</span>
-            <span class="t-cat" hidden>Send to Kicktipp bowl</span>
+            <span class="t-normal">Kicktipp entry</span>
+            <span class="t-cat" hidden>Bowl entry</span>
           </dt>
           <dd>
-            <span class="t-normal">Submits all agent tips for the corresponding Kicktipp matchday (group-round bundle, not a single calendar day). Opens a dedicated GitHub Actions workflow on kicktipp.de — click <strong>Run workflow</strong> twice after entering the password.</span>
-            <span class="t-cat" hidden>Sends every pick for that Kicktipp bowl round to kicktipp.de via GitHub Actions — mash Run workflow twice after the secret purr.</span>
+            <span class="t-normal">Agent tips are shown here for reference only. Enter picks manually on <a href="https://www.kicktipp.de" rel="noopener noreferrer">kicktipp.de</a>.</span>
+            <span class="t-cat" hidden>Copy the cat picks by paw on kicktipp.de yourself.</span>
           </dd>
         </div>
       </dl>

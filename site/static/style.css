@@ -448,6 +448,15 @@ body {
   box-shadow: 0 0 0 3px rgba(240, 180, 41, 0.12);
 }
 
+.sync-status-dot-muted,
+.sync-status-item-muted {
+  opacity: 0.85;
+}
+
+.sync-status-dot-muted {
+  background: var(--muted, #888);
+}
+
 .sync-status-item-failed {
   color: #ffb4b4;
 }

@@ -61,10 +61,7 @@
       var input = document.getElementById("update-gate-input");
       var error = document.getElementById("update-gate-error");
       var submitBtn = document.getElementById("update-gate-submit");
-      var gateHint = document.getElementById("update-gate-hint");
-      var gateSpieltag = document.getElementById("update-gate-spieltag");
       var pendingWorkflowUrl = "";
-      var pendingMode = "update";
 
       function isUnlocked() {
         try {
@@ -82,22 +79,6 @@
         }
       }
 
-      function setGateMode(mode, spieltag) {
-        pendingMode = mode;
-        document.querySelectorAll(".gate-copy-update").forEach(function (el) {
-          el.hidden = mode !== "update";
-        });
-        document.querySelectorAll(".gate-copy-kicktipp").forEach(function (el) {
-          el.hidden = mode !== "kicktipp";
-        });
-        if (gateHint) {
-          gateHint.hidden = mode !== "kicktipp";
-        }
-        if (gateSpieltag && spieltag) {
-          gateSpieltag.textContent = String(spieltag);
-        }
-      }
-
       function openWorkflow(url) {
         if (!url) {
           return;
@@ -105,12 +86,11 @@
         window.open(url, "_blank", "noopener,noreferrer");
       }
 
-      function showGate(url, mode, spieltag) {
+      function showGate(url) {
         if (!gate || !input) {
           return;
         }
         pendingWorkflowUrl = url || "";
-        setGateMode(mode || "update", spieltag);
         gate.hidden = false;
         if (error) {
           error.hidden = true;
@@ -125,7 +105,6 @@
         }
         gate.hidden = true;
         pendingWorkflowUrl = "";
-        setGateMode("update");
         if (input) {
           input.value = "";
         }
@@ -151,35 +130,23 @@
         input.select();
       }
 
-      function handleProtectedAction(event, url, mode, spieltag) {
+      function handleProtectedAction(event, url) {
         event.preventDefault();
         if (isUnlocked()) {
           openWorkflow(url);
           return;
         }
-        showGate(url, mode, spieltag);
+        showGate(url);
       }
 
       if (updateBtn) {
         updateBtn.addEventListener("click", function (event) {
           handleProtectedAction(
             event,
-            updateBtn.getAttribute("data-update-url"),
-            "update"
+            updateBtn.getAttribute("data-update-url")
           );
         });
       }
-
-      document.querySelectorAll("[data-kicktipp-btn]").forEach(function (btn) {
-        btn.addEventListener("click", function (event) {
-          handleProtectedAction(
-            event,
-            btn.getAttribute("data-kicktipp-workflow-url"),
-            "kicktipp",
-            btn.getAttribute("data-kicktipp-spieltag")
-          );
-        });
-      });
 
       if (submitBtn) {
         submitBtn.addEventListener("click", tryUnlock);

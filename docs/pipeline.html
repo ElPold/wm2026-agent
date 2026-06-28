@@ -82,7 +82,7 @@
           <span class="t-normal">Catify</span>
           <span class="t-cat" hidden>Un-Catify</span>
         </button>
-        <span class="site-version mono" title="Site build version">v35</span>
+        <span class="site-version mono" title="Site build version">v1</span>
       </div>
     </div>
   </header>
@@ -95,20 +95,12 @@
       aria-labelledby="update-gate-title"
     >
       <h2 class="update-gate-title" id="update-gate-title">
-        <span class="t-normal gate-copy-update">Update matchday</span>
-        <span class="t-normal gate-copy-kicktipp" hidden>Transfer to Kicktipp</span>
-        <span class="t-cat gate-copy-update" hidden>Refill the bowl</span>
-        <span class="t-cat gate-copy-kicktipp" hidden>Send picks to the bowl</span>
+        <span class="t-normal">Update matchday</span>
+        <span class="t-cat" hidden>Refill the bowl</span>
       </h2>
       <p class="update-gate-lead" id="update-gate-lead">
-        <span class="t-normal gate-copy-update">Enter the password to open the GitHub Actions workflow.</span>
-        <span class="t-normal gate-copy-kicktipp" hidden>Enter the password, then run the Kicktipp workflow on GitHub.</span>
-        <span class="t-cat gate-copy-update" hidden>Whisper the secret phrase to send the cat to the odds window.</span>
-        <span class="t-cat gate-copy-kicktipp" hidden>Whisper the secret phrase, then let the cat deliver the tips.</span>
-      </p>
-      <p class="update-gate-hint" id="update-gate-hint" hidden>
-        <span class="t-normal">Then click <strong>Run workflow</strong> twice on GitHub (Spieltag <span id="update-gate-spieltag"></span>).</span>
-        <span class="t-cat" hidden>Then mash <strong>Run workflow</strong> twice on GitHub.</span>
+        <span class="t-normal">Enter the password to open the GitHub Actions workflow.</span>
+        <span class="t-cat" hidden>Whisper the secret phrase to send the cat to the odds window.</span>
       </p>
       <label class="update-gate-label" for="update-gate-input">
         <span class="t-normal">Password</span>
@@ -203,7 +195,7 @@
         <div class="flow-node output">
           <span class="flow-tag">Optional</span>
           <strong>Kicktipp submit</strong>
-          <p>Dashboard button <em>Transfer to Kicktipp</em> → GitHub Actions → kicktipp-agent CLI → kicktipp.de. Cron submits all group spieltage 1–6; only matches actually open on each Kicktipp page are transferred.</p>
+          <p>Dashboard shows agent tips for manual entry on kicktipp.de. Cron updates predictions and rebuilds the site only — no automatic Kicktipp transfer.</p>
         </div>
       </div>
     </section>
@@ -343,10 +335,7 @@
       var input = document.getElementById("update-gate-input");
       var error = document.getElementById("update-gate-error");
       var submitBtn = document.getElementById("update-gate-submit");
-      var gateHint = document.getElementById("update-gate-hint");
-      var gateSpieltag = document.getElementById("update-gate-spieltag");
       var pendingWorkflowUrl = "";
-      var pendingMode = "update";
 
       function isUnlocked() {
         try {
@@ -364,22 +353,6 @@
         }
       }
 
-      function setGateMode(mode, spieltag) {
-        pendingMode = mode;
-        document.querySelectorAll(".gate-copy-update").forEach(function (el) {
-          el.hidden = mode !== "update";
-        });
-        document.querySelectorAll(".gate-copy-kicktipp").forEach(function (el) {
-          el.hidden = mode !== "kicktipp";
-        });
-        if (gateHint) {
-          gateHint.hidden = mode !== "kicktipp";
-        }
-        if (gateSpieltag && spieltag) {
-          gateSpieltag.textContent = String(spieltag);
-        }
-      }
-
       function openWorkflow(url) {
         if (!url) {
           return;
@@ -387,12 +360,11 @@
         window.open(url, "_blank", "noopener,noreferrer");
       }
 
-      function showGate(url, mode, spieltag) {
+      function showGate(url) {
         if (!gate || !input) {
           return;
         }
         pendingWorkflowUrl = url || "";
-        setGateMode(mode || "update", spieltag);
         gate.hidden = false;
         if (error) {
           error.hidden = true;
@@ -407,7 +379,6 @@
         }
         gate.hidden = true;
         pendingWorkflowUrl = "";
-        setGateMode("update");
         if (input) {
           input.value = "";
         }
@@ -433,35 +404,23 @@
         input.select();
       }
 
-      function handleProtectedAction(event, url, mode, spieltag) {
+      function handleProtectedAction(event, url) {
         event.preventDefault();
         if (isUnlocked()) {
           openWorkflow(url);
           return;
         }
-        showGate(url, mode, spieltag);
+        showGate(url);
       }
 
       if (updateBtn) {
         updateBtn.addEventListener("click", function (event) {
           handleProtectedAction(
             event,
-            updateBtn.getAttribute("data-update-url"),
-            "update"
+            updateBtn.getAttribute("data-update-url")
           );
         });
       }
-
-      document.querySelectorAll("[data-kicktipp-btn]").forEach(function (btn) {
-        btn.addEventListener("click", function (event) {
-          handleProtectedAction(
-            event,
-            btn.getAttribute("data-kicktipp-workflow-url"),
-            "kicktipp",
-            btn.getAttribute("data-kicktipp-spieltag")
-          );
-        });
-      });
 
       if (submitBtn) {
         submitBtn.addEventListener("click", tryUnlock);

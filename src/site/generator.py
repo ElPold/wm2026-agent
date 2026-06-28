@@ -468,9 +468,8 @@ def _kicktipp_workflow_url(
     spieltag: int | None,
     repo: str = "ElPold/wm2026-agent",
 ) -> str | None:
-    if spieltag is None:
-        return None
-    return f"https://github.com/{repo}/actions/workflows/kicktipp-spieltag.yml"
+    """Kicktipp-Submit ist deaktiviert — Tipps werden manuell eingetragen."""
+    return None
 
 
 def _attach_team_flags(item: dict[str, Any]) -> dict[str, Any]:

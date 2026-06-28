@@ -95,16 +95,15 @@ def test_build_site_from_predictions(tmp_path):
     assert "day-tab" in html
     assert "match-list" in html
     assert "Matchday 1" in html
-    assert "Transfer to Kicktipp" in html
-    assert "data-kicktipp-btn" in html
-    assert "kicktipp-spieltag.yml" in html
-    assert "Kicktipp Spieltag" in html
+    assert "manuell auf kicktipp.de" in html
+    assert "Transfer to Kicktipp" not in html
+    assert "data-kicktipp-btn" not in html
     assert "Top EV alternatives" in html
     assert "ev-alternatives" in html
     assert 'class="site-version' in html
     assert ">v" in html
     assert "sync-status" in html
-    assert "Kicktipp Spieltag 1 transferred" in html
+    assert "manual entry only" in html
     assert "Tips updated" in html
     assert "is-current" in html
     assert "day-tab-now" in html
