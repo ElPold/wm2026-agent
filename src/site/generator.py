@@ -686,12 +686,12 @@ def _round_tab_label(round_name: str) -> str:
     if match:
         return f"MD {match.group(1)}"
     short = {
-        "Round of 32": "R32",
-        "Round of 16": "R16",
-        "Quarter-final": "QF",
-        "Semi-final": "SF",
-        "Match for third place": "3rd",
-        "Final": "Final",
+        "Round of 32": "Sechzehntelfinale",
+        "Round of 16": "Achtelfinale",
+        "Quarter-final": "Viertelfinale",
+        "Semi-final": "Halbfinale",
+        "Match for third place": "Spiel um Platz 3",
+        "Final": "Finale",
     }
     return short.get(round_name, round_name)
 

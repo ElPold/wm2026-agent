@@ -1,10 +1,10 @@
 {
   "predictions": {
-    "updated_at": "2026-06-28T17:14:25.323419+02:00",
-    "rounds": 17,
-    "mode": "all-rounds",
-    "round": null,
-    "source": "auto"
+    "updated_at": "2026-06-28T21:19:24.856436+02:00",
+    "rounds": 1,
+    "mode": "round",
+    "round": "Round of 32",
+    "source": "manual"
   },
   "kicktipp": {
     "synced_at": "2026-06-28T17:15:25.383250+02:00",
