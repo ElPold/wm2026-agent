@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-28T15:15:09.143927+00:00",
+  "updated_at": "2026-06-29T00:06:17.253145+00:00",
   "source": "kicktipp",
   "results": {
     "wc26-001": {
@@ -649,6 +649,15 @@
       "kicktipp_home": "Jordanien",
       "kicktipp_away": "Argentinien",
       "date": "28.06.26 02:00"
+    },
+    "wc26-073": {
+      "home": 0,
+      "away": 1,
+      "score": "0:1",
+      "source": "kicktipp",
+      "kicktipp_home": "Südafrika",
+      "kicktipp_away": "Kanada",
+      "date": "28.06.26 19:00"
     }
   }
 }
