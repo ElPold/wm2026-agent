@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-29T09:25:35.888333+00:00",
+  "updated_at": "2026-06-30T00:01:30.584686+00:00",
   "source": "kicktipp",
   "results": {
     "wc26-001": {
@@ -658,6 +658,24 @@
       "kicktipp_home": "Südafrika",
       "kicktipp_away": "Kanada",
       "date": "28.06.26 19:00"
+    },
+    "wc26-076": {
+      "home": 2,
+      "away": 1,
+      "score": "2:1",
+      "source": "kicktipp",
+      "kicktipp_home": "Brasilien",
+      "kicktipp_away": "Japan",
+      "date": "29.06.26 17:00"
+    },
+    "wc26-074": {
+      "home": 4,
+      "away": 5,
+      "score": "4:5",
+      "source": "kicktipp",
+      "kicktipp_home": "Deutschland",
+      "kicktipp_away": "Paraguay",
+      "date": "29.06.26 20:30"
     }
   }
 }
