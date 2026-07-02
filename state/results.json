@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-01T08:48:32.276031+00:00",
+  "updated_at": "2026-07-02T00:06:04.489400+00:00",
   "source": "kicktipp",
   "results": {
     "wc26-001": {
@@ -712,6 +712,33 @@
       "kicktipp_home": "Mexiko",
       "kicktipp_away": "Ecuador",
       "date": "01.07.26 02:00"
+    },
+    "wc26-080": {
+      "home": 2,
+      "away": 1,
+      "score": "2:1",
+      "source": "kicktipp",
+      "kicktipp_home": "England",
+      "kicktipp_away": "DR Kongo",
+      "date": "01.07.26 16:00"
+    },
+    "wc26-082": {
+      "home": 3,
+      "away": 2,
+      "score": "3:2",
+      "source": "kicktipp",
+      "kicktipp_home": "Belgien",
+      "kicktipp_away": "Senegal",
+      "date": "01.07.26 20:00"
+    },
+    "wc26-081": {
+      "home": 0,
+      "away": 0,
+      "score": "0:0",
+      "source": "kicktipp",
+      "kicktipp_home": "USA",
+      "kicktipp_away": "Bosnien-Herzegowina",
+      "date": "02.07.26 00:00"
     }
   }
 }
