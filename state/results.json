@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-04T00:02:51.479055+00:00",
+  "updated_at": "2026-07-04T07:43:47.027745+00:00",
   "source": "kicktipp",
   "results": {
     "wc26-001": {
@@ -777,13 +777,22 @@
       "date": "03.07.26 18:00"
     },
     "wc26-086": {
-      "home": 1,
-      "away": 1,
-      "score": "1:1",
+      "home": 3,
+      "away": 2,
+      "score": "3:2",
       "source": "kicktipp",
       "kicktipp_home": "Argentinien",
       "kicktipp_away": "Kap Verde",
       "date": "03.07.26 22:00"
+    },
+    "wc26-087": {
+      "home": 1,
+      "away": 0,
+      "score": "1:0",
+      "source": "kicktipp",
+      "kicktipp_home": "Kolumbien",
+      "kicktipp_away": "Ghana",
+      "date": "04.07.26 01:30"
     }
   }
 }
