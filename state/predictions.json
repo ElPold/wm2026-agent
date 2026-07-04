@@ -1,6 +1,6 @@
 {
   "round": "Round of 32",
-  "generated_at": "2026-07-03T17:50:25.497884+02:00",
+  "generated_at": "2026-07-04T11:59:28.306628+02:00",
   "match_count": 16,
   "predictions": [
     {
@@ -938,7 +938,8 @@
           "score": "3:4",
           "expected_points": 1.0622
         }
-      ]
+      ],
+      "locked": true
     },
     {
       "fixture_id": "wc26-086",
@@ -1004,7 +1005,8 @@
           "score": "3:1",
           "expected_points": 2.0036
         }
-      ]
+      ],
+      "locked": true
     },
     {
       "fixture_id": "wc26-087",
@@ -1070,7 +1072,8 @@
           "score": "3:2",
           "expected_points": 1.6288
         }
-      ]
+      ],
+      "locked": true
     }
   ]
 }
