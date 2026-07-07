@@ -1,6 +1,6 @@
 {
   "round": "Round of 16",
-  "generated_at": "2026-07-07T12:45:03.745710+02:00",
+  "generated_at": "2026-07-07T18:24:01.566213+02:00",
   "match_count": 8,
   "predictions": [
     {
@@ -353,7 +353,8 @@
           "score": "3:1",
           "expected_points": 1.7235
         }
-      ]
+      ],
+      "locked": true
     },
     {
       "fixture_id": "wc26-096",
@@ -365,59 +366,59 @@
       "odds_source": "the_odds_api",
       "bookmaker": "pmu_fr",
       "odds_1x2": {
-        "home": 3.5,
+        "home": 3.7,
         "draw": 3.15,
-        "away": 2.3
+        "away": 2.23
       },
       "odds_ou25": {
-        "over": 2.25,
-        "under": 1.55
+        "over": 2.23,
+        "under": 1.56
       },
       "market_probs": {
-        "home": 0.2752659574468085,
-        "draw": 0.3058510638297872,
-        "away": 0.4188829787234043,
-        "over_2_5": 0.4078947368421052
+        "home": 0.2608380832141995,
+        "draw": 0.3063812406008058,
+        "away": 0.4327806761849948,
+        "over_2_5": 0.4116094986807388
       },
-      "lambda_home": 0.997340567259442,
-      "lambda_away": 1.2806453294135605,
+      "lambda_home": 0.9743684969137599,
+      "lambda_away": 1.313661925176143,
       "tip": "0:1",
-      "expected_points": 1.2244,
+      "expected_points": 1.2597,
       "most_likely_score": "0:1",
       "top_scores": [
         {
           "score": "0:1",
-          "probability": 0.1313
+          "probability": 0.1334
         },
         {
           "score": "1:1",
-          "probability": 0.131
+          "probability": 0.1299
         },
         {
           "score": "0:0",
-          "probability": 0.1025
+          "probability": 0.1015
         },
         {
           "score": "1:0",
-          "probability": 0.1023
+          "probability": 0.0989
         },
         {
           "score": "0:2",
-          "probability": 0.0841
+          "probability": 0.0876
         }
       ],
       "top_alternatives": [
         {
           "score": "1:2",
-          "expected_points": 1.1769
+          "expected_points": 1.2117
         },
         {
           "score": "2:3",
-          "expected_points": 1.1109
+          "expected_points": 1.1446
         },
         {
           "score": "3:4",
-          "expected_points": 1.095
+          "expected_points": 1.1283
         }
       ]
     }

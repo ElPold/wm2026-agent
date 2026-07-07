@@ -1,6 +1,6 @@
 {
   "round": "Quarter-final",
-  "generated_at": "2026-07-07T12:45:03.866690+02:00",
+  "generated_at": "2026-07-07T18:24:01.670402+02:00",
   "match_count": 1,
   "predictions": [
     {
@@ -13,37 +13,37 @@
       "odds_source": "the_odds_api",
       "bookmaker": "pinnacle",
       "odds_1x2": {
-        "home": 1.59,
-        "draw": 3.9,
-        "away": 6.56
+        "home": 1.57,
+        "draw": 3.95,
+        "away": 6.75
       },
       "odds_ou25": {
-        "over": 2.02,
-        "under": 1.87
+        "over": 2.01,
+        "under": 1.88
       },
       "market_probs": {
-        "home": 0.6060347645645902,
-        "draw": 0.24707571170710219,
-        "away": 0.14688952372830769,
-        "over_2_5": 0.48071979434447304
+        "home": 0.6134739942247737,
+        "draw": 0.24383649897035306,
+        "away": 0.1426895068048733,
+        "over_2_5": 0.4832904884318767
       },
-      "lambda_home": 1.7883688331004097,
-      "lambda_away": 0.788916832595925,
+      "lambda_home": 1.8094143401446314,
+      "lambda_away": 0.7793796725922669,
       "tip": "1:0",
-      "expected_points": 1.6152,
+      "expected_points": 1.6296,
       "most_likely_score": "1:0",
       "top_scores": [
         {
           "score": "1:0",
-          "probability": 0.1362
+          "probability": 0.1363
         },
         {
           "score": "2:0",
-          "probability": 0.1218
+          "probability": 0.1233
         },
         {
           "score": "1:1",
-          "probability": 0.1075
+          "probability": 0.1062
         },
         {
           "score": "2:1",
@@ -51,21 +51,21 @@
         },
         {
           "score": "0:0",
-          "probability": 0.0762
+          "probability": 0.0753
         }
       ],
       "top_alternatives": [
         {
           "score": "2:1",
-          "expected_points": 1.575
+          "expected_points": 1.5894
         },
         {
           "score": "2:0",
-          "expected_points": 1.5332
+          "expected_points": 1.5513
         },
         {
           "score": "3:2",
-          "expected_points": 1.5015
+          "expected_points": 1.5159
         }
       ]
     }
