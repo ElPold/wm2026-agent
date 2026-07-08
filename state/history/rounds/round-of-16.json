@@ -1,6 +1,6 @@
 {
   "round": "Round of 16",
-  "generated_at": "2026-07-07T18:24:01.566213+02:00",
+  "generated_at": "2026-07-08T12:07:14.957978+02:00",
   "match_count": 8,
   "predictions": [
     {
@@ -420,7 +420,8 @@
           "score": "3:4",
           "expected_points": 1.1283
         }
-      ]
+      ],
+      "locked": true
     }
   ]
 }
