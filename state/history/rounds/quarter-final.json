@@ -1,7 +1,7 @@
 {
   "round": "Quarter-final",
-  "generated_at": "2026-07-09T18:24:07.071492+02:00",
-  "match_count": 1,
+  "generated_at": "2026-07-09T21:19:51.610105+02:00",
+  "match_count": 4,
   "predictions": [
     {
       "fixture_id": "wc26-097",
@@ -13,59 +13,257 @@
       "odds_source": "the_odds_api",
       "bookmaker": "pinnacle",
       "odds_1x2": {
-        "home": 1.64,
-        "draw": 3.85,
-        "away": 6.6
+        "home": 1.61,
+        "draw": 3.95,
+        "away": 7.0
       },
       "odds_ou25": {
-        "over": 2.13,
-        "under": 1.81
+        "over": 1.99,
+        "under": 1.92
       },
       "market_probs": {
-        "home": 0.5972078593588417,
-        "draw": 0.25439503619441567,
-        "away": 0.1483971044467425,
-        "over_2_5": 0.4593908629441624
+        "home": 0.6106516193862566,
+        "draw": 0.24889850815490455,
+        "away": 0.140449872458839,
+        "over_2_5": 0.49104859335038353
       },
-      "lambda_home": 1.7247093008412058,
-      "lambda_away": 0.7659672649755174,
+      "lambda_home": 1.8193440980218585,
+      "lambda_away": 0.7934638035195923,
       "tip": "1:0",
-      "expected_points": 1.6082,
+      "expected_points": 1.623,
       "most_likely_score": "1:0",
       "top_scores": [
         {
           "score": "1:0",
-          "probability": 0.1432
+          "probability": 0.1338
         },
         {
           "score": "2:0",
-          "probability": 0.1235
+          "probability": 0.1217
         },
         {
           "score": "1:1",
-          "probability": 0.1097
+          "probability": 0.1061
         },
         {
           "score": "2:1",
-          "probability": 0.0946
+          "probability": 0.0966
         },
         {
-          "score": "0:0",
-          "probability": 0.083
+          "score": "3:0",
+          "probability": 0.0738
         }
       ],
       "top_alternatives": [
         {
           "score": "2:1",
-          "expected_points": 1.5596
+          "expected_points": 1.5858
         },
         {
           "score": "2:0",
-          "expected_points": 1.5151
+          "expected_points": 1.5463
         },
         {
           "score": "3:2",
-          "expected_points": 1.4859
+          "expected_points": 1.5125
+        }
+      ]
+    },
+    {
+      "fixture_id": "wc26-098",
+      "home_team": "Spain",
+      "away_team": "Belgium",
+      "kickoff_berlin": "2026-07-10T21:00:00+02:00",
+      "venue": "Los Angeles (Inglewood)",
+      "round": "Quarter-final",
+      "odds_source": "the_odds_api",
+      "bookmaker": "gtbets",
+      "odds_1x2": {
+        "home": 1.64,
+        "draw": 4.01,
+        "away": 5.31
+      },
+      "odds_ou25": {
+        "over": 1.81,
+        "under": 2.01
+      },
+      "market_probs": {
+        "home": 0.5821301933681265,
+        "draw": 0.23807818382137846,
+        "away": 0.17979162281049488,
+        "over_2_5": 0.5261780104712042
+      },
+      "lambda_home": 1.8389774247928345,
+      "lambda_away": 0.9336820027466365,
+      "tip": "1:0",
+      "expected_points": 1.5331,
+      "most_likely_score": "1:0",
+      "top_scores": [
+        {
+          "score": "1:0",
+          "probability": 0.1153
+        },
+        {
+          "score": "1:1",
+          "probability": 0.1076
+        },
+        {
+          "score": "2:0",
+          "probability": 0.106
+        },
+        {
+          "score": "2:1",
+          "probability": 0.099
+        },
+        {
+          "score": "3:0",
+          "probability": 0.065
+        }
+      ],
+      "top_alternatives": [
+        {
+          "score": "2:1",
+          "expected_points": 1.5168
+        },
+        {
+          "score": "2:0",
+          "expected_points": 1.4581
+        },
+        {
+          "score": "3:2",
+          "expected_points": 1.4461
+        }
+      ]
+    },
+    {
+      "fixture_id": "wc26-099",
+      "home_team": "Norway",
+      "away_team": "England",
+      "kickoff_berlin": "2026-07-11T23:00:00+02:00",
+      "venue": "Miami (Miami Gardens)",
+      "round": "Quarter-final",
+      "odds_source": "the_odds_api",
+      "bookmaker": "unibet_se",
+      "odds_1x2": {
+        "home": 4.3,
+        "draw": 3.7,
+        "away": 1.91
+      },
+      "odds_ou25": {
+        "over": 1.75,
+        "under": 2.1
+      },
+      "market_probs": {
+        "home": 0.2265790317409426,
+        "draw": 0.263321577428663,
+        "away": 0.5100993908303944,
+        "over_2_5": 0.5454545454545455
+      },
+      "lambda_home": 1.1047942464986487,
+      "lambda_away": 1.7293763027204059,
+      "tip": "0:1",
+      "expected_points": 1.3754,
+      "most_likely_score": "1:1",
+      "top_scores": [
+        {
+          "score": "1:1",
+          "probability": 0.1125
+        },
+        {
+          "score": "0:1",
+          "probability": 0.1019
+        },
+        {
+          "score": "1:2",
+          "probability": 0.0973
+        },
+        {
+          "score": "0:2",
+          "probability": 0.0881
+        },
+        {
+          "score": "1:0",
+          "probability": 0.0651
+        }
+      ],
+      "top_alternatives": [
+        {
+          "score": "1:2",
+          "expected_points": 1.3709
+        },
+        {
+          "score": "2:3",
+          "expected_points": 1.3046
+        },
+        {
+          "score": "0:2",
+          "expected_points": 1.2855
+        }
+      ]
+    },
+    {
+      "fixture_id": "wc26-100",
+      "home_team": "Argentina",
+      "away_team": "Switzerland",
+      "kickoff_berlin": "2026-07-12T03:00:00+02:00",
+      "venue": "Kansas City",
+      "round": "Quarter-final",
+      "odds_source": "the_odds_api",
+      "bookmaker": "unibet_nl",
+      "odds_1x2": {
+        "home": 1.71,
+        "draw": 3.65,
+        "away": 6.0
+      },
+      "odds_ou25": {
+        "over": 2.2,
+        "under": 1.64
+      },
+      "market_probs": {
+        "home": 0.5702902230381626,
+        "draw": 0.2671770633959611,
+        "away": 0.1625327135658763,
+        "over_2_5": 0.42708333333333337
+      },
+      "lambda_home": 1.6053592205049183,
+      "lambda_away": 0.7594337228586371,
+      "tip": "1:0",
+      "expected_points": 1.5652,
+      "most_likely_score": "1:0",
+      "top_scores": [
+        {
+          "score": "1:0",
+          "probability": 0.1511
+        },
+        {
+          "score": "2:0",
+          "probability": 0.1213
+        },
+        {
+          "score": "1:1",
+          "probability": 0.1147
+        },
+        {
+          "score": "0:0",
+          "probability": 0.0941
+        },
+        {
+          "score": "2:1",
+          "probability": 0.0921
+        }
+      ],
+      "top_alternatives": [
+        {
+          "score": "2:1",
+          "expected_points": 1.5062
+        },
+        {
+          "score": "2:0",
+          "expected_points": 1.4502
+        },
+        {
+          "score": "3:2",
+          "expected_points": 1.4328
         }
       ]
     }
