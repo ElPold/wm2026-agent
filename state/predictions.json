@@ -1,6 +1,6 @@
 {
   "round": "Quarter-final",
-  "generated_at": "2026-07-09T21:19:51.610105+02:00",
+  "generated_at": "2026-07-10T12:44:04.245604+02:00",
   "match_count": 4,
   "predictions": [
     {
@@ -67,7 +67,8 @@
           "score": "3:2",
           "expected_points": 1.5125
         }
-      ]
+      ],
+      "locked": true
     },
     {
       "fixture_id": "wc26-098",
@@ -93,8 +94,8 @@
         "away": 0.17979162281049488,
         "over_2_5": 0.5261780104712042
       },
-      "lambda_home": 1.8389774247928345,
-      "lambda_away": 0.9336820027466365,
+      "lambda_home": 1.8389774225290183,
+      "lambda_away": 0.9336820025724213,
       "tip": "1:0",
       "expected_points": 1.5331,
       "most_likely_score": "1:0",
@@ -159,8 +160,8 @@
         "away": 0.5100993908303944,
         "over_2_5": 0.5454545454545455
       },
-      "lambda_home": 1.1047942464986487,
-      "lambda_away": 1.7293763027204059,
+      "lambda_home": 1.1047942425683823,
+      "lambda_away": 1.7293762986678036,
       "tip": "0:1",
       "expected_points": 1.3754,
       "most_likely_score": "1:1",
@@ -225,8 +226,8 @@
         "away": 0.1625327135658763,
         "over_2_5": 0.42708333333333337
       },
-      "lambda_home": 1.6053592205049183,
-      "lambda_away": 0.7594337228586371,
+      "lambda_home": 1.6053592230044231,
+      "lambda_away": 0.7594337260794884,
       "tip": "1:0",
       "expected_points": 1.5652,
       "most_likely_score": "1:0",
