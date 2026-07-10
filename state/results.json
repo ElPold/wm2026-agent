@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-10T08:19:15.509942+00:00",
+  "updated_at": "2026-07-10T23:55:37.302735+00:00",
   "source": "kicktipp",
   "results": {
     "wc26-001": {
@@ -874,6 +874,15 @@
       "kicktipp_home": "Frankreich",
       "kicktipp_away": "Marokko",
       "date": "09.07.26 20:00"
+    },
+    "wc26-098": {
+      "home": 2,
+      "away": 1,
+      "score": "2:1",
+      "source": "kicktipp",
+      "kicktipp_home": "Spanien",
+      "kicktipp_away": "Belgien",
+      "date": "10.07.26 19:00"
     }
   }
 }
