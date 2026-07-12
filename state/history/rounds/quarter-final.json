@@ -1,6 +1,6 @@
 {
   "round": "Quarter-final",
-  "generated_at": "2026-07-11T16:46:57.938952+02:00",
+  "generated_at": "2026-07-12T11:42:32.756369+02:00",
   "match_count": 4,
   "predictions": [
     {
@@ -201,7 +201,8 @@
           "score": "0:2",
           "expected_points": 1.2523
         }
-      ]
+      ],
+      "locked": true
     },
     {
       "fixture_id": "wc26-100",
@@ -267,7 +268,8 @@
           "score": "3:2",
           "expected_points": 1.43
         }
-      ]
+      ],
+      "locked": true
     }
   ]
 }
