@@ -84,7 +84,7 @@
           <span class="t-normal">Catify</span>
           <span class="t-cat" hidden>Un-Catify</span>
         </button>
-        <span class="site-version mono" title="Site build version">v16</span>
+        <span class="site-version mono" title="Site build version">v17</span>
       </div>
     </div>
   </header>
@@ -166,7 +166,7 @@
         </span>
       </div>
       <div class="hero-stat">
-        <span class="hero-stat-value mono">12.07.2026 01:52</span>
+        <span class="hero-stat-value mono">12.07.2026 09:27</span>
         <span class="hero-stat-label">
           <span class="t-normal">Last sync (Berlin)</span>
           <span class="t-cat" hidden>Last purr (Berlin)</span>
@@ -209,19 +209,24 @@
         <span class="t-normal">20 group-stage matchdays</span>
         <span class="t-cat" hidden>20 nap days in the bowl</span>
       </p>
-      <div class="day-tabs" role="tablist" aria-label="Matchdays" data-current-round="quarter-final">
+      <div class="day-tabs" role="tablist" aria-label="Matchdays" data-current-round="matchday-1">
       
       
       
       <button
         type="button"
-        class="day-tab"
+        class="day-tab is-current is-active"
         role="tab"
         id="tab-matchday-1"
-        aria-selected="false"
+        aria-selected="true"
         aria-controls="panel-matchday-1"
         data-round="matchday-1"
       >
+        
+        <span class="day-tab-now">
+          <span class="t-normal">Now</span>
+          <span class="t-cat" hidden>Now napping</span>
+        </span>
         
         <span class="day-tab-name">MD 1</span>
         <span class="day-tab-meta mono">2 games</span>
@@ -519,18 +524,13 @@
       
       <button
         type="button"
-        class="day-tab is-current is-active"
+        class="day-tab"
         role="tab"
         id="tab-quarter-final"
-        aria-selected="true"
+        aria-selected="false"
         aria-controls="panel-quarter-final"
         data-round="quarter-final"
       >
-        
-        <span class="day-tab-now">
-          <span class="t-normal">Now</span>
-          <span class="t-cat" hidden>Now napping</span>
-        </span>
         
         <span class="day-tab-name">Viertelfinale</span>
         <span class="day-tab-meta mono">4 games</span>
@@ -543,12 +543,12 @@
     
     
     <section
-      class="day-panel"
+      class="day-panel is-active"
       id="panel-matchday-1"
       role="tabpanel"
       aria-labelledby="tab-matchday-1"
       data-round="matchday-1"
-      hidden
+      
     >
       <div class="day-head">
         <div>
@@ -9833,12 +9833,12 @@
     
     
     <section
-      class="day-panel is-active"
+      class="day-panel"
       id="panel-quarter-final"
       role="tabpanel"
       aria-labelledby="tab-quarter-final"
       data-round="quarter-final"
-      
+      hidden
     >
       <div class="day-head">
         <div>
@@ -10135,11 +10135,14 @@
           
         </article>
         
-        <article class="match-card">
+        <article class="match-card is-locked">
           <div class="match-top">
             <div>
               
-              <p class="match-round">Quarter-final</p>
+              <p class="match-kicker">
+                <span class="t-normal">Final pick · locked</span>
+                <span class="t-cat" hidden>Final bowl · locked</span>
+              </p>
               
               <h3 class="match-title"><span class="matchup"><span class="team-name"><img src="https://flagcdn.com/w40/ar.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Argentina</span>
 </span><span class="vs" aria-hidden="true">vs</span><span class="team-name"><img src="https://flagcdn.com/w40/ch.png" alt="" class="team-flag" width="20" height="15" loading="lazy" decoding="async"><span>Switzerland</span>
@@ -10147,35 +10150,36 @@
               <p class="match-meta mono">03:00 Berlin · Kansas City</p>
             </div>
             
-            <div class="ev-badge">
+            <div class="ev-badge ev-badge-final">
               <span class="ev-badge-label">
-                <span class="t-normal">Expected Value</span>
-                <span class="t-cat cat-label-with-icon" hidden><img class="cat-icon" width="16" height="16" src="static/cats/tuna.svg" alt="">Tuna Value</span>
+                <span class="t-normal">Status</span>
+                <span class="t-cat" hidden>Window status</span>
               </span>
-              <span class="ev-badge-value">1.56</span>
+              <span class="ev-badge-value">
+                <span class="t-normal">Final pick</span>
+                <span class="t-cat" hidden>Bowl sealed</span>
+              </span>
             </div>
             
           </div>
 
           
-          <div class="match-body">
-            <div class="pick-hero">
+          <div class="match-body match-body-locked">
+            <div class="pick-hero pick-hero-locked">
               <span class="pick-label">
-                <span class="t-normal">Agent Pick</span>
-                <span class="t-cat cat-label-with-icon" hidden><img class="cat-icon" width="16" height="16" src="static/cats/pick.svg" alt="">Cat Pick</span>
+                <span class="t-normal">Final Pick</span>
+                <span class="t-cat cat-label-with-icon" hidden><img class="cat-icon" width="16" height="16" src="static/cats/pick.svg" alt="">Final Bowl</span>
               </span>
               <span class="pick-score mono">1 : 0</span>
-              
               <p class="pick-context">
-                <span class="t-normal">Most likely score: <span class="mono">1 : 0</span></span>
-                <span class="t-cat" hidden>Most likely nap: <span class="mono">1 : 0</span></span>
+                <span class="t-normal">Kickoff passed — this pick is frozen and will not change on later updates.</span>
+                <span class="t-cat" hidden>Kickoff passed — this bowl is sealed.</span>
               </p>
-              
             </div>
-
+            
             <div class="match-side">
               <p class="side-label">
-                <span class="t-normal">Market Probability</span>
+                <span class="t-normal">Market Probability (at pick time)</span>
                 <span class="t-cat cat-label-with-icon" hidden><img class="cat-icon" width="16" height="16" src="static/cats/nap.svg" alt="">Nap Probability</span>
               </p>
               <div class="prob-chips">
@@ -10196,122 +10200,32 @@
                 </div>
                 
               </div>
-
-              <div class="signal-row">
-                <span class="signal-label">
-                  <span class="t-normal">Model Confidence</span>
-                  <span class="t-cat cat-label-with-icon" hidden><img class="cat-icon" width="16" height="16" src="static/cats/purr.svg" alt="">Cat Confidence</span>
-                </span>
-                <div class="signal-track">
-                  <div class="signal-fill confidence-high" style="width: 57%"></div>
-                </div>
-                <span class="signal-pct mono">57%</span>
-              </div>
-
               <div class="badge-row">
+                
+                <span class="badge badge-final">
+                  <span class="t-normal">Final pick</span>
+                  <span class="t-cat" hidden>Bowl sealed</span>
+                </span>
                 
                 <span class="badge badge-ev-pick">
                   <span class="t-normal">EV Pick</span>
-                  <span class="t-cat" hidden>Tuna Pick</span>
+                  <span class="t-cat" hidden>EV Pick</span>
                 </span>
                 
                 <span class="badge badge-market">
                   <span class="t-normal">Market Signal</span>
-                  <span class="t-cat" hidden>Nap Signal</span>
+                  <span class="t-cat" hidden>Market Signal</span>
                 </span>
                 
                 <span class="badge badge-high">
                   <span class="t-normal">High Confidence</span>
-                  <span class="t-cat" hidden>Purring</span>
+                  <span class="t-cat" hidden>High Confidence</span>
                 </span>
                 
               </div>
             </div>
+            
           </div>
-
-          
-          <div class="ev-alternatives">
-            <p class="ev-alt-label">
-              <span class="t-normal">Top EV alternatives</span>
-              <span class="t-cat cat-label-with-icon" hidden><img class="cat-icon" width="16" height="16" src="static/cats/tuna.svg" alt="">Top tuna alternatives</span>
-            </p>
-            <div class="ev-alt-list">
-              
-              <div class="ev-alt-row is-pick">
-                <span class="ev-alt-score mono">1 : 0</span>
-                <span class="ev-alt-ev mono">1.564 EV</span>
-              </div>
-              
-              <div class="ev-alt-row">
-                <span class="ev-alt-score mono">2 : 1</span>
-                <span class="ev-alt-ev mono">1.503 EV</span>
-              </div>
-              
-              <div class="ev-alt-row">
-                <span class="ev-alt-score mono">2 : 0</span>
-                <span class="ev-alt-ev mono">1.447 EV</span>
-              </div>
-              
-              <div class="ev-alt-row">
-                <span class="ev-alt-score mono">3 : 2</span>
-                <span class="ev-alt-ev mono">1.430 EV</span>
-              </div>
-              
-            </div>
-          </div>
-          
-
-          
-          <div class="score-dist">
-            <p class="score-dist-label">
-              <span class="t-normal">Top score distribution</span>
-              <span class="t-cat cat-label-with-icon" hidden><img class="cat-icon" width="16" height="16" src="static/cats/tuna.svg" alt="">Top nap outcomes</span>
-            </p>
-            <div class="score-dist-list">
-              
-              <div class="score-dist-row is-pick">
-                <span class="score-dist-score mono">1 : 0</span>
-                <div class="score-dist-track">
-                  <div class="score-dist-fill" style="width: 100%"></div>
-                </div>
-                <span class="score-dist-pct mono">15.3%</span>
-              </div>
-              
-              <div class="score-dist-row">
-                <span class="score-dist-score mono">2 : 0</span>
-                <div class="score-dist-track">
-                  <div class="score-dist-fill" style="width: 80%"></div>
-                </div>
-                <span class="score-dist-pct mono">12.2%</span>
-              </div>
-              
-              <div class="score-dist-row">
-                <span class="score-dist-score mono">1 : 1</span>
-                <div class="score-dist-track">
-                  <div class="score-dist-fill" style="width: 75%"></div>
-                </div>
-                <span class="score-dist-pct mono">11.5%</span>
-              </div>
-              
-              <div class="score-dist-row">
-                <span class="score-dist-score mono">0 : 0</span>
-                <div class="score-dist-track">
-                  <div class="score-dist-fill" style="width: 63%"></div>
-                </div>
-                <span class="score-dist-pct mono">9.6%</span>
-              </div>
-              
-              <div class="score-dist-row">
-                <span class="score-dist-score mono">2 : 1</span>
-                <div class="score-dist-track">
-                  <div class="score-dist-fill" style="width: 60%"></div>
-                </div>
-                <span class="score-dist-pct mono">9.2%</span>
-              </div>
-              
-            </div>
-          </div>
-          
           
         </article>
         
