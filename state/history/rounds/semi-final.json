@@ -1,6 +1,6 @@
 {
   "round": "Semi-final",
-  "generated_at": "2026-07-15T17:22:32.097735+02:00",
+  "generated_at": "2026-07-16T11:56:33.831690+02:00",
   "match_count": 2,
   "predictions": [
     {
@@ -134,7 +134,8 @@
           "score": "4:3",
           "expected_points": 0.9878
         }
-      ]
+      ],
+      "locked": true
     }
   ]
 }
