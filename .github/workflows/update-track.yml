@@ -1,8 +1,7 @@
 name: Update track record
 
 on:
-  schedule:
-    - cron: "0 5,23 * * *"
+  # Cron deaktiviert — nur noch manueller Start
   workflow_dispatch:
 
 permissions:

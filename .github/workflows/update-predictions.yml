@@ -1,10 +1,7 @@
 name: Update predictions
 
 on:
-  schedule:
-    # 10:00 und 16:00 MESZ — Tipps aktualisieren, Website bauen (kein Kicktipp-Submit)
-    - cron: "0 8 * * *"
-    - cron: "0 14 * * *"
+  # Cron deaktiviert — nur noch manueller Start
   workflow_dispatch:
     inputs:
       round:
