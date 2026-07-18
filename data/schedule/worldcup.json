@@ -3483,6 +3483,28 @@
       "time": "14:00 UTC-5",
       "team1": "France",
       "team2": "Spain",
+      "score": {
+        "ft": [
+          0,
+          2
+        ],
+        "ht": [
+          0,
+          1
+        ]
+      },
+      "goals1": [],
+      "goals2": [
+        {
+          "name": "Mikel Oyarzabal",
+          "minute": "22",
+          "penalty": true
+        },
+        {
+          "name": "Pedro Porro",
+          "minute": "58"
+        }
+      ],
       "ground": "Dallas (Arlington)"
     },
     {
@@ -3492,6 +3514,32 @@
       "time": "15:00 UTC-4",
       "team1": "England",
       "team2": "Argentina",
+      "score": {
+        "ft": [
+          1,
+          2
+        ],
+        "ht": [
+          0,
+          0
+        ]
+      },
+      "goals1": [
+        {
+          "name": "Anthony Gordon",
+          "minute": "55"
+        }
+      ],
+      "goals2": [
+        {
+          "name": "Enzo Fernández",
+          "minute": "86"
+        },
+        {
+          "name": "Lautaro Martínez",
+          "minute": "92"
+        }
+      ],
       "ground": "Atlanta"
     },
     {
@@ -3499,8 +3547,8 @@
       "num": 103,
       "date": "2026-07-18",
       "time": "17:00 UTC-4",
-      "team1": "L101",
-      "team2": "L102",
+      "team1": "France",
+      "team2": "England",
       "ground": "Miami (Miami Gardens)"
     },
     {
@@ -3508,8 +3556,8 @@
       "num": 104,
       "date": "2026-07-19",
       "time": "15:00 UTC-4",
-      "team1": "W101",
-      "team2": "W102",
+      "team1": "Spain",
+      "team2": "Argentina",
       "ground": "New York/New Jersey (East Rutherford)"
     }
   ]

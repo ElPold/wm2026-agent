@@ -1,0 +1,73 @@
+{
+  "round": "Match for third place",
+  "generated_at": "2026-07-18T11:05:23.461616+02:00",
+  "match_count": 1,
+  "predictions": [
+    {
+      "fixture_id": "wc26-103",
+      "home_team": "France",
+      "away_team": "England",
+      "kickoff_berlin": "2026-07-18T23:00:00+02:00",
+      "venue": "Miami (Miami Gardens)",
+      "round": "Match for third place",
+      "odds_source": "the_odds_api",
+      "bookmaker": "williamhill",
+      "odds_1x2": {
+        "home": 1.85,
+        "draw": 3.8,
+        "away": 3.6
+      },
+      "odds_ou25": {
+        "over": 1.44,
+        "under": 2.62
+      },
+      "market_probs": {
+        "home": 0.4998173182316404,
+        "draw": 0.24333211545487757,
+        "away": 0.2568505663134819,
+        "over_2_5": 0.645320197044335
+      },
+      "lambda_home": 1.9392565053762976,
+      "lambda_away": 1.3623201141073695,
+      "tip": "2:1",
+      "expected_points": 1.3296,
+      "most_likely_score": "1:1",
+      "top_scores": [
+        {
+          "score": "1:1",
+          "probability": 0.0977
+        },
+        {
+          "score": "2:1",
+          "probability": 0.0947
+        },
+        {
+          "score": "1:0",
+          "probability": 0.0717
+        },
+        {
+          "score": "2:0",
+          "probability": 0.0695
+        },
+        {
+          "score": "1:2",
+          "probability": 0.0666
+        }
+      ],
+      "top_alternatives": [
+        {
+          "score": "1:0",
+          "expected_points": 1.3066
+        },
+        {
+          "score": "3:2",
+          "expected_points": 1.2766
+        },
+        {
+          "score": "4:3",
+          "expected_points": 1.244
+        }
+      ]
+    }
+  ]
+}
